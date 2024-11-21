@@ -1,0 +1,342 @@
+﻿
+@{
+    ViewBag.Title = "EditVendorDetails";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<script>
+    $(function () {
+        $("#form_add_vendor").validationEngine();
+        $("#inputusernameerror").hide();
+        $("#inputrejecterror").hide();
+        $("#reject").hide();
+    });
+
+    function check_User_Name() {
+        var username = $("#user_name").val();
+        var url = '@Url.Action("check_user_uame", "Registration")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { username: username },
+            async: false,
+            success: function (data) {
+                if (data == "1") {
+                    $("#inputusernameerror").show("slow");
+                    setTimeout(function () {
+                        $("#user_name").val("");
+                        $("#inputusernameerror").hide("slow");
+                    }, 3000);
+                }
+            }
+        });
+
+    }
+
+    function Close() {
+        window.location.href = "../DisplayVendorApprovedDetails";
+    }
+
+    function Reject() {
+        $("#reject").show();
+    }
+
+
+    function Reject_User_Name() {
+        var reason = $("#Reason").val();
+        var url = '@Url.Action("Reject_User_Name", "Registration")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { reason: reason },
+            async: false,
+            success: function (data) {
+                if (data == "1") {
+                    $("#inputrejecterror").show("slow");
+                    setTimeout(function () {
+                        $("#user_name").val("");
+                        $("#inputrejecterror").hide("slow");
+                    }, 3000);
+                }
+            }
+        });
+
+    }
+
+</script>
+@{
+    tbl_vendor_registration vendetls = (tbl_vendor_registration)ViewData["vendor"];
+
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Edit Vendor Details</h4>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Mobile Number &nbsp;&nbsp;&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.mobile_number</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Email ID &nbsp;&nbsp;&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.email_id</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>First Name &nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.first_name</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Last Name&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.last_name</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Address 1&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.address1</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Address 2&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.address2</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Company Name&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.company_name</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Status&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <strong>
+
+                                    @if (vendetls.status == "P")
+                                    {
+                                        @("Pending ")
+                                    }
+                                </strong>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <h5>Status Reason&nbsp;:</h5>
+                                </div>
+                                <div class="col-md-8">
+                                    <b>@vendetls.status_reason</b>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Pan Number&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.pan_no</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Tax Number&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.service_tax_no</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Country Name&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                @foreach (var pro in (List<tbl_country>)ViewData["select-country"])
+                                {
+                                    if (vendetls.id_country == pro.id_country)
+                                    {
+                                        <b>@pro.country_name</b>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>State Name&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                @foreach (var pro in (List<tbl_state>)ViewData["select-state"])
+                                {
+                                    if (vendetls.id_state == pro.id_state)
+                                    {
+                                        <b>
+                                            @pro.state_name
+                                        </b>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>City Name&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+
+                                @foreach (var pro in (List<tbl_city>)ViewData["select-city"])
+                                {
+                                    if (vendetls.id_city == pro.id_city)
+                                    {
+                                        <b>
+                                            @pro.city_name
+                                        </b>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Profile Image&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b><img src="@vendetls.profile_image" style="width: 248px;" /></b>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @using (Html.BeginForm("Approveuserpassword", "Registration", FormMethod.Post, new { id = "form_add_vendor" }))
+                    {
+                        <input type="hidden" id="id_vendor_reg" name="id_vendor_reg" value="@vendetls.id_vendor_registation" />
+                        <input type="hidden" id="email_id" name="email_id" value="@vendetls.email_id" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label>User Name</label>
+                                        <input type="text" class="form-control validate[required]" value="" placeholder="User Name" id="user_name" name="user_name" onchange="check_User_Name()" />
+                                        <label id="inputusernameerror" class="error" style="display: none">User ID already exist .Use some other User ID</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label>Password</label>
+                                        <input type="text" class="form-control validate[required]" value="" placeholder="Password" id="password" maxlength="8" name="password" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group pull-right">
+                            <div class="col-md-4">
+                                <input type="submit" name="btn_submit" value="Approve" class="btn btn-default" />
+                            </div>
+                            <div class="col-md-4">
+                                <input type="submit" name="btn_reject" value="Reject" class="btn btn-default" onclick="Reject()" />
+                            </div>
+                            <div class="col-md-4">
+                                <input type="submit" name="btn_close" value="Close" class="btn btn-default" onclick="Close()" />
+                            </div>
+                        </div>
+                    }
+                    @using (Html.BeginForm("Rejectuserpassword", "Registration", FormMethod.Post, new { id = "form_add_vendor" }))
+                    {
+                        <input type="hidden" id="id_vendor_reg" name="id_vendor_reg" value="@vendetls.id_vendor_registation" />
+                        <input type="hidden" id="email_id" name="email_id" value="@vendetls.email_id" />
+                        <input type="hidden" id="first_name" name="first_name" value="@vendetls.first_name" />
+                        <div id="reject" class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label>Reason</label>
+                                        <input type="text" class="form-control" value="" placeholder="Reason" id="Reason" name="Reason" />
+                                        <label id="inputrejecterror" class="error" style="display: none">User ID has been rejected</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" id="btn_submit" name="btn_submit" value="Submit" class="btn btn-default" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

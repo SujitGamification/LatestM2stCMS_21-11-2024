@@ -1,0 +1,462 @@
+﻿@{
+    ViewBag.Title = "LoadContent";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+}
+
+@{
+    tbl_content content = (tbl_content)ViewData["content"];
+    tbl_content_answer content_answer = (tbl_content_answer)ViewData["content_answer"];
+    List<tbl_content_answer_steps> answer_step = (List<tbl_content_answer_steps>)ViewData["answer_step"];
+    List<tbl_content_metadata> metadata = (List<tbl_content_metadata>)ViewData["metadata"];
+    m2ostnext.Models.UserSession userSes = (m2ostnext.Models.UserSession)ViewData["users"];
+
+    List<tbl_content> linked = (List<tbl_content>)ViewData["linked"];
+    List<tbl_assessment> assessments = (List<tbl_assessment>)ViewData["assessments"];
+    List<tbl_content_type_link> links = (List<tbl_content_type_link>)ViewData["content_links"];
+    tbl_banner banner = (tbl_banner)ViewData["banner"];
+    string urls = (string)ViewData["urls"];
+}
+<style>
+    h2, h3, h4, h5 {
+        color: #000;
+    }
+
+    .img-frame {
+        background: transparent;
+        padding: 4px;
+        border: 1px solid #999999;
+    }
+
+    hr {
+        margin-top: 5px;
+        margin-bottom: 8px;
+        border: 0;
+        border-top: 1px solid #19aa8d;
+    }
+
+    .panel-heading h3 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: normal;
+        width: 75%;
+        padding-top: 8px;
+    }
+</style>
+
+<div id="pagecontent_dashboard">
+    <div class="panel panel-default custom-panel">
+        <div class="panel-heading custom-panel-heading">
+            <div class="panel-title">Content Approval  </div>
+        </div>
+        <div class="panel-body custom-panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Content Title : <b>@content.CONTENT_TITLE</b></h4>
+                </div>
+                <div class="col-md-12">
+                    <h4>Content Header : <b>@content.CONTENT_HEADER</b></h4>
+                </div>
+            </div><hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <h4><b>Content Question</b></h4><h2><pre>@content.CONTENT_QUESTION</pre></h2>
+                </div>
+            </div>
+            <h4><b>Content Body</b></h4>
+            @if (content.ID_THEME == 15)
+            {
+                <div class="row">
+                    <div class=" col-md-12">
+                        @Html.Raw(content_answer.CONTENT_ANSWER1)
+                    </div>
+                </div>
+
+            }
+            @if (content.ID_THEME == 16)
+            {
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-6" style="padding: 1%;margin-left: 1%;">
+                        @*@if (content_answer.CONTENT_ANSWER_IMG1.Contains("youtube"))
+                        {
+                            <a href="@content_answer.CONTENT_ANSWER_IMG1" target="_blank">Click to preview Video</a>
+                        }*@
+                        @*else
+                        {*@
+                        @{ 
+                            string imagefile = "~/Content/SKILLMUNI_DATA/" + userSes.id_ORGANIZATION + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG1;
+                        }
+                            <a class="img-frame" target="_blank" href="@(Url.Content(imagefile))">CLick to Prview Video</a>
+                        @*}*@
+
+
+                       
+                    </div>
+                </div>
+
+                            }
+            @if (content.ID_THEME == 17)
+            {
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-6" style="padding: 1%;margin-left: 1%;">
+                        @*@if (content_answer.CONTENT_ANSWER_IMG1.Contains("youtube"))
+                    {
+                        <a href="@content_answer.CONTENT_ANSWER_IMG1" target="_blank">Click to preview Video</a>
+                    }*@
+                        @*else
+                    {*@
+                        @{
+                            string imagefile =content_answer.CONTENT_ANSWER_IMG1;
+                        }
+                        <a class="img-frame" target="_blank" href="@(Url.Content(imagefile))">CLick to Prview Video</a>
+                        @*}*@
+
+
+
+                    </div>
+                </div>
+
+                            }
+            @if (content.ID_THEME == 2 || content.ID_THEME == 4 || content.ID_THEME == 6)
+            {
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-6">
+                        @{
+                            string imagefile = "~/Content/SKILLMUNI_DATA/" + userSes.id_ORGANIZATION + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG1;
+                        }
+                        <img class="img-frame" src="@(Url.Content(imagefile))" style="width:auto;height:auto">
+                    </div>
+                </div>
+                            }
+
+            <hr />
+            @if (content.ID_THEME != 7)
+            {
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <pre> @content_answer.CONTENT_ANSWER1</pre>
+                    </div>
+                </div>
+                if (content.ID_THEME == 5)
+                {
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            @{
+                                string imagefile = "~/Content/SKILLMUNI_DATA/" + userSes.id_ORGANIZATION + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG2;
+                            }
+                            <img class="img-frame" src="@(Url.Content(imagefile))" style="width:auto;height:auto">
+                        </div>
+                    </div>
+                                }
+                                else if (content.ID_THEME == 6)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-6">
+                                            @{
+                                                string imagefile = "~/Content/SKILLMUNI_DATA/" + userSes.id_ORGANIZATION + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG2;
+                                            }
+                                            <img class="img-frame" src="@(Url.Content(imagefile))" style="width:auto;height:auto" />
+                                        </div>
+                                    </div>
+                                                }
+                                                <br />
+                                                if (content.ID_THEME == 3 || content.ID_THEME == 4 || content.ID_THEME == 5 || content.ID_THEME == 6)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <pre>@content_answer.CONTENT_ANSWER2</pre>
+                                                        </div>
+                                                    </div>
+                                                    }
+                                                }
+                                                else if (content.ID_THEME == 7)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Motive</label>
+                                                            <pre>@content_answer.CONTENT_ANSWER1</pre>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <label class="control-label">Purpose</label>
+                                                            <pre>@content_answer.CONTENT_ANSWER2</pre>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Subliminal Ignition</label>
+                                                            <pre>@content_answer.CONTENT_ANSWER3</pre>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <label class="control-label">Context</label>
+                                                            <pre>@content_answer.CONTENT_ANSWER4</pre>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else if (content.ID_THEME == 12)
+                                                {
+
+                                                }
+
+
+
+            <hr />
+            @if (answer_step.Count > 0)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Asnwer Steps  </h3>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>There are no answer steps attached</h3>
+                    </div>
+                </div>
+            }
+
+            @{int i = 0;}
+            @foreach (tbl_content_answer_steps steps in answer_step)
+            {
+                i++;
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Step  @(i) :  </h4>
+                    </div>
+                </div>
+                if (steps.ID_THEME == 8)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>@steps.ANSWER_STEPS_PART1  </pre>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>@steps.ANSWER_STEPS_PART2  </pre>
+                        </div>
+                    </div>
+                }
+                if (steps.ID_THEME == 27)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.Raw(steps.ANSWER_STEPS_PART1)                            
+                        </div>
+                    </div>
+                   
+                }
+                else if (steps.ID_THEME == 9)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            @{
+                                string imagefile = "~/Content/SKILLMUNI_DATA/" + userSes.id_ORGANIZATION + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                            }
+                            <img class="img-frame" src="@(Url.Content(imagefile))" style="width:auto;height:auto" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>@steps.ANSWER_STEPS_PART1  </pre>
+                        </div>
+                    </div>
+                                }
+                                else if (steps.ID_THEME == 25)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            @{
+                                                string imagefile = "~/Content/SKILLMUNI_DATA/" + userSes.id_ORGANIZATION + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                                            }
+                                            <a class="img-frame" target="_blank" href="@(Url.Content(imagefile))"  >Click to preview Video</a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <pre>@steps.ANSWER_STEPS_PART1  </pre>
+                                        </div>
+                                    </div>
+                                                }
+                                                else if (steps.ID_THEME == 26)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            @{
+                                                                string imagefile =steps.ANSWER_STEPS_IMG1;
+                                                            }
+                                                            <a class="img-frame" target="_blank" href="@(Url.Content(imagefile))">Click to preview Video</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <pre>@steps.ANSWER_STEPS_PART1  </pre>
+                                                        </div>
+                                                    </div>
+                                                                }
+                                                                else if (steps.ID_THEME == 10)
+                                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <pre>@steps.ANSWER_STEPS_PART1  </pre>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <pre>@steps.ANSWER_STEPS_PART2  </pre>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <pre>@steps.ANSWER_STEPS_PART3  </pre>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else if (steps.ID_THEME == 11)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            @{
+                                                                string imagefile = "~/Content/SKILLMUNI_DATA/" + userSes.id_ORGANIZATION + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                                                            }
+                                                            <img class="img-frame" src="@(Url.Content(imagefile))" style="width:auto;height:auto" />
+                                                        </div>
+                                                    </div>
+                                                                    }
+                                                                }
+
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>METADATA : </h3>
+
+                    @foreach (tbl_content_metadata met in metadata)
+                    {
+                        <strong> @met.CONTENT_METADATA</strong>
+                    }
+                    @(", ")
+
+
+                </div>
+            </div>
+            <hr />
+            @if (banner.banner_name != null)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3><strong><u>Banner Info </u></strong></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4><strong>Banner : </strong> @banner.banner_name</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4><strong>Action URL : </strong>@banner.banner_action_url</h4>
+                    </div>
+                    <div class="col-md-2">
+                        @{
+                            urls = urls + @banner.banner_image;
+                        }
+                        <strong>Preview: </strong><a href="@urls" target="_blank"><i class="glyphicon glyphicon-text-background"></i></a>
+                    </div>
+                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>NO BANNER ATTACHED</h3>
+                                    </div>
+                                </div>
+
+                            }
+
+            @*<div class="row">
+                    <div class="col-md-12">
+                        <h4>Approver Comments : </h4> <pre>@content.COMMENT</pre>
+                    </div>
+                </div>*@
+            <hr />
+            @if (linked.Count > 0)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Linked Content</h3>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>There are no Linked Content attached</h3>
+                    </div>
+                </div>
+            }
+
+            @foreach (tbl_content item in linked)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5>@item.CONTENT_QUESTION</h5>
+                    </div>
+                </div>
+            }
+
+            <hr />
+            @if (assessments.Count > 0)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Assessment</h3>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>There are no  Assessment attached</h3>
+                    </div>
+                </div>
+            }
+
+            @foreach (tbl_assessment item in assessments)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5>@item.assessment_title</h5>
+                    </div>
+                </div>
+            }
+
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("approve_content", "dashboard", FormMethod.Post, new { id = "form_approve_content" }))
+                    {
+                        <input type="hidden" name="id_content" value="@content.ID_CONTENT" />
+                        <input type="hidden" name="id_answer" value="@content_answer.ID_CONTENT_ANSWER" />
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label>Content/Instruction</label>
+                                <textarea rows="4" class="form-control " placeholder="" id="Responce" name="Responce">@content.COMMENT</textarea>
+                            </div>
+                            <div class="col-md-4 bottom-right">
+                                <br /><br /><br /><br />
+                                <input type="submit" value="Approve" name="btn_submit" class="btn  btn-primary" />
+                                <input type="submit" value="Reject" name="btn_submit" class="btn  btn-danger" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

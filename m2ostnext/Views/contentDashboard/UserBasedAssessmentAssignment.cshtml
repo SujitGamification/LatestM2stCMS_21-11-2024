@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "setRoleAccess";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable({
+            "bSort": false,
+            "pageLength": 20
+        });
+    });
+    function getContentReport() {
+        loading_on();
+        var id = $("#category-select").val();
+        var url = '@Url.Action("getProgramContent", "contentDashboard")';
+        var pattern = $("#search-box").val().trim();
+
+        var count = $("#search-box").val().trim().length;
+        if (count > 4 || id > 0) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: id, pattern: pattern },
+               
+                success: function (data) {
+                    $("#display_table").empty().append(data);
+                    $("#report-table").dataTable({ "bSort": false, "pageLength": 50 });
+
+                }
+            });
+        } else {
+
+        }
+        loading_off();
+    }
+
+    function setCsstRole(value) {
+
+        var opt = "";
+        if ($('#' + value + '').is(':checked')) {
+            opt = "1";
+        } else {
+            opt = "0";
+        }
+
+        var url = '@Url.Action("setContentRole", "dashboard")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { str: value, opt: opt },
+            success: function (data) {
+            }
+        });
+    }
+
+
+</script>
+@{
+    List<tbl_assessment> AssessList = (List<tbl_assessment>)ViewData["AssessmentList"];
+}
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">User Based Assessment List</h6>
+            </div>
+            <div class="panel-body">
+                <hr />
+                <div id="display_table">
+                    <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="80%">Assessment  </th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (tbl_assessment item in AssessList)
+                            {
+                                <tr>
+                                    <td>@item.assessment_title</td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" href="@Url.Action("UserBasedAssessmentToUserList", "contentDashboard", new { id = item.id_assessment })">continue</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

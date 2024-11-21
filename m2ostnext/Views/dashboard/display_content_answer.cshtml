@@ -1,0 +1,61 @@
+﻿
+
+@{
+    ViewBag.Title = "Answer Detail";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+}
+<div id="pagecontent_dashboard" class="container">
+
+    <div class="row clearfix">
+        <div class="col-md-4"><a href="@Url.Action("display_content", "dashboard")" class="btn btn-default" style="width:100%;">Content</a>&nbsp;</div>
+        @*<div class="col-md-4"><a href="@Url.Action("display_content_answer", "dashboard")" class="btn btn-default" style="width:100%;">Answer</a>&nbsp;</div>
+        <div class="col-md-4"><a href="@Url.Action("display_content_metadata", "dashboard")" class="btn btn-default" style="width:100%;">Metadata</a>&nbsp;</div>*@
+    </div>
+    <div class="row clearfix">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">Answer Detail</h4>
+            </div>
+            <div class="panel-body">
+                <div id="display_table">
+                    <table class="table dataTable">
+                        <tr>
+                            <th width="45%">
+                                Content Answer
+                            </th>
+                            <th width="30%">
+                                Content Question
+                            </th>
+                            <th width="25%"></th>
+                        </tr>
+
+                        @foreach (tbl_content_answer item in (List<tbl_content_answer>)ViewData["contentList"])
+                        {
+                            <tr>
+                                <td>
+                                  @item.CONTENT_ANSWER1
+                                </td>
+                                <td>
+                                   @item.tbl_content.CONTENT_QUESTION
+                                </td>
+                                <td>
+                                    @*<a href="@Url.Action("AssociatedContent", "contentDashboard", new { aid = item.ID_CONTENT_ANSWER })" class="btn-sm btn-primary">ASSOCIATIONS</a>&nbsp;
+                                    <a href="@Url.Action("edit_answer_step", "dashboard", new { id = item.ID_CONTENT_ANSWER })" class="btn-sm btn-primary">ACTION</a>&nbsp;*@
+                                    @*<a href="@Url.Action("add_content_metadata", "dashboard", new { id = item.ID_CONTENT_ANSWER })" class="btn-sm btn-primary">METADATA</a>&nbsp;*@
+
+                                    @*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;<a href="@Url.Action("edit_content_answer", "dashboard", new { id = item.ID_CONTENT_ANSWER })"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;|
+                                    <a href="@Url.Action("delete_content_answer", "dashboard", new { id = item.ID_CONTENT_ANSWER })"><i class="glyphicon glyphicon-remove"></i></a>&nbsp;|*@
+
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

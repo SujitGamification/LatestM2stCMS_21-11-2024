@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title -SkillMuni</title>
+    <script type="text/javascript" src="~/Content/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="~/Content/jquery.steps.js"></script>
+    <script type="text/javascript" src="~/Content/jquery.steps.min.js"></script>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="~/Content/bootstrap-override.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="~/Content/Site.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="~/Content/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+    <script type="text/javascript" src="~/Content/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <link rel="stylesheet" href="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+    <script type="text/javascript" src="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <div class="container">
+        <div id="pagecontent" class="container body-content">
+            @RenderBody()
+            <hr />
+            <div id="copyright_white">
+
+                <!-- Copyrights Content -->
+
+                <div id="copyrighttxt_whitebg">&copy; Copyright 2015  <b>Skillmuni</b>.  All Rights Reserved.</div>
+
+                <!-- End of Copyrights Content -->
+
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

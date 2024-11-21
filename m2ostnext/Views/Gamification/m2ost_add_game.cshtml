@@ -1,0 +1,215 @@
+﻿@{
+    ViewBag.Title = "game";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        $('a[title]').tooltip();
+        $("#form-add-game").validationEngine();
+
+        $("#datetimepicker1").datetimepicker(
+           {
+               dateFormat: "dd-mm-yy", minDate: new Date(),
+               onSelect: function (selected) {
+                   var date = $(this).datetimepicker('getDate');
+                   date.setDate(date.getDate());
+                   $("#datetimepicker2").datetimepicker("option", "minDate", date);
+                   $('#datetimepicker2').val('');
+               }
+           }
+        );
+        $("#datetimepicker2").datetimepicker(
+     { dateFormat: "dd-mm-yy" }
+  );
+    });
+
+    function funReminder(ids) {
+
+        if (ids == 1) {
+            $("#reminder-note-div").show();
+        } else {
+            $("#reminder-note-div").hide();
+        }
+    }
+
+    function fun_content_reminder_check(ids) {
+        if (ids == 4) {
+            $("#reminder-note-div").hide();
+            $("#reminder-select-div").hide();
+            $("#create-reminder-div").show();
+        } else {
+            $("#reminder-select-div").show();
+            $("#reminder-note-div").show();
+            $("#create-reminder-div").hide();
+        }
+        $("#reminder-frequency").val("");
+        $("#reminder-timegap").val("");
+    }
+    function radio_reminder() {
+        var radioValue = $("input[name='setup-type']:checked").val();
+        if (radioValue == 1) {
+            $("#default-rem-setup").show();
+            $("#custom-rem-setup").hide();
+        } else if (radioValue == 2) {
+            $("#default-rem-setup").hide();
+            $("#custom-rem-setup").show();
+        }
+    }
+
+    function changeRemType2(val) {
+        var tHour = $("#select-YH").val();
+        var tMin = $("#select-YM").val();
+        if (val == 1) {
+            $("#select-YM").val("0");
+        }
+        if (val == 2) {
+            $("#select-YH").val("0");
+
+        }
+    }
+</script>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Create Game</h4>
+            </div>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("add_m2ost_game", "Gamification", FormMethod.Post, new { id = "form-add-game" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <section style="background:#efefe9;">
+
+                        <div class="board">
+                            <div class="board-inner">
+                                <ul class="nav nav-tabs" id="myTab">
+                                    <div class="liner"></div>
+                                    <li class="active">
+                                        <a href="@Url.Action("m2ost_add_game", "Gamification")" data-toggle="tab" title="Add Game ">
+                                            <span class="round-tabs one">
+                                                <i class="glyphicon glyphicon-play-circle"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="disabled">
+                                        <a href="#" data-toggle="tab" title="Game Dashboard">
+                                            <span class="round-tabs two">
+                                                <i class="glyphicon glyphicon-cog"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="disabled">
+                                        <a href="#" data-toggle="tab" title="Group/Solo Association">
+                                            <span class="round-tabs three">
+                                                <i class="glyphicon glyphicon-link"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="disabled">
+                                        <a href="#" data-toggle="tab" title="Summary">
+                                            <span class="round-tabs four">
+                                                <i class="glyphicon glyphicon-list-alt"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="disabled">
+                                        <a href="#" data-toggle="tab" title="publish">
+                                            <span class="round-tabs five">
+                                                <i class="glyphicon glyphicon-flag"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </section>
+                    <br />
+
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Game Title</label></div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="game-title" name="game-title" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Game Description</label></div>
+                            <div class="col-md-9">
+                                <textarea name="game-desc" class="form-control validate[required]" placeholder="Game Description" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Game Start Date</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker1' name="game-start-date" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Game Expiry Date</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker2' name="game-expiry-date" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Select Game Mode</label></div>
+                            <div class="col-md-5">
+                                <select id="game-mode" name="game-mode" class="form-control">
+                                    <option value="1" selected>Open Game</option>
+                                    <option value="2">Closed Game</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="reminder-select-div">
+                            <div class="col-md-6">
+                                <label class="control-label">Game Type </label>
+                                <select id="game-type" name="game-type" class="form-control ">
+                                    <option value="1">Standalone   </option>
+                                    <option value="2">Journey </option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Player Type </label>
+                                <select id="player-type" name="player-type" class="form-control ">
+                                    <option value="1">Solo </option>
+                                    <option value="2">Group  </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!---->
+                        <hr />
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-9">
+                                <input type="submit" value="Save" name="btn_submit" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

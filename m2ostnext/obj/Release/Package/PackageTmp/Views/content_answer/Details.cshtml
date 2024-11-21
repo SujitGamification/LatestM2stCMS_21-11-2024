@@ -1,0 +1,50 @@
+﻿@model m2ostcms.Models.tbl_content_answer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbl_content_answer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTENT_ANSWER1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTENT_ANSWER1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STATUS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STATUS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UPDATED_DATE_TIME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UPDATED_DATE_TIME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbl_content.CONTENT_QUESTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbl_content.CONTENT_QUESTION)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_CONTENT_ANSWER }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

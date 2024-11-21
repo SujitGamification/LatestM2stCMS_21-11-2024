@@ -1,0 +1,195 @@
+﻿@{
+    ViewBag.Title = "Content Detail";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+}
+
+
+@{
+    List<tbl_category> category = (List<tbl_category>)ViewData["category"];
+    List<m2ostnext.Models.ContentAssociation> content_owner = (List<m2ostnext.Models.ContentAssociation>)ViewData["contentList"];
+    tbl_organization organization = (tbl_organization)ViewData["organization"];
+
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable({ "bSortClasses": false });
+       
+    });
+
+    function getContentReport() {
+        loading_on();
+        var id = $("#hid-org-id").val();
+        var url = '@Url.Action("getAssociatedResponse", "Administrator")';
+        var pattern = $("#search-box").val().trim();
+
+        var count = $("#search-box").val().trim().length;
+        if (count > 4 || id > 0) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { oid: id, pattern: pattern },
+               
+                success: function (data) {
+                    $("#display_table").empty();
+                    $("#display_table").empty().append(data);
+                    $("#report-table").dataTable();
+
+                }
+            });
+        } else {
+
+        }
+        loading_off();
+    }
+</script>
+
+
+<script>
+
+
+    function addContentToCategory(id) {
+
+        var oid = $("#hid-org-id").val();
+        var cid = $("#category-select").val();
+        if (cid == null) {
+            $("#div-info-alert").show();
+            setTimeout(function () {
+                $("#div-info-alert").hide();
+            }, 4000);
+        } else {
+            var url = '@Url.Action("addContentAssociation", "Administrator")';
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: id, cid: cid, oid: oid },
+             
+                success: function (data) {
+                    if (data == "P") {
+                        $("#div-hidden-alert").show();
+                        setTimeout(function () {
+                            $("#div-hidden-alert").hide();
+                        }, 3000);
+                    } else {
+                        $("#div-susscess-alert").show();
+                        setTimeout(function () {
+                            $("#div-susscess-alert").hide();
+                        }, 3000);
+                    }
+                }
+            });
+
+        }
+        var counter = $("#hid-count").val();
+        counter++;
+        if (counter > 15) {
+            getContentReport();
+            $("#hid-count").val("0");
+        } else {
+            $("#hid-count").val(counter);
+        }
+
+    }
+
+    function deleteCancle() {
+        $("#hidden-val").val("");
+        $("#div-hidden-alert").hide();
+    }
+
+    function deleteContent(id) {
+        $("#hidden-val").val(id);
+        $("#div-hidden-alert").show();
+    }
+</script>
+
+
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Content Association List </h6>
+            </div>
+            <div class="panel-body">
+                <h3>Organisation : <strong>@organization.ORGANIZATION_NAME</strong> </h3>
+                <hr />
+                <h6 class="panel-title">Use Search to narrow your result set</h6>
+                <input type="text" class="form-control" placeholder="Search by Content Title (minimum 4 character)" id="search-box" />
+
+                <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentReport()" /><hr />
+                <h6 class="panel-title">Select target Category to Add Content </h6>
+                <select class="form-control" id="category-select">
+                    @foreach (tbl_category item in category)
+                    {
+                        <option value="@item.ID_CATEGORY">@item.CATEGORYNAME</option>
+                    }
+
+                </select>
+                <div class="row" id="div-info-alert" style="display:none;">
+                    <div class="col-md-12">
+                        <input type="hidden" value="" id="hidden-val" />
+                        <div class="alert alert-info alert-dismissable">
+                            There are no Category to Associate content ,Create Category and the Associate ...!
+                        </div>
+                    </div>
+                </div>
+                <hr />
+               @* <div class="alert alert-info">Showing first 100 record alphabetically.List will refresh with every 25 record Associated. </div>*@
+                <input type="hidden" value="@organization.ID_ORGANIZATION" id="hid-org-id" />
+                <input type="hidden" value="0" id="hid-count" />
+                <div class="row" id="div-hidden-alert" style="display:none;">
+                    <div class="col-md-12">
+                        <input type="hidden" value="" id="hidden-val" />
+                        <div class="alert alert-warning alert-dismissable">
+                            Association already present ...!
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="div-susscess-alert" style="display:none;">
+                    <div class="col-md-12">
+                        <input type="hidden" value="" id="hidden-val" />
+                        <div class="alert alert-success alert-dismissable">
+                            <strong>Success..!</strong>Association Created .
+                        </div>
+                    </div>
+                </div>
+
+                <div id="display_table">
+                    <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="70%">Content</th>
+                                <th width="15%">Categories</th>
+                                <th width="5%">Add</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (m2ostnext.Models.ContentAssociation item in content_owner)
+                            {
+                                <tr>
+                                    <td>@item.Content.CONTENT_QUESTION</td>
+                                    <td>
+                                        @foreach (tbl_category iCat in item.Category)
+                                        {
+                                            @(iCat.CATEGORYNAME+",")
+                                        }
+                                    </td>
+                                    <td><a href="#" onclick="addContentToCategory('@item.Content.ID_CONTENT')"><i class="glyphicon glyphicon-plus-sign"></i></a></td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

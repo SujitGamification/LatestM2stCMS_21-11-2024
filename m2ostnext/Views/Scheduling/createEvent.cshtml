@@ -1,0 +1,499 @@
+﻿@{
+    ViewBag.Title = "Scheduling";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+
+        $("#form-add-scheduling").validationEngine();
+
+        $("#datetimepicker1").datetimepicker({
+            minDate: 0,
+            dateFormat: "dd-mm-yy",
+            onSelect: function (selected) {
+                var date = $(this).datetimepicker('getDate');
+                date.setDate(date.getDate());
+                $("#datetimepicker2").datetimepicker("option", "minDate", date);
+                $('#datetimepicker2').val('');
+            }
+        });
+
+        $("#datetimepicker2").datetimepicker({
+            dateFormat: "dd-mm-yy",
+            onSelect: function (selected) {
+                var date = $(this).datepicker('getDate');
+                date.setDate(date.getDate());
+                $("#datetimepicker3").datetimepicker("option", "minDate", date);
+                $('#datetimepicker3').val('');
+            }
+        });
+
+
+        $("#datetimepicker3").datetimepicker({
+            dateFormat: "dd-mm-yy",
+            onSelect: function (selected) {
+                //var date = $(this).datepicker('getDate');
+                //date.setDate(date.getDate());
+                //$("#datetimepicker4").datetimepicker("option", "minDate", date);
+                //$('#datetimepicker4').val('');
+            }
+        });
+        // $("#datetimepicker4").datetimepicker(
+        //   { dateFormat: "dd-mm-yy" }
+        //);
+
+    });
+
+
+
+    function fun_event_group_type(val) {
+        if (val == "1") {
+            $("#div-event-group-f2f").show();
+            $("#div-event-group-online").hide();
+            $("#div-event-group-m2ost").hide();
+        } else if (val == "2") {
+            $("#div-event-group-f2f").hide();
+            $("#div-event-group-online").show();
+            $("#div-event-group-m2ost").hide();
+        } else if (val == "3") {
+            $("#div-event-group-f2f").hide();
+            $("#div-event-group-online").hide();
+            $("#div-event-group-m2ost").show();
+        }
+    }
+
+    function fun_event_attachment_type(val) {
+
+        if (val == "1") {
+            $("#div-program").show();
+            $("#div-assessment").hide();
+            $("#div-program-image").hide();
+
+        } else if (val == "2") {
+            $("#div-program").hide();
+            $("#div-assessment").show();
+            $("#div-program-image").show();
+        }
+    }
+
+    function fun_event_type(val) {
+        if (val == "1") {
+            $("#div-close-event").show();
+        } else if (val == "2") {
+            $("#div-close-event").hide();
+        }
+    }
+    function fun_program_duration_type(val) {
+        if (val == "1") {
+            $("#div-program-duration-fixed").hide();
+        } else if (val == "2") {
+            $("#div-program-duration-fixed").show();
+        }
+    }
+
+
+    function select_file() {
+        var file = $("#uploadBtn")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        }
+        $("#ImageFile").val(filename);
+    }
+
+
+    function fun_parent_check(val) {
+        $("#sub_header").show();
+        var url = '@Url.Action("getSubHeader", "contentDashboard")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: val },
+            success: function (data) {
+                $("#heading-category").empty().append(data);
+            }
+        });
+    }
+
+    function fun_event_response_type(val) {
+        if (val == 1) {
+            $("#div-event-approval").show();
+        } else {
+            $("#div-event-approval").hide();
+        }
+    }
+
+</script>
+@{
+
+    List<tbl_category> program = (List<tbl_category>)ViewData["program"];
+    List<tbl_category> category = (List<tbl_category>)ViewData["category-list"];
+    List<tbl_assessment> assessment = (List<tbl_assessment>)ViewData["assessment"];
+    List<string> designation = (List<string>)ViewData["designation"];
+    List<tbl_category_tiles> catList = (List<tbl_category_tiles>)ViewData["categorytile-list"];
+
+}
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Add Event</h4>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("createEventAction", "Scheduling", FormMethod.Post, new { id = "form-add-scheduling" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Event Title</label></div>
+                            <div class="col-md-9">
+                                <input type="text" maxlength="500" class="form-control validate[required]" value="" placeholder="" id="event-title" name="event-title" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Event Description</label></div>
+                            <div class="col-md-9">
+                                <textarea name="event-desc" maxlength="1000" class="form-control validate[required]" placeholder="Event Description" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Event Objective</label></div>
+                            <div class="col-md-9">
+                                <textarea name="event-objective" maxlength="1000" class="form-control validate[required]" placeholder="" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Registration Start Date</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker1' name="event-reg-start" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Registration End Date</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker2' name="event-reg-end" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Event Time</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker3' name="event-time" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                                <div class="col-md-3"><label class="control-label">Event Duration</label></div>
+                                <div class="col-md-5">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="eg. 1 Hour , 90 Min, 3 Days" id="event-duration" name="event-duration" />
+                                </div>
+                                </div>
+
+                            <div class="form-group">
+                                <div class="col-md-3"><label class="control-label">Program Start Time</label></div>
+                                <div class="col-md-5">
+                                <div class='input-group date'>
+                                <input type='text' class="form-control validate[required]" id='datetimepicker4' name="program-time" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                </div>
+                                </div>
+                                </div>
+                        *@
+                       
+                        <div class="form-group" id="reminder-select-div">
+                            <div class="col-md-3"><label class="control-label">Event Program Type </label></div>
+                            <div class="col-md-5">
+                                <select id="event-group-type" name="event-group-type" class="form-control " onchange="fun_event_group_type(this.value)">
+                                    <option disabled selected value="">Select Program Type</option>
+                                    <option value="1">F2F</option>
+                                    <option value="2">Online</option>
+                                    <option value="3">m2ost</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="type-select-div">
+                            <div class="col-md-3"><label class="control-label">Duration Type </label></div>
+                            <div class="col-md-5">
+                                <select id="event-duration-flag" name="event-duration-flag" class="form-control " onchange="fun_program_duration_type(this.value)">
+                                    <option value="1">Open</option>
+                                    <option value="2">Close</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="div-program-duration-fixed" style="display:none;">
+                            <div class="col-md-3"><label class="control-label">Event Duration </label></div>
+                            <div class="col-md-1">
+                                <input type="text" maxlength="3" class="form-control validate[required,custom[number]] " value="" placeholder="" id="program-duration" name="program-duration" />
+                            </div>
+                            <div class="col-md-3">
+                                <select id="program-duration-unit" name="program-duration-unit" class="form-control ">
+                                    <option value="H">Hour</option>
+                                    <option value="D">Day</option>
+                                    <option value="W">Week</option>
+                                    <option value="M">Month</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <br />
+                            </div>
+                        </div>
+                      
+                        <div id="div-event-group-f2f" style="display:none;">
+                          
+                            <div class="form-group">
+                                <div class="col-md-3"><label class="control-label">Event Venue</label></div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control validate[required]" value="" placeholder="" id="event-venue" name="event-venue" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3"><label class="control-label">Event Location</label></div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control validate[required]" value="" placeholder="" id="event-location" name="event-location" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-3"><label class="control-label">F2F Additional Info</label></div>
+                                <div class="col-md-9">
+                                    <textarea name="f2f-aditional" class="form-control " placeholder="Optional" rows="4"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="div-event-group-online" style="display:none;">
+
+                            <div class="form-group">
+                                <div class="col-md-3"><label class="control-label">Online Event Description</label></div>
+                                <div class="col-md-9">
+                                    <textarea name="online-aditional" class="form-control validate[required]" placeholder="Optional" rows="4"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3"><label class="control-label">Online Link</label></div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control validate[required,custom[url]]" value="http://" placeholder="" id="event-url" name="event-url" />
+                                </div>
+                            </div>
+                        </div>
+                        <div id="div-event-group-m2ost" style="display:none;">
+
+                            <div class="form-group">
+                                <div class="col-md-3"><label class="control-label">Program Attachment</label></div>
+                                <div class="col-md-5">
+                                    <select id="event-attachment-type" name="event-attachment-type" class="form-control " onchange="fun_event_attachment_type(this.value)">
+                                        <option value="" disabled selected>Select Attachment Type</option>
+                                        <option value="1">Program</option>
+                                        <option value="2">Assessment</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="div-program" style="display:none;">
+                                <div class="form-group">
+                                    <div class="col-md-3"><label class="control-label">Select Program</label></div>
+                                    <div class="col-md-5">
+                                        <select id="event-category-program" name="event-category-program" class="form-control ">
+                                            @foreach (tbl_category item in program)
+                                            {
+                                                <option value="@item.ID_CATEGORY">@item.CATEGORYNAME</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4"><br /></div>
+                                </div>
+                                <hr />
+                                <div class="form-group">
+                                    <div class="col-md-3"><label class="control-label">Category Tile </label></div>
+                                    <div class="col-md-5">
+                                        <select class="form-control" id="tile-category" name="tile-category" onchange="fun_parent_check(this.value)">
+                                            <option value="" disabled selected>Select Category Tile</option>
+                                            @foreach (tbl_category_tiles items in catList)
+                                            {
+                                                <option value="@items.id_category_tiles"> @items.tile_heading</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4"><br /></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3"><label class="control-label">Category Heading</label></div>
+                                    <div class="col-md-5">
+                                        <select class="form-control" id="heading-category" name="heading-category">
+                                            <option value="" disabled selected>Select Category Heading</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4"><br /></div>
+
+                                </div>
+                            </div>
+                            <div id="div-assessment" style="display:none;">
+                                <div class="form-group">
+                                    <div class="col-md-3"><label class="control-label">Select Assessment</label></div>
+                                    <div class="col-md-5">
+                                        <select id="event-category-assessment" name="event-category-assessment" class="form-control ">
+                                            @foreach (tbl_assessment item in assessment)
+                                            {
+                                                <option value="@item.id_assessment">@item.assessment_title</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4"><br /></div>
+                                </div>
+                                <hr />
+                                <div class="form-group">
+                                    <div class="col-md-3"><label class="control-label">Select Category</label></div>
+                                    <div class="col-md-5">
+                                        <select id="event-assessment-category" name="event-assessment-category" class="form-control ">
+                                            @foreach (tbl_category item in category)
+                                            {
+                                                <option value="@item.ID_CATEGORY">@item.CATEGORYNAME</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4"><br /></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr />
+                        @*<div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Program name</label></div>
+                            <div class="col-md-9">
+                                <input type="text" maxlength="500" class="form-control validate[required]" value="" placeholder="" id="event-program-name" name="event-program-name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Program Description</label></div>
+                            <div class="col-md-9">
+                                <textarea name="event-program-desc" maxlength="1000" class="form-control validate[required]" placeholder="" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Program Objective</label></div>
+                            <div class="col-md-9">
+                                <textarea name="event-program-objective" maxlength="1000" class="form-control validate[required]" placeholder="" rows="4"></textarea>
+                            </div>
+                        </div>*@
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Facilitator name</label></div>
+                            <div class="col-md-9">
+                                <input type="text" maxlength="250" class="form-control validate[required]" value="" placeholder="" id="event-program-facilitator" name="event-program-facilitator" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Facilitator Organization</label></div>
+                            <div class="col-md-9">
+                                <input type="text" maxlength="500" class="form-control validate[required]" value="" placeholder="" id="event-program-f-org" name="event-program-f-org" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group" id="div-program-image">
+                            <div class="col-md-3"><label class="control-label">Program Image</label></div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-8" style="padding-right:1px;">
+                                        <input type="text" class="form-control validate[required]" readonly value="" placeholder="Choose Image" id="ImageFile" name="ImageFile" />
+                                    </div>
+                                    <div class="col-md-2" style="padding-left:1px;">
+                                        <div class="fileUpload btn btn-primary">
+                                            <span>Browse </span>
+                                            <input id="uploadBtn" name="uploadBtn" class="upload" type="file" accept="image/*" onchange="select_file()" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group" id="type-select-div">
+                            <div class="col-md-3"><label class="control-label">Event Type </label></div>
+                            <div class="col-md-5">
+                                <select id="event-type-flag" name="event-type-flag" class="form-control " onchange="fun_event_type(this.value)">
+                                    <option value="1">Open</option>
+                                    <option value="2">Close</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="div-close-event">
+                            <div class="form-group">
+                                <div class="col-md-3"><label class="control-label">No of Participants</label></div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control validate[required,custom[number]]" value="" placeholder="" id="event-participant" name="event-participant" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <label class="control-label">Select Participant Level</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="row">
+                                        @foreach (string item in designation)
+                                        {
+                                            <div class="col-md-2">
+                                                <label><input class="checkbox checkbox-inline" type="checkbox" name="event-participant-level" value="@item.ToLower()" /> @item </label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" >
+                            <div class="col-md-3"><label class="control-label">User Response Required </label></div>
+                            <div class="col-md-5">
+                                <select id="event-response-flag" name="event-response-flag" class="form-control " onchange="fun_event_response_type(this.value)">
+                                    <option value="1">Yes</option>
+                                    <option value="2">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="div-event-approval">
+                            <div class="col-md-3"><label class="control-label">RM Approval Required </label></div>
+                            <div class="col-md-5">
+                                <select id="event-approval-flag" name="event-approval-flag" class="form-control ">
+                                    <option value="1">Yes</option>
+                                    <option value="2">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="div-event-approval">
+                            <div class="col-md-3"><label class="control-label">Can User Unsubscribe  </label></div>
+                            <div class="col-md-5">
+                                <select id="event-unsubscribe-flag" name="event-unsubscribe-flag" class="form-control ">
+                                    <option value="2">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-9">
+                                <input type="submit" value="Save" name="btn_submit" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

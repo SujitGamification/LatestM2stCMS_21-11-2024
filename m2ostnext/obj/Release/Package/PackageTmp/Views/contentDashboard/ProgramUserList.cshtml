@@ -1,0 +1,1609 @@
+﻿@{
+    ViewBag.Title = "setRoleAccess";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    int category_id = 0;
+    int notify = 1;
+}
+<style>
+    .select-checkbox:before, .select-checkbox:after {
+        display: block;
+        position: absolute;
+        top: 1.2em;
+        left: 50%;
+        width: 12px;
+        height: 12px;
+        box-sizing: border-box;
+    }
+
+    .select-checkbox:after {
+        content: '\2714';
+        margin-top: -11px;
+        margin-left: -4px;
+        text-align: center;
+        text-shadow: 1px 1px #B0BED9, -1px -1px #B0BED9, 1px -1px #B0BED9, -1px 1px #B0BED9;
+    }
+
+
+    /* Unique class for the table */
+    .custom-table {
+        width: 100%;
+        background: #ffffff;
+        border-collapse: collapse;
+    }
+
+        /* Styling for the table head */
+        .custom-table thead {
+            background: #793079;
+            color: #ffffff;
+            display: table;
+            width: 100%; /* Adjust for scrollbar width */
+        }
+
+        /* Styling for the table body */
+        .custom-table tbody {
+            display: block;
+            max-height: 280px; /* Set the height you want */
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        /* Table row styling */
+        .custom-table tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed; /* Ensure columns have the same width */
+            border: 1px solid gray;
+        }
+
+        /* Table cell styling */
+        .custom-table th, .custom-table td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid gray;
+        }
+</style>
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+@{
+    tbl_category category = (tbl_category)ViewData["program"];
+    List<tbl_content> content = (List<tbl_content>)ViewData["content"];
+    List<tbl_notification> notification = (List<tbl_notification>)ViewData["notification"];
+    List<string> location = (List<string>)ViewData["location"];
+    List<string> function = (List<string>)ViewData["function"];
+    List<tbl_category_tiles> catList = (List<tbl_category_tiles>)ViewData["category-list"];
+
+
+}
+<script>
+    $(document).ready(function () {
+
+        $("#report-table-temp").dataTable({
+            "pageLength": 10
+        });
+        $("#report-table-note").dataTable({
+            "pageLength": 10
+        });
+        $("#datetimepicker1").datetimepicker(
+          { dateFormat: "dd-mm-yy", minDate: new Date() }
+       );
+        $("#datetimepicker2").datetimepicker(
+          { dateFormat: "dd-mm-yy", minDate: new Date() }
+       );
+        $("[name='role-checkbox']").bootstrapSwitch({ 'size': 'mini', 'state': true });
+    });
+
+    function reset_user() {
+        $('#search-box-user').attr('readonly', false);
+    }
+
+    function getContentReport(type) {
+        debugger;
+        loading_on();
+        //$('.id_search').prop('disabled', true);
+        var id = $("#role-select").val();
+        var url = '@Url.Action("getUserListForProgram", "contentDashboard")';
+        var pattern = "";
+        if (type == "3") {
+            pattern = $("#search-box-user").val().trim();
+            $('#search-box-user').attr('readonly', true);
+            id = 0;
+        } else if (type == "2") {
+            pattern = $("#search-lbox").val().trim();
+            var lid = $("#location-select").val();
+            pattern = lid + "|" + pattern;
+            id = 0;
+        }
+        else if (type == "5") {
+            pattern = $("#search-lbox").val().trim();
+            var lid = $("#function-select").val();
+            pattern = lid + "|" + pattern;
+            id = 0;
+        }
+        else {
+            pattern = $("#search-box").val().trim();
+        }
+        var std = $("#datetimepicker1").val();
+        var exd = $("#datetimepicker2").val();
+        if (std && exd) {
+
+            var ncid = $("#notification-select").val();
+            var nid = 0;
+            if (ncid == 1) {
+                nid = $('input[name=select_notification_check]:checked').val();
+                if (nid > 0) {
+
+                } else {
+                    loading_off();
+                    $("#msg-txt").html("<p>Select Notification to attach with Program</p>");
+                    $('#m2ost-dialog').modal('show');
+                    $('.id_search').prop('disabled', false);
+                    return true;
+                }
+            }
+
+            var cid = $("#id_program").val();
+            var count = pattern.trim().length;
+            var ctid = $("#tile-category").val();
+            var chid = $("#heading-category").val();
+            if (ctid && chid) {
+                if (count >= 3 || id > 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: { id: id, pattern: pattern, cid: cid, type: type },
+
+                        success: function (data) {
+                            loading_off();
+                          
+                            $('.id_search').prop('disabled', false);
+                            $("#display_table").empty().append(data);
+                            $("#report-table").dataTable({
+                                "bSort": false,
+                                "pageLength": 50
+                            });
+                        }
+                    });
+                } else {
+                    if (id == 0) {
+                        loading_off();
+                        $('.id_search').prop('disabled', false);
+                        $("#msg-txt").html("<p>Enter minimun of 3 character to search</p>");
+                        $('#m2ost-dialog').modal('show');
+                    }
+                }
+            } else {
+                loading_off();
+                $('.id_search').prop('disabled', false);
+                $("#msg-txt").html("<p>Please select Category Tile and Category Heading for the Program</p>");
+                $('#m2ost-dialog').modal('show');
+            }
+        } else {
+            loading_off();
+            $('.id_search').prop('disabled', false);
+            $("#msg-txt").html("<p>Please select Start and Expiry Date For Program</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+        //loading_off();
+    }
+
+
+
+    function addProgramToUser(value) {
+        var cid = $("#id_program").val();
+        var std = $("#datetimepicker1").val();
+        var exd = $("#datetimepicker2").val();
+        var ctid = $("#tile-category").val();
+        var chid = $("#heading-category").val();
+        var ncid = $("#notification-select").val();
+        var nid = 0;
+        if (ncid == 1) {
+            nid = $('input[name=select_notification_check]:checked').val();
+            if (nid > 0) {
+
+            } else {
+                $("#msg-txt").html("<p>Select Notification to attach with Program</p>");
+                $('#m2ost-dialog').modal('show');
+                return true;
+            }
+        }
+
+        if (std && exd) {
+            if (cid > 0) {
+                var url = '@Url.Action("setProgramToUser", "contentDashboard")';
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: { cid: cid, value: value, type: "0", cdt: std, edt: exd, ctid: ctid, chid: chid, nid: nid },
+                    success: function (data) {
+                        if (data == "1") {
+                            $("#link_" + value).hide();
+                            $("#done_" + value).show();
+                        }
+                    }
+                });
+            }
+        } else {
+            $("#msg-txt").html("<p>Please select Start and Expiry Date For Program</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+    }
+
+    function addProgramToRole(value) {
+        var rValue = $("#role-select").val();
+        var status = $('input[name="role-checkbox"]:checked').length > 0;
+        if (status) {
+
+            var std = $("#datetimepicker1").val();
+            var exd = $("#datetimepicker2").val();
+            var ctid = $("#tile-category").val();
+            var chid = $("#heading-category").val();
+            var ncid = $("#notification-select").val();
+            var nid = 0;
+            if (ctid && chid) {
+                if (ncid == 1) {
+                    nid = $('input[name=select_notification_check]:checked').val();
+                    if (nid > 0) {
+
+                    } else {
+                        $('#role-checkbox').bootstrapSwitch('state', false, false);
+                        $("#msg-txt").html("<p>Select Notification to attach with Program</p>");
+                        $('#m2ost-dialog').modal('show');
+
+                        return true;
+                    }
+                }
+
+                if (std && exd) {
+                    if (rValue > 0) {
+
+                        var cid = $("#id_program").val();
+
+                        var url = '@Url.Action("setProgramToUser", "contentDashboard")';
+                        $.ajax({
+                            type: 'POST',
+                            url: url,
+                            data: { cid: cid, value: rValue, type: "1", cdt: std, edt: exd, ctid: ctid, chid: chid, nid: nid },
+                            success: function (data) {
+                                if (data == "1") {
+                                    $("#msg-txt").html("<p>Program to User Role Assigned.</p>");
+                                    $('#m2ost-dialog').modal('show');
+                                    setTimeout(function () {
+                                        $("#div-alert").hide();
+
+                                    }, 3000);
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    $('#role-checkbox').bootstrapSwitch('state', false, false);
+                    $("#msg-txt").html("<p>Please select Start and Expiry Date For Program</p>");
+                    $('#m2ost-dialog').modal('show');
+                }
+            }
+            else {
+                $('#role-checkbox').bootstrapSwitch('state', false, false);
+                $("#msg-txt").html("<p>Please select Category Tile and Category Heading for the Program</p>");
+                $('#m2ost-dialog').modal('show');
+            }
+        } else {
+
+            var cid = $("#id_program").val();
+            if (rValue > 0) {
+
+                var url = '@Url.Action("removeProgramRoleAsignment", "contentDashboard")';
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: { pid: cid, rid: rValue },
+                    success: function (data) {
+                        if (data == "1") {
+                            $("#msg-txt").html("<p>Program to User Role Assignmet Removed.</p>");
+                            $('#m2ost-dialog').modal('show');
+                            setTimeout(function () {
+                                $("#div-alert").hide();
+
+                            }, 3000);
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    function addProgramToAllUser(value) {
+        var value = $("#role-select").val();
+        var std = $("#datetimepicker1").val();
+        var exd = $("#datetimepicker2").val();
+        var ctid = $("#tile-category").val();
+        var chid = $("#heading-category").val();
+        value = $("#search-box-user").val().trim();
+        var ncid = $("#notification-select").val();
+        var nid = 0;
+        if (ncid == 1) {
+            nid = $('input[name=select_notification_check]:checked').val();
+            if (nid > 0) {
+
+            } else {
+                $("#msg-txt").html("<p>Select Notification to attach with Program</p>");
+                $('#m2ost-dialog').modal('show');
+                return true;
+            }
+        }
+
+        if (std && exd) {
+            var cid = $("#id_program").val();
+            var url = '@Url.Action("setProgramToAllUserString", "contentDashboard")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { cid: cid, value: value, type: "1", cdt: std, edt: exd, ctid: ctid, chid: chid, nid: nid },
+                success: function (data) {
+                    if (data == "1") {
+                        $("#msg-txt").html("<p>Program to All User Assigned.</p>");
+                        $('#m2ost-dialog').modal('show');
+                        setTimeout(function () {
+
+                            $("#div-alert").hide();
+
+                        }, 3000);
+                    }
+                }
+            });
+        } else {
+            $("#msg-txt").html("<p>Please select Start and Expiry Date For Program</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+    }
+
+
+       function addProgramToAll(value) {
+    loading_on();
+    $("#programToAll").prop('disabled', true);
+
+    var value = $("#role-select").val();
+    var std = $("#datetimepicker1").val();
+    var exd = $("#datetimepicker2").val();
+    var ctid = $("#tile-category").val();
+    var chid = $("#heading-category").val();
+    var ncid = $("#notification-select").val();
+    var nid = 0;
+    if (ncid == 1) {
+        nid = $('input[name=select_notification_check]:checked').val();
+        if (nid > 0) {
+
+        } else {
+            $("#msg-txt").html("<p>Select Notification to attach with Program</p>");
+            $('#m2ost-dialog').modal('show');
+            return true;
+        }
+    }
+    if (std && exd) {
+
+        var cid = $("#id_program").val();
+
+        var url = '@Url.Action("setProgramToAllUser", "contentDashboard")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { cid: cid, value: 0, type: "1", cdt: std, edt: exd, ctid: ctid, chid: chid, nid: nid },
+            success: function (data) {
+                loading_off();
+                $("#programToAll").prop('disabled', false);
+                if (data == "1") {
+                    $("#msg-txt").html("<p>Program to All User Role Assigned.</p>");
+                    $('#m2ost-dialog').modal('show');
+                    setTimeout(function () {
+
+                        $("#div-alert").hide();
+
+                    }, 3000);
+                }
+                if (data == "0") {
+                    $("#msg-txt").html("<p>Program to All User Role Assigned.</p>");
+                    $('#m2ost-dialog').modal('show');
+                    setTimeout(function () {
+
+                        $("#div-alert").hide();
+
+                    }, 3000);
+                }
+            }
+        });
+    } else {
+        $("#msg-txt").html("<p>Please select Start and Expiry Date For Program</p>");
+        $('#m2ost-dialog').modal('show');
+    }
+}
+     @*function addProgramToAll(value) {
+     loading_on();
+     $("#programToAll").prop('disabled', true);
+
+     var value = $("#role-select").val();
+     var std = $("#datetimepicker1").val();
+     var exd = $("#datetimepicker2").val();
+     var ctid = $("#tile-category").val();
+     var chid = $("#heading-category").val();
+     var ncid = $("#notification-select").val();
+     var nid = 0;
+     if (ncid == 1) {
+         nid = $('input[name=select_notification_check]:checked').val();
+         if (nid > 0) {
+
+         } else {
+             $("#msg-txt").html("<p>Select Notification to attach with Program</p>");
+             $('#m2ost-dialog').modal('show');
+             return true;
+         }
+     }
+     if (std && exd) {
+
+         var cid = $("#id_program").val();
+
+         var url = '@Url.Action("setProgramToAllUser", "contentDashboard")';
+         $.ajax({
+             type: 'POST',
+             url: url,
+             data: { cid: cid, value: 0, type: "1", cdt: std, edt: exd, ctid: ctid, chid: chid, nid: nid },
+             success: function (data) {
+                 loading_off();
+                 $("#programToAll").prop('disabled', false);
+                 if (data == "1") {
+                     $("#msg-txt").html("<p>Program to All User Role Assigned.</p>");
+                     $('#m2ost-dialog').modal('show');
+                     setTimeout(function () {
+
+                         $("#div-alert").hide();
+
+                     }, 3000);
+                 }
+                 if (data == "0") {
+                     $("#msg-txt").html("<p>Program to All User Role Assigned.</p>");
+                     $('#m2ost-dialog').modal('show');
+                     setTimeout(function () {
+
+                         $("#div-alert").hide();
+
+                     }, 3000);
+                 }
+             }
+         });
+     } else {
+         $("#msg-txt").html("<p>Please select Start and Expiry Date For Program</p>");
+         $('#m2ost-dialog').modal('show');
+     }
+ }*@
+    function removeProgramToUser(value) {
+
+        if (value > 0) {
+
+            var cid = $("#id_program").val();
+
+            var url = '@Url.Action("removeProgramToUser", "contentDashboard")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { cid: cid, value: value, type: "0" },
+                success: function (data) {
+                    if (data == "1") {
+
+                        $("#link_" + value).hide();
+                        $("#done_" + value).show();
+                     
+                    }
+                }
+            });
+        }
+    }
+
+
+
+    function removeProgramToRole(value) {
+        var value = $("#role-select").val();
+        if (value > 0) {
+
+            var cid = $("#id_program").val();
+
+            var url = '@Url.Action("removeProgramToUser", "contentDashboard")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { cid: cid, value: value, type: "1" },
+                success: function (data) {
+                    if (data == "1") {
+                        $("#msg-txt").html("<p>Program is Removed For User Role</p>");
+                        $('#m2ost-dialog').modal('show');
+                        setTimeout(function () {
+
+                            $("#div-alert").show();
+
+                        }, 3000);
+                    }
+                }
+            });
+        }
+    }
+
+    function fun_parent_check(val) {
+
+        if (val == "0") {
+            $("#sub_header").hide();
+            //$("#div-new-header").hide();
+
+        } else {
+            $("#category_tile").val(val);//------------------------------prasanth------------------
+            $("#sub_header").show();
+            var url = '@Url.Action("getSubHeader", "contentDashboard")';
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: val },
+
+                success: function (data) {
+                    $("#heading-category").empty().append('<option value="" disabled selected>Select Category Heading</option>');
+                    $("#heading-category").append(data);
+                }
+            });
+        }
+
+    }
+
+    function RoleType(val) {
+        $("#role-type").val(val);
+        $("#display_table").empty();
+        if (val == 1) {
+            $("#div-row-role").show();
+            $("#div-row-user").hide();
+            $("#div-row-all").hide();
+            $("#div-row-location").hide();
+            $("#div-row-function").hide();
+        } else if (val == 2) {
+            $("#div-row-role").hide();
+            $("#div-row-user").hide();
+            $("#div-row-all").hide();
+            $("#div-row-location").show();
+            $("#div-row-function").hide();
+        } else if (val == 3) {
+            $("#div-row-role").hide();
+            $("#div-row-user").show();
+            $("#div-row-all").hide();
+            $("#div-row-location").hide();
+            $("#div-row-function").hide();
+        } else if (val == 4) {
+            $("#div-row-role").hide();
+            $("#div-row-user").hide();
+            $("#div-row-all").show();
+            $("#div-row-location").hide();
+            $("#div-row-function").hide();
+        }
+        else if (val == 5) {
+            $("#div-row-role").hide();
+            $("#div-row-user").hide();
+            $("#div-row-all").hide();
+            $("#div-row-location").hide();
+            $("#div-row-function").show();
+        }
+    }
+
+    function sendNotification() {
+        var cid = $("#id_program").val();
+        var ind = '@Url.Action("Index", "Dashboard")';
+        if (cid > 0) {
+            var url = '@Url.Action("sendProgramNotification", "contentDashboard")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { cid: cid },
+                success: function (data) {
+                    if (data == "1") {
+                        window.location = ind;
+                    }
+                }
+            });
+        }
+    }
+
+    function setNotification(val) {
+
+        $("#notification_req").val(val);
+        if (val == "1") {
+            $("#notification-div").show();
+
+        } else {
+            $("#notification-div").hide();
+        }
+
+    }
+
+    function assignProgramToRole() {
+        var status = $('input[name="role-checkbox"]:checked').length > 0;
+        if (status) {
+
+        }
+
+        var rid = $("#role-select").val();
+        var std = $("#datetimepicker1").val();
+        var exd = $("#datetimepicker2").val();
+        var ctid = $("#tile-category").val();
+        var chid = $("#heading-category").val();
+        var ncid = $("#notification-select").val();
+        var nid = 0;
+        if (ncid == 1) {
+            nid = $('input[name=select_notification_check]:checked').val();
+            if (nid > 0) {
+
+            } else {
+                $("#msg-txt").html("<p>Select Notification to attach with Program</p>");
+                $('#m2ost-dialog').modal('show');
+                return true;
+            }
+        }
+
+        if (std && exd) {
+            if (value > 0) {
+
+                var cid = $("#id_program").val();
+                var url = '@Url.Action("assignProgramToRole", "contentDashboard")';
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: { pid: cid, rid: rid, opt: "1", cdt: std, edt: exd },
+                    success: function (data) {
+                        if (data == "1") {
+                            $("#msg-txt").html("<p>Program to User Role Assigned.</p>");
+                            $('#m2ost-dialog').modal('show');
+                            setTimeout(function () {
+                                $("#div-alert").hide();
+
+                            }, 3000);
+                        }
+                    }
+                });
+            }
+        } else {
+            $("#msg-txt").html("<p>Please select Start and Expiry Date For Program</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+
+
+
+
+    }
+    function Multi_user() {
+        debugger
+        if ($('.myCheckbox:checked').length === 0) {
+            alert("Please select at least one checkbox");
+        } else {
+            $('#notification-to-all').prop('disabled', true);
+
+            var std = $("#datetimepicker1").val();
+            var exd = $("#datetimepicker2").val();
+            var rid = $("#role-select").val();
+            console.log(rid);
+            $('#role-Id').val(rid);
+            if (std && exd) {
+                var form_data = $("#Assessment_form").serialize();
+                var url = '@Url.Action("setProgramToMultiUser", "contentDashboard")';
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: form_data,
+                    success: function (data) {
+                        if (data == "1") {
+                            $('#notification-to-all').prop('disabled', false);
+                            $("#msg-txt").html("<p>Program to selected Users are Assigned.</p>");
+                            $('#m2ost-dialog').modal('show');
+                            setTimeout(function () {
+                                $("#div-remove").show();
+                                $("#div-alert").hide();
+
+                            }, 3000);
+                        }
+                    }
+                });
+            } else {
+                $("#msg-txt").html("<p>Please select Start and Expiry Date For Program</p>");
+                $('#m2ost-dialog').modal('show');
+            }
+        }
+    }
+</script>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Program Assigment</h6>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-2"><h5>Program: </h5></div>
+                    <div class="col-md-10">
+                        <input type="hidden" id="id_program" value="@category.ID_CATEGORY" />
+                        <pre>@category.CATEGORYNAME</pre>
+                    </div>
+                </div>
+                <table id="report-table-temp" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Content </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (tbl_content item in content)
+                        {
+                            <tr><td>@item.CONTENT_QUESTION</td></tr>
+                        }
+                    </tbody>
+                </table>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-2 regLabel">Notification :</label>
+                            <div class="col-md-9">
+                                <select class="form-control" id="notification-select" name="notification-select" onchange="setNotification(this.value)">
+                                    <option value="1">Notification Required</option>
+                                    <option value="0">Notification Not Required</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-2 regLabel">Select Category Tile :</label>
+                            <div class="col-md-9">
+                                <select class="form-control" id="tile-category" name="tile-category" onchange="fun_parent_check(this.value)">
+                                    <option value="0" disabled selected>Select Category Tile</option>
+                                    @foreach (tbl_category_tiles items in catList)
+                                    {
+                                        <option value="@items.id_category_tiles"> @items.tile_heading</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-2 regLabel">Select Category Heading :</label>
+                            <div class="col-md-9">
+                                <select class="form-control" id="heading-category" name="heading-category" onchange="getval(this);">
+                                    <option value="" disabled selected>Select Category Heading</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label"> Start Date</label></div>
+                            <div class="col-md-4">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker1' name="start-date" onchange="get_startdate(this.value);" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2"><label class="control-label">Expiry Date</label></div>
+                            <div class="col-md-4">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker2' name="expiry-date" onchange="get_enddate(this.value);" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div id="notification-div">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">Notification</h6>
+                        </div>
+                        <div class="panel-body">
+                            <table id="report-table-note" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="40%">Notification</th>
+                                        <th width="40%">Message</th>
+                                        <th width="15%">Notification Type</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (tbl_notification item in notification)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <i class="glyphicon glyphicon-eject"></i>    @item.notification_name
+                                            </td>
+                                            <td>
+                                                @item.notification_message
+                                            </td>
+                                            <td>
+                                                @if (item.notification_type == 1)
+                                                {
+                                                    @("Generic Notification")
+                                                }
+                                                else if (item.notification_type == 2)
+                                                {
+                                                    @("Event based Notification")
+                                                }
+                                                else if (item.notification_type == 3)
+                                                {
+                                                    @("Content Specific Notification")
+                                                }
+                                                else if (item.notification_type == 4)
+                                                {
+                                                    @("Content Reminder Notification")
+                                                }
+
+                                            </td>
+
+                                            <td>
+                                                <input class="select-checkbox" type="radio" name="select_notification_check" value="@item.id_notification" onclick="get_notification(this.value);">
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <h5 class="panel-title">Select Role/User filter</h5>
+                <br />
+                <div class="row">
+                    <div class="col-md-2">
+                        <a class="btn btn-primary btn-block" onclick="RoleType(1)" href="javascript:void(0)">Role Based Search</a>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-primary btn-block" style="padding:0%;" onclick="RoleType(5)" href="javascript:void(0)">Function Based Search</a>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-primary btn-block" style="padding:0%;" onclick="RoleType(2)" href="javascript:void(0)">Location Based Search</a>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-primary btn-block" onclick="RoleType(3)" href="javascript:void(0)">User Based Search</a>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-primary btn-block" onclick="RoleType(4)" href="javascript:void(0)">All Users</a>
+                    </div>
+                    <input type="hidden" id="role-type" name="role-type" value="0" />
+                </div>
+
+                <hr />
+                <div class="row" id="div-row-role" style="display:none;">
+                    <div class="col-md-12">
+                        <h6 class="panel-title">Select User Role to filter</h6>
+                        <select class="form-control" id="role-select">
+                            <option value="0" disabled selected>Select Role</option>
+                            @foreach (tbl_csst_role item in (List<tbl_csst_role>)ViewData["RoleList"])
+                            {
+                                <option value="@item.id_csst_role">@item.csst_role</option>
+                            }
+                        </select>
+                        <input type="text" class="form-control" placeholder="Search by User Name (minimum 3 character)" id="search-box" />
+                        <br />
+                        <input type="button" class="btn btn-primary btn-sm " value=" Search " id="id_search1" onclick="getContentReport(1)" />
+                        <hr />
+
+                        <div id="" >
+                            <div style="display:flex; justify-content:space-between; margin-top:5px">
+                                <div>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="role-checkbox" name="role-checkbox" onchange="addProgramToRole(0)"> Attach Role to Program
+                                    </label>
+                                </div>
+                                <div>
+                                    <a style="background: DodgerBlue; color: white; border: none; border-radius: 5px; width: 159px; height: 28px; padding: 2px 5px;" href="~/Content/AppUserTemplate/Uploaduser_program.xlsx" download>
+                                        <i class="fa fa-download"></i> Download Template
+                                    </a>
+                                </div>
+                                <div>
+                                    <input type="file" id="csvFileInput">
+                                    <label id="csvFile" style="color: maroon; margin: 0px; display: none;">Required Excel Field</label>
+                                </div>
+                                <button id="activateButton" style="background: #1ab394; color: #fff; border: none; border-radius: 5px; width: 159px; height: 28px; padding: 2px 5px;">Upload</button>
+                            </div>
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="UsertoDisplayA">User ID not Present in the above Role</th>
+                                        <th scope="col" class="UsertoDisplayA1">User ID Allready Assigned</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td id="nonExistentUserIdsListA" class="UsertoDisplayA"></td>
+                                        <td id="allreadyUserIds" class="UsertoDisplayA1"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="row" id="div-alert">
+                        <div class="form-group">
+                            <div class="col-md-12">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="div-row-location" style="display:none;">
+                    <div class="col-md-12">
+                        <h6 class="panel-title">Select User Location to filter</h6>
+                        <select class="form-control" id="location-select">
+                            <option value="0" disabled selected>Select Location</option>
+                            @foreach (string item in location)
+                            {
+                                <option value="@item">@item</option>
+                            }
+                        </select>
+                        <input type="text" class="form-control" placeholder="Search by User Name (minimum 3 character)" id="search-lbox" />
+                        <br />
+                        <input type="button" class="btn btn-primary btn-sm " value=" Search " id="id_search2" onclick="getContentReport(2)" />
+                        <hr />
+                        @*<input id="program-assignment" type="button" class="btn btn-primary btn-sm" value="Add Assessment to Role" onclick="addProgramToLocation(0)" />
+                            <input id="program-assignment" type="button" class="btn btn-primary btn-sm" value="Remove Assessment from Role" onclick="removeUserbasedContentToUser(0)" />*@
+                    </div>
+                </div>
+
+                <div class="row" id="div-row-function" style="display:none;">
+                    <div class="col-md-12">
+                        <h6 class="panel-title">Select User Function to filter</h6>
+                        <select class="form-control" id="function-select">
+                            <option value="0" disabled selected>Select Function</option>
+                            @foreach (string item in function)
+                            {
+                                <option value="@item">@item</option>
+                            }
+                        </select>
+                        <input type="text" class="form-control" placeholder="Search by User Name (minimum 3 character)" id="search-lbox" />
+                        <br />
+                        <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentReport(5)" />
+                        <hr />
+                        @*<input id="program-assignment" type="button" class="btn btn-primary btn-sm" value="Add Assessment to Role" onclick="addProgramToLocation(0)" />
+                            <input id="program-assignment" type="button" class="btn btn-primary btn-sm" value="Remove Assessment from Role" onclick="removeUserbasedContentToUser(0)" />*@
+                    </div>
+                </div>
+                <div class="row" id="div-row-user" style="display:none;">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <h6 class="panel-title">Search by User </h6>
+                            <input type="text" class="form-control" placeholder="Search by User Name (minimum 3 character)" id="search-box-user" />
+                            <br />
+                            <input type="button" class="btn btn-primary btn-sm " value=" Search " id="id_search3" onclick="getContentReport(3)" />
+                            <input type="button" class="btn btn-primary btn-sm " value="Reset" onclick="reset_user()" />
+                            <hr />
+                            <input id="program-to-all" type="button" class="btn btn-primary btn-sm" value="Add Program to All User" onclick="addProgramToAllUser(0)" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="div-row-all" style="display:none;">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="alert alert-info alert-dismissable">
+                                <input id="programToAll" type="button" class="btn btn-primary btn-sm" value="Add Program to All User" onclick="addProgramToAll(0)" /><strong>&nbsp;&nbsp; Click to Assign Program to Role </strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <!------------------------------------------------------------------------------>
+                <form method="post" id="Assessment_form" action="/contentDashboard/setProgramToMultiUser">
+                    <input type="hidden" value="" name="category_tile" id="category_tile" />
+                    <input type="hidden" value="" name="category_heading" id="category_heading" />
+                    <input type="hidden" value="1" name="notification_req" id="notification_req" />
+                    <input type="hidden" value="" name="start_date" id="start_date" />
+                    <input type="hidden" value="" name="end_date" id="end_date" />
+                    <input type="hidden" id="id_program" name="id_program" value="@category.ID_CATEGORY" />
+                    <input type="hidden" id="role-type" name="role-type" />
+                    <input type="hidden" id="role-Id" name="role-Id" value="" />
+
+                    <input type="hidden" value="" name="notification_id" id="notification_id" />
+                    <input type="hidden" value=@category.CATEGORY_TYPE name="CATEGORY_TYPE" id="CATEGORY_TYPE" />
+
+
+                    <div id="display_table">
+
+
+                    </div>
+
+                    <script>
+
+                    </script>
+                    <!--------------------------------------------------------------------------------->
+                    <div class="row">
+                        <div class="col-md-10">
+                        </div>
+                        <div class="col-md-2">
+                            <input id="notification-to-all" type="button" class="btn btn-primary btn-sm pull-right" value="Apply Program" onclick="Multi_user()" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var invalidRows = [
+            {
+                row: 1,
+                missingFields: { 'UserID': true }
+            },
+            {
+                row: 3,
+                missingFields: { 'UserID': false }
+            }
+        ];
+
+        // Get the table cell by its ID
+       var userIdCell = document.getElementById("nonExistentUserIdsListB");
+
+        $('.UsertoDisplayA').hide();
+        $('.UsertoDisplayA1').hide();
+
+
+        @*$('#activateButton').click(function () {
+
+            debugger;
+            if (!validateSelection()) {
+                return; // Stop execution if validation fails
+            }
+            //var form_data = $("#Assessment_form").serialize();
+            loading_on();
+            debugger;
+            var idprogram = $("#id_program").val();
+            var std = $("#datetimepicker1").val();
+            var exd = $("#datetimepicker2").val();
+            var ctid = $("#tile-category").val();
+            var chid = $("#heading-category").val();
+            var ncid = $("#notification-select").val();
+            var idrole  = $("#role-select").val();
+
+        $('#csvFileInput1').val('');
+
+        var file = $('#csvFileInput').prop('files')[0];
+        if (!file) {
+            $('#csvFile').show().text('Please select an xlsx file.');
+            return;
+        }
+
+        var fileName = file.name;
+        var fileExtension = fileName.split('.').pop().toLowerCase();
+
+        // Check if the file extension is XLSX
+        if (fileExtension !== 'xlsx') {
+            $('#csvFile').show().text('Please select an xlsx file.');
+            $('#csvFileInput').val(''); // Clear the file input
+            return;
+        }
+
+            $('#csvFile').hide(); // Hide error message if shown
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var data = new Uint8Array(e.target.result);
+                var workbook = XLSX.read(data, { type: 'array' });
+                var sheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[sheetName];
+                var jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+                var invalidRows = [];
+                var userIdStatusArray = jsonData.map(function (row, index) {
+                    var userId = row['Userid'];
+
+
+                    // Validation for blank columns
+                    if (!userId) {
+                        invalidRows.push({
+                            row: index + 1, // Row number (1-based index)
+                            missingFields: {
+                                userId: !userId
+
+                            }
+                        });
+                    }
+
+                    return {
+                        userId: userId,
+                        idprogram: idprogram,
+                        std: std,
+                        exd: exd,
+                        ctid: ctid,
+                        chid: chid,
+                        ncid: ncid,
+                        idrole: idrole
+
+                    };
+                });
+
+
+
+                if (invalidRows.length > 0) {
+                    var message = "The following rows have missing fields:\n";
+                    var tableContent = "<ul>"; // Start an unordered list for the table
+
+                    // Loop through each invalid row
+                    invalidRows.forEach(function (row) {
+                        message += "Row " + row.row + ": ";
+                        tableContent += "<li>Row " + row.row + ": <ul>";
+
+                        // Loop through missing fields
+                        for (var field in row.missingFields) {
+                            if (row.missingFields[field]) {
+                                message += field + " is missing.\n";
+                                tableContent += "<li>" + field + " is missing.</li>";
+                            }
+                        }
+
+                        message += "\n";
+                        tableContent += "</ul></li>";
+                    });
+
+                    tableContent += "</ul>";
+
+                    // Display the alert message
+                    alert(message);
+
+                    // Insert the constructed HTML into the table cell
+                    userIdCell.innerHTML = tableContent;
+                    return;
+                }
+
+                // Proceed with the AJAX request if validation passes
+                $.ajax({
+                    url: '@Url.Action("uplodeUserID", "contentDashboard")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ userIdStatusArray: userIdStatusArray }),
+                    success: function (result) {
+                        debugger;
+                        if (result.success) {
+                            alert(result.message);
+                            $('.UsertoDisplayA').show();
+                            $('.UsertoDisplayA1').show();
+
+                            displayUserIds(result.nonExistentUserIds, '#nonExistentUserIdsListA', 'User ID not Present');
+                            displayUserIds(result.allreadyUserIds, '#allreadyUserIds', 'User ID Allready Present');
+
+                        }
+                        else
+                        {
+                            alert("Error: " + result.message);
+                            displayUserIds(result.nonExistentUserIds, '#nonExistentUserIdsListA', 'User ID not Present');
+                            displayUserIds(result.allreadyUserIds, '#allreadyUserIds', 'User ID Allready Present');
+
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error occurred while processing the request.");
+                        console.error(error);
+                    }
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        });*@
+
+
+        $('#activateButton').click(function () {
+
+    debugger;
+    if (!validateSelection()) {
+        return; // Stop execution if validation fails
+    }
+
+    loading_on();
+
+    var idprogram = $("#id_program").val();
+    var std = $("#datetimepicker1").val();
+    var exd = $("#datetimepicker2").val();
+    var ctid = $("#tile-category").val();
+    var chid = $("#heading-category").val();
+    var ncid = $("#notification-select").val();
+    var idrole = $("#role-select").val();
+
+    $('#csvFileInput1').val(''); // Clear file input field
+
+    var file = $('#csvFileInput').prop('files')[0];
+    if (!file) {
+        $('#csvFile').show().text('Please select an xlsx file.');
+        return;
+    }
+
+    var fileName = file.name;
+    var fileExtension = fileName.split('.').pop().toLowerCase();
+
+    // Check if the file extension is XLSX
+    if (fileExtension !== 'xlsx') {
+        $('#csvFile').show().text('Please select an xlsx file.');
+        $('#csvFileInput').val(''); // Clear the file input
+        return;
+    }
+
+    $('#csvFile').hide(); // Hide error message if shown
+
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        var data = new Uint8Array(e.target.result);
+        var workbook = XLSX.read(data, { type: 'array' });
+        var sheetName = workbook.SheetNames[0];
+        var worksheet = workbook.Sheets[sheetName];
+        var jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+        var invalidRows = [];
+        var userIdStatusArray = jsonData.map(function (row, index) {
+            var userId = row['Userid'];
+
+            // Validation for blank columns
+            if (!userId) {
+                invalidRows.push({
+                    row: index + 1, // Row number (1-based index)
+                    missingFields: {
+                        userId: !userId
+                    }
+                });
+            }
+
+            return {
+                userId: userId,
+                idprogram: idprogram,
+                std: std,
+                exd: exd,
+                ctid: ctid,
+                chid: chid,
+                ncid: ncid,
+                idrole: idrole
+            };
+        });
+
+        if (invalidRows.length > 0) {
+            var message = "The following rows have missing fields:\n";
+            var tableContent = "<ul>";
+
+            invalidRows.forEach(function (row) {
+                message += "Row " + row.row + ": ";
+                tableContent += "<li>Row " + row.row + ": <ul>";
+
+                for (var field in row.missingFields) {
+                    if (row.missingFields[field]) {
+                        message += field + " is missing.\n";
+                        tableContent += "<li>" + field + " is missing.</li>";
+                    }
+                }
+
+                message += "\n";
+                tableContent += "</ul></li>";
+            });
+
+            tableContent += "</ul>";
+            alert(message);
+
+            return;
+        }
+
+        // Function to send data in chunks of 50 rows
+        function sendDataInChunks(dataArray, chunkSize) {
+            let totalChunks = Math.ceil(dataArray.length / chunkSize);
+            console.log(`Total chunks: ${totalChunks}`);
+
+            for (let i = 0; i < totalChunks; i++) {
+                let chunk = dataArray.slice(i * chunkSize, (i + 1) * chunkSize);
+                let isLastChunk = (i === totalChunks - 1); // Check if it's the last chunk
+
+                console.log(`Sending chunk ${i + 1}/${totalChunks} with size: ${chunk.length}`);
+
+                // Send each chunk via AJAX
+                $.ajax({
+                    url: '@Url.Action("uplodeUserID", "contentDashboard")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ userIdStatusArray: chunk, isLastChunk: isLastChunk }),
+                    success: function (result) {
+                        if (isLastChunk) {
+                            if (result.success) {
+                                loading_off();
+                                alert(result.message);
+                                fetchNonExistentUserIds();
+                            //    $('.UsertoDisplayA').show();
+                            //    $('.UsertoDisplayA1').show();
+                            //    displayUserIds(result.nonExistentUserIds, '#nonExistentUserIdsListA', 'User ID not Present');
+                            //    displayUserIds(result.allreadyUserIds, '#allreadyUserIds', 'User ID Already Present');
+                            } else {
+                                alert("Error: " + result.message);
+                                fetchNonExistentUserIds();
+                            //    displayUserIds(result.nonExistentUserIds, '#nonExistentUserIdsListA', 'User ID not Present');
+                            //    displayUserIds(result.allreadyUserIds, '#allreadyUserIds', 'User ID Already Present');
+                            }
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error occurred while processing the request.");
+                        console.error(error);
+                    }
+                });
+            }
+        }
+
+        // Call function to send data in chunks of 50 rows
+        sendDataInChunks(userIdStatusArray, 50);
+    };
+
+    reader.readAsArrayBuffer(file);
+        });
+
+            function fetchNonExistentUserIds() {
+    $.ajax({
+        url: '@Url.Action("GetNonExistentUserIdsProgram", "contentDashboard")',
+        type: 'GET',
+        success: function (result) {
+            if (result.success) {
+            //    $('.UsertoDisplayA').show();
+            //    $('.UsertoDisplayA1').show();
+            //    displayUserIds(result.nonExistentUserIds, '#nonExistentUserIdsListA', 'User ID not Present');
+                //    displayUserIds(result.AddExistentUserIds, '#allreadyUserIds', 'User ID Allready Present');
+                $('.UsertoDisplayA, .UsertoDisplayA1').show();
+                displayUserIds(result.nonExistentUserIds, '#nonExistentUserIdsListA', 'User ID not Present', 'UsertoDisplayA');
+                displayUserIds(result.AddExistentUserIds, '#allreadyUserIds', 'User ID Already Present', 'UsertoDisplayA1');
+            } else {
+                alert("Error: Could not retrieve non-existent user IDs.");
+            }
+        },
+        error: function (error) {
+            alert("Error occurred while fetching non-existent user IDs.");
+            console.error(error);
+        }
+    });
+}
+
+        function displayUserIds(userIds, elementId, headerText, sectionClass) {
+            var element = $(elementId);
+            element.empty(); // Clear any existing items
+
+            if (userIds && userIds.length > 0) {
+                userIds.forEach(function (userId) {
+                    var row = $('<tr>');
+                    var cell = $('<td>').text(userId);
+                    row.append(cell);
+                    element.append(row);
+                });
+
+                // Show the relevant section if there are user IDs
+                $(sectionClass).show();
+            } else {
+                var row = $('<tr>');
+                var cell = $('<td>').text(headerText);
+                row.append(cell);
+                element.append(row);
+
+                // Hide the relevant section if there are no user IDs
+                $(sectionClass).hide();
+            }
+        }
+
+    //   function displayUserIds(userIds, elementId, headerText) {
+    //    var element = $(elementId);
+    //    element.empty(); // Clear any existing items
+
+    //    if (userIds && userIds.length > 0) {
+    //        userIds.forEach(function (userId) {
+    //            var row = $('<tr>');
+    //            var cell = $('<td>').text(userId);
+    //            row.append(cell);
+    //            element.append(row);
+    //        });
+
+    //         if (elementId === '#nonExistentUserIdsListA') {
+    //             $('.UsertoDisplayA').show();
+    //             $('.UsertoDisplayA1').show();
+    //        }
+    //    } else {
+    //        var row = $('<tr>');
+    //        var cell = $('<td>').text(headerText);
+    //        row.append(cell);
+    //        element.append(row);
+
+    //       if (elementId === '#nonExistentUserIdsListA') {
+    //           $('.UsertoDisplayA').hide();
+    //           $('.UsertoDisplayA1').hide();
+    //        }
+    //    }
+    //}
+    });
+    function validateSelection() {
+        debugger;
+
+        var select = $("#tile-category").val();
+        var heading = $('#heading-category').val();
+        var std = $("#datetimepicker1").val();
+        var exd = $("#datetimepicker2").val();
+
+        if (select == null) {
+            loading_off();
+            $("#msg-txt").html("<p>Select tile-category to attach with Program</p>");
+            $('#m2ost-dialog').modal('show');
+            return false; // Validation failed
+        }
+        if (heading == null) {
+            loading_off();
+            $("#msg-txt").html("<p>Select heading-category to attach with Program</p>");
+            $('#m2ost-dialog').modal('show');
+            return false; // Validation failed
+        }
+        if (std == "") {
+            loading_off();
+            $("#msg-txt").html("<p>Select Start Date to attach with Program</p>");
+            $('#m2ost-dialog').modal('show');
+            return false; // Validation failed
+        }
+        if (exd == "") {
+            loading_off();
+            $("#msg-txt").html("<p>Select End Date to attach with Program</p>");
+            $('#m2ost-dialog').modal('show');
+            return false; // Validation failed
+        }
+
+        return true; // Validation passed
+    }
+
+
+/// End of the uplode
+
+    function check_all() {
+        if ($("#checkAll").prop('checked') == true) {
+            $('.myCheckbox').prop('checked', true);
+        }
+        else {
+            $('.myCheckbox').prop('checked', false);
+        }
+    }
+
+    function check_Deactive() {
+
+        if ($("#checkAll1").prop('checked') == true) {
+            $('.myCheckbox_D').prop('checked', true);
+
+
+            var tdText = $("td").text();
+
+            // Use a regular expression to extract the date
+            var dateMatch = tdText.match(/\(\s*(\d{1,2}\/\d{1,2}\/\d{4})\s*to\s*(\d{1,2}\/\d{1,2}\/\d{4})\s*\)/);
+
+            //if (dateMatch) {
+            //    var startDateStr = dateMatch[1]; // "7/22/2024"
+            //    var parts = startDateStr.split('/');
+
+            //    // Convert to "22-07-2024 00:00" format
+            //    var formattedDate = ("0" + parts[1]).slice(-2) + "-" + ("0" + parts[0]).slice(-2) + "-" + parts[2] + " 00:00";
+
+            //    // Parse the formatted date to a Date object
+            //    var parsedStartDate = new Date(parts[2], parts[0] - 1, parts[1]);
+
+            //    // Ensure the date is parsed correctly
+            //    if (!isNaN(parsedStartDate.getTime())) {
+            //        // Destroy any existing datetimepicker instance
+            //        $("#datetimepicker1").datetimepicker('destroy');
+            //       // $("#datetimepicker1").val(datetimepicker1);
+            //        debugger;
+            //        // Initialize the datetimepicker with new settings
+            //        //$("#datetimepicker1").datetimepicker({
+            //        //    dateFormat: "dd-mm-yy",
+            //        //    minDate: null
+            //        //});
+
+
+            //    } else {
+            //        console.log("Invalid start date");
+            //    }
+            //} else {
+            //    console.log("Date not found");
+            //}
+
+
+
+          //  $("#datetimepicker1").datetimepicker('destroy');
+
+          //  // Initialize the datetimepicker with new settings
+          //  $("#datetimepicker1").datetimepicker({
+          //      dateFormat: "dd-mm-yy",
+          //      minDate: null // or set the desired minDate
+          //  });
+          //  //search
+          ////  getContentReport(1);
+
+        }
+        else {
+            $('.myCheckbox_D').prop('checked', false);
+        }
+
+
+    }
+
+    function Deactive() {
+    loading_on();
+    var checkedCheckboxes = document.querySelectorAll('.myCheckbox_D:checked');
+    var values = [];
+    checkedCheckboxes.forEach(function (checkbox) {
+        values.push(checkbox.value);
+    });
+
+    if (values.length > 0) {
+        var cid = $("#id_program").val();
+        var url = '@Url.Action("removeProgramToUserall", "contentDashboard")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { cid: cid, values: values, type: "0" },
+            success: function (data) {
+                loading_off();
+                if (data == "1") {
+                    checkedCheckboxes.forEach(function (checkbox) {
+                        checkbox.checked = false;
+                        $("#link_" + checkbox.value).hide();
+                        $("#done_" + checkbox.value).show();
+                    });
+                    $('#checkAll1').prop('checked', false);
+                    $("#msg-txt").html("<p>Unassign all the users</p>");
+                    $('#m2ost-dialog').modal('show');
+                }
+            }
+        });
+    }
+}
+
+
+    function getval(sel) {
+
+
+
+        category_id = sel.value;
+        $("#category_heading").val(category_id);
+
+    }
+    function get_startdate(sel) {
+
+        $("#start_date").val(sel);
+
+    }
+
+    function get_enddate(sel) {
+
+
+        $("#end_date").val(sel);
+
+    }
+    function get_notification(val) {
+
+        $("#notification_id").val(val);
+    }
+
+</script>
+
+
+
+
+

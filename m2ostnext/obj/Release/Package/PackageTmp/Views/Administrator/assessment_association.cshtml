@@ -1,0 +1,190 @@
+﻿@{
+    ViewBag.Title = "Assessment Detail";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+
+    function getContentReport() {
+        loading_on();
+
+        var oid = $("#orgs-select").val();
+        var tcid = $("#trnf-orgs-select").val();
+        var url = '@Url.Action("getAssessmentAssociationList", "Administrator")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { osid: oid, odid: tcid },
+          
+            success: function (data) {
+                $("#display_table").empty().append(data);
+                $("#report-table").dataTable();
+
+                $('#report-table').focus();
+            }
+        });
+
+        loading_off();
+    }
+
+    function addAssessmentToOrganization(cid, oid) {
+
+        var oid = $("#trnf-orgs-select").val();
+        var url = '@Url.Action("addAssessmentToOrganization", "Administrator")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { oid: oid, cid: cid },
+           
+            success: function (data) {
+                if (data == "0") {
+                    $("#div-hidden-alert").show();
+
+
+                    setTimeout(function () {
+                        $("#div-hidden-alert").hide();
+                      
+                    }, 3000);
+                } else {
+                    $("#div-susscess-alert").show();
+                    setTimeout(function () {
+                        $("#div-susscess-alert").hide();
+                        $("#link_" + cid).hide();
+                    }, 3000);
+                }
+            }
+        });
+    }
+    function removeAssessmentAssociation(cid, oid) {
+
+        var oid = $("#trnf-orgs-select").val();
+        var url = '@Url.Action("removeAssessmentAssociation", "Administrator")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { oid: oid, cid: cid },
+           
+            success: function (data) {
+                if (data == "0") {
+                    $("#div-remove-alert").show();
+                    setTimeout(function () {
+                        $("#div-remove-alert").hide();                     
+                    }, 3000);
+                } else {
+                    $("#div-remove-alert").show();
+                    setTimeout(function () {
+                        $("#div-remove-alert").hide();
+                        $("#tag_" + cid).hide();
+                    }, 3000);
+                }
+            }
+        });
+    }
+
+
+    function clearScreen() {
+        $("#display_table").empty();
+
+    }
+
+</script>
+@{
+    int oids = (int)ViewData["orgid"];
+    m2ostnext.Models.UserSession Sessions = (m2ostnext.Models.UserSession)HttpContext.Current.Session["UserSession"];
+    bool access = false;
+    List<tbl_organization> orglist = (List<tbl_organization>)ViewData["orgs"];
+    List<m2ostnext.Models.AssessmentSheet> assessment = (List<m2ostnext.Models.AssessmentSheet>)ViewData["AssessmentList"];
+    foreach (tbl_cms_role_action_mapping item in Sessions.action)
+    {
+        if (item.id_cms_role_action == 3)
+        {
+            access = true;
+        }
+    }
+}
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Organisation Assessment Mapping</h6>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="panel-title">Select Source Organization </h5>
+                        <select class="form-control" id="orgs-select">
+                            <option selected disabled>Select Source Organization</option>
+                            @foreach (tbl_organization item in orglist)
+                            {
+                                if (item.ID_ORGANIZATION == 16)
+                                {
+                                    <option value="@item.ID_ORGANIZATION">@item.ORGANIZATION_NAME</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        @if (oids == 16)
+                        {
+                            <h5 class="panel-title">Select Target Organization </h5>
+                            <select class="form-control" id="trnf-orgs-select" onchange="clearScreen()">
+                                @foreach (tbl_organization item in orglist)
+                                {
+                                    if (item.ID_ORGANIZATION != 16)
+                                    {
+                                        <option value="@item.ID_ORGANIZATION">@item.ORGANIZATION_NAME</option>
+                                    }
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            <input type="hidden" value="@oids" name="trnf-orgs-select" id="trnf-orgs-select" />
+                        }
+                    </div>
+                </div>
+                <hr />
+                <input type="button" class="btn btn-primary btn-sm " value=" Submit " onclick="getContentReport()" />
+                <hr />
+                <div class="row" id="div-susscess-alert" style="display:none;">
+                    <div class="col-md-12">
+                        <input type="hidden" value="" id="hidden-val" />
+                        <div class="alert alert-success alert-dismissable">
+                            <strong>Success..! </strong>Assessment Association Created .
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="div-remove-alert" style="display:none;">
+                    <div class="col-md-12">
+                        <input type="hidden" value="" id="hidden-val" />
+                        <div class="alert alert-success alert-dismissable">
+                            <strong>Success..! </strong>Assessment Association Removed .
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="div-hidden-alert" style="display:none;">
+                    <div class="col-md-12">
+                        <input type="hidden" value="" id="hidden-val" />
+                        <div class="alert alert-warning alert-dismissable">
+                            Assessment Association already present ...!
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div id="display_table">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

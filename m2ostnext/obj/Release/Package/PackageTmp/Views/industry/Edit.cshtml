@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+}
+@{
+    tbl_industry industry = (tbl_industry)ViewData["industry"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Edit Industry</h4>
+            </div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm("editIndustry", "contentDashboard", FormMethod.Post, new { id = "form-add-industry" }))
+                {
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <label class="control-label">Industry Name</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control validate[required]" value="@industry.INDUSTRYNAME" placeholder="" id="industry-name" name="industry-name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <label class="control-label">Description</label>
+                            </div>
+
+                            <div class="col-md-10">
+                                <input type="text" class="form-control validate[required]" value="@industry.DESCRIPTION" placeholder="" id="industry-desc" name="industry-desc" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Update" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

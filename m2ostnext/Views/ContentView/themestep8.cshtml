@@ -1,0 +1,28 @@
+﻿@{
+    int step = (int)ViewData["step-count"];
+    tbl_content_answer_steps steps = null;
+    if (ViewData["stepinfo"] != null)
+    {
+        steps = (tbl_content_answer_steps)ViewData["stepinfo"];
+    }
+    else
+    {
+        steps = new tbl_content_answer_steps();
+    }
+}
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <textarea class="form-control validate[required]" name="step-@(step)-part1" id="step-@(step)-part1" placeholder="Answer Step Part 1 " rows="4">@steps.ANSWER_STEPS_PART1</textarea>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <textarea class="form-control" name="step-@(step)-part2" id="step-@(step)-part2" placeholder="Answer Step Part 2" rows="10">@steps.ANSWER_STEPS_PART2</textarea>
+        </div>
+    </div>
+</div>

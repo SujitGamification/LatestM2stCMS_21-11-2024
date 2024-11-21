@@ -1,0 +1,3064 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db_m2ost_production_v_5Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="downtime_log">
+    <Key>
+      <PropertyRef Name="id_downtime_log" />
+    </Key>
+    <Property Name="id_downtime_log" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="message_text" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="error_log">
+    <Key>
+      <PropertyRef Name="Error_ID" />
+    </Key>
+    <Property Name="Error_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Error_Message" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Error_Inner" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="UPDATEDDATETIME" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="masti_parent_teacher_mapping">
+    <Key>
+      <PropertyRef Name="id_parent_teacher" />
+    </Key>
+    <Property Name="id_parent_teacher" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_parent" Type="Int32" />
+    <Property Name="id_teacher" Type="Int32" />
+    <Property Name="id_parent_org" Type="Int32" />
+    <Property Name="id_teacher_org" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="masti_teacher_galleryfolder">
+    <Key>
+      <PropertyRef Name="id_gallery_folder" />
+    </Key>
+    <Property Name="id_gallery_folder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_teacher" Type="Int32" />
+    <Property Name="folder_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="folder_size" Type="Double" />
+    <Property Name="updated_time" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_org" Type="Int32" />
+  </EntityType>
+  <EntityType Name="masti_teacher_photo_mapping">
+    <Key>
+      <PropertyRef Name="id_photo_mapping" />
+    </Key>
+    <Property Name="id_photo_mapping" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_teacher" Type="Int32" />
+    <Property Name="photo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="updated_time" Type="DateTime" />
+    <Property Name="id_org" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="sc_game_element_weightage">
+    <Key>
+      <PropertyRef Name="id_sc_game_element_weightage" />
+    </Key>
+    <Property Name="id_sc_game_element_weightage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_game" Type="Int32" />
+    <Property Name="element_type" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="id_kpi_master" Type="Int32" />
+    <Property Name="element_score" Type="Double" />
+    <Property Name="element_weightage" Type="Double" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_darte_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="sc_program_assessment_scoring">
+    <Key>
+      <PropertyRef Name="id_sc_program_assessment_scoring" />
+    </Key>
+    <Property Name="id_sc_program_assessment_scoring" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="assessment_score" Type="Double" />
+    <Property Name="assessment_wieghtage" Type="Double" />
+    <Property Name="attempt_number" Type="Int32" />
+    <Property Name="log_datetime" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="sc_program_content_summary">
+    <Key>
+      <PropertyRef Name="id_sc_program_content_summary" />
+    </Key>
+    <Property Name="id_sc_program_content_summary" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="totoal_count" Type="Int32" />
+    <Property Name="completed_count" Type="Int32" />
+    <Property Name="percentage" Type="Double" />
+    <Property Name="content_weightage" Type="Double" />
+    <Property Name="log_datetime" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="sc_program_kpi_score">
+    <Key>
+      <PropertyRef Name="id_sc_program_kpi_score" />
+    </Key>
+    <Property Name="id_sc_program_kpi_score" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="transactionid" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_kpi_master" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="score" Type="Double" />
+    <Property Name="log_datetime" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="sc_program_kpi_weightage">
+    <Key>
+      <PropertyRef Name="id_sc_program_kpi_weightage" />
+    </Key>
+    <Property Name="id_sc_program_kpi_weightage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_kpi_master" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="score" Type="Double" />
+    <Property Name="kpi_wieghtage" Type="Double" />
+    <Property Name="log_datetime" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="sc_program_log">
+    <Key>
+      <PropertyRef Name="id_sc_program_log" />
+    </Key>
+    <Property Name="id_sc_program_log" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="id_kpi_master" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="score_value" Type="Double" />
+    <Property Name="score_timestamp" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="sc_report_game_process_path">
+    <Key>
+      <PropertyRef Name="id_sc_report_game_process_path" />
+    </Key>
+    <Property Name="id_sc_report_game_process_path" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_game" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="process_type" Type="Int32" />
+    <Property Name="sequence_number" Type="Int32" />
+    <Property Name="score" Type="Double" />
+    <Property Name="element_weightage" Type="Double" />
+    <Property Name="element_type" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="sc_report_game_process_score">
+    <Key>
+      <PropertyRef Name="id_sc_report_game_process_score" />
+    </Key>
+    <Property Name="id_sc_report_game_process_score" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_game" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="element_type" Type="Int32" />
+    <Property Name="sequence_number" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="id_kpi_master" Type="Int32" />
+    <Property Name="score" Type="Double" />
+    <Property Name="kpi_weightage" Type="Double" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_action">
+    <Key>
+      <PropertyRef Name="ID_ACTION" />
+    </Key>
+    <Property Name="ID_ACTION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ACTION_NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_user_data" Relationship="Self.fk3_tbl_user_data" FromRole="tbl_action" ToRole="tbl_user_data" />
+  </EntityType>
+  <EntityType Name="tbl_assessment">
+    <Key>
+      <PropertyRef Name="id_assessment" />
+    </Key>
+    <Property Name="id_assessment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="assessment_title" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="assesment_description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="assessment_type" Type="Int32" />
+    <Property Name="assess_created" Type="DateTime" />
+    <Property Name="assess_start" Type="DateTime" />
+    <Property Name="assess_ended" Type="DateTime" />
+    <Property Name="assess_type" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="assess_group" Type="Int32" />
+    <Property Name="lower_title" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="high_title" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="lower_value" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="high_value" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="total_attempt" Type="Int32" />
+    <Property Name="ans_requiered" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <Property Name="answer_description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_assessment_sheet" Relationship="Self.fk_assesment_sht2" FromRole="tbl_assessment" ToRole="tbl_assessment_sheet" />
+    <NavigationProperty Name="tbl_organization" Relationship="Self.fk_assessment1" FromRole="tbl_assessment" ToRole="tbl_organization" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_answer">
+    <Key>
+      <PropertyRef Name="id_assessment_answer" />
+    </Key>
+    <Property Name="id_assessment_answer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="id_assessment_question" Type="Int32" />
+    <Property Name="id_assessment_scoring_key" Type="Int32" />
+    <Property Name="answer_description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="position" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <NavigationProperty Name="tbl_assessment_header" Relationship="Self.fk_assessment_header3" FromRole="tbl_assessment_answer" ToRole="tbl_assessment_header" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_audit">
+    <Key>
+      <PropertyRef Name="id_assessment_audit" />
+    </Key>
+    <Property Name="id_assessment_audit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="id_assessment_sheet" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_assessment_question" Type="Int32" />
+    <Property Name="id_assessment_answer" Type="Int32" />
+    <Property Name="value_sent" Type="Int32" />
+    <Property Name="attempt_no" Type="Int32" />
+    <Property Name="recorded_timestamp" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_categoty_mapping">
+    <Key>
+      <PropertyRef Name="id_assessment_categoty_mapping" />
+    </Key>
+    <Property Name="id_assessment_categoty_mapping" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_assessment_sheet" Type="Int32" Nullable="false" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="id_category" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_general">
+    <Key>
+      <PropertyRef Name="id_assessment_general" />
+    </Key>
+    <Property Name="id_assessment_general" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_assesment_sheet" Type="Int32" Nullable="false" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <NavigationProperty Name="tbl_organization" Relationship="Self.fk_assess_gene1" FromRole="tbl_assessment_general" ToRole="tbl_organization" />
+    <NavigationProperty Name="tbl_assessment_sheet" Relationship="Self.fk_assess_gene2" FromRole="tbl_assessment_general" ToRole="tbl_assessment_sheet" />
+    <NavigationProperty Name="tbl_user" Relationship="Self.fk_assess_gene3" FromRole="tbl_assessment_general" ToRole="tbl_user" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_header">
+    <Key>
+      <PropertyRef Name="id_assessment_header" />
+    </Key>
+    <Property Name="id_assessment_header" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_assessment_scoring_key" Type="Int32" Nullable="false" />
+    <Property Name="id_assessment_question" Type="Int32" Nullable="false" />
+    <Property Name="id_assessment_answer" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <NavigationProperty Name="tbl_assessment_answer" Relationship="Self.fk_assessment_header3" FromRole="tbl_assessment_header" ToRole="tbl_assessment_answer" />
+    <NavigationProperty Name="tbl_assessment_scoring_key" Relationship="Self.fk_assessment_header1" FromRole="tbl_assessment_header" ToRole="tbl_assessment_scoring_key" />
+    <NavigationProperty Name="tbl_assessment_question" Relationship="Self.fk_assessment_header2" FromRole="tbl_assessment_header" ToRole="tbl_assessment_question" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_index">
+    <Key>
+      <PropertyRef Name="id_assessment_index" />
+    </Key>
+    <Property Name="id_assessment_index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_user" Type="Int32" Nullable="false" />
+    <Property Name="id_assessment_sheet" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_mapping">
+    <Key>
+      <PropertyRef Name="id_assessment_mapping" />
+    </Key>
+    <Property Name="id_assessment_mapping" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_assessment_sheet" Type="Int32" />
+    <Property Name="id_content" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_push">
+    <Key>
+      <PropertyRef Name="id_assessment_push" />
+    </Key>
+    <Property Name="id_assessment_push" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_assesment_sheet" Type="Int32" Nullable="false" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_question">
+    <Key>
+      <PropertyRef Name="id_assessment_question" />
+    </Key>
+    <Property Name="id_assessment_question" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="id_assessment_scoring_key" Type="Int32" />
+    <Property Name="assessment_question" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="question_image" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="aq_answer" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <NavigationProperty Name="tbl_assessment_header" Relationship="Self.fk_assessment_header2" FromRole="tbl_assessment_question" ToRole="tbl_assessment_header" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_scoring_key">
+    <Key>
+      <PropertyRef Name="id_assessment_scoring_key" />
+    </Key>
+    <Property Name="id_assessment_scoring_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="header_name" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="id_assessment_theme" Type="Int32" />
+    <Property Name="position" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <NavigationProperty Name="tbl_assessment_header" Relationship="Self.fk_assessment_header1" FromRole="tbl_assessment_scoring_key" ToRole="tbl_assessment_header" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_sheet">
+    <Key>
+      <PropertyRef Name="id_assessment_sheet" />
+    </Key>
+    <Property Name="id_assessment_sheet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_assesment" Type="Int32" Nullable="false" />
+    <Property Name="id_assessment_theme" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <NavigationProperty Name="tbl_assessment" Relationship="Self.fk_assesment_sht2" FromRole="tbl_assessment_sheet" ToRole="tbl_assessment" />
+    <NavigationProperty Name="tbl_assessment_general" Relationship="Self.fk_assess_gene2" FromRole="tbl_assessment_sheet" ToRole="tbl_assessment_general" />
+    <NavigationProperty Name="tbl_organization" Relationship="Self.fk_assesment_sht1" FromRole="tbl_assessment_sheet" ToRole="tbl_organization" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_theme">
+    <Key>
+      <PropertyRef Name="id_assessment_theme" />
+    </Key>
+    <Property Name="id_assessment_theme" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="assessment_theme" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="id_organization" Type="Int32" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_user_assignment">
+    <Key>
+      <PropertyRef Name="id_assessment_user_assignment" />
+    </Key>
+    <Property Name="id_assessment_user_assignment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="start_date" Type="DateTime" />
+    <Property Name="expire_date" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_assessmnt_log">
+    <Key>
+      <PropertyRef Name="id_assessmnt_log" />
+    </Key>
+    <Property Name="id_assessmnt_log" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_user" Type="Int32" Nullable="false" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_assessment_sheet" Type="Int32" Nullable="false" />
+    <Property Name="json_response" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="attempt_no" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_assignment_role_assessment">
+    <Key>
+      <PropertyRef Name="id_assignment_role_assessment" />
+    </Key>
+    <Property Name="id_assignment_role_assessment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_role" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="start_datetime" Type="DateTime" />
+    <Property Name="end_datetime" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_assignment_role_content">
+    <Key>
+      <PropertyRef Name="id_assignment_role_content" />
+    </Key>
+    <Property Name="id_assignment_role_content" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_role" Type="Int32" />
+    <Property Name="id_content" Type="Int32" />
+    <Property Name="start_datetime" Type="DateTime" />
+    <Property Name="end_datetime" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_assignment_role_program">
+    <Key>
+      <PropertyRef Name="id_assignment_role_program" />
+    </Key>
+    <Property Name="id_assignment_role_program" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_role" Type="Int32" />
+    <Property Name="id_program" Type="Int32" />
+    <Property Name="start_datetime" Type="DateTime" />
+    <Property Name="end_datetime" Type="DateTime" />
+    <Property Name="id_category_tile" Type="Int32" />
+    <Property Name="id_category_heading" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_authcode">
+    <Key>
+      <PropertyRef Name="ID_CODE" />
+    </Key>
+    <Property Name="ID_CODE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CODE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATEDTIME" Type="DateTime" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_banner">
+    <Key>
+      <PropertyRef Name="id_banner" />
+    </Key>
+    <Property Name="id_banner" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" Nullable="false" />
+    <Property Name="banner_name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="banner_image" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="banner_action_url" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <NavigationProperty Name="tbl_content_banner" Relationship="Self.fk_content_bann2" FromRole="tbl_banner" ToRole="tbl_content_banner" />
+    <NavigationProperty Name="tbl_organization" Relationship="Self.fk_org_banner" FromRole="tbl_banner" ToRole="tbl_organization" />
+  </EntityType>
+  <EntityType Name="tbl_brief_category_tile">
+    <Key>
+      <PropertyRef Name="id_brief_category_tile" />
+    </Key>
+    <Property Name="id_brief_category_tile" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="category_tile" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="tile_code" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="tile_description" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
+    <Property Name="tile_image" Type="String" MaxLength="4500" FixedLength="false" Unicode="false" />
+    <Property Name="category_tile_type" Type="Int32" />
+    <Property Name="tile_position" Type="Int32" />
+    <Property Name="assessment_complation" Type="Int32" />
+    <Property Name="attempt_limit" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_brief_tile_category_mapping">
+    <Key>
+      <PropertyRef Name="id_brief_tile_category_mapping" />
+    </Key>
+    <Property Name="id_brief_tile_category_mapping" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_brief_category_tile" Type="Int32" />
+    <Property Name="id_brief_category" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_business_type">
+    <Key>
+      <PropertyRef Name="ID_BUSINESS_TYPE" />
+    </Key>
+    <Property Name="ID_BUSINESS_TYPE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BUSINESS_TYPE_NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_organization" Relationship="Self.fk2_tbl_organization" FromRole="tbl_business_type" ToRole="tbl_organization" />
+  </EntityType>
+  <EntityType Name="tbl_category">
+    <Key>
+      <PropertyRef Name="ID_CATEGORY" />
+    </Key>
+    <Property Name="ID_CATEGORY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_ORGANIZATION" Type="Int32" Nullable="false" />
+    <Property Name="CATEGORYNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="IMAGE_PATH" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <Property Name="SUB_HEADING" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ORDERID" Type="Int32" />
+    <Property Name="IS_PRIMARY" Type="Int32" />
+    <Property Name="ID_PARENT" Type="Int32" />
+    <Property Name="SEARCH_MAX_COUNT" Type="Int32" />
+    <Property Name="COUNT_REQUIRED" Type="Int32" />
+    <Property Name="CATEGORY_TYPE" Type="Int32" />
+    <Property Name="IMAGE_URL" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_category_associantion" Relationship="Self.fk_asso3" FromRole="tbl_category" ToRole="tbl_category_associantion" />
+    <NavigationProperty Name="tbl_content_organization_mapping" Relationship="Self.fk_content_org_cont2" FromRole="tbl_category" ToRole="tbl_content_organization_mapping" />
+    <NavigationProperty Name="tbl_organization" Relationship="Self.fk1_tbl_category" FromRole="tbl_category" ToRole="tbl_organization" />
+  </EntityType>
+  <EntityType Name="tbl_category_associantion">
+    <Key>
+      <PropertyRef Name="id_category_association" />
+    </Key>
+    <Property Name="id_category_association" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_category_tile" Type="Int32" />
+    <Property Name="id_category_heading" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="category_order" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="tbl_category" Relationship="Self.fk_asso3" FromRole="tbl_category_associantion" ToRole="tbl_category" />
+    <NavigationProperty Name="tbl_category_tiles" Relationship="Self.fk_asso1" FromRole="tbl_category_associantion" ToRole="tbl_category_tiles" />
+    <NavigationProperty Name="tbl_category_heading" Relationship="Self.fk_asso2" FromRole="tbl_category_associantion" ToRole="tbl_category_heading" />
+  </EntityType>
+  <EntityType Name="tbl_category_heading">
+    <Key>
+      <PropertyRef Name="id_category_heading" />
+    </Key>
+    <Property Name="id_category_heading" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Heading_title" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+    <Property Name="id_category_tiles" Type="Int32" />
+    <Property Name="heading_order" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="tbl_category_associantion" Relationship="Self.fk_asso2" FromRole="tbl_category_heading" ToRole="tbl_category_associantion" />
+    <NavigationProperty Name="tbl_category_tiles" Relationship="Self.fk_head1" FromRole="tbl_category_heading" ToRole="tbl_category_tiles" />
+  </EntityType>
+  <EntityType Name="tbl_category_order">
+    <Key>
+      <PropertyRef Name="id_category_order" />
+    </Key>
+    <Property Name="id_category_order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_heading_category" Type="Int32" />
+    <Property Name="category_heading" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="heading_order" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="id_organisation" Type="Int32" />
+    <Property Name="category_list" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_category_tiles">
+    <Key>
+      <PropertyRef Name="id_category_tiles" />
+    </Key>
+    <Property Name="id_category_tiles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tile_heading" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+    <Property Name="category_theme" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="tile_image" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="category_order" Type="Int32" />
+    <Property Name="image_url" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_category_associantion" Relationship="Self.fk_asso1" FromRole="tbl_category_tiles" ToRole="tbl_category_associantion" />
+    <NavigationProperty Name="tbl_category_heading" Relationship="Self.fk_head1" FromRole="tbl_category_tiles" ToRole="tbl_category_heading" />
+    <NavigationProperty Name="tbl_organization" Relationship="Self.fk_tile1" FromRole="tbl_category_tiles" ToRole="tbl_organization" />
+  </EntityType>
+  <EntityType Name="tbl_certificate_assignment">
+    <Key>
+      <PropertyRef Name="id_certificate_assignment" />
+    </Key>
+    <Property Name="id_certificate_assignment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_certificate" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <Property Name="id_org" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tbl_certificate_configure">
+    <Key>
+      <PropertyRef Name="id_certificate" />
+    </Key>
+    <Property Name="id_certificate" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="certificate_title" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="signature" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="label_1" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="label_2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="label_3" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_certificate_configure_data">
+    <Key>
+      <PropertyRef Name="id_configure_data" />
+    </Key>
+    <Property Name="id_configure_data" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_certificate" Type="Int32" Nullable="false" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="label_1" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="label_2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="label_3" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="label_1_range" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="label_2_range" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="label_3_range" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="signature" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_childinformation">
+    <Key>
+      <PropertyRef Name="id_child" />
+    </Key>
+    <Property Name="id_child" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="roll_no" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="first_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="middle_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="sur_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="year" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="id_organization" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="id_teacher" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="gender" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="dob" Type="DateTime" />
+    <Property Name="age" Type="Int32" />
+    <Property Name="doj" Type="DateTime" />
+    <Property Name="street" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="city" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="state" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="country" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="pincode" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="father_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="father_mob" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="mother_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="mother_mob" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="email_id" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="other_contact_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="other_contact_mob" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="remarks_med_alergies" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="identification_marks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="payment_term1" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="payment_term2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_cms_role_action">
+    <Key>
+      <PropertyRef Name="id_cms_role_action" />
+    </Key>
+    <Property Name="id_cms_role_action" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cms_role_action" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <Property Name="action_type" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tbl_cms_role_action_mapping">
+    <Key>
+      <PropertyRef Name="id_cms_role_action_mapping" />
+    </Key>
+    <Property Name="id_cms_role_action_mapping" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_cms_role_action" Type="Int32" />
+    <Property Name="id_cms_role" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_cms_roles">
+    <Key>
+      <PropertyRef Name="ID_ROLE" />
+    </Key>
+    <Property Name="ID_ROLE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_ORGANIZATION" Type="Int32" Nullable="false" />
+    <Property Name="ROLENAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_cms_users">
+    <Key>
+      <PropertyRef Name="ID_USER" />
+    </Key>
+    <Property Name="ID_USER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_ROLE" Type="Int32" Nullable="false" />
+    <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PASSWORD" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <Property Name="cmd_user_type" Type="Int32" />
+    <Property Name="employee_id" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="employee_name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_color_config">
+    <Key>
+      <PropertyRef Name="id_color_config" />
+    </Key>
+    <Property Name="id_color_config" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organisation" Type="Int32" />
+    <Property Name="config_type" Type="Int32" />
+    <Property Name="grid1_bk_color" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="grid1_text_color" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="grid2_bk_color" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="grid2_text_color" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="created_date_time" Type="DateTime" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_color_config_flag">
+    <Key>
+      <PropertyRef Name="id_flag" />
+    </Key>
+    <Property Name="id_flag" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_org" Type="Int32" />
+    <Property Name="flag" Type="Int32" />
+    <Property Name="updated_date" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="tbl_content">
+    <Key>
+      <PropertyRef Name="ID_CONTENT" />
+    </Key>
+    <Property Name="ID_CONTENT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_THEME" Type="Int32" Nullable="false" />
+    <Property Name="ID_USER" Type="Int32" Nullable="false" />
+    <Property Name="ID_CONTENT_LEVEL" Type="Int32" Nullable="false" />
+    <Property Name="CONTENT_TITLE" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_HEADER" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_QUESTION" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CONTENT_COUNTER" Type="Int32" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <Property Name="LINK_COUNT" Type="Int32" Nullable="false" />
+    <Property Name="IS_PRIMARY" Type="Int32" Nullable="false" />
+    <Property Name="EXPIRY_DATE" Type="DateTime" />
+    <Property Name="COMMENT" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_IDENTIFIER" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_OWNER" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tbl_content_banner" Relationship="Self.fk_content_bann1" FromRole="tbl_content" ToRole="tbl_content_banner" />
+    <NavigationProperty Name="tbl_content_header_footer" Relationship="Self.fk_content_hf1" FromRole="tbl_content" ToRole="tbl_content_header_footer" />
+    <NavigationProperty Name="tbl_content_right_association" Relationship="Self.fk_content_org_2" FromRole="tbl_content" ToRole="tbl_content_right_association" />
+    <NavigationProperty Name="tbl_content_organization_mapping" Relationship="Self.fk_content_org_cont3" FromRole="tbl_content" ToRole="tbl_content_organization_mapping" />
+    <NavigationProperty Name="tbl_subscriptions" Relationship="Self.fk2_tbl_subscriptions" FromRole="tbl_content" ToRole="tbl_subscriptions" />
+  </EntityType>
+  <EntityType Name="tbl_content_answer">
+    <Key>
+      <PropertyRef Name="ID_CONTENT_ANSWER" />
+    </Key>
+    <Property Name="ID_CONTENT_ANSWER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_CONTENT" Type="Int32" Nullable="false" />
+    <Property Name="CONTENT_ANSWER_TITLE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER_HEADER" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CONTENT_ANSWER1" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CONTENT_ANSWER2" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER3" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER4" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER_IMG1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER_IMG2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER_IMG3" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER_BANNER" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="REDIRECTION_URL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER_COUNTER" Type="Int32" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATEDTIME" Type="DateTime" Nullable="false" />
+    <Property Name="CONTENT_ANSWER10" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER5" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER6" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER7" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER8" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER9" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER_IMG10" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER_IMG4" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER_IMG5" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER_IMG6" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER_IMG7" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER_IMG8" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="CONTENT_ANSWER_IMG9" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_content_answer_steps" Relationship="Self.fk1_tbl_content_answer_steps" FromRole="tbl_content_answer" ToRole="tbl_content_answer_steps" />
+    <NavigationProperty Name="tbl_content_metadata" Relationship="Self.fk1_tbl_content_metadata" FromRole="tbl_content_answer" ToRole="tbl_content_metadata" />
+    <NavigationProperty Name="tbl_content_type_link" Relationship="Self.fk1_tbl_content_type_link" FromRole="tbl_content_answer" ToRole="tbl_content_type_link" />
+    <NavigationProperty Name="tbl_survey" Relationship="Self.fk1_tbl_survey" FromRole="tbl_content_answer" ToRole="tbl_survey" />
+  </EntityType>
+  <EntityType Name="tbl_content_answer_steps">
+    <Key>
+      <PropertyRef Name="ID_ANSWER_STEP" />
+    </Key>
+    <Property Name="ID_ANSWER_STEP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_CONTENT_ANSWER" Type="Int32" Nullable="false" />
+    <Property Name="STEPNO" Type="Int32" Nullable="false" />
+    <Property Name="ANSWER_STEPS_PART1" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ANSWER_STEPS_PART2" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_IMG1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_IMG2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_BANNER" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="REDIRECTION_URL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATEDDATETIME" Type="DateTime" Nullable="false" />
+    <Property Name="ID_THEME" Type="Int32" />
+    <Property Name="ANSWER_STEPS_PART3" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_IMG3" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_IMG10" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_IMG5" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_IMG6" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_IMG7" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_IMG8" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_IMG9" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_PART10" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_PART4" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_PART5" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_PART6" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_PART7" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_PART8" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_PART9" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="ANSWER_STEPS_IMG4" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_content_answer" Relationship="Self.fk1_tbl_content_answer_steps" FromRole="tbl_content_answer_steps" ToRole="tbl_content_answer" />
+    <NavigationProperty Name="tbl_survey" Relationship="Self.fk2_tbl_survey" FromRole="tbl_content_answer_steps" ToRole="tbl_survey" />
+  </EntityType>
+  <EntityType Name="tbl_content_banner">
+    <Key>
+      <PropertyRef Name="id_content_banner" />
+    </Key>
+    <Property Name="id_content_banner" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_content" Type="Int32" Nullable="false" />
+    <Property Name="id_banner" Type="Int32" Nullable="false" />
+    <Property Name="id_organization" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <Property Name="date_assigned" Type="DateTime" />
+    <Property Name="date_removed" Type="DateTime" />
+    <NavigationProperty Name="tbl_banner" Relationship="Self.fk_content_bann2" FromRole="tbl_content_banner" ToRole="tbl_banner" />
+    <NavigationProperty Name="tbl_content" Relationship="Self.fk_content_bann1" FromRole="tbl_content_banner" ToRole="tbl_content" />
+  </EntityType>
+  <EntityType Name="tbl_content_counters">
+    <Key>
+      <PropertyRef Name="id_content_counters" />
+    </Key>
+    <Property Name="id_content_counters" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_content" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="flag" Type="Int32" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_content_footer">
+    <Key>
+      <PropertyRef Name="id_content_footer" />
+    </Key>
+    <Property Name="id_content_footer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" Nullable="false" />
+    <Property Name="content_footer_name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="content_footer_image" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="content_footer_action_url" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <NavigationProperty Name="tbl_content_header_footer" Relationship="Self.fk_content_hf2" FromRole="tbl_content_footer" ToRole="tbl_content_header_footer" />
+  </EntityType>
+  <EntityType Name="tbl_content_header">
+    <Key>
+      <PropertyRef Name="id_content_header" />
+    </Key>
+    <Property Name="id_content_header" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" Nullable="false" />
+    <Property Name="content_header_name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="content_header_image" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="content_header_action_url" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <NavigationProperty Name="tbl_content_header_footer" Relationship="Self.fk_content_hf3" FromRole="tbl_content_header" ToRole="tbl_content_header_footer" />
+  </EntityType>
+  <EntityType Name="tbl_content_header_footer">
+    <Key>
+      <PropertyRef Name="id_content_header_footer" />
+    </Key>
+    <Property Name="id_content_header_footer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_content" Type="Int32" Nullable="false" />
+    <Property Name="id_header" Type="Int32" />
+    <Property Name="id_footer" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <NavigationProperty Name="tbl_content" Relationship="Self.fk_content_hf1" FromRole="tbl_content_header_footer" ToRole="tbl_content" />
+    <NavigationProperty Name="tbl_content_footer" Relationship="Self.fk_content_hf2" FromRole="tbl_content_header_footer" ToRole="tbl_content_footer" />
+    <NavigationProperty Name="tbl_content_header" Relationship="Self.fk_content_hf3" FromRole="tbl_content_header_footer" ToRole="tbl_content_header" />
+  </EntityType>
+  <EntityType Name="tbl_content_level">
+    <Key>
+      <PropertyRef Name="ID_CONTENT_LEVEL" />
+    </Key>
+    <Property Name="ID_CONTENT_LEVEL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LEVELNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_content_link">
+    <Key>
+      <PropertyRef Name="ID_CONTENT_LINK" />
+    </Key>
+    <Property Name="ID_CONTENT_LINK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_CONTENT_PARENT" Type="Int32" Nullable="false" />
+    <Property Name="ID_CONTENT_CHILD" Type="Int32" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <Property Name="ID_LINK_TYPE" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_content_metadata">
+    <Key>
+      <PropertyRef Name="ID_CONTENT_METADATA" />
+    </Key>
+    <Property Name="ID_CONTENT_METADATA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CONTENT_METADATA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CONTENT_METADATA_COUNTER" Type="Int32" Nullable="false" />
+    <Property Name="ID_CONTENT_ANSWER" Type="Int32" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATEDTIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_content_answer" Relationship="Self.fk1_tbl_content_metadata" FromRole="tbl_content_metadata" ToRole="tbl_content_answer" />
+  </EntityType>
+  <EntityType Name="tbl_content_organization_mapping">
+    <Key>
+      <PropertyRef Name="id_content_organization_mapping" />
+    </Key>
+    <Property Name="id_content_organization_mapping" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" Nullable="false" />
+    <Property Name="id_category" Type="Int32" Nullable="false" />
+    <Property Name="id_content" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <NavigationProperty Name="tbl_category" Relationship="Self.fk_content_org_cont2" FromRole="tbl_content_organization_mapping" ToRole="tbl_category" />
+    <NavigationProperty Name="tbl_content" Relationship="Self.fk_content_org_cont3" FromRole="tbl_content_organization_mapping" ToRole="tbl_content" />
+    <NavigationProperty Name="tbl_organization" Relationship="Self.fk_content_org_cont1" FromRole="tbl_content_organization_mapping" ToRole="tbl_organization" />
+  </EntityType>
+  <EntityType Name="tbl_content_program_mapping">
+    <Key>
+      <PropertyRef Name="id_content_program_mapping" />
+    </Key>
+    <Property Name="id_content_program_mapping" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_assessment_sheet" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_role" Type="Int32" />
+    <Property Name="map_type" Type="Int32" />
+    <Property Name="option_type" Type="Int32" />
+    <Property Name="start_date" Type="DateTime" />
+    <Property Name="expiry_date" Type="DateTime" />
+    <Property Name="id_category_tile" Type="Int32" />
+    <Property Name="id_category_heading" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_content_right_association">
+    <Key>
+      <PropertyRef Name="id_content_right_association" />
+    </Key>
+    <Property Name="id_content_right_association" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_content" Type="Int32" Nullable="false" />
+    <Property Name="id_organization" Type="Int32" Nullable="false" />
+    <Property Name="content_expiry_date" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <Property Name="real_content_id" Type="Int32" />
+    <Property Name="real_organization_id" Type="Int32" />
+    <Property Name="transfered_date" Type="DateTime" />
+    <NavigationProperty Name="tbl_content" Relationship="Self.fk_content_org_2" FromRole="tbl_content_right_association" ToRole="tbl_content" />
+    <NavigationProperty Name="tbl_organization" Relationship="Self.fk_content_org_1" FromRole="tbl_content_right_association" ToRole="tbl_organization" />
+  </EntityType>
+  <EntityType Name="tbl_content_role_mapping">
+    <Key>
+      <PropertyRef Name="id_content_role_mapping" />
+    </Key>
+    <Property Name="id_content_role_mapping" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_content" Type="Int32" />
+    <Property Name="id_csst_role" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_content_type">
+    <Key>
+      <PropertyRef Name="ID_CONTENT_TYPE" />
+    </Key>
+    <Property Name="ID_CONTENT_TYPE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TYPE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TYPE_DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_content_type_link" Relationship="Self.fk2_tbl_content_type_link" FromRole="tbl_content_type" ToRole="tbl_content_type_link" />
+  </EntityType>
+  <EntityType Name="tbl_content_type_link">
+    <Key>
+      <PropertyRef Name="ID_CONTENT_TYPE_LINK" />
+    </Key>
+    <Property Name="ID_CONTENT_TYPE_LINK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_CONTENT_ANSWER" Type="Int32" Nullable="false" />
+    <Property Name="ID_CONTENT_TYPE" Type="Int32" Nullable="false" />
+    <Property Name="LINK_VALUE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="tbl_content_answer" Relationship="Self.fk1_tbl_content_type_link" FromRole="tbl_content_type_link" ToRole="tbl_content_answer" />
+    <NavigationProperty Name="tbl_content_type" Relationship="Self.fk2_tbl_content_type_link" FromRole="tbl_content_type_link" ToRole="tbl_content_type" />
+  </EntityType>
+  <EntityType Name="tbl_content_user_assisgnment">
+    <Key>
+      <PropertyRef Name="id_content_user_assisgnment" />
+    </Key>
+    <Property Name="id_content_user_assisgnment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_content" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="start_date" Type="DateTime" />
+    <Property Name="expiry_date" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_csst_role">
+    <Key>
+      <PropertyRef Name="id_csst_role" />
+    </Key>
+    <Property Name="id_csst_role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="csst_role" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_dated_time" Type="DateTime" />
+    <NavigationProperty Name="tbl_organization" Relationship="Self.fk_org_csst" FromRole="tbl_csst_role" ToRole="tbl_organization" />
+  </EntityType>
+  <EntityType Name="tbl_device_type">
+    <Key>
+      <PropertyRef Name="ID_DEVICE_TYPE" />
+    </Key>
+    <Property Name="ID_DEVICE_TYPE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DEVICENAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATEDDATETIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_user_data" Relationship="Self.fk2_tbl_user_data" FromRole="tbl_device_type" ToRole="tbl_user_data" />
+  </EntityType>
+  <EntityType Name="tbl_feedback_bank">
+    <Key>
+      <PropertyRef Name="ID_FEEDBACK_BANK" />
+    </Key>
+    <Property Name="ID_FEEDBACK_BANK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FEEDBACK_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="FEEDBACK_QUESTION" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FEEDBACK_CHOICES" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="FEEDBACK_IMAGE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_feedback_bank_link" Relationship="Self.FK2_tbl_feedback_bank_link" FromRole="tbl_feedback_bank" ToRole="tbl_feedback_bank_link" />
+    <NavigationProperty Name="tbl_feedback_data" Relationship="Self.fk2_tbl_feedback_data" FromRole="tbl_feedback_bank" ToRole="tbl_feedback_data" />
+  </EntityType>
+  <EntityType Name="tbl_feedback_bank_link">
+    <Key>
+      <PropertyRef Name="ID_FEEDBACK_BANK_LINK" />
+    </Key>
+    <Property Name="ID_FEEDBACK_BANK_LINK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_FEEDBACK_BANK" Type="Int32" Nullable="false" />
+    <Property Name="ID_CONTENT_ANSWER" Type="Int32" Nullable="false" />
+    <Property Name="ID_ANSWER_ASSOCIATION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_feedback_bank" Relationship="Self.FK2_tbl_feedback_bank_link" FromRole="tbl_feedback_bank_link" ToRole="tbl_feedback_bank" />
+  </EntityType>
+  <EntityType Name="tbl_feedback_data">
+    <Key>
+      <PropertyRef Name="ID_FEEDBACK_DATA" />
+    </Key>
+    <Property Name="ID_FEEDBACK_DATA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_FEEDBACK_BANK" Type="Int32" Nullable="false" />
+    <Property Name="ID_USER" Type="Int32" Nullable="false" />
+    <Property Name="FEEDBACK_CHOICE" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="FEEDBACK_TEXT" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_feedback_bank" Relationship="Self.fk2_tbl_feedback_data" FromRole="tbl_feedback_data" ToRole="tbl_feedback_bank" />
+    <NavigationProperty Name="tbl_user" Relationship="Self.fk3_tbl_feedback_data" FromRole="tbl_feedback_data" ToRole="tbl_user" />
+  </EntityType>
+  <EntityType Name="tbl_game_creation">
+    <Key>
+      <PropertyRef Name="id_game" />
+    </Key>
+    <Property Name="id_game" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organisation" Type="Int32" />
+    <Property Name="id_game_creator" Type="Int32" />
+    <Property Name="gameid" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="game_title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="game_description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="game_creator_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="game_expiry_date" Type="DateTime" />
+    <Property Name="game_start_date" Type="DateTime" />
+    <Property Name="game_mode" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="game_type" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="id_game_path" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="player_type" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="id_game_group" Type="Int32" />
+    <Property Name="game_comment" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="game_phase" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="game_creation_datetime" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_game_group">
+    <Key>
+      <PropertyRef Name="id_game_group" />
+    </Key>
+    <Property Name="id_game_group" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="group_name" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="group_image_path" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="id_creator" Type="Int32" />
+    <Property Name="game_group_type" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_game_group_association">
+    <Key>
+      <PropertyRef Name="id_game_group_association" />
+    </Key>
+    <Property Name="id_game_group_association" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_game" Type="Int32" />
+    <Property Name="association_type" Type="Int32" />
+    <Property Name="id_game_group" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="creation_date" Type="DateTime" />
+    <Property Name="removed_date" Type="DateTime" />
+    <Property Name="start_date" Type="DateTime" />
+    <Property Name="expiry_date" Type="DateTime" />
+    <Property Name="assigned_by" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_game_group_participatant">
+    <Key>
+      <PropertyRef Name="id_game_group_participatant" />
+    </Key>
+    <Property Name="id_game_group_participatant" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_game_group" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="participatant_level" Type="Int32" />
+    <Property Name="addition_date" Type="DateTime" />
+    <Property Name="removal_date" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_game_path">
+    <Key>
+      <PropertyRef Name="id_game_path" />
+    </Key>
+    <Property Name="id_game_path" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_category_tile" Type="Int32" />
+    <Property Name="id_category_heading" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_program" Type="Int32" />
+    <Property Name="Program_sequence_order" Type="Int32" />
+    <Property Name="is_program_mandatory" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="program_weightage" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="program_select_flag" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="assessment_sequence_order" Type="Int32" />
+    <Property Name="is_assessment_mandatory" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="assessment_weightage" Type="Int32" />
+    <Property Name="assessment_select_flag" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="id_game" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_game_phase">
+    <Key>
+      <PropertyRef Name="id_game_path" />
+    </Key>
+    <Property Name="id_game_path" Type="Int32" Nullable="false" />
+    <Property Name="id_game" Type="Int32" />
+    <Property Name="content_type" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="id_content" Type="Int32" />
+    <Property Name="order_no" Type="Int32" />
+    <Property Name="is_mandatory" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="weightage" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tbl_game_process_path">
+    <Key>
+      <PropertyRef Name="id_game_process_path" />
+    </Key>
+    <Property Name="id_game_process_path" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_game" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="process_type" Type="Int32" />
+    <Property Name="sequence_number" Type="Int32" />
+    <Property Name="is_mandatory" Type="Int32" />
+    <Property Name="weightage" Type="Double" />
+    <Property Name="element_type" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_game_solo">
+    <Key>
+      <PropertyRef Name="id_game" />
+    </Key>
+    <Property Name="id_game" Type="Int32" Nullable="false" />
+    <Property Name="id_participatant" Type="Int32" />
+    <Property Name="participatant_level" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tbl_industry">
+    <Key>
+      <PropertyRef Name="ID_INDUSTRY" />
+    </Key>
+    <Property Name="ID_INDUSTRY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="INDUSTRYNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_organization" Relationship="Self.fk1_tbl_organization" FromRole="tbl_industry" ToRole="tbl_organization" />
+  </EntityType>
+  <EntityType Name="tbl_kpi_grid">
+    <Key>
+      <PropertyRef Name="id_kpi_grid" />
+    </Key>
+    <Property Name="id_kpi_grid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_kpi_master" Type="Int32" />
+    <Property Name="start_range" Type="Double" />
+    <Property Name="end_range" Type="Double" />
+    <Property Name="kpi_value" Type="Int32" />
+    <Property Name="kpi_text" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_kpi_master">
+    <Key>
+      <PropertyRef Name="id_kpi_master" />
+    </Key>
+    <Property Name="id_kpi_master" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="kpi_name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="kpi_description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="kpi_type" Type="Int32" />
+    <Property Name="KPIID" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="start_date" Type="DateTime" />
+    <Property Name="expiry_date" Type="DateTime" />
+    <Property Name="id_creator" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_kpi_program_scoring">
+    <Key>
+      <PropertyRef Name="id_kpi_program_scoring" />
+    </Key>
+    <Property Name="id_kpi_program_scoring" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="kpi_type" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="id_kpi_master" Type="Int32" />
+    <Property Name="ps_weightage" Type="Double" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_menu">
+    <Key>
+      <PropertyRef Name="id_menu" />
+    </Key>
+    <Property Name="id_menu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_org" Type="Int32" Nullable="false" />
+    <Property Name="menu_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="menu_url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="menu_icon" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_menu_type">
+    <Key>
+      <PropertyRef Name="id_menu_type" />
+    </Key>
+    <Property Name="id_menu_type" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organisation" Type="Int32" />
+    <Property Name="menu_type" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tbl_mutthi_mein_sitare_milestone">
+    <Key>
+      <PropertyRef Name="id_milestone" />
+    </Key>
+    <Property Name="id_milestone" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_skill" Type="Int32" />
+    <Property Name="milestone_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="created_date" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="last_modified" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_mutthi_mein_sitare_skill">
+    <Key>
+      <PropertyRef Name="id_skill" />
+    </Key>
+    <Property Name="id_skill" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="skill_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="created_date" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="last_modified" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_mutthi_skill_development_detail">
+    <Key>
+      <PropertyRef Name="id_mutthi_skill_development_detail" />
+    </Key>
+    <Property Name="id_mutthi_skill_development_detail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_mutthi_sheet" Type="Int32" />
+    <Property Name="id_skill" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tbl_mutthi_skill_milestone_detail">
+    <Key>
+      <PropertyRef Name="id_mutthi_skill_milestone_detail" />
+    </Key>
+    <Property Name="id_mutthi_skill_milestone_detail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_mutthi_sheet" Type="Int32" />
+    <Property Name="id_milestone" Type="Int32" />
+    <Property Name="milestone_detail" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="milestone_comments" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="id_skill" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tbl_mutthimeinsitare_master">
+    <Key>
+      <PropertyRef Name="id_mutthi_sheet" />
+    </Key>
+    <Property Name="id_mutthi_sheet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="roll_no" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="year" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="doj" Type="DateTime" />
+    <Property Name="created_on" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="last_modified" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="term" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tbl_news_ticker">
+    <Key>
+      <PropertyRef Name="Id_ticker" />
+    </Key>
+    <Property Name="Id_ticker" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_org" Type="Int32" />
+    <Property Name="Id_creator" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="update_date" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="expiry_date" Type="DateTime" />
+    <Property Name="ticker_news" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="background_color" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="font_color" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_non_disclousure_clause_content">
+    <Key>
+      <PropertyRef Name="id_clause_content" />
+    </Key>
+    <Property Name="id_clause_content" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_org" Type="Int32" />
+    <Property Name="content_title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="content" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+    <Property Name="id_creator" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_non_disclousure_clause_log">
+    <Key>
+      <PropertyRef Name="id_clause_log" />
+    </Key>
+    <Property Name="id_clause_log" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_org" Type="Int32" />
+    <Property Name="log_status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_notification">
+    <Key>
+      <PropertyRef Name="id_notification" />
+    </Key>
+    <Property Name="id_notification" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="notification_type" Type="Int32" Nullable="false" />
+    <Property Name="notification_key" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="notification_name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="notification_description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="notification_message" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="reminder_flag" Type="Int32" Nullable="false" />
+    <Property Name="id_organization" Type="Int32" Nullable="false" />
+    <Property Name="created_date" Type="DateTime" />
+    <Property Name="reminder_time" Type="Int32" Nullable="false" />
+    <Property Name="reminder_frequency" Type="Int32" Nullable="false" />
+    <Property Name="start_date" Type="DateTime" />
+    <Property Name="end_date" Type="DateTime" />
+    <Property Name="notification_action_type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_notification_config">
+    <Key>
+      <PropertyRef Name="id_notification_config" />
+    </Key>
+    <Property Name="id_notification_config" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_notification" Type="Int32" />
+    <Property Name="id_creater" Type="Int32" />
+    <Property Name="notification_key" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="notification_action_type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_content" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="user_type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="read_timestamp" Type="DateTime" />
+    <Property Name="start_date" Type="DateTime" />
+    <Property Name="end_date" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_notification_pre_config">
+    <Key>
+      <PropertyRef Name="id_notification_config" />
+    </Key>
+    <Property Name="id_notification_config" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_notification" Type="Int32" />
+    <Property Name="id_creater" Type="Int32" />
+    <Property Name="notification_key" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="notification_action_type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_content" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="user_type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="read_timestamp" Type="DateTime" />
+    <Property Name="start_date" Type="DateTime" />
+    <Property Name="end_date" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_notification_reminder">
+    <Key>
+      <PropertyRef Name="id_notification_reminder" />
+    </Key>
+    <Property Name="id_notification_reminder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_notification" Type="Int32" />
+    <Property Name="id_reminder_notification" Type="Int32" />
+    <Property Name="reminder_timeout" Type="Int32" />
+    <Property Name="reminder_frequency" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_offline_expiry">
+    <Key>
+      <PropertyRef Name="ID_OFFLINE_EXPIRY" />
+    </Key>
+    <Property Name="ID_OFFLINE_EXPIRY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_USER" Type="Int32" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EXPIRY" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_user" Relationship="Self.fk1_tbl_offline_expiry" FromRole="tbl_offline_expiry" ToRole="tbl_user" />
+  </EntityType>
+  <EntityType Name="tbl_organisation_banner">
+    <Key>
+      <PropertyRef Name="id_organisation_banner" />
+    </Key>
+    <Property Name="id_organisation_banner" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="banner_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Banner_path" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organisation" Type="Int32" />
+    <NavigationProperty Name="tbl_organization" Relationship="Self.fk_org_ban" FromRole="tbl_organisation_banner" ToRole="tbl_organization" />
+  </EntityType>
+  <EntityType Name="tbl_organisation_banner_links">
+    <Key>
+      <PropertyRef Name="id_organisation_banner_links" />
+    </Key>
+    <Property Name="id_organisation_banner_links" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organisation_banner" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="user_option" Type="Int32" />
+    <Property Name="updated_date_time" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="tbl_organisation_status">
+    <Key>
+      <PropertyRef Name="id_organisation_status" />
+    </Key>
+    <Property Name="id_organisation_status" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organisation" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="expiry_date" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_organization">
+    <Key>
+      <PropertyRef Name="ID_ORGANIZATION" />
+    </Key>
+    <Property Name="ID_ORGANIZATION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_INDUSTRY" Type="Int32" Nullable="false" />
+    <Property Name="ID_BUSINESS_TYPE" Type="Int32" Nullable="false" />
+    <Property Name="ORGANIZATION_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="LOGO" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="CONTACT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CONTACTNUMBER" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CONTACTEMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DEFAULT_EMAIL" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_assessment" Relationship="Self.fk_assessment1" FromRole="tbl_organization" ToRole="tbl_assessment" />
+    <NavigationProperty Name="tbl_assessment_general" Relationship="Self.fk_assess_gene1" FromRole="tbl_organization" ToRole="tbl_assessment_general" />
+    <NavigationProperty Name="tbl_assessment_sheet" Relationship="Self.fk_assesment_sht1" FromRole="tbl_organization" ToRole="tbl_assessment_sheet" />
+    <NavigationProperty Name="tbl_banner" Relationship="Self.fk_org_banner" FromRole="tbl_organization" ToRole="tbl_banner" />
+    <NavigationProperty Name="tbl_business_type" Relationship="Self.fk2_tbl_organization" FromRole="tbl_organization" ToRole="tbl_business_type" />
+    <NavigationProperty Name="tbl_category" Relationship="Self.fk1_tbl_category" FromRole="tbl_organization" ToRole="tbl_category" />
+    <NavigationProperty Name="tbl_category_tiles" Relationship="Self.fk_tile1" FromRole="tbl_organization" ToRole="tbl_category_tiles" />
+    <NavigationProperty Name="tbl_content_organization_mapping" Relationship="Self.fk_content_org_cont1" FromRole="tbl_organization" ToRole="tbl_content_organization_mapping" />
+    <NavigationProperty Name="tbl_content_right_association" Relationship="Self.fk_content_org_1" FromRole="tbl_organization" ToRole="tbl_content_right_association" />
+    <NavigationProperty Name="tbl_csst_role" Relationship="Self.fk_org_csst" FromRole="tbl_organization" ToRole="tbl_csst_role" />
+    <NavigationProperty Name="tbl_industry" Relationship="Self.fk1_tbl_organization" FromRole="tbl_organization" ToRole="tbl_industry" />
+    <NavigationProperty Name="tbl_organisation_banner" Relationship="Self.fk_org_ban" FromRole="tbl_organization" ToRole="tbl_organisation_banner" />
+    <NavigationProperty Name="tbl_role" Relationship="Self.tbl_role1" FromRole="tbl_organization" ToRole="tbl_role" />
+  </EntityType>
+  <EntityType Name="tbl_overall_assessment_user_log">
+    <Key>
+      <PropertyRef Name="srno" />
+    </Key>
+    <Property Name="srno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="Int32" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="percentage" Type="Double" />
+  </EntityType>
+  <EntityType Name="tbl_overall_program_content_user_log">
+    <Key>
+      <PropertyRef Name="srno" />
+    </Key>
+    <Property Name="srno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="Int32" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="percentage" Type="Double" />
+  </EntityType>
+  <EntityType Name="tbl_profile">
+    <Key>
+      <PropertyRef Name="ID_PROFILE" />
+    </Key>
+    <Property Name="ID_PROFILE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_USER" Type="Int32" Nullable="false" />
+    <Property Name="FIRSTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="LASTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AGE" Type="Int32" />
+    <Property Name="LOCATION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MOBILE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="GENDER" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="DESIGNATION" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="CITY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="OFFICE_ADDRESS" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="DATE_OF_BIRTH" Type="DateTime" />
+    <Property Name="DATE_OF_JOINING" Type="DateTime" />
+    <Property Name="REPORTING_MANAGER" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_reminder_notification_config">
+    <Key>
+      <PropertyRef Name="id_reminder_notification_config" />
+    </Key>
+    <Property Name="id_reminder_notification_config" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_notification" Type="Int32" />
+    <Property Name="reminder_type" Type="Int32" />
+    <Property Name="DH" Type="Int32" />
+    <Property Name="YH" Type="Int32" />
+    <Property Name="YM" Type="Int32" />
+    <Property Name="TM" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_reminder_notification_log">
+    <Key>
+      <PropertyRef Name="id_reminder_notification_log" />
+    </Key>
+    <Property Name="id_reminder_notification_log" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_notification" Type="Int32" />
+    <Property Name="id_reminder_notification" Type="Int32" />
+    <Property Name="reminder_type" Type="Int32" />
+    <Property Name="default_counter" Type="Int32" />
+    <Property Name="custom_counter" Type="Int32" />
+    <Property Name="last_notification" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_report_content">
+    <Key>
+      <PropertyRef Name="ID_REPORT_CONTENT" />
+    </Key>
+    <Property Name="ID_REPORT_CONTENT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_ORGANIZATION" Type="Int32" Nullable="false" />
+    <Property Name="ID_CONTENT" Type="Int32" Nullable="false" />
+    <Property Name="ID_USER" Type="Int32" Nullable="false" />
+    <Property Name="CHOICE" Type="Int32" />
+    <Property Name="STATUS" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_report_login_log">
+    <Key>
+      <PropertyRef Name="id_report_login_log" />
+    </Key>
+    <Property Name="id_report_login_log" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="LOG_DATETIME" Type="DateTime" />
+    <Property Name="IMEI" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_role">
+    <Key>
+      <PropertyRef Name="ID_ROLE" />
+    </Key>
+    <Property Name="ID_ROLE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_ORGANIZATION" Type="Int32" Nullable="false" />
+    <Property Name="ROLENAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATEDTIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_organization" Relationship="Self.tbl_role1" FromRole="tbl_role" ToRole="tbl_organization" />
+  </EntityType>
+  <EntityType Name="tbl_role_user_mapping">
+    <Key>
+      <PropertyRef Name="id_role_user_mapping" />
+    </Key>
+    <Property Name="id_role_user_mapping" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_csst_role" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_rs_type_qna">
+    <Key>
+      <PropertyRef Name="id_rs_type_qna" />
+    </Key>
+    <Property Name="id_rs_type_qna" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_assessment_log" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_assessment_sheet" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="attempt_number" Type="Int32" />
+    <Property Name="total_question" Type="Int32" />
+    <Property Name="right_answer_count" Type="Int32" />
+    <Property Name="wrong_answer_count" Type="Int32" />
+    <Property Name="result_in_percentage" Type="Double" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_saksham_assessment_master">
+    <Key>
+      <PropertyRef Name="id_saksham_assessment_master" />
+    </Key>
+    <Property Name="id_saksham_assessment_master" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="roll_no" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="id_teacher" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="id_organization" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="year" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="doj" Type="DateTime" />
+    <Property Name="assessment_date" Type="DateTime" />
+    <Property Name="growth_date_capture" Type="DateTime" />
+    <Property Name="height" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="weight" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="created_date" Type="DateTime" />
+    <Property Name="last_modified" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_saksham_assessment_skill_detail">
+    <Key>
+      <PropertyRef Name="id_saksham_assessment_skill_detail" />
+    </Key>
+    <Property Name="id_saksham_assessment_skill_detail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_saksham_assessment_master" Type="Int32" />
+    <Property Name="id_skill" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tbl_scheduled_event">
+    <Key>
+      <PropertyRef Name="id_scheduled_event" />
+    </Key>
+    <Property Name="id_scheduled_event" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_event_creator" Type="Int32" />
+    <Property Name="event_title" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="event_description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="registration_start_date" Type="DateTime" />
+    <Property Name="registration_end_date" Type="DateTime" />
+    <Property Name="event_start_datetime" Type="DateTime" />
+    <Property Name="event_duration" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="event_type" Type="Int32" />
+    <Property Name="event_group_type" Type="Int32" />
+    <Property Name="program_name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="program_description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="program_objective" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="facilitator_name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="facilitator_organization" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="program_image" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="no_of_participants" Type="Int32" />
+    <Property Name="program_venue" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="program_location" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="attachment_type" Type="Int32" />
+    <Property Name="id_program" Type="Int32" />
+    <Property Name="id_assessment" Type="Int32" />
+    <Property Name="id_category_tile" Type="Int32" />
+    <Property Name="id_category_heading" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="is_approval" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="is_response" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="is_unsubscribe" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="program_start_date" Type="DateTime" />
+    <Property Name="program_duration_type" Type="Int32" />
+    <Property Name="program_duration" Type="Int32" />
+    <Property Name="program_duration_unit" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="program_end_date" Type="DateTime" />
+    <Property Name="event_additional_info" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="event_online_url" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="participant_level" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="event_comment" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_scheduled_event_subscription_log">
+    <Key>
+      <PropertyRef Name="id_scheduled_event_subscription_log" />
+    </Key>
+    <Property Name="id_scheduled_event_subscription_log" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_scheduled_event" Type="Int32" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_cms_user" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="event_sent_timestamp" Type="DateTime" />
+    <Property Name="event_user_response" Type="Int32" />
+    <Property Name="event_user_response_timestamp" Type="DateTime" />
+    <Property Name="event_user_comment" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="apporoved_reporting_manager" Type="Int32" />
+    <Property Name="approved_date" Type="DateTime" />
+    <Property Name="subscription_status" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_skill_milestone">
+    <Key>
+      <PropertyRef Name="id_milestone" />
+    </Key>
+    <Property Name="id_milestone" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="id_skill" Type="Int32" />
+    <Property Name="miilestone_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="created_date" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="last_modified" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="tbl_sso_log">
+    <Key>
+      <PropertyRef Name="id_sso_log" />
+    </Key>
+    <Property Name="id_sso_log" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tran_id" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="datetime" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_subscriptions">
+    <Key>
+      <PropertyRef Name="ID_SUBSCRIPTION" />
+    </Key>
+    <Property Name="ID_SUBSCRIPTION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_USER" Type="Int32" Nullable="false" />
+    <Property Name="ID_CONTENT" Type="Int32" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATEDTIME" Type="DateTime" Nullable="false" />
+    <Property Name="EXPIRY_DATE" Type="DateTime" />
+    <NavigationProperty Name="tbl_content" Relationship="Self.fk2_tbl_subscriptions" FromRole="tbl_subscriptions" ToRole="tbl_content" />
+    <NavigationProperty Name="tbl_user" Relationship="Self.fk1_tbl_subscriptions" FromRole="tbl_subscriptions" ToRole="tbl_user" />
+  </EntityType>
+  <EntityType Name="tbl_survey">
+    <Key>
+      <PropertyRef Name="ID_SURVEY" />
+    </Key>
+    <Property Name="ID_SURVEY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_CONTENT_ANSWER" Type="Int32" />
+    <Property Name="ID_ANSWER_STEP" Type="Int32" />
+    <Property Name="SURVEY_NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="SURVEY_IMAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="START_DATE" Type="DateTime" Nullable="false" />
+    <Property Name="END_DATE" Type="DateTime" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_content_answer" Relationship="Self.fk1_tbl_survey" FromRole="tbl_survey" ToRole="tbl_content_answer" />
+    <NavigationProperty Name="tbl_content_answer_steps" Relationship="Self.fk2_tbl_survey" FromRole="tbl_survey" ToRole="tbl_content_answer_steps" />
+    <NavigationProperty Name="tbl_survey_bank_link" Relationship="Self.FK1_tbl_survey_bank_link" FromRole="tbl_survey" ToRole="tbl_survey_bank_link" />
+    <NavigationProperty Name="tbl_survey_data" Relationship="Self.fk1_tbl_survey_data" FromRole="tbl_survey" ToRole="tbl_survey_data" />
+  </EntityType>
+  <EntityType Name="tbl_survey_bank">
+    <Key>
+      <PropertyRef Name="ID_SURVEY_BANK" />
+    </Key>
+    <Property Name="ID_SURVEY_BANK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SURVEY_QUESTION" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SURVEY_CHOICES" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_survey_bank_link" Relationship="Self.FK2_tbl_survey_bank_link" FromRole="tbl_survey_bank" ToRole="tbl_survey_bank_link" />
+    <NavigationProperty Name="tbl_survey_data" Relationship="Self.fk2_tbl_survey_data" FromRole="tbl_survey_bank" ToRole="tbl_survey_data" />
+  </EntityType>
+  <EntityType Name="tbl_survey_bank_link">
+    <Key>
+      <PropertyRef Name="ID_SURVEY_BANK_LINK" />
+    </Key>
+    <Property Name="ID_SURVEY_BANK_LINK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_SURVEY" Type="Int32" Nullable="false" />
+    <Property Name="ID_SURVEY_BANK" Type="Int32" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_survey" Relationship="Self.FK1_tbl_survey_bank_link" FromRole="tbl_survey_bank_link" ToRole="tbl_survey" />
+    <NavigationProperty Name="tbl_survey_bank" Relationship="Self.FK2_tbl_survey_bank_link" FromRole="tbl_survey_bank_link" ToRole="tbl_survey_bank" />
+  </EntityType>
+  <EntityType Name="tbl_survey_data">
+    <Key>
+      <PropertyRef Name="ID_SURVEY_DATA" />
+    </Key>
+    <Property Name="ID_SURVEY_DATA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_SURVEY" Type="Int32" Nullable="false" />
+    <Property Name="ID_SURVEY_BANK" Type="Int32" Nullable="false" />
+    <Property Name="ID_USER" Type="Int32" Nullable="false" />
+    <Property Name="SURVEY_DATA" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_survey" Relationship="Self.fk1_tbl_survey_data" FromRole="tbl_survey_data" ToRole="tbl_survey" />
+    <NavigationProperty Name="tbl_survey_bank" Relationship="Self.fk2_tbl_survey_data" FromRole="tbl_survey_data" ToRole="tbl_survey_bank" />
+    <NavigationProperty Name="tbl_user" Relationship="Self.fk3_tbl_survey_data" FromRole="tbl_survey_data" ToRole="tbl_user" />
+  </EntityType>
+  <EntityType Name="tbl_task">
+    <Key>
+      <PropertyRef Name="id_task" />
+    </Key>
+    <Property Name="id_task" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_org" Type="Int32" />
+    <Property Name="task" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="modified_date" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="status" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_temp_user_upload">
+    <Key>
+      <PropertyRef Name="id_temp_user_upload" />
+    </Key>
+    <Property Name="id_temp_user_upload" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="temp_user_upload_key" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="EMPLOYEEID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="ROLE" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="ID_ROLE" Type="Int32" />
+    <Property Name="USERID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="PASSWORD" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="FIRSTNAME" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="LASTNAME" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="AGE" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="EMAIL" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="MOBILE" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="GENDER" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="CITY" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="OFFICE_ADDRESS" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="DATE_OF_BIRTH" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="DATE_OF_JOINING" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="user_department" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="user_designation" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="user_function" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="user_grade" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="user_status" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="reporting_manager" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="id_reporting_manager" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_themes">
+    <Key>
+      <PropertyRef Name="ID_THEME" />
+    </Key>
+    <Property Name="ID_THEME" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="THEME_NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_user">
+    <Key>
+      <PropertyRef Name="ID_USER" />
+    </Key>
+    <Property Name="ID_USER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_CODE" Type="Int32" Nullable="false" />
+    <Property Name="ID_ORGANIZATION" Type="Int32" />
+    <Property Name="ID_ROLE" Type="Int32" Nullable="false" />
+    <Property Name="USERID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PASSWORD" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FBSOCIALID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="GPSOCIALID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATEDTIME" Type="DateTime" Nullable="false" />
+    <Property Name="EXPIRY_DATE" Type="DateTime" />
+    <Property Name="EMPLOYEEID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="user_department" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="user_designation" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="user_function" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="user_grade" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="user_status" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="reporting_manager" Type="Int32" />
+    <Property Name="is_reporting" Type="Int32" />
+    <Property Name="created_datetime" Type="DateTime" />
+    <Property Name="last_modified_datetime" Type="DateTime" />
+    <NavigationProperty Name="tbl_assessment_general" Relationship="Self.fk_assess_gene3" FromRole="tbl_user" ToRole="tbl_assessment_general" />
+    <NavigationProperty Name="tbl_feedback_data" Relationship="Self.fk3_tbl_feedback_data" FromRole="tbl_user" ToRole="tbl_feedback_data" />
+    <NavigationProperty Name="tbl_offline_expiry" Relationship="Self.fk1_tbl_offline_expiry" FromRole="tbl_user" ToRole="tbl_offline_expiry" />
+    <NavigationProperty Name="tbl_subscriptions" Relationship="Self.fk1_tbl_subscriptions" FromRole="tbl_user" ToRole="tbl_subscriptions" />
+    <NavigationProperty Name="tbl_survey_data" Relationship="Self.fk3_tbl_survey_data" FromRole="tbl_user" ToRole="tbl_survey_data" />
+    <NavigationProperty Name="tbl_user_data" Relationship="Self.fk1_tbl_user_data" FromRole="tbl_user" ToRole="tbl_user_data" />
+  </EntityType>
+  <EntityType Name="tbl_user_data">
+    <Key>
+      <PropertyRef Name="ID_USER_DATA" />
+    </Key>
+    <Property Name="ID_USER_DATA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_USER" Type="Int32" Nullable="false" />
+    <Property Name="ID_DEVICE_TYPE" Type="Int32" Nullable="false" />
+    <Property Name="DEVICE_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ID_ACTION" Type="Int32" Nullable="false" />
+    <Property Name="UPDATEDDATETIME" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbl_action" Relationship="Self.fk3_tbl_user_data" FromRole="tbl_user_data" ToRole="tbl_action" />
+    <NavigationProperty Name="tbl_device_type" Relationship="Self.fk2_tbl_user_data" FromRole="tbl_user_data" ToRole="tbl_device_type" />
+    <NavigationProperty Name="tbl_user" Relationship="Self.fk1_tbl_user_data" FromRole="tbl_user_data" ToRole="tbl_user" />
+  </EntityType>
+  <EntityType Name="tbl_user_device_link">
+    <Key>
+      <PropertyRef Name="ID_USER_DEVICE_LINK" />
+    </Key>
+    <Property Name="ID_USER_DEVICE_LINK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_USER" Type="Int32" Nullable="false" />
+    <Property Name="ID_DEVICE_TYPE" Type="Int32" Nullable="false" />
+    <Property Name="DEVICE_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_user_gcm_log">
+    <Key>
+      <PropertyRef Name="id_user_gcm_log" />
+    </Key>
+    <Property Name="id_user_gcm_log" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GCMID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_user_programs">
+    <Key>
+      <PropertyRef Name="ID_USER_PROGRAM" />
+    </Key>
+    <Property Name="ID_USER_PROGRAM" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_USER" Type="Int32" Nullable="false" />
+    <Property Name="ID_CONTENT" Type="Int32" Nullable="false" />
+    <Property Name="EXPIRY_DATE" Type="DateTime" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_user_zone">
+    <Key>
+      <PropertyRef Name="id_user_zone" />
+    </Key>
+    <Property Name="id_user_zone" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_user_zone_master" Type="Int32" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_user_zone_master">
+    <Key>
+      <PropertyRef Name="id_user_zone_master" />
+    </Key>
+    <Property Name="id_user_zone_master" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_organization" Type="Int32" />
+    <Property Name="zone_title" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="trainer_name" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="id_user_trainer" Type="Int32" />
+    <Property Name="employee_id" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_version_control">
+    <Key>
+      <PropertyRef Name="id_version_control" />
+    </Key>
+    <Property Name="id_version_control" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version_number" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_version_control_ios">
+    <Key>
+      <PropertyRef Name="id_version_control" />
+    </Key>
+    <Property Name="id_version_control" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version_number" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="tbl_welcome_gif">
+    <Key>
+      <PropertyRef Name="id_welcome_gif" />
+    </Key>
+    <Property Name="id_welcome_gif" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_org" Type="Int32" />
+    <Property Name="gif" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="created_date" Type="DateTime" />
+    <Property Name="updated_date" Type="DateTime" />
+    <Property Name="flag" Type="Int32" />
+  </EntityType>
+  <EntityType Name="dummy_mapping">
+    <Key>
+      <PropertyRef Name="id_category_association" />
+    </Key>
+    <Property Name="id_category_association" Type="Int32" Nullable="false" />
+    <Property Name="id_category_tile" Type="Int32" />
+    <Property Name="id_category_heading" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+    <Property Name="category_order" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date_time" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="content_access_existing">
+    <Key>
+      <PropertyRef Name="id_user" />
+      <PropertyRef Name="USERID" />
+      <PropertyRef Name="id_organization" />
+      <PropertyRef Name="ORGANIZATION_NAME" />
+      <PropertyRef Name="CONTENT_QUESTION" />
+      <PropertyRef Name="USTATUS" />
+    </Key>
+    <Property Name="id_user" Type="Int32" Nullable="false" />
+    <Property Name="EMPLOYEEID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="USERID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RMUSER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UNAME" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="id_organization" Type="Int32" Nullable="false" />
+    <Property Name="ORGANIZATION_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_content" Type="Int32" />
+    <Property Name="CONTENT_QUESTION" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LASTACCESS" Type="DateTime" />
+    <Property Name="LOCATION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="zone_title" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="user_designation" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="USTATUS" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="content_access_view">
+    <Key>
+      <PropertyRef Name="id_user" />
+      <PropertyRef Name="USERID" />
+      <PropertyRef Name="id_organization" />
+      <PropertyRef Name="ORGANIZATION_NAME" />
+      <PropertyRef Name="CONTENT_QUESTION" />
+      <PropertyRef Name="USTATUS" />
+    </Key>
+    <Property Name="id_user" Type="Int32" Nullable="false" />
+    <Property Name="EMPLOYEEID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="USERID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UNAMEE" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+    <Property Name="id_organization" Type="Int32" Nullable="false" />
+    <Property Name="ORGANIZATION_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_content" Type="Int32" />
+    <Property Name="CONTENT_QUESTION" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LASTACCESS" Type="DateTime" />
+    <Property Name="LOCATION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="user_designation" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="USTATUS" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="zone_title" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="dummy_map">
+    <Key>
+      <PropertyRef Name="id_category_association" />
+    </Key>
+    <Property Name="id_category_association" Type="Int32" Nullable="false" />
+    <Property Name="id_parent" Type="Int32" />
+    <Property Name="id_category" Type="Int32" />
+  </EntityType>
+  <EntityType Name="indavgscore_view_old">
+    <Key>
+      <PropertyRef Name="CATEGORYNAME" />
+    </Key>
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="id_game" Type="Int32" />
+    <Property Name="CATEGORYNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IndavgScore" Type="Double" />
+  </EntityType>
+  <Association Name="fk3_tbl_user_data">
+    <End Role="tbl_action" Type="Self.tbl_action" Multiplicity="1" />
+    <End Role="tbl_user_data" Type="Self.tbl_user_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_action">
+        <PropertyRef Name="ID_ACTION" />
+      </Principal>
+      <Dependent Role="tbl_user_data">
+        <PropertyRef Name="ID_ACTION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assesment_sht2">
+    <End Role="tbl_assessment" Type="Self.tbl_assessment" Multiplicity="1" />
+    <End Role="tbl_assessment_sheet" Type="Self.tbl_assessment_sheet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_assessment">
+        <PropertyRef Name="id_assessment" />
+      </Principal>
+      <Dependent Role="tbl_assessment_sheet">
+        <PropertyRef Name="id_assesment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assessment1">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="0..1" />
+    <End Role="tbl_assessment" Type="Self.tbl_assessment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_assessment">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assessment_header3">
+    <End Role="tbl_assessment_answer" Type="Self.tbl_assessment_answer" Multiplicity="0..1" />
+    <End Role="tbl_assessment_header" Type="Self.tbl_assessment_header" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_assessment_answer">
+        <PropertyRef Name="id_assessment_answer" />
+      </Principal>
+      <Dependent Role="tbl_assessment_header">
+        <PropertyRef Name="id_assessment_answer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assess_gene1">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="0..1" />
+    <End Role="tbl_assessment_general" Type="Self.tbl_assessment_general" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_assessment_general">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assess_gene2">
+    <End Role="tbl_assessment_sheet" Type="Self.tbl_assessment_sheet" Multiplicity="1" />
+    <End Role="tbl_assessment_general" Type="Self.tbl_assessment_general" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_assessment_sheet">
+        <PropertyRef Name="id_assessment_sheet" />
+      </Principal>
+      <Dependent Role="tbl_assessment_general">
+        <PropertyRef Name="id_assesment_sheet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assess_gene3">
+    <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="0..1" />
+    <End Role="tbl_assessment_general" Type="Self.tbl_assessment_general" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_user">
+        <PropertyRef Name="ID_USER" />
+      </Principal>
+      <Dependent Role="tbl_assessment_general">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assessment_header1">
+    <End Role="tbl_assessment_scoring_key" Type="Self.tbl_assessment_scoring_key" Multiplicity="1" />
+    <End Role="tbl_assessment_header" Type="Self.tbl_assessment_header" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_assessment_scoring_key">
+        <PropertyRef Name="id_assessment_scoring_key" />
+      </Principal>
+      <Dependent Role="tbl_assessment_header">
+        <PropertyRef Name="id_assessment_scoring_key" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assessment_header2">
+    <End Role="tbl_assessment_question" Type="Self.tbl_assessment_question" Multiplicity="1" />
+    <End Role="tbl_assessment_header" Type="Self.tbl_assessment_header" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_assessment_question">
+        <PropertyRef Name="id_assessment_question" />
+      </Principal>
+      <Dependent Role="tbl_assessment_header">
+        <PropertyRef Name="id_assessment_question" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assesment_sht1">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="0..1" />
+    <End Role="tbl_assessment_sheet" Type="Self.tbl_assessment_sheet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_assessment_sheet">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_bann2">
+    <End Role="tbl_banner" Type="Self.tbl_banner" Multiplicity="1" />
+    <End Role="tbl_content_banner" Type="Self.tbl_content_banner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_banner">
+        <PropertyRef Name="id_banner" />
+      </Principal>
+      <Dependent Role="tbl_content_banner">
+        <PropertyRef Name="id_banner" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_org_banner">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="1" />
+    <End Role="tbl_banner" Type="Self.tbl_banner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_banner">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_tbl_organization">
+    <End Role="tbl_business_type" Type="Self.tbl_business_type" Multiplicity="1" />
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_business_type">
+        <PropertyRef Name="ID_BUSINESS_TYPE" />
+      </Principal>
+      <Dependent Role="tbl_organization">
+        <PropertyRef Name="ID_BUSINESS_TYPE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_asso3">
+    <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="0..1" />
+    <End Role="tbl_category_associantion" Type="Self.tbl_category_associantion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_category">
+        <PropertyRef Name="ID_CATEGORY" />
+      </Principal>
+      <Dependent Role="tbl_category_associantion">
+        <PropertyRef Name="id_category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_org_cont2">
+    <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="1" />
+    <End Role="tbl_content_organization_mapping" Type="Self.tbl_content_organization_mapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_category">
+        <PropertyRef Name="ID_CATEGORY" />
+      </Principal>
+      <Dependent Role="tbl_content_organization_mapping">
+        <PropertyRef Name="id_category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_category">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="1" />
+    <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_category">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_asso1">
+    <End Role="tbl_category_tiles" Type="Self.tbl_category_tiles" Multiplicity="0..1" />
+    <End Role="tbl_category_associantion" Type="Self.tbl_category_associantion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_category_tiles">
+        <PropertyRef Name="id_category_tiles" />
+      </Principal>
+      <Dependent Role="tbl_category_associantion">
+        <PropertyRef Name="id_category_tile" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_asso2">
+    <End Role="tbl_category_heading" Type="Self.tbl_category_heading" Multiplicity="0..1" />
+    <End Role="tbl_category_associantion" Type="Self.tbl_category_associantion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_category_heading">
+        <PropertyRef Name="id_category_heading" />
+      </Principal>
+      <Dependent Role="tbl_category_associantion">
+        <PropertyRef Name="id_category_heading" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_head1">
+    <End Role="tbl_category_tiles" Type="Self.tbl_category_tiles" Multiplicity="0..1" />
+    <End Role="tbl_category_heading" Type="Self.tbl_category_heading" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_category_tiles">
+        <PropertyRef Name="id_category_tiles" />
+      </Principal>
+      <Dependent Role="tbl_category_heading">
+        <PropertyRef Name="id_category_tiles" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tile1">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="0..1" />
+    <End Role="tbl_category_tiles" Type="Self.tbl_category_tiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_category_tiles">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_bann1">
+    <End Role="tbl_content" Type="Self.tbl_content" Multiplicity="1" />
+    <End Role="tbl_content_banner" Type="Self.tbl_content_banner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content">
+        <PropertyRef Name="ID_CONTENT" />
+      </Principal>
+      <Dependent Role="tbl_content_banner">
+        <PropertyRef Name="id_content" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_hf1">
+    <End Role="tbl_content" Type="Self.tbl_content" Multiplicity="1" />
+    <End Role="tbl_content_header_footer" Type="Self.tbl_content_header_footer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content">
+        <PropertyRef Name="ID_CONTENT" />
+      </Principal>
+      <Dependent Role="tbl_content_header_footer">
+        <PropertyRef Name="id_content" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_org_2">
+    <End Role="tbl_content" Type="Self.tbl_content" Multiplicity="1" />
+    <End Role="tbl_content_right_association" Type="Self.tbl_content_right_association" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content">
+        <PropertyRef Name="ID_CONTENT" />
+      </Principal>
+      <Dependent Role="tbl_content_right_association">
+        <PropertyRef Name="id_content" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_org_cont3">
+    <End Role="tbl_content" Type="Self.tbl_content" Multiplicity="1" />
+    <End Role="tbl_content_organization_mapping" Type="Self.tbl_content_organization_mapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content">
+        <PropertyRef Name="ID_CONTENT" />
+      </Principal>
+      <Dependent Role="tbl_content_organization_mapping">
+        <PropertyRef Name="id_content" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_tbl_subscriptions">
+    <End Role="tbl_content" Type="Self.tbl_content" Multiplicity="1" />
+    <End Role="tbl_subscriptions" Type="Self.tbl_subscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content">
+        <PropertyRef Name="ID_CONTENT" />
+      </Principal>
+      <Dependent Role="tbl_subscriptions">
+        <PropertyRef Name="ID_CONTENT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_content_answer_steps">
+    <End Role="tbl_content_answer" Type="Self.tbl_content_answer" Multiplicity="1" />
+    <End Role="tbl_content_answer_steps" Type="Self.tbl_content_answer_steps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_answer">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Principal>
+      <Dependent Role="tbl_content_answer_steps">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_content_metadata">
+    <End Role="tbl_content_answer" Type="Self.tbl_content_answer" Multiplicity="1" />
+    <End Role="tbl_content_metadata" Type="Self.tbl_content_metadata" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_answer">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Principal>
+      <Dependent Role="tbl_content_metadata">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_content_type_link">
+    <End Role="tbl_content_answer" Type="Self.tbl_content_answer" Multiplicity="1" />
+    <End Role="tbl_content_type_link" Type="Self.tbl_content_type_link" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_answer">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Principal>
+      <Dependent Role="tbl_content_type_link">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_survey">
+    <End Role="tbl_content_answer" Type="Self.tbl_content_answer" Multiplicity="0..1" />
+    <End Role="tbl_survey" Type="Self.tbl_survey" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_answer">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Principal>
+      <Dependent Role="tbl_survey">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_tbl_survey">
+    <End Role="tbl_content_answer_steps" Type="Self.tbl_content_answer_steps" Multiplicity="0..1" />
+    <End Role="tbl_survey" Type="Self.tbl_survey" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_answer_steps">
+        <PropertyRef Name="ID_ANSWER_STEP" />
+      </Principal>
+      <Dependent Role="tbl_survey">
+        <PropertyRef Name="ID_ANSWER_STEP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_hf2">
+    <End Role="tbl_content_footer" Type="Self.tbl_content_footer" Multiplicity="0..1" />
+    <End Role="tbl_content_header_footer" Type="Self.tbl_content_header_footer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_footer">
+        <PropertyRef Name="id_content_footer" />
+      </Principal>
+      <Dependent Role="tbl_content_header_footer">
+        <PropertyRef Name="id_footer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_hf3">
+    <End Role="tbl_content_header" Type="Self.tbl_content_header" Multiplicity="0..1" />
+    <End Role="tbl_content_header_footer" Type="Self.tbl_content_header_footer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_header">
+        <PropertyRef Name="id_content_header" />
+      </Principal>
+      <Dependent Role="tbl_content_header_footer">
+        <PropertyRef Name="id_header" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_org_cont1">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="1" />
+    <End Role="tbl_content_organization_mapping" Type="Self.tbl_content_organization_mapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_content_organization_mapping">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_org_1">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="1" />
+    <End Role="tbl_content_right_association" Type="Self.tbl_content_right_association" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_content_right_association">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_tbl_content_type_link">
+    <End Role="tbl_content_type" Type="Self.tbl_content_type" Multiplicity="1" />
+    <End Role="tbl_content_type_link" Type="Self.tbl_content_type_link" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_type">
+        <PropertyRef Name="ID_CONTENT_TYPE" />
+      </Principal>
+      <Dependent Role="tbl_content_type_link">
+        <PropertyRef Name="ID_CONTENT_TYPE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_org_csst">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="0..1" />
+    <End Role="tbl_csst_role" Type="Self.tbl_csst_role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_csst_role">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_tbl_user_data">
+    <End Role="tbl_device_type" Type="Self.tbl_device_type" Multiplicity="1" />
+    <End Role="tbl_user_data" Type="Self.tbl_user_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_device_type">
+        <PropertyRef Name="ID_DEVICE_TYPE" />
+      </Principal>
+      <Dependent Role="tbl_user_data">
+        <PropertyRef Name="ID_DEVICE_TYPE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK2_tbl_feedback_bank_link">
+    <End Role="tbl_feedback_bank" Type="Self.tbl_feedback_bank" Multiplicity="1" />
+    <End Role="tbl_feedback_bank_link" Type="Self.tbl_feedback_bank_link" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_feedback_bank">
+        <PropertyRef Name="ID_FEEDBACK_BANK" />
+      </Principal>
+      <Dependent Role="tbl_feedback_bank_link">
+        <PropertyRef Name="ID_FEEDBACK_BANK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_tbl_feedback_data">
+    <End Role="tbl_feedback_bank" Type="Self.tbl_feedback_bank" Multiplicity="1" />
+    <End Role="tbl_feedback_data" Type="Self.tbl_feedback_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_feedback_bank">
+        <PropertyRef Name="ID_FEEDBACK_BANK" />
+      </Principal>
+      <Dependent Role="tbl_feedback_data">
+        <PropertyRef Name="ID_FEEDBACK_BANK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk3_tbl_feedback_data">
+    <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+    <End Role="tbl_feedback_data" Type="Self.tbl_feedback_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_user">
+        <PropertyRef Name="ID_USER" />
+      </Principal>
+      <Dependent Role="tbl_feedback_data">
+        <PropertyRef Name="ID_USER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_organization">
+    <End Role="tbl_industry" Type="Self.tbl_industry" Multiplicity="1" />
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_industry">
+        <PropertyRef Name="ID_INDUSTRY" />
+      </Principal>
+      <Dependent Role="tbl_organization">
+        <PropertyRef Name="ID_INDUSTRY" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_offline_expiry">
+    <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+    <End Role="tbl_offline_expiry" Type="Self.tbl_offline_expiry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_user">
+        <PropertyRef Name="ID_USER" />
+      </Principal>
+      <Dependent Role="tbl_offline_expiry">
+        <PropertyRef Name="ID_USER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_org_ban">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="0..1" />
+    <End Role="tbl_organisation_banner" Type="Self.tbl_organisation_banner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_organisation_banner">
+        <PropertyRef Name="id_organisation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="tbl_role1">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="1" />
+    <End Role="tbl_role" Type="Self.tbl_role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_role">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_subscriptions">
+    <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+    <End Role="tbl_subscriptions" Type="Self.tbl_subscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_user">
+        <PropertyRef Name="ID_USER" />
+      </Principal>
+      <Dependent Role="tbl_subscriptions">
+        <PropertyRef Name="ID_USER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK1_tbl_survey_bank_link">
+    <End Role="tbl_survey" Type="Self.tbl_survey" Multiplicity="1" />
+    <End Role="tbl_survey_bank_link" Type="Self.tbl_survey_bank_link" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_survey">
+        <PropertyRef Name="ID_SURVEY" />
+      </Principal>
+      <Dependent Role="tbl_survey_bank_link">
+        <PropertyRef Name="ID_SURVEY" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_survey_data">
+    <End Role="tbl_survey" Type="Self.tbl_survey" Multiplicity="1" />
+    <End Role="tbl_survey_data" Type="Self.tbl_survey_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_survey">
+        <PropertyRef Name="ID_SURVEY" />
+      </Principal>
+      <Dependent Role="tbl_survey_data">
+        <PropertyRef Name="ID_SURVEY" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK2_tbl_survey_bank_link">
+    <End Role="tbl_survey_bank" Type="Self.tbl_survey_bank" Multiplicity="1" />
+    <End Role="tbl_survey_bank_link" Type="Self.tbl_survey_bank_link" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_survey_bank">
+        <PropertyRef Name="ID_SURVEY_BANK" />
+      </Principal>
+      <Dependent Role="tbl_survey_bank_link">
+        <PropertyRef Name="ID_SURVEY_BANK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_tbl_survey_data">
+    <End Role="tbl_survey_bank" Type="Self.tbl_survey_bank" Multiplicity="1" />
+    <End Role="tbl_survey_data" Type="Self.tbl_survey_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_survey_bank">
+        <PropertyRef Name="ID_SURVEY_BANK" />
+      </Principal>
+      <Dependent Role="tbl_survey_data">
+        <PropertyRef Name="ID_SURVEY_BANK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk3_tbl_survey_data">
+    <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+    <End Role="tbl_survey_data" Type="Self.tbl_survey_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_user">
+        <PropertyRef Name="ID_USER" />
+      </Principal>
+      <Dependent Role="tbl_survey_data">
+        <PropertyRef Name="ID_USER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_user_data">
+    <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+    <End Role="tbl_user_data" Type="Self.tbl_user_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_user">
+        <PropertyRef Name="ID_USER" />
+      </Principal>
+      <Dependent Role="tbl_user_data">
+        <PropertyRef Name="ID_USER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="db_m2ostEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="downtime_log" EntityType="Self.downtime_log" />
+    <EntitySet Name="error_log" EntityType="Self.error_log" />
+    <EntitySet Name="masti_parent_teacher_mapping" EntityType="Self.masti_parent_teacher_mapping" />
+    <EntitySet Name="masti_teacher_galleryfolder" EntityType="Self.masti_teacher_galleryfolder" />
+    <EntitySet Name="masti_teacher_photo_mapping" EntityType="Self.masti_teacher_photo_mapping" />
+    <EntitySet Name="sc_game_element_weightage" EntityType="Self.sc_game_element_weightage" />
+    <EntitySet Name="sc_program_assessment_scoring" EntityType="Self.sc_program_assessment_scoring" />
+    <EntitySet Name="sc_program_content_summary" EntityType="Self.sc_program_content_summary" />
+    <EntitySet Name="sc_program_kpi_score" EntityType="Self.sc_program_kpi_score" />
+    <EntitySet Name="sc_program_kpi_weightage" EntityType="Self.sc_program_kpi_weightage" />
+    <EntitySet Name="sc_program_log" EntityType="Self.sc_program_log" />
+    <EntitySet Name="sc_report_game_process_path" EntityType="Self.sc_report_game_process_path" />
+    <EntitySet Name="sc_report_game_process_score" EntityType="Self.sc_report_game_process_score" />
+    <EntitySet Name="tbl_action" EntityType="Self.tbl_action" />
+    <EntitySet Name="tbl_assessment" EntityType="Self.tbl_assessment" />
+    <EntitySet Name="tbl_assessment_answer" EntityType="Self.tbl_assessment_answer" />
+    <EntitySet Name="tbl_assessment_audit" EntityType="Self.tbl_assessment_audit" />
+    <EntitySet Name="tbl_assessment_categoty_mapping" EntityType="Self.tbl_assessment_categoty_mapping" />
+    <EntitySet Name="tbl_assessment_general" EntityType="Self.tbl_assessment_general" />
+    <EntitySet Name="tbl_assessment_header" EntityType="Self.tbl_assessment_header" />
+    <EntitySet Name="tbl_assessment_index" EntityType="Self.tbl_assessment_index" />
+    <EntitySet Name="tbl_assessment_mapping" EntityType="Self.tbl_assessment_mapping" />
+    <EntitySet Name="tbl_assessment_push" EntityType="Self.tbl_assessment_push" />
+    <EntitySet Name="tbl_assessment_question" EntityType="Self.tbl_assessment_question" />
+    <EntitySet Name="tbl_assessment_scoring_key" EntityType="Self.tbl_assessment_scoring_key" />
+    <EntitySet Name="tbl_assessment_sheet" EntityType="Self.tbl_assessment_sheet" />
+    <EntitySet Name="tbl_assessment_theme" EntityType="Self.tbl_assessment_theme" />
+    <EntitySet Name="tbl_assessment_user_assignment" EntityType="Self.tbl_assessment_user_assignment" />
+    <EntitySet Name="tbl_assessmnt_log" EntityType="Self.tbl_assessmnt_log" />
+    <EntitySet Name="tbl_assignment_role_assessment" EntityType="Self.tbl_assignment_role_assessment" />
+    <EntitySet Name="tbl_assignment_role_content" EntityType="Self.tbl_assignment_role_content" />
+    <EntitySet Name="tbl_assignment_role_program" EntityType="Self.tbl_assignment_role_program" />
+    <EntitySet Name="tbl_authcode" EntityType="Self.tbl_authcode" />
+    <EntitySet Name="tbl_banner" EntityType="Self.tbl_banner" />
+    <EntitySet Name="tbl_brief_category_tile" EntityType="Self.tbl_brief_category_tile" />
+    <EntitySet Name="tbl_brief_tile_category_mapping" EntityType="Self.tbl_brief_tile_category_mapping" />
+    <EntitySet Name="tbl_business_type" EntityType="Self.tbl_business_type" />
+    <EntitySet Name="tbl_category" EntityType="Self.tbl_category" />
+    <EntitySet Name="tbl_category_associantion" EntityType="Self.tbl_category_associantion" />
+    <EntitySet Name="tbl_category_heading" EntityType="Self.tbl_category_heading" />
+    <EntitySet Name="tbl_category_order" EntityType="Self.tbl_category_order" />
+    <EntitySet Name="tbl_category_tiles" EntityType="Self.tbl_category_tiles" />
+    <EntitySet Name="tbl_certificate_assignment" EntityType="Self.tbl_certificate_assignment" />
+    <EntitySet Name="tbl_certificate_configure" EntityType="Self.tbl_certificate_configure" />
+    <EntitySet Name="tbl_certificate_configure_data" EntityType="Self.tbl_certificate_configure_data" />
+    <EntitySet Name="tbl_childinformation" EntityType="Self.tbl_childinformation" />
+    <EntitySet Name="tbl_cms_role_action" EntityType="Self.tbl_cms_role_action" />
+    <EntitySet Name="tbl_cms_role_action_mapping" EntityType="Self.tbl_cms_role_action_mapping" />
+    <EntitySet Name="tbl_cms_roles" EntityType="Self.tbl_cms_roles" />
+    <EntitySet Name="tbl_cms_users" EntityType="Self.tbl_cms_users" />
+    <EntitySet Name="tbl_color_config" EntityType="Self.tbl_color_config" />
+    <EntitySet Name="tbl_color_config_flag" EntityType="Self.tbl_color_config_flag" />
+    <EntitySet Name="tbl_content" EntityType="Self.tbl_content" />
+    <EntitySet Name="tbl_content_answer" EntityType="Self.tbl_content_answer" />
+    <EntitySet Name="tbl_content_answer_steps" EntityType="Self.tbl_content_answer_steps" />
+    <EntitySet Name="tbl_content_banner" EntityType="Self.tbl_content_banner" />
+    <EntitySet Name="tbl_content_counters" EntityType="Self.tbl_content_counters" />
+    <EntitySet Name="tbl_content_footer" EntityType="Self.tbl_content_footer" />
+    <EntitySet Name="tbl_content_header" EntityType="Self.tbl_content_header" />
+    <EntitySet Name="tbl_content_header_footer" EntityType="Self.tbl_content_header_footer" />
+    <EntitySet Name="tbl_content_level" EntityType="Self.tbl_content_level" />
+    <EntitySet Name="tbl_content_link" EntityType="Self.tbl_content_link" />
+    <EntitySet Name="tbl_content_metadata" EntityType="Self.tbl_content_metadata" />
+    <EntitySet Name="tbl_content_organization_mapping" EntityType="Self.tbl_content_organization_mapping" />
+    <EntitySet Name="tbl_content_program_mapping" EntityType="Self.tbl_content_program_mapping" />
+    <EntitySet Name="tbl_content_right_association" EntityType="Self.tbl_content_right_association" />
+    <EntitySet Name="tbl_content_role_mapping" EntityType="Self.tbl_content_role_mapping" />
+    <EntitySet Name="tbl_content_type" EntityType="Self.tbl_content_type" />
+    <EntitySet Name="tbl_content_type_link" EntityType="Self.tbl_content_type_link" />
+    <EntitySet Name="tbl_content_user_assisgnment" EntityType="Self.tbl_content_user_assisgnment" />
+    <EntitySet Name="tbl_csst_role" EntityType="Self.tbl_csst_role" />
+    <EntitySet Name="tbl_device_type" EntityType="Self.tbl_device_type" />
+    <EntitySet Name="tbl_feedback_bank" EntityType="Self.tbl_feedback_bank" />
+    <EntitySet Name="tbl_feedback_bank_link" EntityType="Self.tbl_feedback_bank_link" />
+    <EntitySet Name="tbl_feedback_data" EntityType="Self.tbl_feedback_data" />
+    <EntitySet Name="tbl_game_creation" EntityType="Self.tbl_game_creation" />
+    <EntitySet Name="tbl_game_group" EntityType="Self.tbl_game_group" />
+    <EntitySet Name="tbl_game_group_association" EntityType="Self.tbl_game_group_association" />
+    <EntitySet Name="tbl_game_group_participatant" EntityType="Self.tbl_game_group_participatant" />
+    <EntitySet Name="tbl_game_path" EntityType="Self.tbl_game_path" />
+    <EntitySet Name="tbl_game_phase" EntityType="Self.tbl_game_phase" />
+    <EntitySet Name="tbl_game_process_path" EntityType="Self.tbl_game_process_path" />
+    <EntitySet Name="tbl_game_solo" EntityType="Self.tbl_game_solo" />
+    <EntitySet Name="tbl_industry" EntityType="Self.tbl_industry" />
+    <EntitySet Name="tbl_kpi_grid" EntityType="Self.tbl_kpi_grid" />
+    <EntitySet Name="tbl_kpi_master" EntityType="Self.tbl_kpi_master" />
+    <EntitySet Name="tbl_kpi_program_scoring" EntityType="Self.tbl_kpi_program_scoring" />
+    <EntitySet Name="tbl_menu" EntityType="Self.tbl_menu" />
+    <EntitySet Name="tbl_menu_type" EntityType="Self.tbl_menu_type" />
+    <EntitySet Name="tbl_mutthi_mein_sitare_milestone" EntityType="Self.tbl_mutthi_mein_sitare_milestone" />
+    <EntitySet Name="tbl_mutthi_mein_sitare_skill" EntityType="Self.tbl_mutthi_mein_sitare_skill" />
+    <EntitySet Name="tbl_mutthi_skill_development_detail" EntityType="Self.tbl_mutthi_skill_development_detail" />
+    <EntitySet Name="tbl_mutthi_skill_milestone_detail" EntityType="Self.tbl_mutthi_skill_milestone_detail" />
+    <EntitySet Name="tbl_mutthimeinsitare_master" EntityType="Self.tbl_mutthimeinsitare_master" />
+    <EntitySet Name="tbl_news_ticker" EntityType="Self.tbl_news_ticker" />
+    <EntitySet Name="tbl_non_disclousure_clause_content" EntityType="Self.tbl_non_disclousure_clause_content" />
+    <EntitySet Name="tbl_non_disclousure_clause_log" EntityType="Self.tbl_non_disclousure_clause_log" />
+    <EntitySet Name="tbl_notification" EntityType="Self.tbl_notification" />
+    <EntitySet Name="tbl_notification_config" EntityType="Self.tbl_notification_config" />
+    <EntitySet Name="tbl_notification_pre_config" EntityType="Self.tbl_notification_pre_config" />
+    <EntitySet Name="tbl_notification_reminder" EntityType="Self.tbl_notification_reminder" />
+    <EntitySet Name="tbl_offline_expiry" EntityType="Self.tbl_offline_expiry" />
+    <EntitySet Name="tbl_organisation_banner" EntityType="Self.tbl_organisation_banner" />
+    <EntitySet Name="tbl_organisation_banner_links" EntityType="Self.tbl_organisation_banner_links" />
+    <EntitySet Name="tbl_organisation_status" EntityType="Self.tbl_organisation_status" />
+    <EntitySet Name="tbl_organization" EntityType="Self.tbl_organization" />
+    <EntitySet Name="tbl_overall_assessment_user_log" EntityType="Self.tbl_overall_assessment_user_log" />
+    <EntitySet Name="tbl_overall_program_content_user_log" EntityType="Self.tbl_overall_program_content_user_log" />
+    <EntitySet Name="tbl_profile" EntityType="Self.tbl_profile" />
+    <EntitySet Name="tbl_reminder_notification_config" EntityType="Self.tbl_reminder_notification_config" />
+    <EntitySet Name="tbl_reminder_notification_log" EntityType="Self.tbl_reminder_notification_log" />
+    <EntitySet Name="tbl_report_content" EntityType="Self.tbl_report_content" />
+    <EntitySet Name="tbl_report_login_log" EntityType="Self.tbl_report_login_log" />
+    <EntitySet Name="tbl_role" EntityType="Self.tbl_role" />
+    <EntitySet Name="tbl_role_user_mapping" EntityType="Self.tbl_role_user_mapping" />
+    <EntitySet Name="tbl_rs_type_qna" EntityType="Self.tbl_rs_type_qna" />
+    <EntitySet Name="tbl_saksham_assessment_master" EntityType="Self.tbl_saksham_assessment_master" />
+    <EntitySet Name="tbl_saksham_assessment_skill_detail" EntityType="Self.tbl_saksham_assessment_skill_detail" />
+    <EntitySet Name="tbl_scheduled_event" EntityType="Self.tbl_scheduled_event" />
+    <EntitySet Name="tbl_scheduled_event_subscription_log" EntityType="Self.tbl_scheduled_event_subscription_log" />
+    <EntitySet Name="tbl_skill_milestone" EntityType="Self.tbl_skill_milestone" />
+    <EntitySet Name="tbl_sso_log" EntityType="Self.tbl_sso_log" />
+    <EntitySet Name="tbl_subscriptions" EntityType="Self.tbl_subscriptions" />
+    <EntitySet Name="tbl_survey" EntityType="Self.tbl_survey" />
+    <EntitySet Name="tbl_survey_bank" EntityType="Self.tbl_survey_bank" />
+    <EntitySet Name="tbl_survey_bank_link" EntityType="Self.tbl_survey_bank_link" />
+    <EntitySet Name="tbl_survey_data" EntityType="Self.tbl_survey_data" />
+    <EntitySet Name="tbl_task" EntityType="Self.tbl_task" />
+    <EntitySet Name="tbl_temp_user_upload" EntityType="Self.tbl_temp_user_upload" />
+    <EntitySet Name="tbl_themes" EntityType="Self.tbl_themes" />
+    <EntitySet Name="tbl_user" EntityType="Self.tbl_user" />
+    <EntitySet Name="tbl_user_data" EntityType="Self.tbl_user_data" />
+    <EntitySet Name="tbl_user_device_link" EntityType="Self.tbl_user_device_link" />
+    <EntitySet Name="tbl_user_gcm_log" EntityType="Self.tbl_user_gcm_log" />
+    <EntitySet Name="tbl_user_programs" EntityType="Self.tbl_user_programs" />
+    <EntitySet Name="tbl_user_zone" EntityType="Self.tbl_user_zone" />
+    <EntitySet Name="tbl_user_zone_master" EntityType="Self.tbl_user_zone_master" />
+    <EntitySet Name="tbl_version_control" EntityType="Self.tbl_version_control" />
+    <EntitySet Name="tbl_version_control_ios" EntityType="Self.tbl_version_control_ios" />
+    <EntitySet Name="tbl_welcome_gif" EntityType="Self.tbl_welcome_gif" />
+    <EntitySet Name="dummy_mapping" EntityType="Self.dummy_mapping" />
+    <EntitySet Name="content_access_existing" EntityType="Self.content_access_existing" />
+    <EntitySet Name="content_access_view" EntityType="Self.content_access_view" />
+    <EntitySet Name="dummy_map" EntityType="Self.dummy_map" />
+    <EntitySet Name="indavgscore_view_old" EntityType="Self.indavgscore_view_old" />
+    <AssociationSet Name="fk3_tbl_user_data" Association="Self.fk3_tbl_user_data">
+      <End Role="tbl_action" EntitySet="tbl_action" />
+      <End Role="tbl_user_data" EntitySet="tbl_user_data" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assesment_sht2" Association="Self.fk_assesment_sht2">
+      <End Role="tbl_assessment" EntitySet="tbl_assessment" />
+      <End Role="tbl_assessment_sheet" EntitySet="tbl_assessment_sheet" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assessment1" Association="Self.fk_assessment1">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_assessment" EntitySet="tbl_assessment" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assessment_header3" Association="Self.fk_assessment_header3">
+      <End Role="tbl_assessment_answer" EntitySet="tbl_assessment_answer" />
+      <End Role="tbl_assessment_header" EntitySet="tbl_assessment_header" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assess_gene1" Association="Self.fk_assess_gene1">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_assessment_general" EntitySet="tbl_assessment_general" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assess_gene2" Association="Self.fk_assess_gene2">
+      <End Role="tbl_assessment_sheet" EntitySet="tbl_assessment_sheet" />
+      <End Role="tbl_assessment_general" EntitySet="tbl_assessment_general" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assess_gene3" Association="Self.fk_assess_gene3">
+      <End Role="tbl_user" EntitySet="tbl_user" />
+      <End Role="tbl_assessment_general" EntitySet="tbl_assessment_general" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assessment_header1" Association="Self.fk_assessment_header1">
+      <End Role="tbl_assessment_scoring_key" EntitySet="tbl_assessment_scoring_key" />
+      <End Role="tbl_assessment_header" EntitySet="tbl_assessment_header" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assessment_header2" Association="Self.fk_assessment_header2">
+      <End Role="tbl_assessment_question" EntitySet="tbl_assessment_question" />
+      <End Role="tbl_assessment_header" EntitySet="tbl_assessment_header" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assesment_sht1" Association="Self.fk_assesment_sht1">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_assessment_sheet" EntitySet="tbl_assessment_sheet" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_bann2" Association="Self.fk_content_bann2">
+      <End Role="tbl_banner" EntitySet="tbl_banner" />
+      <End Role="tbl_content_banner" EntitySet="tbl_content_banner" />
+    </AssociationSet>
+    <AssociationSet Name="fk_org_banner" Association="Self.fk_org_banner">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_banner" EntitySet="tbl_banner" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_tbl_organization" Association="Self.fk2_tbl_organization">
+      <End Role="tbl_business_type" EntitySet="tbl_business_type" />
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+    </AssociationSet>
+    <AssociationSet Name="fk_asso3" Association="Self.fk_asso3">
+      <End Role="tbl_category" EntitySet="tbl_category" />
+      <End Role="tbl_category_associantion" EntitySet="tbl_category_associantion" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_org_cont2" Association="Self.fk_content_org_cont2">
+      <End Role="tbl_category" EntitySet="tbl_category" />
+      <End Role="tbl_content_organization_mapping" EntitySet="tbl_content_organization_mapping" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_category" Association="Self.fk1_tbl_category">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_category" EntitySet="tbl_category" />
+    </AssociationSet>
+    <AssociationSet Name="fk_asso1" Association="Self.fk_asso1">
+      <End Role="tbl_category_tiles" EntitySet="tbl_category_tiles" />
+      <End Role="tbl_category_associantion" EntitySet="tbl_category_associantion" />
+    </AssociationSet>
+    <AssociationSet Name="fk_asso2" Association="Self.fk_asso2">
+      <End Role="tbl_category_heading" EntitySet="tbl_category_heading" />
+      <End Role="tbl_category_associantion" EntitySet="tbl_category_associantion" />
+    </AssociationSet>
+    <AssociationSet Name="fk_head1" Association="Self.fk_head1">
+      <End Role="tbl_category_tiles" EntitySet="tbl_category_tiles" />
+      <End Role="tbl_category_heading" EntitySet="tbl_category_heading" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tile1" Association="Self.fk_tile1">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_category_tiles" EntitySet="tbl_category_tiles" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_bann1" Association="Self.fk_content_bann1">
+      <End Role="tbl_content" EntitySet="tbl_content" />
+      <End Role="tbl_content_banner" EntitySet="tbl_content_banner" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_hf1" Association="Self.fk_content_hf1">
+      <End Role="tbl_content" EntitySet="tbl_content" />
+      <End Role="tbl_content_header_footer" EntitySet="tbl_content_header_footer" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_org_2" Association="Self.fk_content_org_2">
+      <End Role="tbl_content" EntitySet="tbl_content" />
+      <End Role="tbl_content_right_association" EntitySet="tbl_content_right_association" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_org_cont3" Association="Self.fk_content_org_cont3">
+      <End Role="tbl_content" EntitySet="tbl_content" />
+      <End Role="tbl_content_organization_mapping" EntitySet="tbl_content_organization_mapping" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_tbl_subscriptions" Association="Self.fk2_tbl_subscriptions">
+      <End Role="tbl_content" EntitySet="tbl_content" />
+      <End Role="tbl_subscriptions" EntitySet="tbl_subscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_content_answer_steps" Association="Self.fk1_tbl_content_answer_steps">
+      <End Role="tbl_content_answer" EntitySet="tbl_content_answer" />
+      <End Role="tbl_content_answer_steps" EntitySet="tbl_content_answer_steps" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_content_metadata" Association="Self.fk1_tbl_content_metadata">
+      <End Role="tbl_content_answer" EntitySet="tbl_content_answer" />
+      <End Role="tbl_content_metadata" EntitySet="tbl_content_metadata" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_content_type_link" Association="Self.fk1_tbl_content_type_link">
+      <End Role="tbl_content_answer" EntitySet="tbl_content_answer" />
+      <End Role="tbl_content_type_link" EntitySet="tbl_content_type_link" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_survey" Association="Self.fk1_tbl_survey">
+      <End Role="tbl_content_answer" EntitySet="tbl_content_answer" />
+      <End Role="tbl_survey" EntitySet="tbl_survey" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_tbl_survey" Association="Self.fk2_tbl_survey">
+      <End Role="tbl_content_answer_steps" EntitySet="tbl_content_answer_steps" />
+      <End Role="tbl_survey" EntitySet="tbl_survey" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_hf2" Association="Self.fk_content_hf2">
+      <End Role="tbl_content_footer" EntitySet="tbl_content_footer" />
+      <End Role="tbl_content_header_footer" EntitySet="tbl_content_header_footer" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_hf3" Association="Self.fk_content_hf3">
+      <End Role="tbl_content_header" EntitySet="tbl_content_header" />
+      <End Role="tbl_content_header_footer" EntitySet="tbl_content_header_footer" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_org_cont1" Association="Self.fk_content_org_cont1">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_content_organization_mapping" EntitySet="tbl_content_organization_mapping" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_org_1" Association="Self.fk_content_org_1">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_content_right_association" EntitySet="tbl_content_right_association" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_tbl_content_type_link" Association="Self.fk2_tbl_content_type_link">
+      <End Role="tbl_content_type" EntitySet="tbl_content_type" />
+      <End Role="tbl_content_type_link" EntitySet="tbl_content_type_link" />
+    </AssociationSet>
+    <AssociationSet Name="fk_org_csst" Association="Self.fk_org_csst">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_csst_role" EntitySet="tbl_csst_role" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_tbl_user_data" Association="Self.fk2_tbl_user_data">
+      <End Role="tbl_device_type" EntitySet="tbl_device_type" />
+      <End Role="tbl_user_data" EntitySet="tbl_user_data" />
+    </AssociationSet>
+    <AssociationSet Name="FK2_tbl_feedback_bank_link" Association="Self.FK2_tbl_feedback_bank_link">
+      <End Role="tbl_feedback_bank" EntitySet="tbl_feedback_bank" />
+      <End Role="tbl_feedback_bank_link" EntitySet="tbl_feedback_bank_link" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_tbl_feedback_data" Association="Self.fk2_tbl_feedback_data">
+      <End Role="tbl_feedback_bank" EntitySet="tbl_feedback_bank" />
+      <End Role="tbl_feedback_data" EntitySet="tbl_feedback_data" />
+    </AssociationSet>
+    <AssociationSet Name="fk3_tbl_feedback_data" Association="Self.fk3_tbl_feedback_data">
+      <End Role="tbl_user" EntitySet="tbl_user" />
+      <End Role="tbl_feedback_data" EntitySet="tbl_feedback_data" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_organization" Association="Self.fk1_tbl_organization">
+      <End Role="tbl_industry" EntitySet="tbl_industry" />
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_offline_expiry" Association="Self.fk1_tbl_offline_expiry">
+      <End Role="tbl_user" EntitySet="tbl_user" />
+      <End Role="tbl_offline_expiry" EntitySet="tbl_offline_expiry" />
+    </AssociationSet>
+    <AssociationSet Name="fk_org_ban" Association="Self.fk_org_ban">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_organisation_banner" EntitySet="tbl_organisation_banner" />
+    </AssociationSet>
+    <AssociationSet Name="tbl_role1" Association="Self.tbl_role1">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_role" EntitySet="tbl_role" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_subscriptions" Association="Self.fk1_tbl_subscriptions">
+      <End Role="tbl_user" EntitySet="tbl_user" />
+      <End Role="tbl_subscriptions" EntitySet="tbl_subscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK1_tbl_survey_bank_link" Association="Self.FK1_tbl_survey_bank_link">
+      <End Role="tbl_survey" EntitySet="tbl_survey" />
+      <End Role="tbl_survey_bank_link" EntitySet="tbl_survey_bank_link" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_survey_data" Association="Self.fk1_tbl_survey_data">
+      <End Role="tbl_survey" EntitySet="tbl_survey" />
+      <End Role="tbl_survey_data" EntitySet="tbl_survey_data" />
+    </AssociationSet>
+    <AssociationSet Name="FK2_tbl_survey_bank_link" Association="Self.FK2_tbl_survey_bank_link">
+      <End Role="tbl_survey_bank" EntitySet="tbl_survey_bank" />
+      <End Role="tbl_survey_bank_link" EntitySet="tbl_survey_bank_link" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_tbl_survey_data" Association="Self.fk2_tbl_survey_data">
+      <End Role="tbl_survey_bank" EntitySet="tbl_survey_bank" />
+      <End Role="tbl_survey_data" EntitySet="tbl_survey_data" />
+    </AssociationSet>
+    <AssociationSet Name="fk3_tbl_survey_data" Association="Self.fk3_tbl_survey_data">
+      <End Role="tbl_user" EntitySet="tbl_user" />
+      <End Role="tbl_survey_data" EntitySet="tbl_survey_data" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_user_data" Association="Self.fk1_tbl_user_data">
+      <End Role="tbl_user" EntitySet="tbl_user" />
+      <End Role="tbl_user_data" EntitySet="tbl_user_data" />
+    </AssociationSet>
+    <FunctionImport Name="getProgramCompletionReport" ReturnType="Collection(db_m2ost_production_v_5Model.getProgramCompletionReport_Result)">
+      <Parameter Name="oid" Mode="In" Type="Int32" />
+      <Parameter Name="sdate" Mode="In" Type="String" />
+      <Parameter Name="edate" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="indgamepercentile" ReturnType="Collection(db_m2ost_production_v_5Model.indgamepercentile_Result)">
+      <Parameter Name="gameid" Mode="In" Type="Int32" />
+      <Parameter Name="userid" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="getProgramCompletionReport_Result" />
+  <ComplexType Name="indgamepercentile_Result" />
+</Schema>

@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable({ "pageLength": 25 });
+    });
+
+    function updateOrder(id, val) {
+        var ctid = $('#' + id).val();
+        var url = '@Url.Action("updateHeadingOrder", "csst_category")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { ctid: val, ord: ctid },
+          
+            success: function (data) {
+                if (data == "1") {
+                }
+            }
+        });
+    }
+
+    function getContentReport() {
+        loading_on();
+        var id = $("#tile-category").val();
+        var url = '@Url.Action("getCategoryHeading", "csst_category")';
+        if (id != 0) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: id },
+                
+                success: function (data) {
+                    $("#display_table").empty().append(data);
+                    $("#report-table").dataTable({ "pageLength": 25 });
+
+                }
+            });
+        }
+        loading_off();
+    }
+</script>
+
+@{
+    List<tbl_category_tiles> category = (List<tbl_category_tiles>)ViewData["category_tile"];
+    bool flag = (bool)ViewData["accessflag"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Category Heading Sort</h6>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-2 regLabel"> Category Tile :</label>
+                            <div class="col-md-9">
+                                <select class="form-control" id="tile-category" name="tile-category" onchange="getContentReport(this.value)">
+                                    <option value="0" disabled selected> Select Category Tile </option>
+                                    @foreach (tbl_category_tiles item in category)
+                                    {
+                                        <option value="@item.id_category_tiles">@item.tile_heading </option>
+                                    }                                    
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="display_table">
+
+                </div>
+                
+
+            </div>
+        </div>
+
+    </div>
+</div>

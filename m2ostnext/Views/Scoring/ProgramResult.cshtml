@@ -1,0 +1,281 @@
+﻿@{
+    ViewBag.Title = "game";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<style>
+    .select-checkbox:before, .select-checkbox:after {
+        display: block;
+        position: absolute;
+        top: 1.2em;
+        left: 50%;
+        width: 12px;
+        height: 12px;
+        box-sizing: border-box;
+    }
+
+    p {
+        padding-top: 12px;
+    }
+
+    .select-checkbox:after {
+        content: '\2714';
+        margin-top: -11px;
+        margin-left: -4px;
+        text-align: center;
+        text-shadow: 1px 1px #B0BED9, -1px -1px #B0BED9, 1px -1px #B0BED9, -1px 1px #B0BED9;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+
+        $("#report-table-temp").dataTable({
+            "pageLength": 10
+        });
+        $("#report-table-note").dataTable({
+            "pageLength": 10
+        });
+        $("#datetimepicker1").datetimepicker(
+          { dateFormat: "dd-mm-yy", minDate: new Date() }
+       );
+        $("#datetimepicker2").datetimepicker(
+          { dateFormat: "dd-mm-yy", minDate: new Date() }
+       );
+        $("[name='role-checkbox']").bootstrapSwitch({ 'size': 'mini', 'state': true });
+    });
+
+    function reset_user() {
+        $('#search-box-user').attr('readonly', false);
+    }
+
+    function getContentReport(type) {
+        loading_on();
+        var id = $("#role-select").val();
+        var url = '@Url.Action("getUserListForGroup", "Gamification")';
+        var pattern = "";
+        if (type == "3") {
+            pattern = $("#search-box-user").val().trim();
+            $('#search-box-user').attr('readonly', true);
+            id = 0;
+        } else if (type == "2") {
+            pattern = $("#search-lbox").val().trim();
+            var lid = $("#location-select").val();
+            pattern = lid + "|" + pattern;
+            id = 0;
+        } else if (type == "5") {
+            pattern = $("#search-fbox").val().trim();
+            var lid = $("#function-select").val();
+            pattern = lid + "|" + pattern;
+            id = 0;
+        } else {
+            pattern = $("#search-box").val().trim();
+        }
+
+            var count = pattern.trim().length;
+            var gid = $("#id_game_group").val();
+
+                if (count >= 3 || id > 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: { gid: gid,rid:id, pattern: pattern,type:type},
+
+                        success: function (data) {
+                            $("#display_table").empty().append(data);
+                            $("#report-table").dataTable({
+                                "bSort": false,
+                                "pageLength": 50
+                            });
+                        }
+                    });
+                } else {
+                    if (id == 0) {
+                        $("#msg-txt").html("<p>Enter minimun of 3 character to search</p>");
+                        $('#m2ost-dialog').modal('show');
+                    }
+                }
+        loading_off();
+
+    }
+
+
+    function getUserDetailsFilter() {
+        loading_on();
+
+        var role = "";
+        var fun = "";
+        var loc = "";
+        var pattern = "";
+        role = $("#role-select").val();
+        fun = $("#function-select").val();
+        loc = $("#location-select").val();
+        pattern = $("#search-box-user").val().trim();
+
+
+        var url = '@Url.Action("getUserListForGroup", "Gamification")';
+
+
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { role: role, fun: fun, loc: loc, pattern: pattern, std: "", exd: "" },
+
+                success: function (data) {
+                    $("#display_table").empty().append(data);
+                    $("#report-table").dataTable({
+                        "bSort": false,
+                        "pageLength": 50
+                    });
+                }
+            });
+
+
+        loading_off();
+
+    }
+
+
+    function removeUserFromGroup(uid) {
+        var gid = $("#group-id").val();
+            var url = '@Url.Action("removeUserFromGroup", "Gamification")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { gid: gid, uid: uid},
+                success: function (data) {
+                    if (data == "1") {
+                        $("#msg-txt").html("<p>User is Removed From the Group</p>");
+                        $('#m2ost-dialog').modal('show');
+                        $("#link_" + value).hide();
+                        $("#done_" + value).show();
+                    } else {
+                        $("#msg-txt").html("<p>Error while removing User from Group</p>");
+                        $('#m2ost-dialog').modal('show');
+                    }
+                }
+            });
+        }
+
+
+
+
+
+
+
+
+    function SetMultiUserToGroup() {
+        var form_data = $("#form-add-group").serialize();
+            var url = '@Url.Action("setUserToGroup", "Gamification")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: form_data,
+                success: function (data) {
+                    if (data == "1") {
+                        $("#msg-txt").html("<p>Users are addedd to the Group.</p>");
+                        $('#m2ost-dialog').modal('show');
+                        setTimeout(function () {
+                            location.reload(true)
+                        }, 3000);
+                    }
+                }
+            });
+    }
+
+    function check_all() {
+        if ($("#checkAll").prop('checked') == true) {
+            $('.myCheckbox').prop('checked', true);
+        }
+        else {
+            $('.myCheckbox').prop('checked', false);
+        }
+    }
+
+
+
+
+</script>
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+@{
+    List<string> location = (List<string>)ViewData["location"]; List<string> function = (List<string>)ViewData["function"];
+    List<tbl_csst_role> roles = (List<tbl_csst_role>)ViewData["RoleList"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Program Result</h4>
+            </div>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("add_game_group_action", "Gamification", FormMethod.Post, new { id = "form-add-group" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h6 class="panel-title">Select User Role to filter</h6>
+                                <select class="form-control" id="role-select">
+                                    <option value="0">All Role</option>
+                                    @foreach (tbl_csst_role item in roles)
+                                    {
+                                        <option value="@item.id_csst_role">@item.csst_role</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <h6 class="panel-title">Select User Location to filter</h6>
+                                <select class="form-control" id="location-select">
+                                    <option value="">All Location</option>
+                                    @foreach (string item in location)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <h6 class="panel-title">Select User function to filter</h6>
+                                <select class="form-control" id="function-select">
+                                    <option value="">  All function</option>
+                                    @foreach (string item in function)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <h6 class="panel-title">Search by text </h6>
+                                <input type="text" class="form-control" placeholder="minimum 3 character" id="search-box-user" />
+                            </div>
+                            <div class="col-md-2">
+                                <h6 class="panel-title">  . </h6>
+                                <input id="filter-to-all" type="button" class="btn btn-primary btn-sm" value="search" onclick="getUserDetailsFilter()" />
+                            </div>
+                            <input type="hidden" id="role-type" name="role-type" value="0" />
+                        </div>
+
+                        <hr />
+
+                        <div id="display_table">
+
+                        </div>
+                        <br />
+                      
+                        <hr />
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

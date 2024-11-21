@@ -1,0 +1,318 @@
+﻿@{
+    ViewBag.Title = "Add Category";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script>
+    $(function () {
+        $("#form_add_category").validationEngine();
+    });
+
+    function select_file() {
+        var file = $("#uploadBtn")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        }
+        $("#ImageFile").val(filename);
+    }
+
+    function fun_parent_check(val) {
+        if (val == "0") {
+            $("#sub_header").hide();
+            //$("#div-new-header").hide();
+
+        } else {
+            $("#sub_header").show();
+            var url = '@Url.Action("getSubHeader", "csst_category")';
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: val },
+               
+                success: function (data) {
+                    if (data == 0) {
+                        data = '<span>There are NO Heading Present at this time.</span>';
+                        $("#div-heading-check").empty().append(data);
+                        // $("#div-new-header").show();
+                    }
+                    else {
+                        $("#div-heading-check").empty().append(data);
+                        // $("#div-new-header").show();
+                    }
+
+                }
+            });
+        }
+
+    }
+
+    function fun_type_check(value) {
+        if (value == "0") {
+            $("#body-program").show();
+            $("#body-category").hide();
+        } else {
+            $("#body-program").hide();
+            $("#body-category").show();
+        }
+        if (value == "3") {
+            $("#link-url-category").show();
+
+        } else {
+            $("#link-url-category").hide();
+        }
+    }
+
+
+    function fun_add_heading() {
+        var val = $("#save-heading").val();
+        if (val != "") {
+            var data = '<div class="checkbox"><label><input type="checkbox" class="checkbox checkbox-inline" name="heading-check" value="' + val + ' "/>' + val + '</label></div>';
+            $("#div-heading-check").append(data);
+            $("#save-heading").val("");
+            $("#new-check-heading").hide();
+
+        }
+    }
+
+    function fun_show_heading() {
+        $("#new-check-heading").show();
+    }
+
+</script>
+<style>
+.checkbox label input[type="checkbox"]{
+    display: block;
+}
+
+    .checkbox input[type="checkbox"] {
+        opacity: unset !important;
+        position: absolute;
+        left: 0px;
+        top: -5px;
+        height: 18px;
+        width: 18px;
+    }
+</style>
+
+@{
+    List<tbl_category_tiles> cat_list = (List<tbl_category_tiles>)ViewData["category-list"];
+    //List<m2ostnext.Models.tbl_language_master> Language_list = (List<m2ostnext.Models.tbl_language_master>)ViewData["Language-list"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Add Category</h4>
+            </div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm("add_cms_category", "csst_category", FormMethod.Post, new { id = "form_add_category", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="FirstName" class="control-label col-md-2 regLabel">Select Language:</label>
+                                <div class="col-md-9">
+                                    @*<select class="form-control" id="Language-category" name="Language-category" onchange="fun_parent_check(this.value)">
+                                        <option value="0" selected>Select Language</option>
+                                        @foreach (m2ostnext.Models.tbl_language_master items in Language_list)
+                                        {
+                                            <option value="@items.id_language"> @items.LanguageName</option>
+                                        }
+                                    </select>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="FirstName" class="control-label col-md-2 regLabel">Category Name :</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control validate[required]" value="" placeholder="Category Name" id="Category" name="Category" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="FirstName" class="control-label col-md-2 regLabel">Description:</label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control validate[required]" placeholder="Description" id="Description" name="Description" rows="6"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="row">
+        <div class="col-md-12">
+        <div class="form-group">
+        <label for="FirstName" class="control-label col-md-2 regLabel">Order No:</label>
+        <div class="col-md-9">
+        <input type="text" class="form-control validate[required]" value="" placeholder="Order No" id="OrderId" name="OrderId" />
+        </div>
+        </div>
+        </div>
+        </div>*@
+
+
+                    <input type="hidden" value="0" placeholder="Order No" id="OrderId" name="OrderId" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="FirstName" class="control-label col-md-2 regLabel"> Category Type :</label>
+                                <div class="col-md-9">
+                                    <select class="form-control" id="type-category" name="type-category" onchange="fun_type_check(this.value)">
+                                        <option value="1" selected> Is A Category </option>
+                                        <option value="0"> Is A Program </option>
+                                        <option value="2"> Assessment Category</option>
+                                        <option value="3"> External Category Link</option>
+                                        <option value="4"> My Report </option>
+                                        <option value="5"> Team Report </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="FirstName" class="control-label col-md-2 regLabel">Is 5-click Required:</label>
+                                <div class="col-md-9">
+                                    <select class="form-control" id="click-category" name="click-category">
+                                        <option value="0"> Not Required</option>
+                                        <option value="1"> 5-Click Required</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="FirstName" class="control-label col-md-2 regLabel">Max Content display :</label>
+                                <div class="col-md-9">
+                                    <select class="form-control" id="count-category" name="count-category">
+                                        <option value="15"> 15</option>
+                                        <option value="25"> 20</option>
+                                        <option value="30"> 30</option>
+                                        <option value="50"> 50</option>
+                                        <option value="75"> 75</option>
+                                        <option value="100"> 100</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="body-category">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Parent Category:</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="parent-category" name="parent-category" onchange="fun_parent_check(this.value)">
+                                            <option value="0" selected> Not Applicable</option>
+                                            @foreach (tbl_category_tiles items in cat_list)
+                                            {
+                                                <option value="@items.id_category_tiles"> @items.tile_heading</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">New User Atuo Assignee:</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="New_user_Auto" name="New_user_Auto">
+                                            <option value="0" selected> Select Assignee</option>
+                                            <option value="1"> Yes</option>
+                                            <option value="2"> No</option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="sub_header" style="display:none;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="FirstName" class="control-label col-md-2 regLabel"> Select  Headings:</label>
+                                        <div class="col-md-6" id="div-heading-check">
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            @*<input type="button" onclick="fun_show_heading()" class="btn btn-sm btn-primary" value="Add New Heading" />*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="new-check-heading" style="display:none;">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">New Heading:</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control validate[required]" value="" placeholder="New Heading" id="save-heading" name="save-heading" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="button" onclick="fun_add_heading()" class="btn btn-sm btn-primary " value="Add Heading" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="FirstName" class="control-label col-md-2 regLabel">Image:</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control validate[required]" readonly value="" placeholder="Choose Image" id="ImageFile" name="ImageFile" />
+                                    <div class="fileUpload btn btn-primary">
+                                        <span>Browse Image</span>
+                                        <input id="uploadBtn" name="uploadBtn" class="upload" type="file" accept="image/*" onchange="select_file()" />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="link-url-category" style="display:none;">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="FirstName" class="control-label col-md-2 regLabel">Redirection URL : </label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control validate[required,custom[url]]" value="http://" placeholder="" id="red_url" name="red_url" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+                }
+                <hr />
+
+
+            </div>
+        </div>
+    </div>
+</div>

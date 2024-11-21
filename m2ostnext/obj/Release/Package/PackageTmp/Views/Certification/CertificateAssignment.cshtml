@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "CertificateAssignment";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    List<tbl_assessment> assess = (List<tbl_assessment>)ViewData["ass_list"];
+}
+
+<link rel="stylesheet" href="~/Content/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<link rel="stylesheet" href="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+<script>
+    function changecertificate(val) {
+       
+        var act = "certificate" + val;
+      
+      
+       
+       
+          var certlink = "http://103.7.64.68/m2ostbeta/Content/Certificate/" + act + ".jpg";
+          var img = "<img id='preview-div' src='" + certlink + "' style='width:100%' />";
+          $("#cer_pre").empty().append(img);
+
+           
+
+    }
+</script>
+
+@using (Html.BeginForm("AssignCertification", "Certification", FormMethod.Post, new { id = "form-add-content", enctype = "multipart/form-data" }))
+{
+  
+
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="panel panel-default custom-panel">
+                <div class="panel-heading custom-panel-heading">
+                   
+                        <div class="panel-title">Certificate Assignment</div>
+                   
+                </div>
+                <div class="panel-body custom-panel-body">
+
+                    <div class="row">
+                        <div class="col-md-9">
+
+
+                           
+                            
+                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                <label class="control-label">Select Certificate</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <select id="select-category" name="id_certificate" class="form-control" onchange="changecertificate(this.value)">
+
+                                                    <option value="">select Certificate</option>
+                                                    @foreach (var pro in (List<m2ostnext.tbl_certificate_configure>)ViewData["certificates"])
+    {
+                                                <option value="@pro.id_certificate">@pro.certificate_title</option>
+}
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+
+                     
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <label class="control-label">Select Assessment</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select id="select-theme" name="id_assessment" class="form-control">
+                                                <option value="">select assessment</option>
+                                                @foreach (var itm in assess)
+    {
+
+                                            <option value="@itm.id_assessment">@itm.assessment_title</option>
+
+    }
+
+
+
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         
+
+
+
+
+                        </div>
+                        <div class="col-md-3" id="cer_pre">
+                          
+                              
+                                   
+                              
+                               
+                            
+                        </div>
+                    </div>
+
+                 
+               
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+
+
+
+                                <div class="col-md-3">
+                                  
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="Assign" type="submit" class="btn btn-default btn-info" name="btn_submit" value="Assign" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

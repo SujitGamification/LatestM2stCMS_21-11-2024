@@ -1,0 +1,827 @@
+﻿@{
+    ViewBag.Title = "Question";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    @model m2ostnext.Models.tbl_learning_question
+    List<m2ostnext.Models.tbl_learning_question> QuestionModelList = (List<m2ostnext.Models.tbl_learning_question>)ViewData["QuestionModelList"];
+
+
+}
+<link rel="stylesheet" href="~/Content/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<link rel="stylesheet" href="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#report-table').DataTable({
+            "autoWidth": false
+        });
+
+        $('#report-table').DataTable();
+
+    });
+
+
+</script>
+<style>
+    .textcenter {
+        text-align: center;
+    }
+    /* .my-3 {
+        margin: 0.30rem 0rem;
+    }*/
+    .inputHeight {
+        height: 35px;
+        border-radius: 4px;
+        border-width: 1px;
+        border-color: #000000;
+    }
+
+    .custom-file-upload {
+        display: inline-block;
+        position: relative;
+    }
+
+    .selected-file {
+        height: 35px;
+        width: 80%;
+        border: 1px solid black;
+        border-right: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 4px 0px 0px 3px;
+    }
+
+    .file-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+    }
+
+    .file-label {
+        display: inline-block;
+        padding: 0px 12px;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #616161;
+        text-align: center;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 175%;
+        height: 35px;
+        border-radius: 0px 3px 3px 0px;
+        background: #F3F3F3;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        border: 1px solid black;
+        border-left: none;
+        display: flex;
+        align-items: center;
+    }
+</style>
+@if (TempData["MessageVideo"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $("#msg-txt").html("<p>@TempData["MessageVideo"]</p>");
+            $('#m2ost-dialog').modal('show');
+        });
+    </script>
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default custom-panel">
+            <div class="panel-heading custom-panel-heading">
+                <div class="panel-title">Question list </div>
+            </div>
+            <div class="panel-body">
+                <div id="Questionlist">
+                    <div class="col-md-12 column" style="padding:0px;margin:1vh 0vh 4vh">
+                        <div class="" style="display:flex;justify-content:flex-end;">
+                            <button id="disableButton" class="btn btn-default" style="padding:2px 10px;margin-right:5px" onclick="ConfigureVideo(event)">Create Question </button>
+                        </div>
+                    </div>
+                    <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>id_learning_question</th>
+                                <th style="display:none">id_organization</th>
+                                <th style="display:none">id_cms_user</th>
+                                <th style="display:none">id_learning_category</th>
+                                <th>category_name</th>
+                                <th style="display:none">id_learning_sub_category</th>
+                                <th>sub_category_name</th>
+                                <th>title</th>
+                                <th class="textcenter">question</th>
+                                <th style="display:none" class="textcenter">option_number</th>
+                                <th style="display:none" class="textcenter">image_path</th>
+                                <th style="display:none" class="textcenter">youtube_url</th>
+                                <th style="display:none" class="textcenter">video_url</th>
+                                <th style="display:none" class="textcenter">points</th>
+                                <th style="display:none" class="textcenter">status</th>
+                                <th style="display:none" class="textcenter">Numberofattempts</th>
+                                <th class="textcenter">Edit</th>
+                                <th class="textcenter">Delete</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in QuestionModelList)
+                            {
+                                <tr>
+                                    <td>@item.IdLearningQuestion</td>
+                                    <td style="display:none">@item.IdOrganization</td>
+                                    <td style="display:none">@item.IdCmsUser</td>
+                                    <td style="display:none">@item.IdLearningCategory</td>
+                                    <td >@item.category_name</td>
+                                    <td style="display:none">@item.IdLearningSubCategory</td>
+                                    <td >@item.sub_category_name</td>
+                                    <td>@item.Title</td>
+                                    <td class="textcenter">@item.Question</td>
+                                    <td style="display:none" class="textcenter">@item.OptionNumber</td>
+                                    <td style="display:none" class="textcenter">@item.Image_path</td>
+                                    <td style="display:none" class="textcenter">@item.YoutubeUrl</td>
+                                    <td style="display:none" class="textcenter">@item.VideoUrl</td>
+                                    <td style="display:none" class="textcenter">@item.Points</td>
+                                    <td style="display:none" class="textcenter">@item.Status</td>
+                                    <td style="display:none" class="textcenter">@item.Numberofattempts</td>
+
+                                    <td class="textcenter">
+                                        <a onclick="Edit(this)"><i class="glyphicon glyphicon-edit"></i></a>
+                                    </td>
+                                    <td class="textcenter">
+                                        <a href="#" onclick="Delete(event,'@item.IdLearningQuestion')" data-id="@item.IdLearningQuestion">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+                @using (Html.BeginForm("QuestionSaveConfiguration", "Learning_trivia", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div id="QuestionConfigure">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form action="SetLoginPage" method="post" enctype="multipart/form-data">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Category</label></div>
+                                                @Html.TextBoxFor(model => model.IdLearningQuestion, new { type = "text", id = "IdLearningQuestion", style = "display:none;" })
+                                                @Html.TextBoxFor(model => model.IdLearningQuestionAnswer, new { type = "text", id = "IdLearningQuestionAnswer", style = "display:none;" })
+
+                                                <div class="form-group">
+                                                    @Html.DropDownListFor(m => m.IdLearningCategory, Model.IdLearningCategoryList, "Select a Category", new { @class = "form-control", required = "required", @onchange = "getSubCategories(this.value)" })
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Sub Category</label></div>
+                                                <div class="form-group">
+                                                    @Html.DropDownListFor(m => m.IdLearningSubCategory, Model.IdLearningSubCategoryList, "Select a SubCategory", new { @class = "form-control", required = "required", id = "IdLearningSubCategory" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Brief Title</label></div>
+                                                @Html.TextBoxFor(model => model.Title, new { @class = "form-control inputHeight my-3", id = "Title", placeholder = "Enter Title Text", required = "required" })
+
+                                            </div>
+                                            <div class="col-md-6 my-3">
+                                                <div><label class="control-label">Upload File</label></div>
+                                                @Html.RadioButtonFor(m => m.OptionNumber, 1, new { id = "_option2" }) Upload Image
+                                                @Html.RadioButtonFor(m => m.OptionNumber, 2, new { id = "_option3" }) Upload Video
+                                                @Html.RadioButtonFor(m => m.OptionNumber, 3, new { id = "_option4" }) YouTube URL
+
+                                                @*<input type="radio" id="_option2" name="file_type" value="1" checked=""> Upload Image
+            <input type="radio" id="_option4" name="file_type" value="3"> YouTube URL
+            <input type="radio" id="_option3" name="file_type" value="2"> Upload Video*@
+                                            </div>
+
+                                            <!-- Input for image file -->
+                                            <div class="col-md-6 my-3" id="bgImg">
+                                                <div style="display: flex;">
+                                                    <div class="selected-file" id="Img"></div>
+                                                    <div class="custom-file-upload" style="width:30%">
+                                                        @Html.TextBoxFor(model => model.Image_path, new { type = "text", id = "Image_pathhidden", style = "display:none;" })
+                                                        @Html.TextBoxFor(model => model.ImageFile, new { type = "file", accept = "image/*", id = "Image_path", @class = "file-input", onchange = "handleBgImgFileInput()" })
+                                                        <label class="file-label" for="Image_path">Browse Image</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Input for YouTube URL -->
+                                            <div class="col-md-6 my-3" id="bgyoutube" style="display:none;">
+                                                <div style="display: flex;">
+
+
+                                                    @Html.TextBoxFor(model => model.YoutubeUrl, new { @class = "form-control inputHeight my-3", id = "YoutubeUrl", placeholder = "Enter YouTube URL" })
+
+                                                </div>
+                                            </div>
+
+                                            <!-- Input for video file -->
+                                            <div class="col-md-6 my-3" id="bgvideourl" style="display:none;">
+                                                <div style="display: flex;">
+                                                    <div class="selected-file" id="webVideo"></div>
+                                                    <div class="custom-file-upload" style="width:30%">
+                                                        @Html.TextBoxFor(model => model.VideoUrl, new { type = "text", id = "WebVideo_pathhidden", style = "display:none;" })
+                                                        @Html.TextBoxFor(model => model.videlImageFile, new { type = "file", accept = "video/*", id = "webVideofile-input", @class = "file-input", onchange = "handleWebVideoFileInput()" })
+                                                        <label class="file-label" for="webVideofile-input">Browse Video</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Point Per Brief</label></div>
+                                                @Html.TextBoxFor(m => m.Points, new
+                                           {
+                                               @type = "number",
+                                               @class = "form-control col-md-5",
+                                               @min = "1",
+                                               @max = "10000",
+                                               @onkeypress = "if(this.value.length==5) return false;",
+                                               @placeholder = "Enter brief points",
+                                                       @id = "Points"
+                                           })
+                                                @Html.ValidationMessageFor(m => m.Points)
+                                            </div>
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Brief Question</label></div>
+                                                @Html.TextBoxFor(model => model.Question, new { @class = "form-control inputHeight my-3", id = "Question", placeholder = "Enter Question Text", required = "required" })
+
+
+                                            </div>
+
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Number of Attempts</label></div>
+                                                @Html.TextBoxFor(m => m.Numberofattempts, new
+                                           {
+                                               @type = "number",
+                                               @class = "form-control col-md-5",
+                                               @min = "1",
+                                               @max = "10000",
+                                               @onkeypress = "if(this.value.length==5) return false;",
+                                               @placeholder = "Enter Number of Attempts",
+                                               @id = "Numberofattempts"
+                                           })
+                                                @Html.ValidationMessageFor(m => m.Numberofattempts)
+
+                                            </div>
+                                            <div class="col-md-6 my-3">
+                                                <div class="" style="visibility:hidden"><label class="control-label">Number of Attempts</label></div>
+                                                <input type="text" class="form-control inputHeight my-3" id="" placeholder="Enter Number of Attempts Text"  style="visibility:hidden">
+
+                                            </div>
+
+
+
+                                            <div class="col-md-6 my-3">
+
+                                                <div class="">
+                                                    <label class="control-label">Answer Option</label>
+                                                </div>
+
+
+                                                @Html.RadioButtonFor(m => m.OptionNumber_QA, 2, new { id = "_option6" })
+                                                Option 2
+                                                @Html.RadioButtonFor(m => m.OptionNumber_QA, 4, new { id = "_option8" })
+                                                Option 4
+
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        @Html.TextBoxFor(m => m.OptionAnswer_1, new
+                                                            {
+                                                                @style = "margin-top: 10px;",
+                                                                @class = "form-control option_4 ht_i_desc3",
+                                                                @id = "option_21",
+                                                                @placeholder = "Enter Option 1",
+                                                                @maxlength = "100",
+
+                                                            })
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label style="margin-top: 15px;" class="checkbox-inline" id="option_211">
+                                                            @Html.CheckBoxFor(m => m.IsCorrectAnswer_1, new
+                                                            {
+                                                                @class = "answer_correct",
+                                                                @id = "cb1",
+
+                                                            })
+                                                            Answer 1
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        @Html.TextBoxFor(m => m.OptionAnswer_2, new
+                                                        {
+                                                            @style = "margin-top: 10px;",
+                                                            @class = "form-control option_4 ht_i_desc3",
+                                                            @id = "option_22",
+                                                            @placeholder = "Enter Option 2",
+                                                            @maxlength = "100",
+
+                                                        })
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label style="margin-top: 15px;" class="checkbox-inline" id="option_221">
+                                                            @Html.CheckBoxFor(m => m.IsCorrectAnswer_2, new
+                                                                {
+                                                                    @class = "answer_correct",
+                                                                    @id = "cb2",
+
+                                                                })
+                                                            Answer 2
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        @Html.TextBoxFor(m => m.OptionAnswer_3, new
+                                                            {
+                                                                @style = "margin-top: 10px;",
+                                                                @class = "form-control option_4 ht_i_desc3",
+                                                                @id = "option_23",
+                                                                @placeholder = "Enter Option 3",
+                                                                @maxlength = "100",
+
+                                                            })
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label style="margin-top: 15px;" class="checkbox-inline" id="option_231">
+                                                            @Html.CheckBoxFor(m => m.IsCorrectAnswer_3, new
+                                                                {
+                                                                    @class = "answer_correct",
+                                                                    @id = "cb3",
+
+                                                                })
+                                                            Answer 3
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        @Html.TextBoxFor(m => m.OptionAnswer_4, new
+                                                        {
+                                                            @style = "margin-top: 10px;",
+                                                            @class = "form-control option_4 ht_i_desc3",
+                                                            @id = "option_24",
+                                                            @placeholder = "Enter Option 4",
+                                                            @maxlength = "100",
+
+                                                        })
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label style="margin-top: 15px;" class="checkbox-inline" id="option_241">
+                                                            @Html.CheckBoxFor(m => m.IsCorrectAnswer_4, new
+                                                            {
+                                                                @class = "answer_correct",
+                                                                @id = "cb4",
+
+                                                            })
+                                                            Answer 4
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12" style="display:flex;justify-content:flex-end;margin-top:20vh;">
+                                                <a href="" class="btn btn-default" style="padding:2px 10px;margin-right:5px;width:10%;" onclick="">Cancel</a>
+                                                <input type="submit" class="btn btn-default" style="padding:2px 10px;margin-right:5px;width:10%;" value="Save" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        debugger;
+        // Initially check if Upload Image is selected and show/hide elements accordingly
+        toggleFileInput();
+
+        // Function to toggle the file input visibility
+        function toggleFileInput() {
+            if ($('#_option2').is(':checked')) {
+                // Show image-related fields
+                $('#bgImg').show();
+                $('#bgyoutube').hide();
+                $('#bgvideourl').hide();
+            }
+            else if ($('#_option4').is(':checked')) {
+                // Show YouTube URL input
+                $('#bgyoutube').show();
+                $('#bgImg').hide();
+                $('#bgvideourl').hide();
+            }
+            else if ($('#_option3').is(':checked')) {
+                // Show video-related fields
+                $('#bgvideourl').show();
+                $('#bgImg').hide();
+                $('#bgyoutube').hide();
+            }
+        }
+
+        // Attach change event to the radio buttons
+        $('input[name="OptionNumber"]').change(function () {
+            toggleFileInput();
+        });
+    });
+
+    $(document).ready(function () {
+        $("#QuestionConfigure").hide();
+    });
+    function ConfigureVideo(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        $("#Questionlist").hide();
+        $("#QuestionConfigure").show();
+
+    }
+
+    $(document).ready(function () {
+        $('.answer_correct').on('change', function () {
+            if ($(this).prop('checked')) {
+                $('.answer_correct').not(this).prop('checked', false);
+            }
+        });
+
+
+
+    });
+    $(document).ready(function () {
+        $('#cb1').on('change', function () {
+            if ($(this).prop('checked')) {
+                $('#cb2, #cb3, #cb4').prop('checked', false);
+            }
+        });
+
+        $('#cb2').on('change', function () {
+            if ($(this).prop('checked')) {
+                $('#cb1, #cb3, #cb4').prop('checked', false);
+            }
+        });
+
+        $('#cb3').on('change', function () {
+            if ($(this).prop('checked')) {
+                $('#cb1, #cb2, #cb4').prop('checked', false);
+            }
+        });
+
+        $('#cb4').on('change', function () {
+            if ($(this).prop('checked')) {
+                $('#cb1, #cb2, #cb3').prop('checked', false);
+            }
+        });
+    });
+
+
+
+    function getSubCategories(categoryId) {
+
+        $.ajax({
+            url: '@Url.Action("GetSubCategories", "Learning_trivia")',
+            type: 'GET',
+            data: { id: categoryId },
+            success: function (data) {
+                var subCategoryDropdown = $('#IdLearningSubCategory');
+
+                // Clear the existing options
+                subCategoryDropdown.empty();
+
+                // Add the default "Select a SubCategory" option
+                subCategoryDropdown.append($('<option>').text('Select a SubCategory').attr('value', ''));
+
+                // Populate new options from the AJAX response
+                $.each(data, function (i, subcategory) {
+                    subCategoryDropdown.append($('<option>').text(subcategory.Text).attr('value', subcategory.Value));
+                });
+            },
+            error: function (xhr, status, error) {
+                alert('Error fetching subcategories: ' + error);
+            }
+        });
+    }
+
+    function getSubCategoriesQ(categoryId, id_learning_sbcategory) {
+
+        $.ajax({
+            url: '@Url.Action("GetSubCategoriesQ", "Learning_trivia")',
+            type: 'GET',
+            data: { id: categoryId, sb: id_learning_sbcategory },
+            success: function (data) {
+                var subCategoryDropdown = $('#IdLearningSubCategory');
+
+                // Clear the existing options
+                subCategoryDropdown.empty();
+
+                // Add the default "Select a SubCategory" option
+               // subCategoryDropdown.append($('<option>').text('Select a SubCategory').attr('value', ''));
+
+                // Populate new options from the AJAX response
+                $.each(data, function (i, subcategory) {
+                    subCategoryDropdown.append($('<option>').text(subcategory.Text).attr('value', subcategory.Value));
+                });
+            },
+            error: function (xhr, status, error) {
+                alert('Error fetching subcategories: ' + error);
+            }
+        });
+    }
+
+
+
+
+    $(document).ready(function () {
+
+        function toggleCheckBoxes() {
+            if ($('#_option6').is(':checked')) {
+                // Show only checkboxes for Answer 1 and Answer 2
+                $('#option_211').show();
+                $('#option_221').show();
+                $('#option_231').hide();
+                $('#option_241').hide();
+                $('#option_23').hide();
+                $('#option_23').val("");
+                $('#option_24').hide();
+                $('#option_24').val("");
+
+            } else if ($('#_option8').is(':checked')) {
+                debugger;
+                // Show all checkboxes
+                $('#option_211').show();
+                $('#option_221').show();
+                $('#option_231').show();
+
+                $('#option_241').show();
+                $('#option_23').show();
+                $('#option_24').show();
+            }
+        }
+
+
+        toggleCheckBoxes();
+
+        // Attach the change event handler to the radio buttons
+        // Attach the change event handler to the correct radio buttons
+        $("input[name='OptionNumber_QA']").change(function () {
+            toggleCheckBoxes();
+        });
+    });
+
+    function handleWebVideoFileInput() {
+        var fileInput = document.getElementById('webVideofile-input');
+        var fileSize = fileInput.files[0].size; // Size in bytes
+        var maxSize = 50 * 1024 * 1024; // 10MB in bytes
+
+        if (fileSize > maxSize) {
+            alert('Web video file size exceeds 50MB limit.');
+            fileInput.value = '';
+            return false;// Clear the file input
+        }
+        else {
+            const fileInput = document.getElementById('webVideofile-input');
+            const selectedFileDisplay = document.getElementById('webVideo');
+
+            const fileName = fileInput.files[0].name;
+            selectedFileDisplay.textContent = `${fileName}`;
+        }
+
+    }
+
+    function handleBgImgFileInput() {
+        debugger;
+        const fileInput = document.getElementById('Image_path');
+        const selectedFileDisplay = document.getElementById('Img');
+
+        const fileName = fileInput.files[0].name;
+        selectedFileDisplay.textContent = `${fileName}`;
+    }
+
+    function Edit(element) {
+        debugger;
+        var currentRow = element.closest('tr');
+        var IdLearningQuestion = currentRow.cells[0].innerText;
+        var id_learning_category = currentRow.cells[3].innerText;
+        var id_learning_sbcategory = currentRow.cells[5].innerText;
+        var title = currentRow.cells[7].innerText;
+        var question = currentRow.cells[8].innerText;
+        var option_number = currentRow.cells[9].innerText;
+        var image_path = currentRow.cells[10].innerText;
+        var youtube_url = currentRow.cells[11].innerText;
+        var video_url = currentRow.cells[12].innerText;
+        var points = currentRow.cells[13].innerText;
+        var Numberofattempts = currentRow.cells[15].innerText;
+
+        getSubCategoriesQ(id_learning_category, id_learning_sbcategory)
+
+        toggleFileInput1(option_number);
+
+        getQuestionAnswer(IdLearningQuestion);
+
+        $('#Image_pathhidden').val(image_path);
+        $('#WebVideo_pathhidden').val(video_url);
+        $('#YoutubeUrl').val(youtube_url);
+        $('#Numberofattempts').val(Numberofattempts);
+
+
+        $('#IdLearningQuestion').val(IdLearningQuestion);
+        $('#IdLearningCategory').val(id_learning_category);
+        $('#Title').val(title);
+        $('#Question').val(question);
+        $('#Points').val(points);
+
+        const selectedFileDisplay = document.getElementById('Img');
+
+        // Set the image path as text (file name)
+        selectedFileDisplay.textContent = image_path;
+
+        const selectedFileDisplay1 = document.getElementById('webVideo');
+        selectedFileDisplay1.textContent = video_url;
+
+
+
+        $("#Questionlist").hide();
+        $("#QuestionConfigure").show();
+
+
+    }
+    function toggleFileInput1(option_number) {
+        // Toggle fields based on the selected radio button
+        if (option_number === '1') {
+            $('#_option2').prop('checked', true);
+            const selectedFileDisplay = document.getElementById('webVideo');
+            selectedFileDisplay.textContent = "";
+            $('#YoutubeUrl').val("");
+            // Assuming option 1 is for image-related
+            $('#bgImg').show();       // Show image fields
+            $('#bgyoutube').hide();   // Hide YouTube fields
+            $('#bgvideourl').hide();  // Hide video URL fields
+        }
+        else if (option_number === '2') {
+            $('#_option3').prop('checked', true);
+            const selectedFileDisplay = document.getElementById('Img');
+            selectedFileDisplay.textContent = "";
+            $('#YoutubeUrl').val("");
+            // Assuming option 2 is for video-related
+            $('#bgvideourl').show();  // Show video URL fields
+            $('#bgImg').hide();       // Hide image fields
+            $('#bgyoutube').hide();   // Hide YouTube fields
+        }
+        else if (option_number === '3') {
+            $('#_option4').prop('checked', true);
+            const selectedFileDisplayimg = document.getElementById('Img');
+            selectedFileDisplayimg.textContent = "";
+            const selectedFileDisplay = document.getElementById('webVideo');
+            selectedFileDisplay.textContent ="";
+
+            // Assuming option 3 is for YouTube URL
+            $('#bgyoutube').show();   // Show YouTube fields
+            $('#bgImg').hide();       // Hide image fields
+            $('#bgvideourl').hide();  // Hide video URL fields
+        }
+    }
+
+    // Attach change event to the radio buttons to toggle file input fields dynamically
+    $('input[name="OptionNumber"]').change(function () {
+        var selectedOption = $('input[name="OptionNumber"]:checked').val();  // Get the value of the selected radio button
+        toggleFileInput1(selectedOption);  // Pass the value to the toggle function
+    });
+
+
+    function getQuestionAnswer(IdLearningQuestion) {
+        debugger;
+       $.ajax({
+           url: '@Url.Action("GetQuestionAnswer", "Learning_trivia")',
+           type: 'GET',
+           data: { id: IdLearningQuestion },
+           success: function (data) {
+               debugger;
+               let num = data[1].OptionNumber_QA;
+               if (num == 2) {
+                   $('#_option6').prop('checked', true);
+                   $('#option_211').show();
+                   $('#option_221').show();
+                   $('#option_231').hide();
+                   $('#option_241').hide();
+                   $('#option_23').hide();
+                   $('#option_24').hide();
+               }
+               else {
+                   $('#_option8').prop('checked', true);
+                   $('#option_211').show();
+                   $('#option_221').show();
+                   $('#option_231').show();
+                   $('#option_241').show();
+                   $('#option_23').show();
+                   $('#option_24').show();
+               }
+               for (let i = 0; i < data.length; i++) {  // corrected loop
+
+                   let check = data[i].IsCorrectAnswer;  // assuming 'IsCorrectAnswer' is a property in data[i]
+                   //let qotion = data[i].OptionAnswer;    // assuming 'OptionAnswer' is a property in data[i]
+
+                   if (check == 1) {
+                       $('#cb1').prop('checked', true);
+
+                   } else if (check == 2) {
+                       $('#cb2').prop('checked', true);
+
+                   } else if (check == 3) {  // changed the condition to check == 3
+                       $('#cb3').prop('checked', true);
+
+                   } else if (check == 4)
+                   {
+                       $('#cb4').prop('checked', true);
+
+                   }
+               }
+               for (let i = 0; i < data.length; i++) {  // corrected loop
+
+                   //let check = data[i].IsCorrectAnswer;  // assuming 'IsCorrectAnswer' is a property in data[i]
+                   let qotion = data[i].OptionAnswer;    // assuming 'OptionAnswer' is a property in data[i]
+                   if (i == 0) {
+                       $('#option_21').val(qotion);
+
+                   } else if (i == 1) {
+                       $('#option_22').val(qotion);
+
+                   }
+                   else if (i == 2) {
+                       $('#option_23').val(qotion);
+
+                   } else  {
+                       $('#option_24').val(qotion);
+
+                   }
+
+
+               }
+               console.log(data);
+
+
+               console.log(data);
+           },
+           error: function (xhr, status, error) {
+               alert('Error fetching subcategories: ' + error);
+           }
+       });
+    }
+
+function Delete(event, id) {
+    event.preventDefault();
+
+    if (confirm("Are you sure you want to delete this record?")) {
+        $.ajax({
+            url: '@Url.Action("QuestionDeleteConfiguration", "Learning_trivia")', // Correctly specify action and controller
+            type: 'POST',
+            data: { num: id },  // Ensure the parameter name matches your server-side method
+            success: function (response) {
+                if (response.success) {
+                    // Remove the corresponding row from the table
+                    $('#report-table tbody').find('a[data-id="' + id + '"]').closest('tr').remove();
+                    window.location.reload();  // Reload the page after deletion
+                } else {
+                    alert('Failed to delete the record: ' + response.message);
+                }
+            },
+            error: function () {
+                alert('Error occurred while deleting the record.');
+            }
+        });
+    }
+}
+
+
+
+
+</script> 

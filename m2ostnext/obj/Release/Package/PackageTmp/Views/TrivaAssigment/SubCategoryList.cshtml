@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "TrivaAssigment";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    //List<tbl_category> catList = (List<tbl_category>)ViewData["CategoryList"];
+    List<m2ostnext.Models.tbl_learning_sub_category> SubCategoryList = (List<m2ostnext.Models.tbl_learning_sub_category>)ViewData["SubCategoryList"];
+
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#report-table').DataTable({
+            "paging": true,
+            "searching": true, // enables the search functionality
+            "ordering": true,  // enables column sorting
+            "info": true,      // shows additional info like total records
+            "lengthMenu": [10, 25, 50, 100], // pagination options
+            "pageLength": 10  // default number of rows per page
+        });
+    });
+
+
+</script>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Sub Category List</h6>
+            </div>
+            <div class="panel-body">
+                <hr />
+                <div id="display_table">
+                    <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="80%">Sub Category List </th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in SubCategoryList)
+                            {
+                                <tr>
+                                    <td>@item.SubCategoryName</td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" href="@Url.Action("TrivaAssigmentQuestion", "TrivaAssigment" , new { id=item.IdLearningSubCategory })">continue</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        const url_1 = window.location.href;  // This will get the current URL dynamically
+
+        // Split the URL by '/' and get the last segment
+        const segments = url_1.split('/');
+
+        // Extract the last part dynamically
+        const sid = segments[segments.length - 1];
+    });
+</script>

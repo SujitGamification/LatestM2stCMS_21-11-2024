@@ -1,0 +1,645 @@
+﻿@{
+    ViewBag.Title = "game";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+    List<string> location = (List<string>)ViewData["location"];
+    List<string> function = (List<string>)ViewData["function"];
+    List<tbl_csst_role> roles = (List<tbl_csst_role>)ViewData["RoleList"];
+    List<tbl_game_group> group = (List<tbl_game_group>)ViewData["group"];
+    List<tbl_game_group> pregroup = (List<tbl_game_group>)ViewData["pregroup"];
+    tbl_game_creation game = (tbl_game_creation)ViewData["game"];
+
+}
+
+
+<script>
+    $(document).ready(function () {
+        $('a[title]').tooltip();
+
+        $("#report-table-temp").dataTable({
+            "pageLength": 10
+        });
+        $("#report-table-note").dataTable({
+            "pageLength": 10
+        });
+
+        var mindate = '@game.game_start_date.Value.ToString("dd-MM-yyyy")';
+        var maxdate = '@game.game_expiry_date.Value.ToString("dd-MM-yyyy")';
+
+        $("#datetimepicker1").datetimepicker(
+          {
+              dateFormat: "dd-mm-yy", minDate: mindate,
+              maxDate: maxdate
+          }
+       );
+        $("#datetimepicker2").datetimepicker(
+          {
+              dateFormat: "dd-mm-yy", minDate: mindate,
+              maxDate: maxdate
+          }
+       );
+
+        $("[name='role-checkbox']").bootstrapSwitch({ 'size': 'mini', 'state': true });
+    });
+
+    function reset_user() {
+        $('#search-box-user').attr('readonly', false);
+    }
+
+    function getContentReport(type) {
+        loading_on();
+        var id = $("#role-select").val();
+        var url = '@Url.Action("getSoloUserListForGame", "Gamification")';
+        var pattern = "";
+        if (type == "3") {
+            pattern = $("#search-box-user").val().trim();
+            $('#search-box-user').attr('readonly', true);
+            id = 0;
+        } else if (type == "2") {
+            pattern = $("#search-lbox").val().trim();
+            var lid = $("#location-select").val();
+            pattern = lid + "|" + pattern;
+            id = 0;
+        } else if (type == "5") {
+            pattern = $("#search-fbox").val().trim();
+            var lid = $("#function-select").val();
+            pattern = lid + "|" + pattern;
+            id = 0;
+        } else {
+            pattern = $("#search-box").val().trim();
+        }
+
+        var count = pattern.trim().length;
+        var gid = $("#id_game_creation").val();
+        var std = $("#datetimepicker1").val();
+        var exd = $("#datetimepicker2").val();
+        if (std && exd) {
+            if (count >= 3 || id > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: { gid: gid, rid: id, pattern: pattern, type: type },
+
+                    success: function (data) {
+                        $("#display_table").empty().append(data);
+                        $("#report-table").dataTable({
+                            "bSort": false,
+                            "pageLength": 50
+                        });
+                    }
+                });
+            } else {
+                if (id == 0) {
+                    $("#msg-txt").html("<p>Enter minimun of 3 character to search</p>");
+                    $('#m2ost-dialog').modal('show');
+                }
+            }
+        } else {
+            $("#msg-txt").html("<p>Please select Start and Expiry Date </p>");
+            $('#m2ost-dialog').modal('show');
+        }
+        loading_off();
+
+    }
+
+
+    function getUserDetailsFilter() {
+        loading_on();
+
+        var role = "";
+        var fun = "";
+        var loc = "";
+        var pattern = "";
+        role = $("#role-select").val();
+        fun = $("#function-select").val();
+        loc = $("#location-select").val();
+        pattern = $("#search-box-user").val().trim();
+
+        var gid = $("#id_game_creation").val();
+        var std = $("#datetimepicker1").val();
+        var exd = $("#datetimepicker2").val();
+
+        var url = '@Url.Action("getSoloUserListForGame", "Gamification")';
+
+        if (std && exd) {
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { gid: gid, role: role, fun: fun, loc: loc, pattern: pattern, std: std, exd: exd },
+
+                success: function (data) {
+                    $("#display_table").empty().append(data);
+                    $("#report-table").dataTable({
+                        "bSort": false,
+                        "pageLength": 50
+                    });
+                }
+            });
+
+        } else {
+            $("#msg-txt").html("<p>Please select Start and Expiry Date </p>");
+            $('#m2ost-dialog').modal('show');
+        }
+        loading_off();
+
+    }
+
+    //removeSoloUserFromGroup
+    function removeSoloUserFromGame(uid) {
+        var gid = $("#id_game_creation").val();
+        var url = '@Url.Action("removeSoloUserFromGame", "Gamification")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { gid: gid, uid: uid },
+            success: function (data) {
+                if (data == "1") {
+                    $("#msg-txt").html("<p>User is Removed From the Game</p>");
+                    $('#m2ost-dialog').modal('show');
+                    $("#solo-link-" + uid).hide();
+                } else {
+                    $("#msg-txt").html("<p>Error while removing User from Game</p>");
+                    $('#m2ost-dialog').modal('show');
+                }
+            }
+        });
+    }
+
+    function RoleType(val) {
+        $("#role-type").val(val);
+        $("#display_table").empty();
+        if (val == 1) {
+            $("#div-row-role").show();
+            $("#div-row-user").hide();
+            $("#div-row-location").hide();
+            $("#div-row-function").hide();
+        } else if (val == 2) {
+            $("#div-row-role").hide();
+            $("#div-row-user").hide();
+            $("#div-row-location").show();
+            $("#div-row-function").hide();
+        } else if (val == 3) {
+            $("#div-row-role").hide();
+            $("#div-row-user").show();
+            $("#div-row-location").hide();
+            $("#div-row-function").hide();
+        } else if (val == 4) {
+            $("#div-row-role").hide();
+            $("#div-row-user").hide();
+            $("#div-row-location").hide();
+            $("#div-row-function").hide();
+        } else if (val == 5) {
+            $("#div-row-role").hide();
+            $("#div-row-user").hide();
+            $("#div-row-location").hide();
+            $("#div-row-function").show();
+        }
+    }
+
+    function setGroupToGame(ids) {
+        var gid = $("#id_game_creation").val();
+        var url = '@Url.Action("setGroupToGame", "Gamification")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { gid: gid, grid: ids },
+            success: function (data) {
+                if (data == "1") {
+                    $("#msg-txt").html("<p>Group is addedd to the Game.</p>");
+                    $('#m2ost-dialog').modal('show');
+                    $("#plus-group-" + ids).hide();
+                    $("#ok-group-" + ids).show();
+                }
+                if (data == "2") {
+                    $("#msg-txt").html("<p>Group is already assigned to Game.</p>");
+                    $('#m2ost-dialog').modal('show');
+                    $("#plus-group-" + ids).hide();
+                    $("#ok-group-" + ids).show();
+                }
+            }
+        });
+    }
+
+    function setSoloUserToGame(ids) {
+        var gid = $("#id_game_creation").val();
+        var url = '@Url.Action("setSoloUserToGame", "Gamification")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { gid: gid, uid: ids },
+            success: function (data) {
+                if (data == "1") {
+                    $("#msg-txt").html("<p>Game is assigned to User</p>");
+                    $('#m2ost-dialog').modal('show');
+                    $("#solo-user-" + ids).hide();
+                    $("#solo-done-" + ids).show();
+                }
+                if (data == "2") {
+                    $("#msg-txt").html("<p>Game is already assigned to User.</p>");
+                    $('#m2ost-dialog').modal('show');
+                    $("#solo-user-" + ids).hide();
+                    $("#solo-done-" + ids).show();
+                }
+            }
+        });
+    }
+
+
+    function check_all() {
+        if ($("#checkAll").prop('checked') == true) {
+            $('.myCheckbox').prop('checked', true);
+        }
+        else {
+            $('.myCheckbox').prop('checked', false);
+        }
+    }
+
+    function check_all_group() {
+        if ($("#checkAllGroup").prop('checked') == true) {
+            $('.grpCheckbox').prop('checked', true);
+        }
+        else {
+            $('.grpCheckbox').prop('checked', false);
+        }
+    }
+
+    function multi_game_user() {
+        var std = $("#datetimepicker1").val();
+        var exd = $("#datetimepicker2").val();
+        if (std && exd) {
+            var form_data = $("#form-add-game").serialize();
+            var url = '@Url.Action("setMultiSoloUserToGame", "Gamification")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: form_data,
+                success: function (data) {
+                    if (data == "1") {
+                        $("#msg-txt").html("<p>Users are Assigned to Game.</p>");
+                        $('#m2ost-dialog').modal('show');
+                        setTimeout(function () {
+                            location.reload(true)
+                        }, 2000);
+                    }
+                }
+            });
+        } else {
+            $("#msg-txt").html("<p>Please select Start and Expiry Date For Game Assignement</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+    }
+
+    function multi_group_game() {
+        var std = $("#datetimepicker1").val();
+        var exd = $("#datetimepicker2").val();
+        if (std && exd) {
+            var form_data = $("#form-add-game").serialize();
+            var url = '@Url.Action("setMultiGroupToGame", "Gamification")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: form_data,
+                success: function (data) {
+                    if (data == "1") {
+                        $("#msg-txt").html("<p>Groups are Assigned to Game.</p>");
+                        $('#m2ost-dialog').modal('show');
+                        setTimeout(function () {
+                            location.reload(true)
+                        }, 2000);
+                    }
+                }
+            });
+        } else {
+            $("#msg-txt").html("<p>Please select Start and Expiry Date For Game Assignement</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+    }
+</script>
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<style>
+    p {
+        padding-top: 12px;
+    }
+
+    strong {
+        min-width: 15px;
+    }
+	
+	.checkbox label input[type="checkbox"]{
+    display: none;
+}
+
+</style>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Game Associations</h4>
+            </div>
+            <div class="panel-body">
+
+                <section style="background:#efefe9;">
+
+                    <div class="board">
+                        <div class="board-inner">
+                            <ul class="nav nav-tabs" id="myTab">
+                                <div class="liner"></div>
+                                <li class="disabled">
+                                    <a href="@Url.Action("m2ost_add_game", "Gamification")" title="Add Game ">
+                                        <span class="round-tabs one">
+                                            <i class="glyphicon glyphicon-play-circle"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("m2ost_game_elements", "Gamification", new { gids = game.gameid })" title="Game Dashboard">
+                                        <span class="round-tabs two">
+                                            <i class="glyphicon glyphicon-cog"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <a href="@Url.Action("game_associations", "Gamification", new { gid = game.id_game })" title="Group/Solo Association">
+                                        <span class="round-tabs three">
+                                            <i class="glyphicon glyphicon-link"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("game_summary", "Gamification", new { gid = game.id_game })" title="Summary">
+                                        <span class="round-tabs four">
+                                            <i class="glyphicon glyphicon-list-alt"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("m2ost_game_publish", "Gamification", new { gids = game.id_game })" title="publish">
+                                        <span class="round-tabs five">
+                                            <i class="glyphicon glyphicon-flag"></i>
+                                        </span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </section>
+             
+                
+                   @using (Html.BeginForm("add_game_group_association_action", "Gamification", FormMethod.Post, new { id = "form-add-game" }))
+                {
+                    @Html.AntiForgeryToken()
+
+
+                    <div class="col-md-12">
+                        <center><h3><u><b> Game Details </b></u> </h3></center>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="hidden" id="id_game_creation" name="id_game_creation" value="@game.id_game" />
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Game Title   </label>
+                                    <strong>@game.game_title</strong>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Game Mode  </label>
+                                    @if (game.game_mode == "1")
+                                    {
+                                    <strong>Open game</strong>
+                                    }
+                                    else
+                                    {
+                                    <strong>Closed game</strong>
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Game Type  </label>
+                                    @if (game.game_mode == "1")
+                                    {
+                                    <strong>Standalone game</strong>
+                                    }
+                                    else
+                                    {
+                                    <strong>A Journey game</strong>
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Player Type  </label>
+                                    @if (game.player_type == "1")
+                                    {
+                                    <strong>Solo Player</strong>
+                                    }
+                                    else
+                                    {
+                                    <strong>Group Game</strong>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Start Date   </label>
+                                    <strong>@game.game_start_date.Value.ToString("dd-MM-yyyy HH:mm")</strong>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Expiry Date   </label>
+                                    <strong>@game.game_expiry_date.Value.ToString("dd-MM-yyyy HH:mm")</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-12">
+                        <hr />
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="control-label">Assignment Start Date</label>
+                            <div class='input-group date'>
+                                <input type='text' class="form-control validate[required]" id='datetimepicker1' name="game-start-date" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">Assignment Expiry Date</label>
+                            <div class='input-group date'>
+                                <input type='text' class="form-control validate[required]" id='datetimepicker2' name="game-expiry-date" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+
+                    if (game.player_type == "1")
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="color-box space">
+                                    <div class="shadow">
+                                        <div class="info-tab tip-icon" title="Useful Tips">&nbsp;</div>
+                                        <div class="tip-box">
+                                            <p><strong>Note:</strong> Assign Game to User as Solo by using <i class="glyphicon glyphicon-plus-sign"></i> button . </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="panel-title">Select Users by filter</h5>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h6 class="panel-title">Select User Role to filter</h6>
+                                <select class="form-control" id="role-select">
+                                    <option value="0">All Role</option>
+                                    @foreach (tbl_csst_role item in roles)
+                                    {
+                                        <option value="@item.id_csst_role">@item.csst_role</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <h6 class="panel-title">Select User Location to filter</h6>
+                                <select class="form-control" id="location-select">
+                                    <option value="" >All Location</option>
+                                    @foreach (string item in location)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <h6 class="panel-title">Select User function to filter</h6>
+                                <select class="form-control" id="function-select">
+                                    <option value="">  All function</option>
+                                    @foreach (string item in function)
+                                    {
+                                    <option value="@item">@item</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <h6 class="panel-title">Search by text </h6>
+                                <input type="text" class="form-control" placeholder="minimum 3 character" id="search-box-user" />
+                            </div>
+                            <div class="col-md-2">
+                                <h6 class="panel-title">  . </h6>
+                                <input id="filter-to-all" type="button" class="btn btn-primary btn-sm" value="search" onclick="getUserDetailsFilter()" />
+                            </div>
+                            <input type="hidden" id="role-type" name="role-type" value="0" />
+                        </div>
+
+                            <hr />
+
+                            <div id="display_table">
+
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-10">
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="notification-to-all" type="button" class="btn btn-primary btn-sm pull-right" value="Add User to Game" onclick="multi_game_user()" />
+                                </div>
+                            </div>
+                    }
+                    else if (game.player_type == "2")
+                    {
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="color-box space">
+                                    <div class="shadow">
+                                        <div class="info-tab tip-icon" title="Useful Tips">&nbsp;</div>
+                                        <div class="tip-box">
+                                            <p><strong>Note:</strong> Assign Game to Group by using <i class="glyphicon glyphicon-plus-sign"></i> button . </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <table id="report-table-note" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th width="80%">Group Title</th>
+                                    <th width="20%">
+                                        <div class="checkbox"><label> <input type="checkbox" id="checkAllGroup" onclick="check_all_group()"><span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>All</label></div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (tbl_game_group item in pregroup)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.group_name
+                                        </td>
+                                        <td>
+                                            <i style="margin-left:10%" class="glyphicon glyphicon-ok-circle"></i>
+                                            @*<a href="javascript:void(0)" onclick="setGroupToGame('@item.id_game_group')" ><i class="glyphicon glyphicon-plus-sign"></i></a>*@
+                                        </td>
+                                    </tr>
+                                }
+                                @foreach (tbl_game_group item in group)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.group_name
+                                        </td>
+                                        <td>
+                                            @*<a id="plus-group-@item.id_game_group" href="javascript:void(0)" onclick="setGroupToGame('@item.id_game_group')"><i class="glyphicon glyphicon-plus-sign"></i></a>
+                                                <a id="ok-group-@item.id_game_group" href="javascript:void(0)" style="display:none;"><i class="glyphicon glyphicon-ok-circle"></i></a>*@
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input style="margin-left:5%" type="checkbox" name="chk_group" class="grpCheckbox" value="@item.id_game_group">
+                                                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-10">
+                            </div>
+                            <div class="col-md-2">
+                                <input id="notification-to-all" type="button" class="btn btn-primary btn-sm pull-right" value="Add Group to Game" onclick="multi_group_game()" />
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

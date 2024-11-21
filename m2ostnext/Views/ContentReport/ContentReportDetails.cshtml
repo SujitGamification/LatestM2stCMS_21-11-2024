@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "ContentReportDetails";
+    Layout = "";
+}
+
+@{
+    List<m2ostnext.Models.ContentReport> list = (List<m2ostnext.Models.ContentReport>)ViewData["ContentReport"];
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+
+</script>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Filtered Result</h4> 
+            </div>
+            <div class="panel-body">
+                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+
+
+                            <th width="10%">
+                                Username
+                            </th>
+                            <th width="10%">
+                                Organization
+                            </th>
+                            <th width="10%">
+                                Content
+                            </th>
+                            <th width="10%">
+                                Creation Date
+                            </th>
+                            <th width="10%">
+                                Expiry Date
+                            </th>
+                            <th width="10%">
+                                Last Access Date
+                            </th>
+                            <th width="10%">
+                                No.Of Times Accessed
+                            </th>
+
+                        </tr>
+                    </thead>
+                   
+                    <tbody>
+                    @foreach (m2ostnext.Models.ContentReport reportslist in list)
+                    {
+                            <tr>
+                                <td>
+                                    @reportslist.USERID
+                                </td>
+                                <td>
+                                    @reportslist.orgnization_name   
+                                </td>
+
+                                <td>
+                                    @reportslist.content_name
+                                </td>
+                                <td>
+                                    @reportslist.created_dated
+                                </td>
+                                <td>
+                                   @reportslist.expity_date
+                                </td>
+                                <td>
+                                    @reportslist.lastaccess_date
+                                </td>
+                                <td>
+                                   @reportslist.count_accessed
+                                </td>
+                            </tr>
+
+                    }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

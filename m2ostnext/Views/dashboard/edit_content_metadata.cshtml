@@ -1,0 +1,68 @@
+﻿@model m2ostcms.Models.tbl_content_metadata
+@{
+    ViewBag.Title = "Add Content Metadata";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script>
+    $(function () {
+        $("#form_edit_content_metadata").validationEngine();
+    });
+</script>
+<div id="pagecontent_dashboard" class="container">
+    <div class="row clearfix">
+        <div class="col-md-4"><a href="@Url.Action("display_content", "dashboard")" class="btn btn-default" style="width:100%;">Content</a>&nbsp;</div>
+        <div class="col-md-4"><a href="@Url.Action("display_content_answer", "dashboard")" class="btn btn-default" style="width:100%;">Answer</a>&nbsp;</div>
+        <div class="col-md-4"><a href="@Url.Action("display_content_metadata", "dashboard")" class="btn btn-default" style="width:100%;">Metadata</a>&nbsp;</div>
+    </div>
+    <div class="row clearfix">
+
+        <div id="cms_content_body" class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">Edit Content Metadata  </div>
+                </div>
+                <div class="panel-body">
+                  @using (Html.BeginForm("edit_cms_content_metadata", "dashboard", FormMethod.Post, new { id = "form_edit_content_metadata" }))
+                  {
+
+    <input type="hidden" id="ID_CONTENT_METADATA" name="ID_CONTENT_METADATA" value="@Model.ID_CONTENT_METADATA" />
+    <input type="hidden" id="ID_CONTENT_ANSWER" name="ID_CONTENT_ANSWER" value="@Model.ID_CONTENT_ANSWER" />
+    <input type="hidden" id="METADATA_COUNTER" name="METADATA_COUNTER" value="@Model.CONTENT_METADATA_COUNTER" />
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Answer" class="control-label col-md-2 regLabel">Answer :</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control validate[required]" value="@ViewBag.CONTENT_ANSWER1" readonly placeholder="Answer" id="CONTENT_QUESTION" name="CONTENT_QUESTION" style="text-overflow:ellipsis;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="FirstName" class="control-label col-md-2 regLabel">Metadata :</label> 
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control validate[required]" value="@Model.CONTENT_METADATA" placeholder="Meatadata" id="CONTENT_METADATA" name="CONTENT_METADATA" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Update" class="btn btn-default" />
+                                   
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

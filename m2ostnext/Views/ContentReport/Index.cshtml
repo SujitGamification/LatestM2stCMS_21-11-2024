@@ -1,0 +1,220 @@
+﻿@{
+    ViewBag.Title = "ContentCounterIndex";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <script src="../content/bower_components/morrisjs/morris.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js"></script>
+    <script src="../content/bower_components/morrisjs/examples/lib/example.js"></script>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.css">
+    <link rel="stylesheet" href="../content/bower_components/morrisjs/morris.css">
+
+
+<script type="text/javascript">
+
+
+
+    function get_user(org) {
+        var url1 = '@Url.Action("get_user", "ContentReport")';
+        $.get(url1, { org_id: org }, function (data) {
+            $("#select-user").empty().append(data);
+        });
+    }
+
+
+    function getContentcountReport() {
+        var org_id = $("#Orginaztion").val();
+        var user_id = $("#select-user").val();
+        var cnt = $("#select-count").val();
+        var url = '@Url.Action("ContentReport_Counter", "ContentReport")';
+        var form = $("#form-content-report").serialize();
+        $.get(url, { org_id: org_id, user_id: user_id,cnt: cnt }, function (data) {
+            $("#tab-content-details").html(data);
+        });
+    }
+
+
+    function getContentReportchart() {
+
+        var url = '@Url.Action("ContentGraphReportIndex", "ContentReport")';
+        var form = $("#form-content-report").serialize();
+        $.get(url, {}, function (data) {
+            $("#tab-content-chart").html(data);
+        });
+    }
+
+
+</script>
+<link rel="stylesheet" href="~/Content/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<link rel="stylesheet" href="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Content Report</h4>
+            </div>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("", "", FormMethod.Post, new { id = "form-content-report" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+
+                            <div class="col-md-2">
+                                <div class="dropdown">
+                                    <div class="form-group">
+                                        <label for="org">&nbsp;&nbsp;Orginaztion</label>
+                                        <select class="form-control  " id="Orginaztion" name="Orginaztion" onchange="get_user(this.value)">
+
+                                            <option value="ALL">Select Orginaztion</option>
+                                            @foreach (var pro in (List<m2ostnext.tbl_organization>)ViewData["select-organization"])
+                                            {
+                                                <option value="@pro.ID_ORGANIZATION">@pro.ORGANIZATION_NAME</option>
+                                            }
+
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-offset-1 col-md-2">
+                                <div class="dropdown">
+                                    <div class="form-group">
+                                        <label for="usr">&nbsp;&nbsp;User</label>
+                                        <select class="form-control " id="select-user" name="select-user">
+                                            <option value="ALL">Select User</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-offset-1 col-md-2">
+                                <div class="dropdown">
+                                    <div class="form-group">
+                                        <label for="cunt">&nbsp;&nbsp;Count</label>
+                                        <select class="form-control " id="select-count" name="select-count">
+                                            <option value="ALL">Select Count</option>
+                                            <option value="0">0</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                            <option value="150">150</option>
+                                            <option value="200">200</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <input style="margin-top: 24px; margin-left: 15px; height: 28px;" type="button" value="Search" name="btn_submit" class="btn btn-primary" onclick="getContentcountReport()" />
+                            </div>
+
+                            <div class="col-md-2">
+
+
+                                @*<span class="icon-input-btn"><span class="glyphicon glyphicon-search"></span> <input type="button" class="btn btn-primary btn-lg" value="Search"></span>*@
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div style="display: none;">
+                    <form id="form_popup_map">
+                        <input type="hidden" id="frame_add_id" value="" />
+                        <iframe class="fancy" id="_iframe" src=""></iframe>
+                    </form>
+                </div>
+
+                @*=-----------------------------------partial view for table------------------------------------------------------=*@
+                <div class="tab-content-details" id="tab-content-details">
+                    <div id="pageloaddiv" style="display:none">
+                    </div>
+                </div>
+                @*=-----------------------------------partial view for table------------------------------------------------------=*@
+
+
+
+                @*=-----------------------------------partial view for chart------------------------------------------------------=*@
+
+                <div class="tab-content-chart" id="tab-content-chart">
+
+                </div>
+
+                @*=-----------------------------------partial view for chart------------------------------------------------------=*@
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function fancybody(cntrl, act) {
+
+        var link = '@Url.Action("action", "control")';
+        link = link.replace("action", act);
+        link = link.replace("control", cntrl);
+
+        $("#_iframe").attr('src', link);
+        $.fancybox.open([{
+            href: '#form_popup_map'
+        }]);
+    }
+</script>
+<style type="text/css">
+    .icon-input-btn {
+        display: inline-block;
+        position: relative;
+    }
+
+        .icon-input-btn input[type="submit"] {
+            padding-left: 2em;
+        }
+
+        .icon-input-btn .glyphicon {
+            display: inline-block;
+            position: absolute;
+            left: 2em;
+            top: 63%;
+        }
+
+    .Euladox-fancy-container {
+        font-family: 'Century Gothic';
+        width: auto;
+        overflow: hidden;
+    }
+
+    .euladox-fancy {
+        padding: 1px;
+        width: 1024px;
+        height: 568px;
+    }
+
+    #euladox-fancy-body {
+        max-width: 1024px;
+    }
+
+    #euladox-fancy-body-view {
+        height: auto;
+        max-width: 1024px;
+        max-height: 600px;
+    }
+</style>
+
+

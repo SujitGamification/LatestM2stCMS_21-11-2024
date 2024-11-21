@@ -1,0 +1,191 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+@{
+    List<tbl_assessment> listassessment = (List<tbl_assessment>)ViewData["assessment"];
+    m2ostnext.Models.UserSession Sessions = (m2ostnext.Models.UserSession)HttpContext.Current.Session["UserSession"];
+    bool access = false;
+    foreach (tbl_cms_role_action_mapping item in Sessions.action)
+    {
+        if (item.id_cms_role_action == 8)
+        {
+            access = true;
+        }
+    }
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+
+
+    function getAssessmentDetails(val) {
+        var url = '@Url.Action("AssessmentDetails", "Assessment")';
+        url += '/?Id=' + val;
+        $("#pageloaddiv").show();
+        $("#tab-assessment-details").load(url);
+
+        $('html, body').animate({
+            scrollTop: $('#tab-assessment-details').offset().top
+        }, 'slow');
+    }
+</script>
+
+<script>
+
+
+    function deleteContentConfirm() {
+        var id = $("#hidden-val").val();
+
+        var url = '@Url.Action("deleteAssessment", "Assessment")';
+        loading_on();
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id },
+           
+            success: function (data) {
+
+                // getAssessmentDetails();
+                window.location.reload();
+
+            }
+        });
+        $("#div-hidden-alert").hide();
+        loading_off();
+    }
+
+    function deleteCancle() {
+        $("#hidden-val").val("");
+        $("#div-hidden-alert").hide();
+    }
+
+    function deleteContent(id) {
+        $("#hidden-val").val(id);
+        $("#div-hidden-alert").show();
+    }
+</script>
+
+<div class="row" id="div-hidden-alert" style="display:none;">
+    <div class="col-md-12">
+        <input type="hidden" value="" id="hidden-val" />
+        <div class="alert alert-warning alert-dismissable">
+            Do you really want to Delete This........?
+            <input type="button" class="btn btn-primary btn-sm " value=" Yes " onclick="deleteContentConfirm()" />
+            <input type="button" class="btn btn-primary btn-sm " value=" No " onclick="deleteCancle()" />
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Assessment Dashboard</h6>
+               
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @if (access)
+                        {
+                            <a class="btn btn-primary btn-default pull-right" href="@Url.Action("createAssessment", "Assessment")"> Create Assessment  </a>
+                        }
+                        <br />
+                        <div class="div-table-class">
+                            <br />
+                            <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="55%">Assesment</th>
+                                        <th width="10%">Status</th>
+                                        @if (access)
+                                        {
+                                            <th width="25%">Attach to Content</th>
+                                            <th>Deactivate</th>
+                                        }
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (tbl_assessment obassessment in listassessment)
+                                    {
+                                        <tr id="row_@obassessment.id_assessment">
+                                            <td>
+                                                @if (obassessment.status == "A")
+                                                {
+                                                    <a href="@Url.Action("LoadAssessment", "Assessment", new { id = obassessment.id_assessment })">
+                                                        <i class="glyphicon glyphicon-list"></i> &nbsp; @obassessment.assessment_title
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    if (access)
+                                                    {
+                                                        <a href="@Url.Action("assessmentQuestions", "Assessment", new { id = @obassessment.id_assessment })">
+                                                            <i class="glyphicon glyphicon-barcode"></i> &nbsp; @obassessment.assessment_title &nbsp;
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        @(obassessment.assessment_title)
+                                                    }
+                                                }
+
+                                            </td>
+                                            <td>
+                                                @if (obassessment.status == "A")
+                                                {
+                                                    <p>published</p>
+                                                }
+                                                else
+                                                {
+                                                    <p>draft</p>
+                                                }
+                                            </td>
+                                            @if (access)
+                                            {
+                                                <td>
+
+                                                    @if (obassessment.status == "A")
+                                                    {
+                                                        <a  href="@Url.Action("AssessmentToContent", "Assessment", new { id = @obassessment.id_assessment })" class=" ">Add Assessment To Content&nbsp;&nbsp;<i class="glyphicon glyphicon-arrow-right"></i></a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a  href="@Url.Action("assessmentQuestions", "Assessment", new { id = @obassessment.id_assessment })" class=" ">
+                                                            &nbsp; click to edit/publish&nbsp;<i class="glyphicon glyphicon-edit"></i>
+                                                        </a>
+                                                    }
+
+                                                </td>}
+                                            @if (access)
+                                            {
+                                                <td>
+                                                   
+                                                    <a href="#" onclick="deleteContent('@obassessment.id_assessment')"><i class="glyphicon glyphicon-remove"></i></a>
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="tab-assessment-details" id="tab-assessment-details">
+    <div id="pageloaddiv" style="display:none">
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿@{
+    int step = (int)ViewData["step-count"];
+    tbl_content_answer_steps steps = null;
+    if (ViewData["stepinfo"] != null)
+    {
+        steps = (tbl_content_answer_steps)ViewData["stepinfo"];
+    }
+    else
+    {
+        steps = new tbl_content_answer_steps();
+    }
+}
+
+<hr />
+<label for="FirstName" class="control-label col-md-6">Answer Step : Image Only</label>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="FirstName" class="control-label col-md-1">Image:</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control validate[required]" readonly value="@(steps.ANSWER_STEPS_IMG1)" placeholder="Choose Image" id="step-@(step)-image" name="step-@(step)-image" />
+                <div class="fileUpload btn btn-primary">
+                    <span>Browse Image</span>
+                    <input id="step-@(step)-btn" name="step-@(step)-btn" class="upload" type="file" accept="image/*" onchange="select_file('step-@(step)-btn', 'step-@(step)-image')" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

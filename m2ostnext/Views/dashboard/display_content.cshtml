@@ -1,0 +1,149 @@
+﻿@{
+    ViewBag.Title = "Content Detail";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+    function getContentReport() {
+        loading_on();
+        var id = $("#category-select").val();
+        var url = '@Url.Action("getContentReport", "dashboard")';
+        var pattern = $("#search-box").val().trim();
+       
+            var count = $("#search-box").val().trim().length;
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id, pattern: pattern },
+
+            success: function (data) {
+                $("#display_table").empty().append(data);
+                $("#report-table").dataTable();
+                loading_off();
+            }
+        });
+
+     
+    }
+</script>
+
+
+<script>
+
+
+    function deleteContentConfirm() {
+        var id = $("#hidden-val").val();
+
+        var url = '@Url.Action("DeleteContentAll", "contentDashboard")';
+        loading_on();
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id },
+
+            success: function (data) {
+
+                getContentReport();
+
+            }
+        });
+        $("#div-hidden-alert").hide();
+        loading_off();
+    }
+
+    function deleteCancle() {
+        $("#hidden-val").val("");
+        $("#content_value").val("");
+        $("#div-hidden-alert").hide();
+    }
+
+    function deleteContent(id, val) {
+
+        $("#content_value").text(val);
+        $('html, body').animate({
+            scrollTop: $('#div-hidden-alert').offset().bottom
+        }, 'slow');
+        $('#content_value').focus();
+        $("#hidden-val").val(id);
+        $("#div-hidden-alert").show();
+    }
+</script>
+
+@{
+    List<tbl_category> category = (List<tbl_category>)ViewData["CategoryList"];
+    List<tbl_category> program = (List<tbl_category>)ViewData["ProgramList"];
+}
+
+<div class="row" id="div-hidden-alert" style="display:none;">
+    <div class="col-md-12">
+        <input type="hidden" value="" id="hidden-val" />
+        <div class="alert alert-warning alert-dismissable">
+            Do you really want to Delete This........?
+            <input type="button" class="btn btn-primary btn-sm " value=" Yes " onclick="deleteContentConfirm()" />
+            <input type="button" class="btn btn-primary btn-sm " value=" No " onclick="deleteCancle()" />
+        </div>
+    </div>
+</div>
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h6 class="panel-title">Content Detail</h6>
+                </div>
+                <div class="panel-body">
+                    @*<div class="row">
+                            <div class="col-md-2">
+                                Select Search Type
+                            </div>
+                            <div class="col-md-2">
+                                <input type="radio" name="search-type[]" />
+                            </div>
+                            <div class="col-md-2">
+                                Select Search Type
+                            </div>
+                        </div>*@
+                    <h6 class="panel-title">Select Category to filter</h6>
+                    <select class="form-control" id="category-select">
+                        <optgroup label="Generic">
+                            <option value="1">Userbased Contents</option>
+                            <option value="2">Right to Use Contents</option>
+                        </optgroup>
+                        @if (category.Count > 0)
+                        {
+                            <optgroup label="Category">
+                                @foreach (tbl_category item in category)
+                                {
+                                    <option value="@item.ID_CATEGORY">@item.CATEGORYNAME</option>
+                                }
+                            </optgroup>
+                        }
+
+                        @if (program.Count > 0)
+                        {
+                            <optgroup label="Program">
+                                @foreach (tbl_category item in program)
+                                {
+                                    <option value="@item.ID_CATEGORY">@item.CATEGORYNAME</option>
+                                }
+                            </optgroup>
+                        }
+                    </select>
+                    <input type="text" class="form-control" placeholder="Search by Content Title (minimum 4 character)" id="search-box" />
+
+                    <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentReport()" />
+                    <hr />
+                    <div id="display_table">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

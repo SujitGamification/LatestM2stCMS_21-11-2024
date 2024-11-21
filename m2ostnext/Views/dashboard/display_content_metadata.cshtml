@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Content Metadata";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<div id="pagecontent_dashboard" class="container">
+    <div class="row clearfix">
+        <div class="col-md-4"><a href="@Url.Action("display_content", "dashboard")" class="btn btn-default" style="width:100%;">Content</a>&nbsp;</div>
+        @*<div class="col-md-4"><a href="@Url.Action("display_content_answer", "dashboard")" class="btn btn-default" style="width:100%;">Answer</a>&nbsp;</div>
+        <div class="col-md-4"><a href="@Url.Action("display_content_metadata", "dashboard")" class="btn btn-default" style="width:100%;">Metadata</a>&nbsp;</div>*@
+    </div>
+    <div class="row clearfix">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">Content Metadata</h4>
+            </div>
+            <div class="panel-body">
+                <div id="display_table">
+                    <table class="table dataTable">
+                        <tr>
+                            <th width="15%">
+                                @Html.DisplayName("Metadata")
+                            </th>
+
+                            <th width="10%">
+                                @Html.DisplayName("Date-Time")
+                            </th>
+                            <th width="65%">
+                                @Html.DisplayName("Answer")
+                            </th>
+                            <th width="10%"></th>
+                        </tr>
+
+                        @foreach (tbl_content_metadata item in (List<tbl_content_metadata>)ViewData["contentList"])
+                        {
+                            <tr>
+                                <td>
+                                   @item.CONTENT_METADATA
+                                </td>                             
+                                <td>
+                                  @item.UPDATEDTIME.ToShortDateString()
+                                </td>
+                                <td>
+                                   @item.tbl_content_answer.CONTENT_ANSWER1
+                                </td>
+                                <td>
+                                    @*|&nbsp;<a href="@Url.Action("edit_content_metadata", "dashboard", new { id = item.ID_CONTENT_METADATA })"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;|
+                                    <a href="@Url.Action("delete_content_metadata", "dashboard", new { id = item.ID_CONTENT_METADATA })"><i class="glyphicon glyphicon-remove"></i></a>&nbsp;|*@
+                                 
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

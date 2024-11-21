@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "AssociatedContent";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script>
+    $(function () {
+        $("#div_web_link").hide();
+        $("#div_file_multy").show();
+        $("#form_answer_content").validationEngine();
+    });
+
+    function change_div_content() {
+        var id = $("#select_type").val();
+        if (id == 3) {
+            $("#div_file_multy").hide();
+            $("#div_web_link").show();
+        }
+        else {
+            $("#div_web_link").hide();
+            $("#div_file_multy").show();
+
+        }
+    }
+
+    function select_file() {
+        var file = $("#uploadBtn")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        }
+        $("#ImageFile").val(filename);
+    }
+</script>
+@{
+    tbl_content_answer answer = (tbl_content_answer)ViewData["content_answer"];
+    List<tbl_content_type> types = (List<tbl_content_type>)ViewData["content_types"];
+}
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        @using (Html.BeginForm("link_answer_content", "contentDashboard", FormMethod.Post, new { id = "form_answer_content", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="ID_CONTENT_ANSWER" name="ID_CONTENT_ANSWER" value="@answer.ID_CONTENT_ANSWER" />
+
+            <div class="row clearfix">
+                <div class="panel panel-default custom-panel">
+                    <div class="panel-heading custom-panel-heading">
+                        <div class="panel-title">Answer : </div>
+                    </div>
+                    <div class="panel-body ">
+                        <div class="para_answer">
+                            <p>
+                                @answer.CONTENT_ANSWER1
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default custom-panel">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-2"><strong>Type</strong></div>
+                            <div class="col-md-10"><strong>Associate Content</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <select class="form-control" id="select_type" name="select_type" onchange="change_div_content()">
+                                    @foreach (var item in types)
+                                    {
+                                        <option value="@item.ID_CONTENT_TYPE">@item.TYPE_NAME</option>
+                                    }
+                                </select>
+
+                            </div>
+                            <div class="col-md-10">
+                                <div id="div_web_link">
+                                    <input type="text" class="form-control validate[required]" value="" placeholder="Web Link Url" id="WebLink" name="WebLink" />
+                                </div>
+                                <div id="div_file_multy">
+                                    <input type="text" class="form-control validate[required]" readonly value="" placeholder="Choose Image" id="ImageFile" name="FileName" />
+                                    <div class="fileUpload btn btn-primary">
+                                        <span>Browse File</span>
+                                        <input id="uploadBtn" name="uploadBtn" class="upload" type="file" onchange="select_file()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Description</strong></div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="Description for Link" id="description" name="description" />
+                            </div>
+                        </div>
+                        
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-6">
+                                <input type="submit" name="btn_submit" value="Save" class="btn btn-default" />
+                            </div>
+                            <div class="col-md-4 pull-right">
+                                <a href="@Url.Action("display_content", "dashboard")" class="btn btn-default">Cancel</a>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+
+
+            </div>
+        }
+    </div>
+</div>

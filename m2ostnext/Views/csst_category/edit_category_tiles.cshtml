@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "Edit Category Tiles";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script>
+    $(function () {
+        $("#form_add_category").validationEngine();
+    });
+
+    function select_file() {
+        var file = $("#uploadBtn")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        }
+        $("#ImageFile").val(filename);
+    }
+
+    function fun_check_type(value) {
+        if (value == "7") {
+            $("#link-url-category").show();
+
+        } else {
+            $("#link-url-category").hide();
+        }
+    }
+
+</script>
+
+@{
+    tbl_category_tiles tiles = (tbl_category_tiles)ViewData["tiles"];
+    string pathVal = (string)ViewData["vpath"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Edit Category Tiles</h4>
+            </div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm("update_cms_category_tiles", "csst_category", FormMethod.Post, new { id = "form_add_category", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id_category_tiles" value="@tiles.id_category_tiles" />
+                    <div class="form-horizontal">
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Category Tile Name :</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control validate[required]" value="@tiles.tile_heading" placeholder="Category Tile Name" id="category-tile" name="category-tile" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Category Tile Type :</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="select-tile-type" name="select-tile-type" onchange="fun_check_type(this.value)">
+
+                                            <option @if (tiles.category_theme == 1) { @(" selected")     } value="1">With Sub Category</option>
+                                            <option @if (tiles.category_theme == 2) { @(" selected")      } value="1">Sub Category 2</option>
+                                            <option @if (tiles.category_theme == 5) { @(" selected")     } value="5">Assessment Tile</option>
+                                            <option @if (tiles.category_theme == 6) { @(" selected")     } value="6">Psychometric Assessment</option>
+                                            <option @if (tiles.category_theme == 4) { @(" selected")     } value="4">Report</option>
+                                            <option @if (tiles.category_theme == 7) { @(" selected")     } value="7">External Reference Link</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Current Tile Image :</label>
+                                    <div class="col-md-9">
+                                        @{
+                    string temp = pathVal + "" + tiles.tile_image;
+                                        }
+                                        <a href="@temp" target="_blank"><i class="glyphicon glyphicon-text-background"></i>&nbsp;Tiles Image</a> &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="link-url-category" style="@if (tiles.category_theme != 7) { @(" display:none")   };">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Redirection URL : </label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control validate[required,custom[url]]" value="@tiles.image_url" placeholder="" id="red_url" name="red_url" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Image:</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control " readonly value="@tiles.tile_image" placeholder="Choose Image" id="ImageFile" name="ImageFile" />
+                                        <div class="fileUpload btn btn-primary">
+                                            <span>Browse Image</span>
+                                            <input id="uploadBtn" name="uploadBtn" class="upload" type="file" accept="image/*" onchange="select_file()" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Tile Order No:</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control validate[required]" value="@tiles.category_order" placeholder="Order" id="category-order" name="category-order" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-default" />
+                                <a style="margin-left:5px;" href="@Url.Action("Index", "dashboard")" class="btn btn-default  pull-right">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <hr />
+
+            </div>
+        </div>
+    </div>
+</div>

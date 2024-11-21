@@ -1,0 +1,234 @@
+﻿@{
+    ViewBag.Title = "Event Assignment";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+@{
+
+    List<tbl_notification> notification = (List<tbl_notification>)ViewData["notification"];
+    tbl_scheduled_event sEvent = (tbl_scheduled_event)ViewData["event"];
+    string attachment = (string)ViewData["attachment"];
+    int attachmentid = (int)ViewData["attachmentid"];
+}
+<script>
+
+    function reset_user() {
+        $('#search-box-user').attr('readonly', false);
+    }
+
+    function getContentReport(type) {
+       
+        var url = '@Url.Action("getEventscheduledToUser", "Scheduling")';
+        var pattern = "";
+        var rid = "0";
+        if (type == "3") {
+            pattern = $("#search-box-user").val().trim();
+            $('#search-box-user').attr('readonly', true);
+            id = 0;
+        } else if(type=="1"){
+            rid = $("#role-select").val();
+            pattern = $("#search-box").val().trim();
+        }
+        var eid = $("#id_scheduled_event").val();
+        var count = pattern.trim().length;       
+            if (count >= 3 || eid > 0) {
+                loading_on();
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: { eid: eid, pattern: pattern, rid: rid, type: type },                    
+                    success: function (data) {
+                        $("#display_table").empty().append(data);
+                        $("#report-table").dataTable({ "bSort": false, "pageLength": 25 });
+                        loading_off();
+                    }
+                });
+            } else {
+                if (id == 0) {
+                    $("#msg-txt").html("<p>Enter minimun of 3 character to search</p>");
+                    $('#m2ost-dialog').modal('show');
+                    
+
+                }
+            }
+       
+       
+    }
+
+    function addEventToUser(value) {
+        var eid = $("#id_scheduled_event").val();
+            if (eid > 0) {
+                var url = '@Url.Action("addEventToUser", "Scheduling")';
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: { eid: eid, uid: value },
+                    success: function (data) {
+                        if (data == "1") {
+                            $("#msg-txt").html("<p>Success , Event scheduled for User.</p>");
+                            $('#m2ost-dialog').modal('show');
+                            $("#link_" + value).hide();
+                            $("#done_" + value).show();
+                        }
+                    }
+                });
+            }
+    }
+
+  
+  
+    function RoleType(val) {
+        $("#role-type").val(val);
+        $("#display_table").empty();
+        if (val == 1) {
+            $("#div-row-role").show();
+            $("#div-row-user").hide();
+            $("#div-row-all").hide();
+        } else if (val == 2) {
+
+        } else if (val == 3) {
+            $("#div-row-role").hide();
+            $("#div-row-user").show();
+            $("#div-row-all").hide();
+        } else if (val == 4) {
+            $("#div-row-role").hide();
+            $("#div-row-user").hide();
+            $("#div-row-all").show();
+        }
+    }
+
+  
+
+</script>
+<style>
+     .col-md-12 strong {
+        width: 200px;
+        display: inline-block;
+    }
+</style>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Scheduled Event Assignment</h6>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" id="id_scheduled_event" value="@sEvent.id_scheduled_event" />
+                        <strong>Event Title   </strong>@sEvent.event_title
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Program Name   </strong>@sEvent.program_name
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Program Objective   </strong>@sEvent.program_objective
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Registration Period   </strong>@(sEvent.registration_start_date.Value.ToString("dd-MM-yyyy HH:mm") + " To " + sEvent.registration_end_date.Value.ToString("dd-MM-yyyy HH:mm"))
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Scheduled Date   </strong>@sEvent.event_start_datetime.Value.ToString("dd-MM-yyyy HH:mm")                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>Event Program Type   </strong>
+                        @if (sEvent.event_group_type == 1)
+                        {
+                            <b>    @("Face To Face Event")</b>
+                        }
+                        else if (sEvent.event_group_type == 2)
+                        {
+                            <b>    @("Online Event")</b>
+                        }
+                        else if (sEvent.event_group_type == 3)
+                        {
+                            <b>    @("M2OST")</b>
+                        }
+                        <strong>Event Type   </strong>
+                        @if (sEvent.event_type == 1)
+                        {
+                            @("Open Event")
+                        }
+                        else
+                        {
+                            @("Closed Event")
+                        }
+                    </div>
+                </div>
+                <hr />              
+                <br />
+                <div class="row">
+                    <div class="col-md-3">
+                        <a class="btn btn-primary btn-block" onclick="RoleType(1)" href="javascript:void(0)">Role Based Search</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-primary btn-block" onclick="RoleType(2)" href="javascript:void(0)">Function Based Search</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-primary btn-block" onclick="RoleType(3)" href="javascript:void(0)">User Based Search</a>
+                    </div>
+                    <div class="col-md-3">
+                        @*<a class="btn btn-primary btn-block" onclick="RoleType(4)" href="javascript:void(0)">All Users</a>*@
+                    </div>
+                    <input type="hidden" id="role-type" name="role-type" value="0" />
+                </div>              
+                <div class="row" id="div-row-role" style="display:none;">
+                    <div class="col-md-12">
+                        <h6 class="panel-title">Select User Role to filter</h6>
+                        <select class="form-control" id="role-select">
+                            <option value="0" disabled selected>Select Role</option>
+                            @foreach (tbl_csst_role item in (List<tbl_csst_role>)ViewData["RoleList"])
+                            {
+                                <option value="@item.id_csst_role">@item.csst_role</option>
+                            }
+                        </select>
+                        <input type="text" class="form-control" placeholder="Search by User Name (minimum 3 character)" id="search-box" />
+                        <br />
+                        <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentReport(1)" />
+                        <hr />
+                        @*<input id="program-assignment" type="button" class="btn btn-primary btn-sm" value="Add Assessment to Role" onclick="addProgramToRole(0)" />
+                        <input id="program-assignment" type="button" class="btn btn-primary btn-sm" value="Remove Assessment from Role" onclick="removeUserbasedContentToUser(0)" />*@
+                    </div>
+
+                </div>
+                <div class="row" id="div-row-user" style="display:none;">
+                    <div class="col-md-12">
+                        <h6 class="panel-title">Search by User </h6>
+                        <input type="text" class="form-control" placeholder="Search by User Name (minimum 3 character)" id="search-box-user" />
+                        <br />
+                        <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentReport(3)" />
+                        <input type="button" class="btn btn-primary btn-sm" value="Reset" onclick="reset_user()" />
+                        <hr />
+                        @*<input id="program-to-all" type="button" class="btn btn-primary btn-sm" value="Add Assessment to All User" onclick="addProgramToAllUser(0)" />*@
+                    </div>
+                </div>
+                <div class="row" id="div-row-all" style="display:none;">
+                    <div class="col-md-12">
+                        <div class="alert alert-info alert-dismissable">
+                            <input id="program-to-all" type="button" class="btn btn-primary btn-sm" value="Add Assessment to All User" onclick="addProgramToAll(0)" /><strong>&nbsp;&nbsp; Click to Assign Assessment to Role </strong>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div id="display_table">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

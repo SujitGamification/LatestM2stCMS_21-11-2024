@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "game_dashboard";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+        $("#report-table-program").dataTable();
+        
+    });
+</script>
+
+@{
+    List<tbl_category> program = (List<tbl_category>)ViewData["program"];
+    List<tbl_category> pList = (List<tbl_category>)ViewData["category"];
+}
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Game Dashboard</h4>
+            </div>
+            <div class="panel-body">               
+                &nbsp;<br /><br />
+                <hr />
+                <table id="report-table-program" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="65%">
+                                Program Name
+                            </th>
+                            <th width="35%">
+                               
+                            </th>
+                          
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (tbl_category item in program)
+                        {
+                            <tr>
+                                <td>
+                                    @item.CATEGORYNAME
+                                </td>
+                               
+                                <td>
+                                    <a href="@Url.Action("ProgramScoring", "KPI", new { pids=item.ID_CATEGORY})"><i class="glyphicon glyphicon-folder-open"></i></a>
+                                </td>
+
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            
+            <div><hr /></div>
+                <div class="col-md-12">
+                    <h3>Following Programs are not assigned any KPI scoring .To add Scoring To following programs click '<i class="glyphicon glyphicon-link"></i>' </h3>
+                </div>
+                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="5%">
+
+                            </th>
+                            <th width="65%">
+                                Program Name
+                            </th>
+                           
+
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (tbl_category item in pList)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("ProgramScoring", "KPI", new { pids=item.ID_CATEGORY})"><i class="glyphicon glyphicon-link"></i></a>
+                                </td>
+                                <td>
+                                    @item.CATEGORYNAME
+                                </td>
+
+                               
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

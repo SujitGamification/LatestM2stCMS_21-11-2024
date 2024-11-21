@@ -1,0 +1,500 @@
+﻿@{
+    ViewBag.Title = "FeedbackIndex";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    @model m2ostnext.Models.tbl_feedback_configuration
+
+    List<m2ostnext.Models.tbl_feedback_configuration> fbList = (List<m2ostnext.Models.tbl_feedback_configuration>)ViewData["feedbackList"];
+
+    List<tbl_organization> organisation = (List<tbl_organization>)ViewData["organisation"];
+    m2ostnext.Models.UserSession Sessions = (m2ostnext.Models.UserSession)HttpContext.Current.Session["UserSession"];
+    db_m2ostEntities db = new db_m2ostEntities();
+    tbl_organization org = new tbl_organization();
+    if (Sessions.id_ORGANIZATION != "")
+    {
+        int ids = Convert.ToInt32(Sessions.id_ORGANIZATION);
+        org = db.tbl_organization.Find(ids);
+    }
+}
+<link rel="stylesheet" href="~/Content/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<link rel="stylesheet" href="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+
+
+</script>
+<style>
+    .textcenter {
+        text-align: center;
+    }
+    /* .my-3 {
+        margin: 0.30rem 0rem;
+    }*/
+    .inputHeight {
+        height: 35px;
+        border-radius: 4px;
+        border-width: 1px;
+    }
+
+    .custom-file-upload {
+        display: inline-block;
+        position: relative;
+    }
+
+    .selected-file {
+        height: 35px;
+        width: 80%;
+        border: 1px solid black;
+        border-right: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 4px 0px 0px 3px;
+    }
+
+    .file-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+    }
+
+    .file-label {
+        display: inline-block;
+        padding: 0px 12px;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #616161;
+        text-align: center;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 175%;
+        height: 35px;
+        border-radius: 0px 3px 3px 0px;
+        background: #F3F3F3;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        border: 1px solid black;
+        border-left: none;
+        display: flex;
+        align-items: center;
+    }
+
+    .color-picker {
+        position: relative;
+        display: inline-block;
+    }
+
+        .color-picker input {
+            width: 0;
+            opacity: 0;
+            position: absolute;
+        }
+
+        .color-picker::before {
+            content: '';
+            display: block;
+            width: 80%;
+            height: 100%;
+            background-color: transparent;
+            /* Set the default background color */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+    .color-container {
+        position: relative;
+        display: flex;
+    }
+
+    .color-svg-container {
+        height: 35px;
+        width: 28px;
+        background: #FFF;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #616161;
+        border-top-width: 1px;
+        border-right-width: 1px;
+        border-bottom-width: 1px;
+        border-left: none;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .colorCodeInput {
+        height: 35px;
+        width: 100%;
+        outline-style: none;
+        background: #FFF;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #616161;
+        border-top-width: 1px;
+        border-right-width: 1px;
+        border-bottom-width: 1px;
+        border-right: none;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        padding-left: 5px;
+    }
+</style>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default custom-panel">
+            <div class="panel-heading custom-panel-heading">
+                <div class="panel-title">Feedback Configuration</div>
+            </div>
+            <div class="panel-body">
+                <div id="Loginlist">
+                    <div class="col-md-12 column" style="padding:0px;margin:1vh 0vh 4vh">
+                        <div class="" style="display:flex;justify-content:flex-end;">
+                            @*<a href="" class="btn btn-default" style="padding:2px 10px;margin-right:5px" onclick="ConfigureLogin(event)">Configuration Feedback Page</a>*@
+                            <button id="disableButton1" class="btn btn-default" style="padding:2px 10px;margin-right:5px" onclick="ConfigureLogin(event)">Configuration Feedback Page</button>
+                           
+                        </div>
+                    </div>
+                    <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="10%">
+                                    Id
+                                </th>
+                                <th style="display:none;">
+                                    Organization_Id
+                                </th>
+                                <th width="70%">
+                                    Organization
+                                </th>
+                                <th style="display:none;">
+                                    Image_path
+                                </th>
+                                <th style="display:none;">
+                                    Header_Text
+                                </th>
+                                <th style="display:none;">
+                                    Feedback_Text
+                                </th>
+                                <th style="display:none;">
+                                    Text_Button_Colour
+                                </th>
+                                <th width="20%" class="textcenter">
+                                    Edit All
+                                </th>
+                                @*<th width="10%" class="textcenter">  Delete </th>*@
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in fbList)
+                            {
+                                <tr>
+                                    <td>@item.Id_Feedback</td>
+                                    <td style="display:none">@item.Organization_id</td>
+                                    <td>@item.Organization_name</td>
+                                    <td style="display:none">@item.Image_path</td>
+                                    <td style="display:none">@item.Header_Text</td>
+                                    <td style="display:none">@item.Feedback_Text</td>
+                                    <td style="display:none">@item.Text_Button_Colour</td>
+                                    <td class="textcenter"><a onclick="Edit(this)"><i class="glyphicon glyphicon-edit"></i></a></td>
+                                    @*<td class="textcenter"><a onclick="Delete('@item.Id_Feedback')"><i class="glyphicon glyphicon-remove"></i></a></td>*@
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+                @using (Html.BeginForm("SaveFeedbackConfiguration", "FeedbackConfiguration", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div id="LoginConfigure">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Organization</label></div>
+                                                @Html.TextBoxFor(model => model.Id_Feedback, new { type = "text", id = "Id_Feedback", style = "display:none;" })
+
+                                                @Html.TextBoxFor(model => model.Organization_id, new { type = "text", id = "ID_ORGANIZATION", style = "display:none;" })
+                                                <select id="theme-div" name="Organization" class="form-control inputHeight my-3" style="border-color:#000" disabled>
+                                                    <option value="@org.ID_ORGANIZATION" id="Organization"> @org.ORGANIZATION_NAME</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Background image</label></div>
+                                                <div style="display: flex;">
+                                                    <div class="selected-file" id="bgImg"></div>
+                                                    <div class="custom-file-upload" style="width:30%">
+                                                        @Html.TextBoxFor(model => model.Image_path, new { type = "text", id = "Image_pathhidden", style = "display:none;" })
+
+                                                        @Html.TextBoxFor(model => model.ImageFile, new { type = "file", accept = "image/*", id = "Image_path", @class = "file-input", onchange = "handleBgImgFileInput()" })
+                                                        <label class="file-label" for="bgImgfile">Browse Image</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Header Text</label></div>
+
+                                                @Html.TextBoxFor(model => model.Header_Text, new { @class = "form-control inputHeight my-3", id = "headertxt", placeholder = "Enter Header Text", required = "required", maxlength = "51",oninput = "validateInput()" })
+                                                <span id="errorMessage" style="color:red; display:none;">Maximum 50 characters allowed.</span>
+
+
+                                            </div>
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Feedback Question Text</label></div>
+
+                                                @Html.TextBoxFor(model => model.Feedback_Text, new { @class = "form-control inputHeight my-3", id = "feedbacktxt", placeholder = "Enter Feedback Question Text", required = "required", maxlength = "101", oninput = "fqvalidateInput()" })
+                                                <span id="errorMessage1" style="color:red; display:none;">Maximum 100 characters allowed.</span>
+
+
+                                            </div>
+
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Text Color/Button Color(Subtext) </label></div>
+                                                <div class="color-container">
+                                                    @Html.TextBoxFor(model => model.Text_Button_Colour, new { type = "text", id = "colorCodeInputHeader", @class = "colorCodeInput", required = "required" })
+
+                                                    @*<input type="text" name="" id="colorCodeInputHeader" class="colorCodeInput">*@
+                                                    <div class="color-svg-container" style="padding-right:5px;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                                             onclick="openColorPicker()" style="position: absolute;">
+                                                            <path d="M10.0918 23.9166L2.91683 16.7416C2.72238 16.5472 2.57655 16.3333 2.47933 16.1C2.38211 15.8666 2.3335 15.6236 2.3335 15.3708C2.3335 15.118 2.38211 14.875 2.47933 14.6416C2.57655 14.4083 2.72238 14.1944 2.91683 14L9.62516 7.32081L6.5335 4.22915L8.34183 2.33331L20.0085 14C20.2029 14.1944 20.3439 14.4083 20.4314 14.6416C20.5189 14.875 20.5627 15.118 20.5627 15.3708C20.5627 15.6236 20.5189 15.8666 20.4314 16.1C20.3439 16.3333 20.2029 16.5472 20.0085 16.7416L12.8335 23.9166C12.6391 24.1111 12.4252 24.2569 12.1918 24.3541C11.9585 24.4514 11.7154 24.5 11.4627 24.5C11.2099 24.5 10.9668 24.4514 10.7335 24.3541C10.5002 24.2569 10.2863 24.1111 10.0918 23.9166ZM11.4627 9.15831L5.221 15.4H17.7043L11.4627 9.15831ZM23.1002 24.5C22.4002 24.5 21.8071 24.2521 21.321 23.7562C20.8349 23.2604 20.5918 22.6528 20.5918 21.9333C20.5918 21.4083 20.7231 20.9125 20.9856 20.4458C21.2481 19.9791 21.5446 19.5222 21.8752 19.075L23.1002 17.5L24.3835 19.075C24.6946 19.5222 24.9863 19.9791 25.2585 20.4458C25.5307 20.9125 25.6668 21.4083 25.6668 21.9333C25.6668 22.6528 25.4141 23.2604 24.9085 23.7562C24.4029 24.2521 23.8002 24.5 23.1002 24.5Z"
+                                                                  fill="#616161" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="color-picker">
+                                                        <input id="colorPickerInput" class="inputHeight color-picker-input" type="color" style="width: 80%;"
+                                                               onchange="updateColorCode(this.value)" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="" style="display:flex;justify-content:flex-end;margin-top:20vh;">
+                            <a href="" class="btn btn-default" style="padding:2px 10px;margin-right:5px;width:10%;" onclick="">Cancel</a>
+                            <button type="submit" class="btn btn-default" style="padding:2px 10px;margin-right:5px;width:10%;">Save</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var fbList = @Html.Raw(Json.Encode(ViewData["feedbackList"]));
+        $("#LoginConfigure").hide();
+        var selectedValue = $('#theme-div').val();
+        $('#ID_ORGANIZATION').val(selectedValue);
+        if (fbList && fbList.length >= 1) {
+            $("#disableButton1").prop("disabled", true);
+        }
+
+    });
+ 
+    function validateInput() {
+     
+        var input = document.getElementById("headertxt").value;
+        var errorMessage = document.getElementById("errorMessage");
+        if (input.length >= 50) {
+            errorMessage.style.display = "inline";
+        } else {
+            errorMessage.style.display = "none";
+        }
+      
+    }
+    function fqvalidateInput() {
+        var input1 = document.getElementById("feedbacktxt").value;
+        var errorMessage1 = document.getElementById("errorMessage1");
+        if (input1.length >= 100) {
+            errorMessage1.style.display = "inline";
+        } else {
+            errorMessage1.style.display = "none";
+        }
+    }
+
+    function submitForm() {
+        // Get the form element
+        var form = document.getElementById("Feedback");
+        // Submit the form
+        form.submit();
+    }
+    function ConfigureLogin(event) {
+
+        event.preventDefault(); // Prevent the default form submission behavior
+        $("#Loginlist").hide();
+        $("#LoginConfigure").show();
+    }
+    function CreateLoginPageConfiguration(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        $("#Loginlist").show();
+        $("#LoginConfigure").hide();
+    }
+
+    function handleBgImgFileInput() {
+        const fileInput = document.getElementById('Image_path');
+        const selectedFileDisplay = document.getElementById('bgImg');
+
+        const fileName = fileInput.files[0].name;
+        selectedFileDisplay.textContent = `${fileName}`;
+    }
+
+
+    function handleLogoImgFileInput() {
+        const fileInput = document.getElementById('logoImgfile-input');
+        const selectedFileDisplay = document.getElementById('logoImg');
+
+        const fileName = fileInput.files[0].name;
+        selectedFileDisplay.textContent = `${fileName}`;
+    }
+    function openColorPicker() {
+        document.getElementById('colorPickerInput').click();
+    }
+    function updateColorCode(color) {
+        console.log("Selected color:", color);
+        document.getElementById('colorCodeInputHeader').value = color;
+
+    }
+
+    function CreateLoginPageConfiguration(event) {
+        event.preventDefault(); // Prevent default form submission behavior
+
+        // Gather form data
+        var organization = document.getElementById("theme-div").value;
+        var backgroundImage = document.getElementById("bgImgfile-input").files[0].name;
+        var logoImage = document.getElementById("logoImgfile-input").files[0].name;
+        var headerTextColor = document.getElementById("colorCodeInputHeader").value;
+
+        // Call saveFormData to store the form data
+        saveFormData(organization, backgroundImage, logoImage, headerTextColor);
+
+        // Reset the form
+        document.getElementById("theme-div").value = "1"; // Set default organization
+        document.getElementById("bgImgfile-input").value = ""; // Reset background image file input
+        document.getElementById("logoImgfile-input").value = ""; // Reset logo image file input
+        document.getElementById("colorCodeInputHeader").value = "#000000"; // Reset header text color
+    }
+
+    // Display stored form data in a table
+    function displayFormData() {
+        // Clear existing table data
+        var tableBody = document.getElementById("formDataBody");
+        tableBody.innerHTML = '';
+
+        // Iterate over stored form data
+        for (var i = 0; i < localStorage.length; i++) {
+            var key = localStorage.key(i);
+            if (key.startsWith("formData_")) {
+                var formData = JSON.parse(localStorage.getItem(key));
+                var newRow = tableBody.insertRow(tableBody.rows.length);
+                newRow.insertCell(0).innerHTML = formData.organization;
+                newRow.insertCell(1).innerHTML = formData.backgroundImage;
+                newRow.insertCell(2).innerHTML = formData.logoImage;
+                newRow.insertCell(3).innerHTML = formData.headerTextColor;
+            }
+        }
+    }
+
+    // Function to save form data
+    function saveFormData(organization, backgroundImage, logoImage, headerTextColor) {
+        // Generate a unique key for each set of form data
+        var key = "formData_" + Date.now();
+        debugger
+        // Store form data as JSON string in localStorage
+        localStorage.setItem(key, JSON.stringify({
+            organization: organization,
+            backgroundImage: backgroundImage,
+            logoImage: logoImage,
+            headerTextColor: headerTextColor
+        }));
+
+        // Refresh the table display
+        displayFormData();
+    }
+
+    function Edit(element) {
+        debugger;
+        var currentRow = element.closest('tr');
+        var feedbackId = currentRow.cells[0].innerText;
+        var organizationId = currentRow.cells[1].innerText;
+        var organizationName = currentRow.cells[2].innerText;
+        var Image_path = currentRow.cells[3].innerText;
+        var headertxt = currentRow.cells[4].innerText;
+        var feedbacktxt = currentRow.cells[5].innerText;
+        var colorCodeInputHeader = currentRow.cells[6].innerText;
+
+        $('#Id_Feedback').val(feedbackId);
+
+        $('#Image_pathhidden').val(Image_path);
+        //var img = document.createElement('img');
+        //img.src = Image_path;
+        //document.body.appendChild(img);
+
+        if (Image_path.trim() !== "") {
+            // Split the path by '/'
+            var pathParts = Image_path.split('/');
+            // Get the last part which is the filename
+            var filename11 = pathParts[pathParts.length - 1];
+            // Set the filename as the text content of the element with id 'bgImg'
+            const selectedFileDisplay = document.getElementById('bgImg');
+            selectedFileDisplay.textContent = filename11;
+        }
+
+        // Set other values
+        $('#headertxt').val(headertxt);
+        $('#feedbacktxt').val(feedbacktxt);
+        $('#colorCodeInputHeader').val(colorCodeInputHeader);
+
+        $("#Loginlist").hide();
+        $("#LoginConfigure").show();
+
+    }
+    function Delete(id) {
+        if (confirm("Are you sure you want to delete this record?")) {
+            debugger;
+            $.ajax({
+                url: '/FeedbackConfiguration/Delete',
+                type: 'POST',
+                data: { id: id },
+                success: function (response) {
+                    debugger;
+                    // Handle success, maybe remove the row from the UI
+                    if (response.success) {
+                        location.reload(true);
+                        // Assuming you want to remove the row from the table
+                        $('#report-table tbody').find('a[data-id="' + id + '"]').closest('tr').remove();
+
+                    } else {
+                       // alert('Failed to delete the record.');
+                    }
+                },
+                error: function () {
+                    alert('Error occurred while deleting the record.');
+                }
+            });
+        }
+    }
+
+
+</script>

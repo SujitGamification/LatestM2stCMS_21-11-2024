@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "ContentGraphReportIndex";
+    Layout = "";
+}
+
+
+
+
+<head>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <script src="../content/bower_components/morrisjs/morris.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js"></script>
+    <script src="../content/bower_components/morrisjs/examples/lib/example.js"></script>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.css">
+    <link rel="stylesheet" href="../content/bower_components/morrisjs/morris.css">
+    <link href="~/Content/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/bootstrap-override.css" rel="stylesheet" type="text/css">
+
+    <link href="~/Content/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+    <script src="~/Content/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/Content/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="~/Content/dist/js/sb-admin-2.js"></script>
+    <script src="~/Content/jquery-ui/jquery-ui.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#datetimepicker1").datepicker(
+               { dateFormat: "dd-mm-yy" }
+            );
+            $("#datetimepicker2").datepicker(
+               { dateFormat: "dd-mm-yy" }
+            );
+        });
+
+
+
+
+        function getdatereport() {
+            var url1 = '@Url.Action("DeleteTempIndustry", "Other")';
+          
+            $.ajax({
+                type: 'POST',
+                url: url1,
+                
+                data: { id: val },
+                success: function (data) {
+                    window.location.href = url2;
+                }
+            });
+        }
+
+
+    </script>
+
+    <style>
+.ui-widget-header {
+    border: 1px solid #FFFFFF;
+    background: #3980B5;
+    color: #fff;
+    font-weight: bold;
+}
+
+    </style>
+
+</head>
+
+
+<div class="col-md-12 ">
+
+    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "form-content-report" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="form-group">
+
+                    <div class="col-md-2">
+                        <div class="dropdown">
+                            <div class="form-group">
+                                <label for="org">&nbsp;&nbsp;From Date</label>
+                                <div class='input-group date'>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker1' name="FROM" />
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-1 col-md-2">
+                        <div class="dropdown">
+                            <div class="form-group">
+                                <label for="usr">&nbsp;&nbsp;To Date</label>
+
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker2' name="TO" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <input style="margin-top: 24px; margin-left: 15px; height: 28px;" type="button" value="Chart" name="btn_submit" class="btn btn-primary" onclick="getdateReport()" />
+                    </div>
+
+
+
+
+
+                </div>
+        </div>
+    }
+
+    <div id="graph"></div>
+
+</div>
+
+    
+
+
+ 
+
+<pre id="code" class="prettyprint linenums" style="display:none">
+Morris.Donut({
+  element: 'graph',
+  data: [
+    {value: 20, label: 'questions'},
+    {value: 20, label: 'answers'},
+    {value: 30, label: 'users'},
+    {value: 30, label: 'views'}
+  ],
+  formatter: function (x) { return x + "%"}
+}).on('click', function(i, row){
+  console.log(i, row);
+});
+</pre>
+
+
+
+
+

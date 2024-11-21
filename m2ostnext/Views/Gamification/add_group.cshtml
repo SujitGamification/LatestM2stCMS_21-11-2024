@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "add_group";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<script>
+    $(function () {
+        $("#form-add-game").validationEngine();
+    });
+
+    function select_file() {
+        var file = $("#uploadBtn")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        }
+        $("#ImageFile").val(filename);
+    }
+</script>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Create Game User Group</h4>
+            </div>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("add_game_action", "Gamification", FormMethod.Post, new { id = "form-add-game", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">User Group Title</label></div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="group-name" name="group-name" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">User Group Imgae</label></div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control validate[required]" readonly value="" placeholder="Choose Image" id="ImageFile" name="ImageFile" />
+                                <div class="fileUpload btn btn-primary">
+                                    <span>Browse Image</span>
+                                    <input id="uploadBtn" name="uploadBtn" class="upload" type="file" accept="image/*" onchange="select_file('uploadBtn', 'ImageFile')" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-10 col-md-1">
+                                <input type="submit" value="Save" name="btn_submit" class="btn btn-default" />
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable({ "pageLength": 25 });
+    });
+
+    function updateOrder(id, val) {
+        var ctid = $('#' + id).val();
+        var url = '@Url.Action("updateTileOrder", "csst_category")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { ctid: val, ord: ctid },
+           
+            success: function (data) {
+                if (data == "1") {                   
+                }
+            }
+        });
+
+    }
+</script>
+
+@{
+    List<tbl_category_tiles> category = (List<tbl_category_tiles>)ViewData["category_tile"];
+    bool flag = (bool)ViewData["accessflag"];    
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Category Tile Sort</h6>
+            </div>
+            <div class="panel-body">
+                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="70%">
+                                Category Tile
+                            </th>
+                            <th width="20%">
+                                Order
+                            </th>
+                            <th width="10%">
+                                Order
+                            </th>
+                        </tr>
+                    </thead>
+                    @{
+                        int i = 0;
+                    }
+                    <tbody>
+                        @foreach (tbl_category_tiles item in category)
+                        {
+                            <tr>
+                                <td>
+                                    @item.tile_heading
+                                </td>
+                                <td>
+                                    <input style="text-align:center;width:100%;" type="number" max="100" min="1" id="@("ct_"+item.id_category_tiles)" value="@item.category_order" />
+                                </td>
+                                <td>
+                                    <input id="notification-to-all" type="button" class="btn btn-primary btn-sm pull-right" value="update" onclick="updateOrder('@("ct_"+item.id_category_tiles)','@(item.id_category_tiles)')" />
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>

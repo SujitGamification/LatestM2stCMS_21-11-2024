@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "display_banner";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+<style>
+     .alignCenter { align-content: center; }
+</style>
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable(
+             {
+                 "aoColumns": [
+                     { sWidth: '35%' },
+                     { sWidth: '35%' },
+                     { sWidth: '10%' },
+                     { sWidth: '10%' },
+                     { sWidth: '5%', sClass: "alignCenter" },
+                     { sWidth: '5%', sClass: "alignCenter" }
+                 ]
+             });
+    });
+
+
+    function displayDeleteMessage() {
+
+        $("#success-delete").show();
+        setTimeout(function () {
+            $("#success-delete").hide();
+        }, 3000);
+    }
+
+    function deactivateBanner(cid) {
+
+        var url = '@Url.Action("deactivateBanner", "dashboard")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: cid },
+          
+            success: function (data) {
+                displayActivatedMessage();
+
+            }
+        });
+
+        location.reload();
+    }
+    function activateBanner(cid) {
+
+        var url = '@Url.Action("activateBanner", "dashboard")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: cid },
+          
+            success: function (data) {
+                displayDeleteMessage();
+
+            }
+        });
+
+        location.reload();
+    }
+
+    function displayDeleteMessage() {
+
+        $("#success-delete").show();
+        setTimeout(function () {
+            $("#success-delete").hide();
+        }, 3000);
+    }
+    function displayActivatedMessage() {
+
+        $("#success-message").show();
+        setTimeout(function () {
+            $("#success-message").hide();
+        }, 3000);
+    }
+</script>
+@{
+    List<tbl_banner> banner = (List<tbl_banner>)ViewData["banner"];
+    string urls = (string)ViewData["urls"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div id="success-message" class="alert alert-success" role="alert" style="display:none;">
+            <strong>Success : </strong> Banner is Deactivated ...
+        </div>
+        <div id="success-delete" class="alert alert-success" role="alert" style="display:none;">
+            <strong>Success : </strong> Banner is Activated ...
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h6 class="panel-title">Banner Dashboard</h6>
+              
+            </div>
+            <div class="panel-body">
+                <a href="@Url.Action("add_banner","dashboard")" class="btn btn-default btn-info pull-right">create banner</a>
+                <br />
+                <hr />
+                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="35%">
+                                Banner Title
+                            </th>
+                            <th width="35%">
+                                URL
+                            </th>
+                            <th width="10%">
+                                Banner
+                            </th>
+                            <th width="10%">Edit</th>
+                            <th width="5%">Add To Content</th>
+                            <th width="5%" >Deactivate</th>
+                        </tr>
+                    </thead>
+                    @{
+                        int i = 0;
+                    }
+                    <tbody>
+                        @foreach (tbl_banner item in banner)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("BannerContentList", "dashboard", new { id = @item.id_banner })"><i class="glyphicon glyphicon-list"></i> &nbsp; @item.banner_name</a>
+                                </td>
+                                <td>
+                                    @item.banner_action_url
+                                </td>
+                                @{
+                            string url = urls + item.banner_image;
+                                }
+                                <td>
+                                    <a href="@url" target="_blank"><i class="glyphicon glyphicon-text-background"></i></a>
+                                </td>
+                                @if (item.status == "D")
+                                {
+                                    <td>De-activated</td>
+    <td></td>
+                                    <td><a href="#" onclick="activateBanner('@item.id_banner')"><i class="glyphicon glyphicon-play-circle"></i>Activate</a></td>
+                                   
+                                }
+                                else
+                                {
+                                    <td><a href="@Url.Action("edit_banner", "dashboard", new { id = item.id_banner })"><i class="glyphicon glyphicon-edit"></i></a></td>
+                                    <td><a href="@Url.Action("ContentBanner", "dashboard", new { id = item.id_banner })"><i class="glyphicon glyphicon-plus"></i></a></td>
+                                    <td><a href="#" onclick="deactivateBanner('@item.id_banner')"><i class="glyphicon glyphicon-remove-circle"></i></a></td>
+                                }
+                            </tr>
+                                i++;
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

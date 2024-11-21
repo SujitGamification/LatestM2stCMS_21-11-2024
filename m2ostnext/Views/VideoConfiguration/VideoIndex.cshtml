@@ -1,0 +1,367 @@
+﻿@{
+    ViewBag.Title = "LoginIndex";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    @model m2ostnext.Models.tbl_video_configuration
+    List<tbl_organization> organisation = (List<tbl_organization>)ViewData["organisation"];
+    List<m2ostnext.Models.tbl_video_configuration> VideoList = (List<m2ostnext.Models.tbl_video_configuration>)ViewData["VideoList"];
+    m2ostnext.Models.UserSession Sessions = (m2ostnext.Models.UserSession)HttpContext.Current.Session["UserSession"];
+    db_m2ostEntities db = new db_m2ostEntities();
+    tbl_organization org = new tbl_organization();
+    if (Sessions.id_ORGANIZATION != "")
+    {
+        int ids = Convert.ToInt32(Sessions.id_ORGANIZATION);
+        org = db.tbl_organization.Find(ids);
+    }
+}
+<link rel="stylesheet" href="~/Content/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<link rel="stylesheet" href="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+
+
+</script>
+<style>
+    .textcenter {
+        text-align: center;
+    }
+    /* .my-3 {
+        margin: 0.30rem 0rem;
+    }*/
+    .inputHeight {
+        height: 35px;
+        border-radius: 4px;
+        border-width: 1px;
+        border-color: #000000;
+    }
+
+    .custom-file-upload {
+        display: inline-block;
+        position: relative;
+    }
+
+    .selected-file {
+        height: 35px;
+        width: 80%;
+        border: 1px solid black;
+        border-right: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 4px 0px 0px 3px;
+    }
+
+    .file-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+    }
+
+    .file-label {
+        display: inline-block;
+        padding: 0px 12px;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #616161;
+        text-align: center;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 175%;
+        height: 35px;
+        border-radius: 0px 3px 3px 0px;
+        background: #F3F3F3;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        border: 1px solid black;
+        border-left: none;
+        display: flex;
+        align-items: center;
+    }
+</style>
+@if (TempData["MessageVideo"] != null)
+{
+<script>
+        $(document).ready(function () {
+            $("#msg-txt").html("<p>@TempData["MessageVideo"]</p>");
+            $('#m2ost-dialog').modal('show');
+        });
+</script>
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default custom-panel">
+            <div class="panel-heading custom-panel-heading">
+                <div class="panel-title">Initilization Video </div>
+            </div>
+            <div class="panel-body">
+                <div id="Videolist">
+                    <div class="col-md-12 column" style="padding:0px;margin:1vh 0vh 4vh">
+                        <div class="" style="display:flex;justify-content:flex-end;">
+                            <button id="disableButton" class="btn btn-default" style="padding:2px 10px;margin-right:5px" onclick="ConfigureVideo(event)">Initilization Video </button>
+                        </div>
+                    </div>
+                    <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="10%">
+                                    ID
+                                </th>
+                                <th style="display:none;">
+                                    Organization
+                                </th>
+                                <th width="80%">
+                                    Organization_name
+                                </th>
+                                <th style="display:none;">
+                                    Header Text
+                                </th>
+                                <th style="display:none;">
+                                    Mobile Video
+                                </th>
+                                <th style="display:none;">
+                                    Web Video
+                                </th>
+                                <th width="10%" class="textcenter">
+                                    Edit All
+                                </th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var item in VideoList)
+                            {
+                                <tr>
+                                    <td>@item.Id_video</td>
+                                    <td style="display:none;">@item.Id_organization</td>
+                                    <td style="display:none;">@item.Organization_name</td>
+                                    <td>@item.Header_text</td>
+                                    <td style="display:none;">@item.Video_name_web</td>
+                                    <td style="display:none;">@item.Video_name_mobile</td>
+
+                                    <td class="textcenter">
+                                        <a onclick="Edit(this)"><i class="glyphicon glyphicon-edit"></i></a>
+                                    </td>
+                                    @*<td class="textcenter">
+                                            <a href="" onclick="Delete('@item.Id_video')"><i class="glyphicon glyphicon-remove"></i></a>
+
+                                        </td>*@
+                                </tr>
+                            }
+                            @*<tr>
+                                    <td>1</td>
+                                    <td style="display:none;"></td>
+                                    <td>Bata</td>
+                                    <td style="display:none;"></td>
+                                    <td style="display:none;"></td>
+                                    <td style="display:none;"></td>
+                                    <td class="textcenter">
+                                        <a href=""><i class="glyphicon glyphicon-edit"></i></a>
+                                    </td>
+
+                                </tr>*@
+                        </tbody>
+
+                    </table>
+                </div>
+                @using (Html.BeginForm("SaveVideoConfiguration", "VideoConfiguration", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div id="VideoConfigure">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form action="SetLoginPage" method="post" enctype="multipart/form-data">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Organization</label></div>
+                                                @Html.TextBoxFor(model => model.Id_video, new { type = "text", id = "Id_video", style = "display:none;" })
+
+                                                @Html.TextBoxFor(model => model.Id_organization, new { type = "text", id = "ID_ORGANIZATION", style = "display:none;" })
+                                                @*<input type="text" id="ID_ORGANIZATION" name="ID_ORGANIZATION" style="display:none">
+                                                    <input type="text" id="Id_login" name="Id_login" style="display:none">*@
+                                                <select id="theme-div" name="Organization" class="form-control inputHeight my-3" style="border-color:#000">
+                                                    <option value="@org.ID_ORGANIZATION"> @org.ORGANIZATION_NAME</option>
+                                                </select>
+
+                                            </div>
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Heder Text</label></div>
+                                                @Html.TextBoxFor(model => model.Header_text, new { @class = "form-control inputHeight my-3", id = "headertxt", placeholder = "Enter Header Text", required = "required", maxlength = "51", oninput = "validateInput()" })
+                                                <span id="errorMessage" style="color:red; display:none;">Maximum 50 characters allowed.</span>
+
+                                                @*<input type="text" class="form-control inputHeight my-3" id="headertxt" name="headertxt">*@
+                                            </div>
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Mobile Video</label></div>
+                                                <div style="display: flex;">
+                                                    <div class="selected-file" id="mobileVideo"></div>
+                                                    <div class="custom-file-upload" style="width:30%">
+                                                        @Html.TextBoxFor(model => model.Video_name_mobile, new { type = "text", id = "MobileVideo_pathhidden", style = "display:none;" })
+
+                                                        @Html.TextBoxFor(model => model.Video_name_mobileFile, new { type = "file", accept = "video/*", id = "mobileVideofile-input", @class = "file-input", onchange = "handleMobileVideoFileInput()" })
+
+                                                        @*<input type="file" name="BackgroundFile" accept="video/*" id="mobileVideofile-input" class="file-input" placeholder="Image Name" onchange="handleMobileVideoFileInput()">*@
+                                                        <label class="file-label" for="mobileVideofile-input">Browse Video</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 my-3">
+                                                <div class=""><label class="control-label">Web Video</label></div>
+                                                <div style="display: flex;">
+                                                    <div class="selected-file" id="webVideo"></div>
+                                                    <div class="custom-file-upload" style="width:30%">
+                                                        @Html.TextBoxFor(model => model.Video_name_web, new { type = "text", id = "WebVideo_pathhidden", style = "display:none;" })
+
+                                                        @Html.TextBoxFor(model => model.Video_name_webFile, new { type = "file", accept = "video/*", id = "webVideofile-input", @class = "file-input", onchange = "handleWebVideoFileInput()" })
+
+                                                        @*<input type="file" name="LogoFile" accept="video/*" id="webVideofile-input" class="file-input" placeholder="Image Name" onchange="handleWebVideoFileInput()">*@
+                                                        <label class="file-label" for="webVideofile-input">Browse Video</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12" style="display:flex;justify-content:flex-end;margin-top:20vh;">
+                                                <a href="" class="btn btn-default" style="padding:2px 10px;margin-right:5px;width:10%;" onclick="">Cancel</a>
+                                                <input type="submit" class="btn btn-default" style="padding:2px 10px;margin-right:5px;width:10%;" value="Save" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        $(document).ready(function () {
+            var VideoList = @Html.Raw(Json.Encode(ViewData["VideoList"]));
+
+           $("#VideoConfigure").hide();
+            var selectedValue = $('#theme-div').val();
+            $('#ID_ORGANIZATION').val(selectedValue);
+
+            if (VideoList && VideoList.length >= 1) {
+                $("#disableButton").prop("disabled", true);
+            }
+
+        });
+
+      
+
+
+        function ConfigureVideo(event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+            $("#Videolist").hide();
+            $("#VideoConfigure").show();
+
+        }
+        function CreateLoginPageConfiguration(event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+            $("#Videolist").show();
+            $("#VideoConfigure").hide();
+        }
+        function validateInput() {
+
+            var input = document.getElementById("headertxt").value;
+            var errorMessage = document.getElementById("errorMessage");
+            if (input.length >= 50) {
+                errorMessage.style.display = "inline";
+            } else {
+                errorMessage.style.display = "none";
+            }
+
+        }
+
+        function handleMobileVideoFileInput() {
+            var fileInput = document.getElementById('mobileVideofile-input');
+            var fileSize = fileInput.files[0].size; // Size in bytes
+            var maxSize = 50 * 1024 * 1024; // 50MB in bytes
+
+            if (fileSize > maxSize) {
+                alert('Mobile video file size exceeds 50MB limit.');
+                fileInput.value = '';
+                return false;
+            } else {
+                const fileInput = document.getElementById('mobileVideofile-input');
+                const selectedFileDisplay = document.getElementById('mobileVideo');
+
+                const fileName = fileInput.files[0].name;
+                selectedFileDisplay.textContent = `${fileName}`;
+            }
+
+        }
+
+        function handleWebVideoFileInput() {
+            var fileInput = document.getElementById('webVideofile-input');
+            var fileSize = fileInput.files[0].size; // Size in bytes
+            var maxSize = 50 * 1024 * 1024; // 10MB in bytes
+
+            if (fileSize > maxSize) {
+                alert('Web video file size exceeds 50MB limit.');
+                fileInput.value = '';
+                return false;// Clear the file input
+            }
+            else {
+                const fileInput = document.getElementById('webVideofile-input');
+                const selectedFileDisplay = document.getElementById('webVideo');
+
+                const fileName = fileInput.files[0].name;
+                selectedFileDisplay.textContent = `${fileName}`;
+            }
+
+        }
+        function Edit(element) {
+            var currentRow = element.closest('tr');
+            var videoId = currentRow.cells[0].innerText;
+            var organizationId = currentRow.cells[1].innerText;
+            var organizationName = currentRow.cells[2].innerText;
+            var headertxt = currentRow.cells[3].innerText;
+            var Webvideo = currentRow.cells[4].innerText;
+            var Mobilevideo = currentRow.cells[5].innerText;
+
+            $('#Id_video').val(videoId);
+
+            $('#WebVideo_pathhidden').val(Webvideo);
+            //var img = document.createElement('img');
+            //img.src = Image_path;
+            //document.body.appendChild(img);
+
+                        // Set the filename as the text content of the element with id 'bgImg'
+            const selectedFileDisplay = document.getElementById('webVideo');
+            selectedFileDisplay.textContent = Webvideo;
+
+            $('#MobileVideo_pathhidden').val(Mobilevideo);
+
+            const selectedFileDisplay1 = document.getElementById('mobileVideo');
+            selectedFileDisplay1.textContent = Mobilevideo;
+            // Set other values
+            $('#headertxt').val(headertxt);
+            //$('#feedbacktxt').val(feedbacktxt);
+            //$('#colorCodeInputHeader').val(colorCodeInputHeader);
+
+            $("#Videolist").hide();
+            $("#VideoConfigure").show();
+
+        }
+
+</script>

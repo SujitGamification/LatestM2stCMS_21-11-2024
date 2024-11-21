@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "userRoleMapping";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/buttons.dataTables.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+
+    function setCsstRole(value) {
+
+        var opt = "";
+        if ($('#' + value + '').is(':checked')) {
+            opt = "1";
+        } else {
+            opt = "0";
+        }
+
+        var url = '@Url.Action("setUserRole", "dashboard")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { str: value, opt: opt },
+            success: function (data) {
+            }
+        });
+    }
+
+
+</script>
+
+@{
+    db_m2ostEntities db = new db_m2ostEntities();
+
+    List<tbl_csst_role> roles = (List<tbl_csst_role>)ViewData["user_roles"];
+    List<tbl_profile> profile = (List<tbl_profile>)ViewData["profile"];
+
+    List<tbl_user> users = (List<tbl_user>)ViewData["user_list"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <h4>User - Role </h4>
+
+        <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>
+                        User Name (USERID)
+                    </th>
+                    @foreach (tbl_csst_role item in roles)
+                    {
+                        <th>@item.csst_role</th>
+                    }
+                </tr>
+            </thead>
+            @{
+                int i = 0;
+            }
+            <tbody>
+                @foreach (tbl_user items in users)
+                {
+                    <tr>
+                        <td>
+                            @if (string.IsNullOrEmpty(profile[i].FIRSTNAME) && string.IsNullOrEmpty(profile[i].LASTNAME) && string.IsNullOrEmpty(items.USERID))
+                            {
+
+                                @("----User Detail not Updated for DB_USER_ID : " + items.ID_USER + " ----")
+                            }
+                            else if (string.IsNullOrEmpty(profile[i].FIRSTNAME) && string.IsNullOrEmpty(profile[i].LASTNAME) && !string.IsNullOrEmpty(items.USERID))
+                            {
+                                @("User Profile not Updated (" + items.USERID + ")")
+
+                            }
+                            else
+                            {
+                                @(profile[i].FIRSTNAME + " " + profile[i].LASTNAME + "(" + items.USERID + ")")
+                            }
+                        </td>
+                        @foreach (tbl_csst_role cscc in roles)
+                        {
+                            <td>
+                                @{
+                            tbl_role_user_mapping current = db.tbl_role_user_mapping.Where(t => t.id_user == items.ID_USER && t.id_csst_role == cscc.id_csst_role).FirstOrDefault();
+                            string addition = "";
+                            if (current == null)
+                            {
+
+                            }
+                            else
+                            {
+                                addition = " checked ";
+                            }
+                                }
+                                <input class="inline" type="checkbox" onchange="setCsstRole('@(items.ID_USER+"_" + cscc.id_csst_role )')" id="@(items.ID_USER+ "_" + cscc.id_csst_role)" @(addition) />
+
+                            </td>
+                        }
+                    </tr>
+                        i++;
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+</div>

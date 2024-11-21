@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "NonDisclosureContent";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    m2ostnext.tbl_non_disclousure_clause_content content = (m2ostnext.tbl_non_disclousure_clause_content)ViewData["content"];
+
+}
+
+@*<link href="~/Content/dist/summernote.css" rel="stylesheet" />*@
+<link href="~/Content/RichText/dist/summernote.css" rel="stylesheet" />
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<!----------------------------------CSS/Script------------------------------------------>
+@*<script src="~/Content/dist/summernote.js"></script>*@
+<script src="~/Content/RichText/dist/summernote.js"></script>
+
+
+
+
+<link rel="stylesheet" href="~/Content/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<link rel="stylesheet" href="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+<script>
+
+    $(document).ready(function () {
+        $('.summernote').summernote();
+    });
+
+</script>
+<div class="panel panel-default custom-panel">
+    <div class="panel-heading custom-panel-heading clearfix">
+        <div class="panel-title">Non Disclosure Clause</div>
+    </div>
+    <div class="panel-body custom-panel-body">
+        <div class="row">
+            @if (content.content != null )
+        {
+            <a style="    margin-right: 4%;" href="@Url.Action("EditNonDisclosureContent", "Dashboard" , new {})" class="btn btn-default  pull-right">Edit&nbsp;<i class="glyphicon glyphicon-edit"></i></a>
+
+    }
+    else
+    {
+        <a style="    margin-right: 4%;" href="@Url.Action("AddNonDisclosureContent", "Dashboard" , new {})" class="btn btn-default  pull-right">Create Content&nbsp;<i class="glyphicon glyphicon-plus"></i></a>
+
+}
+            <br />
+        </div>
+        @if (content.content != null)
+    {
+        if (content.status == "A" && content.id_org!=16)
+        {
+            <div class="form-group">
+
+                <a style="        margin-right: 3%; margin-top: 2%;" href="@Url.Action("DeactivateNonDisclosureContent", "Dashboard", new { })" class="btn btn-default  pull-right">Deactivate&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
+
+
+
+            </div>
+
+            }
+            else if(content.status == "D" && content.id_org != 16)
+            {
+        <div class="form-group">
+            <a style="     margin-right: 3%; margin-top: 2%;" href="@Url.Action("ActivateNonDisclosureContent", "Dashboard" , new {})" class="btn btn-default  pull-right">Activate&nbsp;<i class="glyphicon glyphicon-ok"></i></a>
+
+
+
+
+        </div>
+
+            }
+
+
+          
+    <div class="form-group">
+        <label style=" ">Status: </label>
+        @if (content.status == "A")
+        {
+        <p style="    display: inline-block;">Active</p>}
+        else
+        {
+
+    <p style="    display: inline-block;">De Active</p>
+        }
+
+       
+        
+
+    </div>
+            
+    <div class="form-group">
+        <label>Title: </label>
+        <p style="    display: inline-block;">@content.content_title</p>
+    </div>
+
+    <div class="col-md-12" style="background:white">
+        <label style="    margin-left: -2%;">Content: </label>
+        <br />
+        <div class="row" style="background:white;    background: white; border-style: solid;padding: 2%;border-color: #1abc9c;margin-left: -2%;">
+            @Html.Raw(content.content)
+        </div>
+      
+
+
+
+    </div>
+        }
+
+    </div>
+
+
+    </div>
+
+
+

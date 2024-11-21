@@ -1,0 +1,1064 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> m2ost</title>
+    <link href="~/Content/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="~/Content/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <!-- Timeline CSS -->
+    <link href="~/Content/dist/css/timeline.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/Content/dist/css/sb-admin-2.css" rel="stylesheet">
+
+
+    <link href="~/Content/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+    <link href="~/Content/jquery-ui/jquery-ui-timepicker-addon.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <!-- Custom Fonts -->
+    <link href="~/Content/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="~/Content/bootstrap-override.css" rel="stylesheet" type="text/css">
+    <script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Add jQuery library -->
+    <link rel="stylesheet" href="~/Content/js_validation/css/validationEngine.jquery.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="~/Content/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+    <link rel="stylesheet" href="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+    <link href="~/Content/style.css" rel="stylesheet">
+    <link href="~/Content/bootstrap-switch.css" rel="stylesheet">
+    <script src="~/Content/jquery.cookie.js"></script>
+
+    <style>
+        #countdown_box {
+            position: absolute;
+            text-align: center;
+            top: 200px;
+            width: 100%;
+            padding: 10px;
+            color: white;
+            text-overflow: ellipsis;
+            z-index: 1000000;
+        }
+
+        #countdown_title {
+            font-family: 'Open Sans', sans-serif;
+            color: white;
+            font-size: 28px;
+        }
+
+        #countdown_div {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 28px;
+            color: white;
+        }
+    </style>
+
+</head>
+
+@{
+    m2ostnext.Models.UserSession Sessions = (m2ostnext.Models.UserSession)HttpContext.Current.Session["UserSession"];
+    db_m2ostEntities db = new db_m2ostEntities();
+    tbl_organization org = new tbl_organization();
+    bool catAcc = false;
+    bool cppAcc = false;
+    bool conAcc = false;
+    bool assAcc = false;
+    bool appUser = false;
+    bool cmsUser = false;
+    bool cmsRole = false;
+	 bool appupload = false;
+	   bool ticker = false;
+	     bool disclosure = false;
+		 bool certificate = false;
+
+    if (Session == null)
+    {
+        Response.Redirect("~/dashboard/Index");
+    }
+    else
+    {
+        if (Sessions.id_ORGANIZATION != "")
+        {
+            int ids = Convert.ToInt32(Sessions.id_ORGANIZATION);
+            org = db.tbl_organization.Find(ids);
+        }
+        foreach (tbl_cms_role_action_mapping item in Sessions.action)
+        {
+            if (item.id_cms_role_action == 3)
+            {
+                catAcc = true;
+            }
+            if (item.id_cms_role_action == 6)
+            {
+                conAcc = true;
+            }
+            if (item.id_cms_role_action == 7)
+            {
+                cppAcc = true;
+            }
+            if (item.id_cms_role_action == 8)
+            {
+                assAcc = true;
+            }
+            if (item.id_cms_role_action == 10)
+            {
+                cmsRole = true;
+            }
+            if (item.id_cms_role_action == 11)
+            {
+                cmsUser = true;
+            }
+            if (item.id_cms_role_action == 13)
+            {
+                appUser = true;
+            }
+			 if (item.id_cms_role_action == 17)
+            {
+                appupload = true;
+            }
+			 if (item.id_cms_role_action == 18)
+            {
+                ticker = true;
+            }
+			  if (item.id_cms_role_action == 19)
+            {
+                disclosure = true;
+            }
+			 if (item.id_cms_role_action == 20)
+            {
+                certificate = true;
+            }
+        }
+    }
+}
+<body>
+    <div id="wrapper">
+        <!-- Modal -->
+        <div class="modal fade" id="m2ost-dialog" data-backdrop="static" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Alert : </h3>
+                    </div>
+                    <div class="modal-body" id="msg-txt">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Modal -->
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" style="color:#ffffff;" href="@Url.Action("Index", "dashboard")">Skillmuni - m<sup>2</sup>ost @if (Sessions.org_status=="S"|| Sessions.org_status == "F") {<span style="font-size: 13px;">- Trial Version</span> }</a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+
+			  <li class="">
+                     <a href="http://103.7.64.68/vendorcart/index.php?route=common/home"><i style="color:white" class="glyphicon glyphicon-shopping-cart"></i></a>
+                   
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li class="divider"></li>
+
+                        <li>
+                            <a href="@Url.Action("Logout", "Login")"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+            <!-- /.navbar-static-side -->
+        </nav>
+        <div class="row">
+            <div class="col-sm-2" style="background:#969;">
+
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li class="sidebar-search">
+                                <div class="input-group custom-search-form" style="color:#ffffff;">
+                                    @if (Sessions.id_ORGANIZATION != "")
+                                    {<h4>@org.ORGANIZATION_NAME</h4>}
+                                </div>
+                                <!-- /input-group -->
+                            </li>
+                            <!-- --------------------------------------------------------------- -->
+
+                            @if (Sessions.USER.cmd_user_type == 0 || cmsRole || cmsUser || appUser)
+                            {
+                                <li>
+                                    <a href="#"><i class="fa fa-cog"></i> Setup<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        @if (Sessions.USER.cmd_user_type == 0)
+                                        {
+                                            <li>
+                                                <a href="#">Organisation<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li>
+                                                        <a href="@Url.Action("DisplayOrganization", "Administrator")">Display Organisation</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="@Url.Action("createOrganization", "Administrator")"> Create Organisation </a>
+                                                    </li>
+
+                                                </ul>
+                                            </li>
+                                        }
+                                        @if (cmsRole)
+                                        {
+                                            <li>
+                                                <a href="#">CMS Role<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li>
+                                                        <a href="@Url.Action("display_cms_role", "Administrator")"> CMS Role List</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="@Url.Action("add_cms_role", "Administrator")"> Create CMS Role</a>
+                                                    </li>
+
+                                                </ul>
+                                            </li>
+
+                                        }
+
+                                        @if (cmsUser)
+                                        {
+                                            <li>
+                                                <a href="#">CMS User<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li>
+                                                        <a href="@Url.Action("cms_display", "Administrator")"> CMS User List</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="@Url.Action("cms_user_create", "Administrator")"> Create CMS User</a>
+                                                    </li>
+
+                                                </ul>
+                                            </li>
+                                        }
+                                        @if (appUser)
+                                        {
+                                            <li>
+                                                <a href="#">Mobile App User Role<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li>
+                                                        <a href="@Url.Action("Index", "csst_role")"> App Role List</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="#">Mobile App User<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li>
+                                                        <a href="@Url.Action("app_user_display", "Administrator")"> App User List</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="@Url.Action("add_app_user", "Administrator")"> Create App User</a>
+                                                    </li>
+
+                                                </ul>
+                                            </li>
+                                        }
+                                        @if (appupload == true)
+
+                                        {
+                                            <li>
+                                                <a href="#">Mobile App Bulk Upload<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li>
+                                                        <a href="@Url.Action("AppUserUpload", "UploadUtility" )">Upload bulk App User</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="@Url.Action("AppActiveUpload", "UploadUtility" )">Upload bulk Active / Deative</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="@Url.Action("UploadDataUser", "UploadUtility" )">Upload bulk User Data</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+
+                                        }
+
+                                        @if (catAcc)
+                                        {
+                                            <li>
+                                                <a href="#">RTU Association<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li>
+                                                        <a href="@Url.Action("content_association", "Administrator")">Content Association</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="@Url.Action("data_association", "Administrator")">Category Association</a>
+                                                    </li>
+
+                                                </ul>
+                                            </li>
+                                        }
+
+                                    </ul>
+                                </li>
+                            }
+
+                            <li>
+
+                                <a href="#"><i class="fa fa-cog"></i> Category Setup<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="#">Landing Page Tiles<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="@Url.Action("display_category_tiles", "csst_category")">List Landing Page Tiles</a>
+                                            </li>
+                                            @if (catAcc)
+                                            {
+                                                <li>
+                                                    <a href="@Url.Action("add_category_tiles", "csst_category")">Add Landing Page Tiles</a>
+                                                </li>
+                                            }
+
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Category Heading<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="@Url.Action("display_category_heading", "csst_category")">List Category Heading</a>
+                                            </li>
+                                            @if (catAcc)
+                                            {
+                                                <li>
+                                                    <a href="@Url.Action("add_category_headers", "csst_category")">Add Category Heading</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Category <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="@Url.Action("display_category", "csst_category")">List Category </a>
+                                            </li>
+                                            @if (catAcc)
+                                            {
+                                                <li>
+                                                    <a href="@Url.Action("add_category", "csst_category")">Add Category </a>
+                                                </li>
+                                                @*<li>
+                                <a href="@Url.Action("LanguageAdd_category", "csst_category")">Add Language Category</a>
+                            </li>*@
+                                            }
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">KPI <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="@Url.Action("Index", "KPI")">List KPI </a>
+                                            </li>
+                                            @if (catAcc)
+                                            {
+                                                <li>
+                                                    <a href="@Url.Action("AddKPI", "KPI")">Add KPI </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Program Scoring <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="@Url.Action("ScoringDashboard", "KPI")"> Category </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("KPIDataUpload", "KPI")">Upload KPI Score </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">Sorting<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="@Url.Action("SortCategoryTiles", "csst_category")">Sort Landing Page Tile</a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("SortCategoryHeading", "csst_category")">Sort Category Heading </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("SortCategory", "csst_category")">Sort Category  </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+
+                            <li>
+                                <a href="#"><i class="fa fa-file-text"></i> Content /Activity <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="@Url.Action("display_content", "dashboard")">Display All</a>
+                                    </li>
+                                    @if (conAcc)
+                                    {
+                                        if (Sessions.org_status == "S" || Sessions.org_status == "F" || Sessions.org_status == "H")
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("contentCreationTrial", "contentDashboard")">Add Content</a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("contentCreation", "contentDashboard")">Add Content</a>
+                                            </li>
+
+                                        }
+                                        if (Sessions.org_status == "S" || Sessions.org_status == "F" || Sessions.org_status == "H")
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("contentCreationRichTextTrial", "contentDashboard")">Add Content with Rich Text</a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("contentCreationRichText", "contentDashboard")">Add Content with Rich Text</a>
+                                            </li>
+
+                                        }
+
+                                        <li>
+                                            <a href="@Url.Action("display_approval_content", "dashboard")">Content Approval </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("DisplayContentLink", "dashboard")">Manage Linked Content </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("setRoleAccess", "dashboard")">Set Role Based Access </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("data_display_association", "Administrator")">Associated Content List</a>
+                                        </li>
+                                    }
+                                </ul>
+
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-check-square-o"></i>  Content Assignment <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="@Url.Action("ProgramAssignment", "contentDashboard")">Program Assignment</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("UserBasedContentAssignment", "contentDashboard")"> Content Assignment</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("UserBasedAssessmentAssignment", "contentDashboard")">Assessment Assignment</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index", "ProgramReassignment")">Program Extension</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="@Url.Action("Index", "ProgramReassignmentUpdate")">Program Movement</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="@Url.Action("Index", "TrivaAssigment")">Learning Trivia Assignment</a>
+                                    </li>
+
+
+                                </ul>
+
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-book"></i>  Assessment <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="@Url.Action("Index", "Assessment")"> Assessment Dashboard </a>
+                                    </li>
+                                    @if (assAcc)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("createAssessment", "Assessment")"> Create Assessment  </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("CategoryToAssessment", "Assessment")">  Assessment To Category  </a>
+                                        </li>
+                                    }
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            @if (conAcc)
+                            {
+                                <li>
+                                    <a href="#"><i class="fa  fa-trello"></i>  Banners <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="@Url.Action("display_banner", "dashboard")"> Banner Display </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("add_banner", "dashboard")"> Add New Banner  </a>
+                                        </li>
+
+
+                                    </ul>
+
+                                    <!-- /.nav-second-level -->
+                                </li>
+                            }
+                            <li>
+                                <a href="#"><i class="fa fa-bell"></i>  Notification <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="@Url.Action("Index", "Notification")"> Notification Dashboard </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("createNotification", "Notification")"> Add Notification  </a>
+                                    </li>
+
+
+                                </ul>
+
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-calendar"></i>  Scheduling <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="@Url.Action("Index", "Scheduling")"> Scheduling Dashboard </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("ApprovalIndex", "Scheduling")"> Approval Dashboard  </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("createEvent", "Scheduling")"> Add Event  </a>
+                                    </li>
+
+
+                                </ul>
+
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>  Reports <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    @*<li>
+                    <a href="@Url.Action("Index", "Reporting")"> Reporting Dashboard </a>
+                </li>*@
+                                    <li>
+                                        <a href="@Url.Action("ContentAccess", "Reporting")"> Content Access Report  </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("ContentAccessDetail", "Reporting")"> Content Access Report - Detailed</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Likes", "Reporting")"> Content Like Report  </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("LocationReport", "Reporting")"> Content Access Report - By Location  </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("GenderReport", "Reporting")">Content Access Report - By Gender  </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("DesignationReport", "Reporting")"> Content Access Report - By Designation  </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("ContentUserReport", "Reporting")"> Content Assign To User List  </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="@Url.Action("ContentCompletionReport", "Reporting")"> Video Content Completion Report </a>
+                                    </li>
+                                </ul>
+
+                                <!-- /.nav-second-level -->
+                            </li>
+
+                            <!---------------------------- ----------------------------->
+                            <!-- <li>
+        <a href="#"><i class="fa fa-gamepad"></i>  Gamification <span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level">
+
+            <li>
+                <a href="@Url.Action("dashboard", "Gamification")"> Game Dashboard </a>
+            </li>
+            <li>
+                <a href="@Url.Action("m2ost_add_game", "Gamification")"> Configure Game </a>
+            </li>
+            <li>
+                <a href="@Url.Action("group_dashboard", "Gamification")">  Group Dashboard  </a>
+            </li>
+            <li>
+                <a href="@Url.Action("add_group", "Gamification")"> Configure Group  </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Scoring")"> Game Scoring Report  </a>
+            </li>
+            <li>
+                <a href="@Url.Action("ProgramResultDownload", "Scoring")"> Program Result    </a>
+            </li>
+        </ul>
+
+
+    </li>-->
+                            <!-- --------------------------------------------------------------- -->
+                            @*@if (Sessions.USER.ID_USER == 225)
+        {*@
+                            @if (ticker)
+                            {
+                                <li>
+                                    <a href="#"><i class="glyphicon glyphicon-play-circle"></i>  Ticker <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="@Url.Action("ticker_action", "dashboard")"> Ticker</a>
+                                        </li>
+
+
+
+                                    </ul>
+
+                                    <!-- /.nav-second-level -->
+                                </li>
+                            }
+                            @if (disclosure)
+                            {
+                                <li>
+                                    <a href="#"><i class="glyphicon glyphicon-file"></i>Non Disclosure Clause <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="@Url.Action("NonDisclosureContent", "dashboard")">Display Non Disclosure Clause</a>
+                                        </li>
+
+
+
+
+                                    </ul>
+
+                                    <!-- /.nav-second-level -->
+                                </li>
+                            }
+                            @if (certificate)
+                            {
+                                <li>
+                                    <a href="#"><i class="glyphicon glyphicon-file"></i>Certification <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="@Url.Action("CertificateDashboard", "Certification")">Certificates List</a>
+                                        </li>
+                                        @*<li>
+                        <a href="@Url.Action("CertificateAssignment", "Certification" )">Certificates Assignment</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("AssignedCertificate", "Certification" )">Certificate assigned assessment</a>
+                    </li>*@
+
+
+
+
+                                    </ul>
+
+                                    <!-- /.nav-second-level -->
+                                </li>
+                            }
+                            <li>
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-log-in"></i>Login Configuration<span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="@Url.Action("LoginIndex", "LoginPageConfiguration")">Login Page Configuration</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-log-in"></i>Feedback Configuration<span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="@Url.Action("FeedbackIndex", "FeedbackConfiguration" )">Feedback Configuration</a>
+                                    </li>
+
+                                </ul>
+                            <li>
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-facetime-video"></i>Iitialization Video<span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="@Url.Action("VideoIndex", "VideoConfiguration" )">Iitialization Video List </a>
+                                    </li>
+                                </ul>
+
+
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-log-in"></i>Leaderboard score<span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="@Url.Action("LeaderBoardIndex", "LeaderBoard" )">Leaderboard score </a>
+                                    </li>
+                                </ul>
+
+
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-log-in"></i>Learning Trivia<span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="@Url.Action("CategoryIndex", "Learning_trivia" )">Category </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("sub_categoryIndex", "Learning_trivia" )">Sub Category </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("QuestionIndex", "Learning_trivia" )">Question </a>
+                                    </li>
+
+
+                                </ul>
+
+
+                            </li>
+
+                        </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div id="page-wrapper" class="gray-bg">
+                    <br />
+                    <div class="modal fade" id="m2ost-lock" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div id="countdown_box">
+                                    <hr style="background-color:white" />
+                                    <div id="countdown_div">&nbsp;</div>
+                                    <div id="countdown_msg">please wait for a while</div>
+                                    <hr style="background-color:white" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal fade" id="m2ost-loader" role="dialog" data-backdrop="static">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div id="countdown_box">
+                                    <hr style="background-color:white" />
+                                    <div id="" style="display:flex;justify-content:center;margin:5px 0px">
+                                        <div class="loader">
+                                            <div class="circle"></div>
+                                            <div class="circle"></div>
+                                            <div class="circle"></div>
+                                            <div class="circle"></div>
+                                        </div>
+                                    </div>
+                                    <div id="countdown_msg" style="font-size:14px">please wait for a while</div>
+                                    <hr style="background-color:white" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+
+
+        <div style="display: none;">
+            <form id="form_popup_map">
+                <input type="hidden" id="frame_add_id" value="" />
+                <iframe class="m2ost-fancy" id="_iframe" src="" style="width:600px;height:auto;min-height:500px;"></iframe>
+            </form>
+        </div>
+        <div style="display:none;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="message_display">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="~/Content/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <!-- Custom Theme JavaScript -->
+    <script src="~/Content/dist/js/sb-admin-2.js"></script>
+    <script type="text/javascript" src="~/Content/js_validation/js/jquery.validationEngine.js"></script>
+    <script type="text/javascript" src="~/Content/js_validation/js/jquery.validationEngine-en.js"></script>
+    <script src="~/Content/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/Content/jquery-ui/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="~/Content/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+    <script src="~/Content/bootstrap-switch.min.js"></script>
+    <script src="@Url.Content("~/Content/js/jquery.uilock.js")"></script>
+    <script>
+        //function to show the countdown in seconds until the web page is unfrozen (active) again
+        function do_countdown(duration) {
+            //10 seconds fix
+            start_num = duration;
+            var countdown_output = document.getElementById('countdown_div');
+            if (start_num > 0) {
+                countdown_output.innerHTML = format_as_time(start_num);
+                var t = setTimeout("update_clock(\"countdown_div\", " + start_num + ")", 1000);
+            }
+            return false;
+        }
+
+        //helper function to update the timer on the web page this is frozen
+        function update_clock(countdown_div, new_value) {
+            var countdown_output = document.getElementById(countdown_div);
+            var new_value = new_value - 1;
+
+            if (new_value > 0) {
+                new_formatted_value = format_as_time(new_value);
+                countdown_output.innerHTML = new_formatted_value;
+
+                var t = setTimeout("update_clock(\"countdown_div\", " + new_value + ")", 1000);
+            } else {
+                //finish!
+                countdown_output.innerHTML = "Loading......";
+
+                //perform anything here after the web page is unfrozen
+            }
+        }
+
+        //helper function to calculate the time (seconds) remaining as minutes and seconds
+        function format_as_time(seconds) {
+            var minutes = parseInt(seconds / 60);
+            var seconds = seconds - (minutes * 60);
+
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+
+            var return_var = minutes + ':' + seconds;
+
+            return return_var;
+        }
+    </script>
+
+    <script>
+        //main function to load the new website and start the countdown
+        function view_blog_countdown(duration) {
+
+            $('#countdown_box').show(); //countdown
+            $.uiLock('');
+            //alert(duration);
+            //performs countdown then unlocks
+        }
+
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            //setInterval('updateClock()', 1000);
+        });
+
+        setInterval(function () {
+            var url = '@Url.Action("getSessionStatus", "Login")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: null,
+                success: function (data) {
+                    if (data == "0") {
+                        var uname = $.cookie("username");
+                        var password = $.cookie("password");
+                        if (uname && password) {
+                            setSessionCookie(uname, password);
+                        }
+                    }
+                }
+            });
+        }, 60000);
+
+
+        function setSessionCookie(u, p) {
+            var url = '@Url.Action("setSessionStatus", "Login")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { uname: u, password: p },
+                success: function (data) {
+                    if (data == "0") {
+                        var url = '@Url.Action("Index", "Home")';
+                        window.location.href = url;
+                    }
+                }
+            });
+        }
+
+        function loading_on() {
+            updateClock();
+            $('#m2ost-lock').modal('show');
+        }
+        function loading_off() {
+            $('#m2ost-lock').modal('hide');
+        }
+
+        function updateClock() {
+            var currentTime = new Date();
+            var currentHours = currentTime.getHours();
+            var currentMinutes = currentTime.getMinutes();
+            var currentSeconds = currentTime.getSeconds();
+
+            // Pad the minutes and seconds with leading zeros, if required
+            currentMinutes = (currentMinutes < 10 ? "0" : "") + currentMinutes;
+            currentSeconds = (currentSeconds < 10 ? "0" : "") + currentSeconds;
+
+            // Choose either "AM" or "PM" as appropriate
+            var timeOfDay = (currentHours < 12) ? "AM" : "PM";
+
+            // Convert the hours component to 12-hour format if needed
+            currentHours = (currentHours > 12) ? currentHours - 12 : currentHours;
+
+            // Convert an hours component of "0" to "12"
+            currentHours = (currentHours == 0) ? 12 : currentHours;
+
+            // Compose the string for display
+            var currentTimeString = currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + timeOfDay;
+
+
+            $("#countdown_div").html(currentTimeString);
+
+        }
+
+
+        function fancybody(cntrl, act, id) {
+            var link = '@Url.Action("action", "control", new { id = "-1" })';
+
+            link = link.replace("action", act);
+            link = link.replace("control", cntrl);
+            link = link.replace("-1", id);
+
+            $("#_iframe").attr('src', link);
+            $.fancybox.open([{
+                href: '#form_popup_map',
+                helpers: {
+                    overlay: { closeClick: false } // prevents closing when clicking OUTSIDE fancybox
+                }
+            }]);
+
+        }
+
+
+        function popup_message(msg) {
+            $("#message_display").val(msg);
+            $.fancybox.open([{
+                href: '#form_popup_map'
+            }]);
+        }
+        function loading_on() {
+            updateClock();
+            $('#m2ost-lock').modal('show');
+        }
+        function loading_off() {
+            $('#m2ost-lock').modal('hide');
+        }
+
+        function loader_on() {
+            updateClock();
+            $('#m2ost-loader').modal('show');
+        }
+        function loader_off() {
+            $('#m2ost-loader').modal('hide');
+        }
+        function updateClock() {
+            var currentTime = new Date();
+            var currentHours = currentTime.getHours();
+            var currentMinutes = currentTime.getMinutes();
+            var currentSeconds = currentTime.getSeconds();
+
+            // Pad the minutes and seconds with leading zeros, if required
+            currentMinutes = (currentMinutes < 10 ? "0" : "") + currentMinutes;
+            currentSeconds = (currentSeconds < 10 ? "0" : "") + currentSeconds;
+
+            // Choose either "AM" or "PM" as appropriate
+            var timeOfDay = (currentHours < 12) ? "AM" : "PM";
+
+            // Convert the hours component to 12-hour format if needed
+            currentHours = (currentHours > 12) ? currentHours - 12 : currentHours;
+
+            // Convert an hours component of "0" to "12"
+            currentHours = (currentHours == 0) ? 12 : currentHours;
+
+            // Compose the string for display
+            var currentTimeString = currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + timeOfDay;
+
+
+            $("#countdown_div").html(currentTimeString);
+
+        }
+    </script>
+</body>
+</html>

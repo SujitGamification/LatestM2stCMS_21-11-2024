@@ -1,0 +1,290 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<style>
+    .ui-datepicker-title select {
+        background-color: #333;
+    }
+</style>
+<script>
+    $(function () {
+        $("#form-add-cms-user").validationEngine();
+    });
+
+
+
+</script>
+@{
+    List<tbl_csst_role> role = (List<tbl_csst_role>)ViewData["roles"];
+    List<tbl_organization> orglist = (List<tbl_organization>)ViewData["orglist"];
+    string typer = (string)ViewData["type_flag"];
+    List<tbl_user> rmlist = (List<tbl_user>)ViewData["rmlist"];
+
+}
+<script type="text/javascript">
+    $(function () {
+
+        $("#form-add-assessment").validationEngine();
+
+        $("#datetimepicker1").datepicker(
+           {
+               dateFormat: "dd-mm-yy",
+               changeYear: true,
+               yearRange: "-60:-18"
+           }
+        );
+        $("#datetimepicker2").datepicker(
+           {
+               dateFormat: "dd-mm-yy",
+               changeYear: true,
+               yearRange: "-60:+0"
+           }
+        );
+
+    });
+</script>
+<script>
+    function getRolesFromOrg(cid) {
+
+        var oid = $("#select-org").val();
+        var url = '@Url.Action("getAppRolesFromOrg", "Administrator")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: oid },
+           
+            success: function (data) {
+                $("#select-role").empty().append(data);
+            }
+        });
+    }
+</script>
+<script>
+    function checkUserName() {
+
+        var uname = $("#user-name").val();
+        var url = '@Url.Action("check_user_name", "Administrator")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { uname: uname },          
+            success: function (data) {
+                if (data == "0") {
+                    $("#inputusernameerror").show("slow");
+                    setTimeout(function () {
+                        $("#user-name").val("");
+                        $("#inputusernameerror").hide("slow");
+                    }, 3000);
+
+                }
+            }
+        });
+    }
+</script>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Add Application User</h4>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("add_app_user_action", "Administrator", FormMethod.Post, new { id = "form-add-cms-user" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        @if (false)
+                        {
+                            <div class="form-group">
+                                <div class="col-md-2"><label class="control-label">Organisation </label></div>
+                                <div class="col-md-5">
+                                    <select id="select-org" name="select-org" class="form-control" onchange="getRolesFromOrg()">
+
+                                        @foreach (tbl_organization item in orglist)
+                                        {
+                                            <option value="@item.ID_ORGANIZATION">@item.ORGANIZATION_NAME</option>
+                                        }
+                                    </select>
+
+                                </div>
+                            </div>
+                        }
+
+
+
+                            <div class="form-group">
+                                <div class="col-md-2"><label class="control-label">Select User  Role</label></div>
+                                <div class="col-md-10">                                
+                                    @foreach (tbl_csst_role item in role)
+                                    {
+                                        <div class="checkbox-inline" style="padding-right:15px;">
+                                            <input type="checkbox" value="@item.id_csst_role" name="role_check" checked>@item.csst_role
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                        <hr />
+
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">First Name</label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="user-first-name" name="user-first-name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">last Name</label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="user-last-name" name="user-last-name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Date of Birth</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker1' name="user-dob" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Age </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required,custom[number]]" value="" placeholder="" id="user-age" name="user-age" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Gender</label></div>
+                            <div class="col-md-5">
+                                <select id="select-gender" name="select-gender" class="form-control">
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">User Name</label></div>
+
+                            <div class="col-md-5">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="user-name" name="user-name" onchange="checkUserName()" />
+                                <label id="inputusernameerror" class="error" style="display: none">User Name already exist .Use some other User Name</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Password</label></div>
+
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="pass-word" name="pass-word" />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Mobile Number</label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control  validate[required,custom[phone]]" value="" placeholder="" id="user-mobile" name="user-mobile" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">E-Mail</label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control  validate[required,custom[email]]" value="" placeholder="" id="user-email" name="user-email" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Location</label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="user-loc" name="user-loc" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Designation </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="user-designation" name="user-designation" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Employee Id </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="employee-id" name="employee-id" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Department </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="user-department" name="user-department" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Function </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="user-function" name="user-function" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Office Address </label></div>
+                            <div class="col-md-6">
+                                <textarea class="form-control validate[required]" name="office-address" id="office-address" placeholder="" rows="6"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Date of Joining</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker2' name="user-doj" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Reporting Manager Status </label></div>
+                            <div class="col-md-6">
+                                <select id="user-is-rm" name="user-is-rm" class="form-control">
+                                    <option value="1">Is a Reporting Manager</option>
+                                    <option value="2">Not a Reporting Manager</option>
+                                </select>
+                                @*<input type="text" class="form-control validate[required]" value="" placeholder="" id="user-grade" name="user-grade" />*@
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Reporting Manager </label></div>
+                            <div class="col-md-10">
+                              @*  <input type="text" class="form-control validate[required]" value="" placeholder="" id="user-rm" name="user-rm" />*@
+                                <select id="user-rm" name="user-rm" class="form-control  validate[required]">
+                                    <option value="0">Not Applicable</option>                                    
+                                    @foreach (tbl_user item in rmlist)
+                                    {
+                                        <option value="@item.ID_USER">@item.USERID</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">User Grade </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="user-grade" name="user-grade" />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-6">
+                                <input type="submit" value="Submit" class="btn btn-default" />
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+
+
+    </div>
+</div>

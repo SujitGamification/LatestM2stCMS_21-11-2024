@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "displayFeedback";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<div id="pagecontent_dashboard" class="container">    
+    <div class="row clearfix">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Feedback Detail</h6>
+            </div>
+            <div class="panel-body">
+                <div class="row clearfix">                    
+                    <div class="col-md-4"><a href="@Url.Action("Create", "industry")" class="btn btn-default" style="width:100%;">ADD INDUSTRY </a>&nbsp;</div>
+                    <div class="col-md-4"><a href="@Url.Action("Create", "organization")" class="btn btn-default" style="width:100%;">ADD ORGANIZATION </a>&nbsp;</div>
+                </div>
+                
+                 <a href="@Url.Action("feedbackCreation", "contentDashboard")" class="btn btn-default">Add Feedback</a>&nbsp;<br />
+                <div id="display_table">
+                    <table class="table dataTable">
+                        <tr>
+                            <th width="80%">
+                                Feedback
+                            </th>
+
+                            <th width="20%"></th>
+                        </tr>
+
+                        @foreach (tbl_feedback_bank item in (List<tbl_feedback_bank>)ViewData["list-feeds"])
+                        {
+                            <tr>
+                                <td>
+                                    @item.FEEDBACK_QUESTION
+                                </td>
+
+                            <td>
+                                <a href="@Url.Action("associateFeedback", "contentDashboard", new { id = item.ID_FEEDBACK_BANK })" class="btn-sm btn-primary">Set Association</a>&nbsp;
+                                @*|&nbsp;<a href="@Url.Action("edit_content", "dashboard", new { id = item.ID_CONTENT })"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;|
+                                <a href="@Url.Action("delete_content", "dashboard", new { id = item.ID_CONTENT })"><i class="glyphicon glyphicon-remove"></i></a>&nbsp;|*@
+                            </td>
+                        </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

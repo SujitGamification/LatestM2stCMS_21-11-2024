@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "display_banner";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+</script>
+@{
+    tbl_banner banner = (tbl_banner)ViewData["banner"];
+    string urls = (string)ViewData["urls"];
+    List<tbl_content> content = (List<tbl_content>)ViewData["content"];
+}
+
+<script>
+    function removeBannerToContent(cid) {
+        var id = $("#hidden-val").val();
+        var url = '@Url.Action("removeBannerToContent", "dashboard")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id, cid: cid },
+           
+            success: function (data) {
+                displayDeleteMessage();
+
+            }
+        });
+
+        location.reload();
+    }
+
+    function displayDeleteMessage() {
+
+        $("#success-delete").show();
+        setTimeout(function () {
+            $("#success-delete").hide();
+        }, 3000);
+    }
+
+</script>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div id="success-delete" class="alert alert-success" role="alert" style="display:none;">
+            <strong>Success : </strong> Banner to content Association Deleted..
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Banner Dashboard</h6>
+            </div>
+            <div class="panel-body">
+                <div class="well">
+                    <input type="hidden" value="@banner.id_banner" id="hidden-val" />
+                    <h4><strong>Banner : </strong> @banner.banner_name</h4>
+                    <h4><strong>Action URL : </strong>@banner.banner_action_url</h4>
+                    @{
+                        urls = urls + @banner.banner_image;
+                    }
+                    <strong>Preview: </strong><a href="@urls" target="_blank"><i class="glyphicon glyphicon-text-background"></i></a>
+                </div>
+                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                The following content is associated with this banner
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    @{
+                        int i = 0;
+                    }
+                    <tbody>
+                        @foreach (tbl_content item in content)
+                        {
+                            <tr>
+                                <td>
+                                    @item.CONTENT_QUESTION
+                                </td>
+                                <td>
+                                    <a href="#" onclick="removeBannerToContent(@item.ID_CONTENT)"><i class="glyphicon glyphicon-remove"></i></a>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

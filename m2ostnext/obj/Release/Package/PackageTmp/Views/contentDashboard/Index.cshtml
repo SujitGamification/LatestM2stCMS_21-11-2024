@@ -1,0 +1,224 @@
+﻿@{
+    ViewBag.Title = "Add Content";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script>
+    $(function () {
+        $("#answersteps").hide();
+        $("#Answer").prop('disabled', true);
+        $("#Metadata").prop('disabled', true);
+        $("#save_and_add").prop('disabled', true);
+        $("#save_and_finish").prop('disabled', true);
+
+        $("#btn_question").prop('disabled', false);
+        $("#btn_answer_step_show").prop('disabled', true);
+    });
+
+
+    function add_content() {
+        var qtn = $("#Question").val();
+        if (qtn == "") {
+            alert("Please Enter Question");
+            return;
+        }
+
+        var url = '@Url.Action("add_temp_content", "contentDashboard")';
+
+        $.post(url, { qtn: qtn }, function (data, sts) {
+            if (data == "TRUE") {
+
+            }
+        });
+
+        $("#Question").prop('disabled', true);
+        $("#Answer").prop('disabled', false);
+    }
+    function add_Answer() {
+        var ans = $("#Answer").val();
+        if (ans == "") {
+            alert("Please Enter Answer");
+            return;
+        }
+        var url = '@Url.Action("add_temp_answer", "contentDashboard")';
+
+        $.post(url, { ans: ans }, function (data, sts) {
+            if (data == "TRUE") {
+
+            }
+        });
+
+        $("#btn_answer_step_show").prop('disabled', false);
+        $("#Answer").prop('disabled', true);
+        $("#Metadata").prop('disabled', false);
+    }
+    function add_Answer_Step() {
+
+        var ansStep = $("#AnswerStep").val();
+        var url = '@Url.Action("add_temp_step", "contentDashboard")';
+        $.post(url, { step: ansStep }, function (data, sts) {
+            if (data) {
+                $("#idstep").val(data);
+            }
+        });
+        $("#AnswerStep").val("");
+    }
+    function Add_Metadata() {
+        var meta = $("#Metadata").val();
+        if (meta == "") {
+            alert("Please Enter Metadata");
+            return;
+        }
+
+        var url = '@Url.Action("add_temp_metadata", "contentDashboard")';
+        $.post(url, { step: meta }, function (data, sts) {
+            if (data == "TRUE") {
+
+            }
+        });
+        $("#Metadata").val("");
+        $("#save_and_add").prop('disabled', false);
+        $("#save_and_finish").prop('disabled', false);
+    }
+
+    function show_answer_steps() {
+        $("#answersteps").show();
+    }
+
+
+    function save_and_finish() {
+        var url = '@Url.Action("complete_update", "contentDashboard")';
+        $.post(url, { id: "F" }, function (data, sts) {
+            if (data.isRedirect) {
+                window.location.href = data.redirectUrl;
+            }
+        });
+    }
+
+    function save_and_add() {
+        var url = '@Url.Action("complete_update", "contentDashboard")';
+        $.post(url, { id: "A" } , function (data, sts) {
+            if (data == "TRUE") {
+
+            }
+        });
+        
+        $("#btn_question").prop('disabled', true);
+        $("#answersteps").val("");
+        $("#Answer").val("");
+        $("#Metadata").val("");
+        $("#answersteps").hide();
+        $("#Answer").prop('disabled', false);
+        $("#Metadata").prop('disabled', true);
+        $("#save_and_add").prop('disabled', true);
+        $("#save_and_finish").prop('disabled', true);
+    }
+
+
+</script>
+<div id="pagecontent_dashboard" class="container">
+   
+
+    <div class="row clearfix">
+        <div class="panel panel-default custom-panel">
+            <div class="panel-heading custom-panel-heading">
+                <div class="panel-title">Add Question </div>
+            </div>
+            <div class="panel-body custom-panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-11">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="Question" id="Question" name="Question" />
+                            </div>
+                            <div class="col-md-1">
+                                <input id="btn_question" type="button" class="btn btn-default btn-info" value="Save" onclick="add_content()" />
+                            </div>
+
+                            </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <div class="panel panel-default custom-panel">
+            <div class="panel-heading custom-panel-heading">
+                <div class="panel-title">Add Answer : </div>
+            </div>
+            <div class="panel-body custom-panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <textarea rows="5" class="form-control validate[required] col-md-12" placeholder="Answer" id="Answer" name="Answer"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right" style="padding-right:15px;">
+                    <input id="btn_answer_step_show" type="button" class="btn btn-default btn-info" value="Add Steps" onclick="show_answer_steps()" />
+                    <input id="btn_answer" type="button" class="btn btn-default btn-info" value="Save" onclick="add_Answer()" />
+                </div>
+            </div>
+        </div>
+        <div id="answersteps">
+            <div class="panel panel-default custom-panel">
+                <div class="panel-heading custom-panel-heading">
+                    <div class="panel-title">Add Action Steps : </div>
+                </div>
+                <div class="panel-body custom-panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <textarea rows="5" class="form-control validate[required] col-md-12" placeholder="Answer Step" id="AnswerStep" name="AnswerStep"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-right" style="padding-right:15px;">
+                        <input id="btn_answer_step" type="button" class="btn btn-default btn-info" value="Add" onclick="add_Answer_Step()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="contentmetadata">
+            <div class="panel panel-default custom-panel">
+                <div class="panel-heading custom-panel-heading">
+                    <div class="panel-title">Add Metadata : </div>
+                </div>
+                <div class="panel-body custom-panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+
+                                <div class="col-md-11">
+                                    <input type="tel" class="form-control validate[required] col-md-12" placeholder="Metadata" id="Metadata" name="Metadata" />
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="button" class="btn btn-default btn-info" value="Save" onclick="Add_Metadata()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="pull-left">
+                        <a href="@Url.Action("display_content", "dashboard")" class="btn btn-default">Back to Home</a>
+                        <a href="@Url.Action("Index", "contentDashboard")" class="btn btn-default">New Question</a>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="pull-right">
+                            <input id="save_and_add" type="button" class="btn btn-default btn-info" value="Save & Add Answer" onclick="save_and_add()"/>
+                            <input id="save_and_finish" type="button" class="btn btn-default btn-info" value="Sava & Finish" onclick="save_and_finish()" />
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

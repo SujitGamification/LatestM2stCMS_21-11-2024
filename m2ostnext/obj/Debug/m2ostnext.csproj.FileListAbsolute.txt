@@ -1,0 +1,937 @@
+D:\POC\m2ostnext\m2ostnext\obj\Debug\m2ostnext.csprojAssemblyReference.cache
+D:\POC\m2ostnext\m2ostnext\obj\Debug\m2ostnext.csproj.CoreCompileInputs.cache
+D:\POC\m2ostnext\m2ostnext\obj\Debug\m2ostnext.dll
+D:\POC\m2ostnext\m2ostnext\obj\Debug\m2ostnext.pdb
+D:\POC\m2ostnext\m2ostnext\bin\m2ostnext.dll.config
+D:\POC\m2ostnext\m2ostnext\bin\m2ostnext.dll
+D:\POC\m2ostnext\m2ostnext\bin\m2ostnext.pdb
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\csc.exe
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\csc.exe.config
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\csc.rsp
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\csi.exe
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\csi.exe.config
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\csi.rsp
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\Microsoft.Managed.Core.targets
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.AppContext.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Collections.Immutable.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Console.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.IO.Compression.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.IO.FileSystem.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.IO.Pipes.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Reflection.Metadata.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Security.AccessControl.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Security.Claims.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Security.Principal.Windows.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.ValueTuple.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Xml.XmlDocument.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Xml.XPath.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\vbc.exe
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\vbc.exe.config
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\vbc.rsp
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\VBCSCompiler.exe
+D:\POC\m2ostnext\m2ostnext\bin\roslyn\VBCSCompiler.exe.config
+D:\POC\m2ostnext\m2ostnext\bin\Antlr3.Runtime.dll
+D:\POC\m2ostnext\m2ostnext\bin\BouncyCastle.Crypto.dll
+D:\POC\m2ostnext\m2ostnext\bin\EntityFramework.dll
+D:\POC\m2ostnext\m2ostnext\bin\EntityFramework.SqlServer.dll
+D:\POC\m2ostnext\m2ostnext\bin\Google.Protobuf.dll
+D:\POC\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.dll
+D:\POC\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.Streams.dll
+D:\POC\m2ostnext\m2ostnext\bin\K4os.Hash.xxHash.dll
+D:\POC\m2ostnext\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\POC\m2ostnext\m2ostnext\bin\Microsoft.Owin.dll
+D:\POC\m2ostnext\m2ostnext\bin\Microsoft.Web.Infrastructure.dll
+D:\POC\m2ostnext\m2ostnext\bin\MySql.Data.dll
+D:\POC\m2ostnext\m2ostnext\bin\MySql.Data.EntityFramework.dll
+D:\POC\m2ostnext\m2ostnext\bin\MySqlConnector.dll
+D:\POC\m2ostnext\m2ostnext\bin\Newtonsoft.Json.dll
+D:\POC\m2ostnext\m2ostnext\bin\Owin.dll
+D:\POC\m2ostnext\m2ostnext\bin\System.Buffers.dll
+D:\POC\m2ostnext\m2ostnext\bin\System.Diagnostics.DiagnosticSource.dll
+D:\POC\m2ostnext\m2ostnext\bin\System.Memory.dll
+D:\POC\m2ostnext\m2ostnext\bin\System.Numerics.Vectors.dll
+D:\POC\m2ostnext\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\POC\m2ostnext\m2ostnext\bin\System.Threading.Tasks.Extensions.dll
+D:\POC\m2ostnext\m2ostnext\bin\System.Web.Helpers.dll
+D:\POC\m2ostnext\m2ostnext\bin\System.Web.Mvc.dll
+D:\POC\m2ostnext\m2ostnext\bin\System.Web.Optimization.dll
+D:\POC\m2ostnext\m2ostnext\bin\System.Web.Razor.dll
+D:\POC\m2ostnext\m2ostnext\bin\System.Web.WebPages.Deployment.dll
+D:\POC\m2ostnext\m2ostnext\bin\System.Web.WebPages.dll
+D:\POC\m2ostnext\m2ostnext\bin\System.Web.WebPages.Razor.dll
+D:\POC\m2ostnext\m2ostnext\bin\WebGrease.dll
+D:\POC\m2ostnext\m2ostnext\bin\BouncyCastle.Crypto.xml
+D:\POC\m2ostnext\m2ostnext\bin\EntityFramework.xml
+D:\POC\m2ostnext\m2ostnext\bin\EntityFramework.SqlServer.xml
+D:\POC\m2ostnext\m2ostnext\bin\Google.Protobuf.pdb
+D:\POC\m2ostnext\m2ostnext\bin\Google.Protobuf.xml
+D:\POC\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.xml
+D:\POC\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.Streams.xml
+D:\POC\m2ostnext\m2ostnext\bin\K4os.Hash.xxHash.xml
+D:\POC\m2ostnext\m2ostnext\bin\Microsoft.Owin.xml
+D:\POC\m2ostnext\m2ostnext\bin\MySql.Data.xml
+D:\POC\m2ostnext\m2ostnext\bin\MySql.Data.EntityFramework.xml
+D:\POC\m2ostnext\m2ostnext\bin\MySqlConnector.xml
+D:\POC\m2ostnext\m2ostnext\bin\System.Buffers.xml
+D:\POC\m2ostnext\m2ostnext\bin\System.Diagnostics.DiagnosticSource.xml
+D:\POC\m2ostnext\m2ostnext\bin\System.Memory.xml
+D:\POC\m2ostnext\m2ostnext\bin\System.Numerics.Vectors.xml
+D:\POC\m2ostnext\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\POC\m2ostnext\m2ostnext\bin\System.Threading.Tasks.Extensions.xml
+D:\POC\m2ostnext\m2ostnext\bin\System.Web.Helpers.xml
+D:\POC\m2ostnext\m2ostnext\bin\System.Web.Mvc.xml
+D:\POC\m2ostnext\m2ostnext\bin\System.Web.Optimization.xml
+D:\POC\m2ostnext\m2ostnext\bin\System.Web.Razor.xml
+D:\POC\m2ostnext\m2ostnext\bin\System.Web.WebPages.xml
+D:\POC\m2ostnext\m2ostnext\bin\System.Web.WebPages.Deployment.xml
+D:\POC\m2ostnext\m2ostnext\bin\System.Web.WebPages.Razor.xml
+D:\POC\m2ostnext\m2ostnext\bin\Newtonsoft.Json.xml
+D:\POC\m2ostnext\m2ostnext\bin\Antlr3.Runtime.pdb
+D:\POC\m2ostnext\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\POC\m2ostnext\m2ostnext\obj\Debug\m2ostnext.csproj.CopyComplete
+D:\Vidit\m2ostnext\m2ostnext\bin\m2ostnext.dll.config
+D:\Vidit\m2ostnext\m2ostnext\bin\m2ostnext.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\m2ostnext.pdb
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\csc.exe
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\csc.exe.config
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\csc.rsp
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\csi.exe
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\csi.exe.config
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\csi.rsp
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.AppContext.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Collections.Immutable.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Console.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.IO.Compression.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.IO.FileSystem.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.IO.Pipes.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Reflection.Metadata.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Security.AccessControl.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Security.Claims.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Security.Principal.Windows.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.ValueTuple.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Xml.XPath.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\vbc.exe
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\vbc.exe.config
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\vbc.rsp
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\VBCSCompiler.exe
+D:\Vidit\m2ostnext\m2ostnext\bin\roslyn\VBCSCompiler.exe.config
+D:\Vidit\m2ostnext\m2ostnext\bin\Antlr3.Runtime.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\BouncyCastle.Crypto.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\EntityFramework.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\EntityFramework.SqlServer.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\Google.Protobuf.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.Streams.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\K4os.Hash.xxHash.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\Microsoft.Owin.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\Microsoft.Web.Infrastructure.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\MySql.Data.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\MySql.Data.EntityFramework.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\MySqlConnector.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\Newtonsoft.Json.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\Owin.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Buffers.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Diagnostics.DiagnosticSource.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Memory.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Numerics.Vectors.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Threading.Tasks.Extensions.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Web.Helpers.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Web.Mvc.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Web.Optimization.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Web.Razor.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Web.WebPages.Deployment.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Web.WebPages.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Web.WebPages.Razor.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\WebGrease.dll
+D:\Vidit\m2ostnext\m2ostnext\bin\BouncyCastle.Crypto.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\EntityFramework.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\EntityFramework.SqlServer.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\Google.Protobuf.pdb
+D:\Vidit\m2ostnext\m2ostnext\bin\Google.Protobuf.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.Streams.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\K4os.Hash.xxHash.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\Microsoft.Owin.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\MySql.Data.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\MySql.Data.EntityFramework.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\MySqlConnector.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Buffers.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Diagnostics.DiagnosticSource.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Memory.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Numerics.Vectors.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Threading.Tasks.Extensions.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Web.Helpers.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Web.Mvc.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Web.Optimization.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Web.Razor.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Web.WebPages.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Web.WebPages.Deployment.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\System.Web.WebPages.Razor.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\Newtonsoft.Json.xml
+D:\Vidit\m2ostnext\m2ostnext\bin\Antlr3.Runtime.pdb
+D:\Vidit\m2ostnext\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Vidit\m2ostnext\m2ostnext\obj\Debug\m2ostnext.csproj.CoreCompileInputs.cache
+D:\Vidit\m2ostnext\m2ostnext\obj\Debug\m2ostnext.csproj.CopyComplete
+D:\Vidit\m2ostnext\m2ostnext\obj\Debug\m2ostnext.dll
+D:\Vidit\m2ostnext\m2ostnext\obj\Debug\m2ostnext.pdb
+D:\Vidit\m2ostnext\m2ostnext\obj\Debug\m2ostnext.csprojAssemblyReference.cache
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\m2ostnext.dll.config
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\m2ostnext.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\m2ostnext.pdb
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\csc.exe
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\csc.exe.config
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\csc.rsp
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\csi.exe
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\csi.exe.config
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\csi.rsp
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.AppContext.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Console.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.IO.Compression.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.IO.Pipes.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Security.Claims.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.ValueTuple.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Xml.XPath.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\vbc.exe
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\vbc.exe.config
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\vbc.rsp
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\VBCSCompiler.exe
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\Antlr3.Runtime.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\BouncyCastle.Crypto.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\EntityFramework.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\EntityFramework.SqlServer.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\Google.Protobuf.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.Streams.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\K4os.Hash.xxHash.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\Microsoft.Owin.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\MySql.Data.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\MySql.Data.EntityFramework.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\MySqlConnector.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\Newtonsoft.Json.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\Owin.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Buffers.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Memory.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Numerics.Vectors.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Threading.Tasks.Extensions.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Web.Helpers.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Web.Mvc.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Web.Optimization.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Web.Razor.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Web.WebPages.Deployment.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Web.WebPages.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Web.WebPages.Razor.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\WebGrease.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\BouncyCastle.Crypto.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\EntityFramework.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\EntityFramework.SqlServer.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\Google.Protobuf.pdb
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\Google.Protobuf.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.Streams.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\K4os.Hash.xxHash.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\Microsoft.Owin.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\MySql.Data.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\MySql.Data.EntityFramework.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\MySqlConnector.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Buffers.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Memory.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Numerics.Vectors.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Threading.Tasks.Extensions.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Web.Helpers.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Web.Mvc.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Web.Optimization.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Web.Razor.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Web.WebPages.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Web.WebPages.Deployment.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\System.Web.WebPages.Razor.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\Newtonsoft.Json.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\Antlr3.Runtime.pdb
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\obj\Debug\m2ostnext.csprojAssemblyReference.cache
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\obj\Debug\m2ostnext.csproj.CoreCompileInputs.cache
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\obj\Debug\m2ostnext.csproj.CopyComplete
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\obj\Debug\m2ostnext.dll
+C:\Users\xoriant\Downloads\m2ostnext\m2ostnext\m2ostnext\obj\Debug\m2ostnext.pdb
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\m2ostnext.dll.config
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\m2ostnext.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\m2ostnext.pdb
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\csc.exe
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\csc.exe.config
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\csc.rsp
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\csi.exe
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\csi.exe.config
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\csi.rsp
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.AppContext.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Collections.Immutable.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Console.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.IO.Compression.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.IO.FileSystem.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.IO.Pipes.AccessControl.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.IO.Pipes.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Reflection.Metadata.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Security.AccessControl.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Security.Claims.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Security.Principal.Windows.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.ValueTuple.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Xml.XPath.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\vbc.exe
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\vbc.exe.config
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\vbc.rsp
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\VBCSCompiler.exe
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\roslyn\VBCSCompiler.exe.config
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\Antlr3.Runtime.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\BouncyCastle.Crypto.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\EntityFramework.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\EntityFramework.SqlServer.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\Google.Protobuf.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.Streams.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\K4os.Hash.xxHash.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\Microsoft.Owin.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\Microsoft.Web.Infrastructure.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\MySql.Data.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\MySql.Data.EntityFramework.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\MySqlConnector.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\Newtonsoft.Json.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\Owin.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Buffers.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Diagnostics.DiagnosticSource.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Memory.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Numerics.Vectors.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Threading.Tasks.Extensions.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Web.Helpers.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Web.Mvc.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Web.Optimization.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Web.Razor.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Web.WebPages.Deployment.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Web.WebPages.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Web.WebPages.Razor.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\WebGrease.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\BouncyCastle.Crypto.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\EntityFramework.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\EntityFramework.SqlServer.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\Google.Protobuf.pdb
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\Google.Protobuf.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\K4os.Compression.LZ4.Streams.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\K4os.Hash.xxHash.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\Microsoft.Owin.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\MySql.Data.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\MySql.Data.EntityFramework.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\MySqlConnector.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Buffers.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Diagnostics.DiagnosticSource.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Memory.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Numerics.Vectors.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Threading.Tasks.Extensions.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Web.Helpers.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Web.Mvc.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Web.Optimization.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Web.Razor.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Web.WebPages.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Web.WebPages.Deployment.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\System.Web.WebPages.Razor.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\Newtonsoft.Json.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\Antlr3.Runtime.pdb
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\obj\Debug\m2ostnext.csproj.CoreCompileInputs.cache
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\obj\Debug\m2ostnext.csproj.CopyComplete
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\obj\Debug\m2ostnext.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\m2ostnext_cms\m2ostnext\m2ostnext\obj\Debug\m2ostnext.pdb
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\m2ostnext.dll.config
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\m2ostnext.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\m2ostnext.pdb
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\csc.exe
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\csc.exe.config
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\csc.rsp
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\csi.exe
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\csi.exe.config
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\csi.rsp
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.AppContext.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Console.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.IO.Compression.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.IO.Pipes.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Security.Claims.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.ValueTuple.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Xml.XPath.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\vbc.exe
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\vbc.exe.config
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\vbc.rsp
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\VBCSCompiler.exe
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Antlr3.Runtime.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\BouncyCastle.Crypto.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\EntityFramework.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\EntityFramework.MappingAPI.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\EntityFramework.SqlServer.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Google.Protobuf.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\K4os.Compression.LZ4.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\K4os.Compression.LZ4.Streams.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\K4os.Hash.xxHash.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Microsoft.Owin.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\MySql.Data.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\MySql.Data.EntityFramework.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\MySqlConnector.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Newtonsoft.Json.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Owin.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Buffers.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Memory.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Net.Http.Formatting.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Numerics.Vectors.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Threading.Tasks.Extensions.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.Helpers.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.Http.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.Http.WebHost.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.Mvc.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.Optimization.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.Razor.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.WebPages.Deployment.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.WebPages.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.WebPages.Razor.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\WebGrease.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Z.EntityFramework.Extensions.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\ZstdNet.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.ValueTuple.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\BouncyCastle.Crypto.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\EntityFramework.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\EntityFramework.SqlServer.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Google.Protobuf.pdb
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Google.Protobuf.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\K4os.Compression.LZ4.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\K4os.Compression.LZ4.Streams.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\K4os.Hash.xxHash.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Microsoft.Owin.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\MySql.Data.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\MySql.Data.EntityFramework.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\MySqlConnector.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Buffers.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Memory.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Net.Http.Formatting.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Numerics.Vectors.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Threading.Tasks.Extensions.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.Http.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.Http.WebHost.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.Helpers.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.Mvc.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.Optimization.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.Razor.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.WebPages.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.WebPages.Deployment.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\System.Web.WebPages.Razor.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Newtonsoft.Json.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Antlr3.Runtime.pdb
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Z.EntityFramework.Extensions.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\obj\Debug\m2ostnext.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\obj\Debug\m2ostnext.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\obj\Debug\m2ostnext.csproj.CopyComplete
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\obj\Debug\m2ostnext.dll
+C:\Users\User\source\repos\M2OST_PriME_CMS\m2ostnext\obj\Debug\m2ostnext.pdb
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\m2ostnext.dll.config
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\m2ostnext.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\m2ostnext.pdb
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\csc.exe
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\csc.exe.config
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\csc.rsp
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\csi.exe
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\csi.exe.config
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\csi.rsp
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\Microsoft.Managed.Core.targets
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.AppContext.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Collections.Immutable.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Console.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.IO.Compression.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.IO.FileSystem.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.IO.Pipes.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Reflection.Metadata.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Security.AccessControl.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Security.Claims.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Security.Principal.Windows.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.ValueTuple.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Xml.XmlDocument.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Xml.XPath.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\vbc.exe
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\vbc.exe.config
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\vbc.rsp
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\VBCSCompiler.exe
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\roslyn\VBCSCompiler.exe.config
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Antlr3.Runtime.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\BouncyCastle.Crypto.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\EntityFramework.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\EntityFramework.MappingAPI.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\EntityFramework.SqlServer.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Google.Protobuf.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\K4os.Compression.LZ4.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\K4os.Compression.LZ4.Streams.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\K4os.Hash.xxHash.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Microsoft.Owin.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Microsoft.Web.Infrastructure.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\MySql.Data.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\MySql.Data.EntityFramework.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\MySqlConnector.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Newtonsoft.Json.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Owin.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Buffers.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Diagnostics.DiagnosticSource.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Memory.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Net.Http.Formatting.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Numerics.Vectors.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Threading.Tasks.Extensions.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.Helpers.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.Http.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.Http.WebHost.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.Mvc.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.Optimization.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.Razor.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.WebPages.Deployment.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.WebPages.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.WebPages.Razor.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\WebGrease.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Z.EntityFramework.Extensions.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\ZstdNet.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.ValueTuple.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\BouncyCastle.Crypto.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\EntityFramework.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\EntityFramework.SqlServer.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Google.Protobuf.pdb
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Google.Protobuf.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\K4os.Compression.LZ4.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\K4os.Compression.LZ4.Streams.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\K4os.Hash.xxHash.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Microsoft.Owin.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\MySql.Data.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\MySql.Data.EntityFramework.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\MySqlConnector.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Buffers.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Diagnostics.DiagnosticSource.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Memory.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Net.Http.Formatting.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Numerics.Vectors.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Threading.Tasks.Extensions.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.Http.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.Http.WebHost.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.Helpers.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.Mvc.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.Optimization.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.Razor.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.WebPages.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.WebPages.Deployment.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\System.Web.WebPages.Razor.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Newtonsoft.Json.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Antlr3.Runtime.pdb
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Z.EntityFramework.Extensions.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\obj\Debug\m2ostnext.csproj.AssemblyReference.cache
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\obj\Debug\m2ostnext.csproj.CoreCompileInputs.cache
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\obj\Debug\m2ostnext.csproj.CopyComplete
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\obj\Debug\m2ostnext.dll
+D:\NewM2OST_PriME_CMS\NewM2ostCMS\m2ostnext\obj\Debug\m2ostnext.pdb
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\m2ostnext.dll.config
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\m2ostnext.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\m2ostnext.pdb
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\csc.exe
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\csc.exe.config
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\csc.rsp
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\csi.exe
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\csi.exe.config
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\csi.rsp
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\Microsoft.Managed.Core.CurrentVersions.targets
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\Microsoft.Managed.Core.targets
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\System.Buffers.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\System.Collections.Immutable.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\System.Memory.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\System.Numerics.Vectors.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\System.Reflection.Metadata.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\vbc.exe
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\vbc.exe.config
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\vbc.rsp
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\VBCSCompiler.exe
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\roslyn\VBCSCompiler.exe.config
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Antlr3.Runtime.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\BouncyCastle.Crypto.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\BouncyCastle.Cryptography.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\EntityFramework.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\EntityFramework.MappingAPI.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\EntityFramework.SqlServer.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Google.Protobuf.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\K4os.Compression.LZ4.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\K4os.Compression.LZ4.Streams.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\K4os.Hash.xxHash.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Microsoft.Bcl.AsyncInterfaces.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Microsoft.Extensions.Logging.Abstractions.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Microsoft.Owin.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Microsoft.Web.Infrastructure.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\MySql.Data.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\MySql.Data.EntityFramework.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\MySqlConnector.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Newtonsoft.Json.Bson.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Newtonsoft.Json.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Owin.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Buffers.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Configuration.ConfigurationManager.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Diagnostics.DiagnosticSource.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.IO.Pipelines.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Memory.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Net.Http.Formatting.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Numerics.Vectors.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Threading.Tasks.Extensions.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.Helpers.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.Http.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.Http.WebHost.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.Mvc.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.Optimization.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.Razor.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.WebPages.Deployment.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.WebPages.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.WebPages.Razor.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\WebGrease.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Z.EntityFramework.Extensions.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\ZstdSharp.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\BouncyCastle.Crypto.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\BouncyCastle.Cryptography.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\EntityFramework.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\EntityFramework.SqlServer.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Google.Protobuf.pdb
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Google.Protobuf.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\K4os.Compression.LZ4.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\K4os.Compression.LZ4.Streams.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\K4os.Hash.xxHash.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Microsoft.Bcl.AsyncInterfaces.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Microsoft.Extensions.Logging.Abstractions.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Microsoft.Owin.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\MySql.Data.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\MySql.Data.EntityFramework.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\MySqlConnector.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Newtonsoft.Json.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Newtonsoft.Json.Bson.pdb
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Newtonsoft.Json.Bson.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Buffers.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Configuration.ConfigurationManager.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Diagnostics.DiagnosticSource.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.IO.Pipelines.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Memory.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Net.Http.Formatting.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Numerics.Vectors.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Threading.Tasks.Extensions.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.Helpers.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.Http.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.Http.WebHost.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.Mvc.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.Razor.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.WebPages.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.WebPages.Deployment.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.WebPages.Razor.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\System.Web.Optimization.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Antlr3.Runtime.pdb
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\bin\Z.EntityFramework.Extensions.xml
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\obj\Debug\m2ostnext.csproj.AssemblyReference.cache
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\obj\Debug\m2ostnext.csproj.CoreCompileInputs.cache
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\obj\Debug\m2ostnext.csproj.CopyComplete
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\obj\Debug\m2ostnext.dll
+D:\M2OST_CMS\NewM20stCMS\m2ostnext\obj\Debug\m2ostnext.pdb
+D:\LatestM2stCMS\m2ostnext\bin\m2ostnext.dll.config
+D:\LatestM2stCMS\m2ostnext\bin\m2ostnext.dll
+D:\LatestM2stCMS\m2ostnext\bin\m2ostnext.pdb
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\csc.exe
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\csc.exe.config
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\csc.rsp
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\csi.exe
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\csi.exe.config
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\csi.rsp
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\Microsoft.Managed.Core.CurrentVersions.targets
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\Microsoft.Managed.Core.targets
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\System.Buffers.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\System.Collections.Immutable.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\System.Memory.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\System.Numerics.Vectors.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\System.Reflection.Metadata.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\vbc.exe
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\vbc.exe.config
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\vbc.rsp
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\VBCSCompiler.exe
+D:\LatestM2stCMS\m2ostnext\bin\roslyn\VBCSCompiler.exe.config
+D:\LatestM2stCMS\m2ostnext\bin\Antlr3.Runtime.dll
+D:\LatestM2stCMS\m2ostnext\bin\BouncyCastle.Crypto.dll
+D:\LatestM2stCMS\m2ostnext\bin\BouncyCastle.Cryptography.dll
+D:\LatestM2stCMS\m2ostnext\bin\EntityFramework.dll
+D:\LatestM2stCMS\m2ostnext\bin\EntityFramework.MappingAPI.dll
+D:\LatestM2stCMS\m2ostnext\bin\EntityFramework.SqlServer.dll
+D:\LatestM2stCMS\m2ostnext\bin\Google.Protobuf.dll
+D:\LatestM2stCMS\m2ostnext\bin\K4os.Compression.LZ4.dll
+D:\LatestM2stCMS\m2ostnext\bin\K4os.Compression.LZ4.Streams.dll
+D:\LatestM2stCMS\m2ostnext\bin\K4os.Hash.xxHash.dll
+D:\LatestM2stCMS\m2ostnext\bin\Microsoft.Bcl.AsyncInterfaces.dll
+D:\LatestM2stCMS\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\LatestM2stCMS\m2ostnext\bin\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\LatestM2stCMS\m2ostnext\bin\Microsoft.Extensions.Logging.Abstractions.dll
+D:\LatestM2stCMS\m2ostnext\bin\Microsoft.Owin.dll
+D:\LatestM2stCMS\m2ostnext\bin\Microsoft.Web.Infrastructure.dll
+D:\LatestM2stCMS\m2ostnext\bin\MySql.Data.dll
+D:\LatestM2stCMS\m2ostnext\bin\MySql.Data.EntityFramework.dll
+D:\LatestM2stCMS\m2ostnext\bin\MySqlConnector.dll
+D:\LatestM2stCMS\m2ostnext\bin\Newtonsoft.Json.Bson.dll
+D:\LatestM2stCMS\m2ostnext\bin\Newtonsoft.Json.dll
+D:\LatestM2stCMS\m2ostnext\bin\Owin.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Buffers.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Configuration.ConfigurationManager.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Diagnostics.DiagnosticSource.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.IO.Pipelines.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Memory.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Net.Http.Formatting.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Numerics.Vectors.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Threading.Tasks.Extensions.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.Helpers.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.Http.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.Http.WebHost.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.Mvc.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.Optimization.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.Razor.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.WebPages.Deployment.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.WebPages.dll
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.WebPages.Razor.dll
+D:\LatestM2stCMS\m2ostnext\bin\WebGrease.dll
+D:\LatestM2stCMS\m2ostnext\bin\Z.EntityFramework.Extensions.dll
+D:\LatestM2stCMS\m2ostnext\bin\ZstdSharp.dll
+D:\LatestM2stCMS\m2ostnext\bin\BouncyCastle.Crypto.xml
+D:\LatestM2stCMS\m2ostnext\bin\BouncyCastle.Cryptography.xml
+D:\LatestM2stCMS\m2ostnext\bin\EntityFramework.xml
+D:\LatestM2stCMS\m2ostnext\bin\EntityFramework.SqlServer.xml
+D:\LatestM2stCMS\m2ostnext\bin\Google.Protobuf.pdb
+D:\LatestM2stCMS\m2ostnext\bin\Google.Protobuf.xml
+D:\LatestM2stCMS\m2ostnext\bin\K4os.Compression.LZ4.xml
+D:\LatestM2stCMS\m2ostnext\bin\K4os.Compression.LZ4.Streams.xml
+D:\LatestM2stCMS\m2ostnext\bin\K4os.Hash.xxHash.xml
+D:\LatestM2stCMS\m2ostnext\bin\Microsoft.Bcl.AsyncInterfaces.xml
+D:\LatestM2stCMS\m2ostnext\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\LatestM2stCMS\m2ostnext\bin\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+D:\LatestM2stCMS\m2ostnext\bin\Microsoft.Extensions.Logging.Abstractions.xml
+D:\LatestM2stCMS\m2ostnext\bin\Microsoft.Owin.xml
+D:\LatestM2stCMS\m2ostnext\bin\MySql.Data.xml
+D:\LatestM2stCMS\m2ostnext\bin\MySql.Data.EntityFramework.xml
+D:\LatestM2stCMS\m2ostnext\bin\MySqlConnector.xml
+D:\LatestM2stCMS\m2ostnext\bin\Newtonsoft.Json.xml
+D:\LatestM2stCMS\m2ostnext\bin\Newtonsoft.Json.Bson.pdb
+D:\LatestM2stCMS\m2ostnext\bin\Newtonsoft.Json.Bson.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Buffers.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Configuration.ConfigurationManager.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Diagnostics.DiagnosticSource.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.IO.Pipelines.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Memory.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Net.Http.Formatting.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Numerics.Vectors.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Threading.Tasks.Extensions.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.Helpers.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.Http.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.Http.WebHost.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.Mvc.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.Razor.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.WebPages.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.WebPages.Deployment.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.WebPages.Razor.xml
+D:\LatestM2stCMS\m2ostnext\bin\System.Web.Optimization.xml
+D:\LatestM2stCMS\m2ostnext\bin\Antlr3.Runtime.pdb
+D:\LatestM2stCMS\m2ostnext\bin\Z.EntityFramework.Extensions.xml
+D:\LatestM2stCMS\m2ostnext\obj\Debug\m2ostnext.csproj.AssemblyReference.cache
+D:\LatestM2stCMS\m2ostnext\obj\Debug\m2ostnext.csproj.CoreCompileInputs.cache
+D:\LatestM2stCMS\m2ostnext\obj\Debug\m2ostnext.csproj.CopyComplete
+D:\LatestM2stCMS\m2ostnext\obj\Debug\m2ostnext.dll
+D:\LatestM2stCMS\m2ostnext\obj\Debug\m2ostnext.pdb

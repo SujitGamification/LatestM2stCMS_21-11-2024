@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Industry";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+
+
+
+
+    function deleteContentConfirm() {
+        var id = $("#hidden-val").val();
+        var url = '@Url.Action("DeleteActionl", "contentDashboard")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id },
+          
+            success: function (data) {
+                window.location.reload();
+            }
+        });
+    }
+
+    function deleteCancle() {
+        $("#hidden-val").val("");
+        $("#div-hidden-alert").hide();
+    }
+
+    function deleteContent(id) {
+        $("#hidden-val").val(id);
+        $("#div-hidden-alert").show();
+    }
+</script>
+
+
+
+@{
+    List<tbl_industry> industry = (List<tbl_industry>)ViewData["industry"];
+    List<int> counter = (List<int>)ViewData["counter"];
+    int i = 0;
+}
+<div class="row" id="div-hidden-alert" style="display:none;">
+    <div class="col-md-12">
+        <input type="hidden" value="" id="hidden-val" />
+        <div class="alert alert-warning alert-dismissable">
+            Do you really want to Delete This........?
+            <input type="button" class="btn btn-primary btn-sm " value=" Yes " onclick="deleteContentConfirm()" />
+            <input type="button" class="btn btn-primary btn-sm " value=" No " onclick="deleteCancle()" />
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>
+                        Industry
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in industry)
+                {
+                    <tr>
+                        <td>
+                            @item.INDUSTRYNAME
+                        </td>
+                        <td>
+                            @item.DESCRIPTION
+                        </td>
+
+                        <td>
+                            |&nbsp;<a href="@Url.Action("Edit", "industry", new { id = item.ID_INDUSTRY })"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;|
+                            @if (counter[i] == 0)
+                            {
+                                <a href="#" onclick="deleteContent(@item.ID_INDUSTRY)"><i class="glyphicon glyphicon-remove"></i></a>
+                            }
+                            else
+                            {
+                                <a href="#" style="color:#ff0000;" title="Industry Contains External References.Cannot Delete Industry"><i class="glyphicon glyphicon-remove"></i></a>
+                            }
+                        </td>
+                    </tr>
+                            i++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

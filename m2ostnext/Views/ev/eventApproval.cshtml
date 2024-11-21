@@ -1,0 +1,310 @@
+﻿@{
+    ViewBag.Title = "Event Approval";
+    Layout = "~/Views/Shared/_fancy_layout.cshtml";
+}
+
+@{
+    tbl_scheduled_event sEvent = (tbl_scheduled_event)ViewData["event"];
+    tbl_user user = (tbl_user)ViewData["user"];
+    tbl_user rmUser = (tbl_user)ViewData["rm"];
+    tbl_profile profile = (tbl_profile)ViewData["profile"];
+    bool fullFlag = (bool)ViewData["fullFlag"];
+    int event_count = (int)ViewData["event_count"];
+    tbl_scheduled_event_subscription_log log = (tbl_scheduled_event_subscription_log)ViewData["eLog"];
+    string orgId = (string)ViewData["org"];
+
+    string qList = (string)ViewData["qList"];
+
+
+}
+<script>
+
+    $(document).ready(function () {
+        $("#form-subscription-add").validationEngine();
+        $("#form-subscription-reject").validationEngine();
+    });
+
+
+    function rejectModel() {
+        $("#reject-event").show();
+        $("#approve-event").hide();
+    }
+    function approveRequest() {
+
+        var form_data = $("#form-subscription-approval").serialize();
+        var url = '@Url.Action("approveUserRequest", "ev")';
+        $.post(url, form_data, function (data, sts) {
+            //  $.fancybox.close();
+            if (data) {
+                var rUrl = '@Url.Action("Message", "ev")';
+                rUrl = rUrl + '?session=' + data;
+                window.location.href = rUrl;
+            }
+        });
+    }
+
+    function rejectRequest()
+    {
+        var form_data = $("#form-subscription-approval").serialize();
+        var url = '@Url.Action("rejectUserSubscription", "ev")';
+        $.post(url, form_data, function (data, sts) {
+            //  $.fancybox.close();
+            if (data) {
+                var rUrl = '@Url.Action("Message", "ev")';
+                rUrl = rUrl + '?session=' + data;
+                window.location.href = rUrl;
+            }
+        });
+    }
+
+    function cancelModel() {
+        $("#approve-event").show();
+        $("#reject-event").hide();
+        $("#reject-desc").val("");
+    }
+
+</script>
+<style>
+    .col-md-12 strong {
+        width: 200px;
+        display: inline-block;
+    }
+</style>
+<div class="row clearfix">
+
+    <div class="modal fade" id="m2ost-dialog" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Alert : </h3>
+                </div>
+                <div class="modal-body" id="msg-txt">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 column">
+        <div class="panel panel-default m2ost_info">
+            <div class="panel-heading m2ost_info_hat">
+                <span>Event - User Approval Request </span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @using (Html.BeginForm("approveUserRequest", "ev", FormMethod.Post, new { id = "form-subscription-approval" }))
+                        {
+                            <input type="hidden" id="qList" name="qList" value="@qList" />
+
+                            <strong>Event Type   </strong>
+                            if (sEvent.event_type == 1)
+                            {
+                                @("Open Event")
+                            }
+                            else if (sEvent.event_type == 2)
+                            {
+                                @("Closed Event")
+                            }
+                            <strong>
+                                @if (sEvent.event_group_type == 1)
+                                {
+                                    @(" - Face To Face")
+                                }
+                                else if (sEvent.event_group_type == 2)
+                                {
+                                    @(" - Online ")
+                                }
+                                else if (sEvent.event_group_type == 3)
+                                {
+                                    @(" - M2OST")
+                                }
+                            </strong>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <strong>Event Title   </strong>@sEvent.event_title
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <strong>Registration Period   </strong>@(sEvent.registration_start_date.Value.ToString("dd-MM-yyyy HH:mm") + " To " + sEvent.registration_end_date.Value.ToString("dd-MM-yyyy HH:mm"))
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <strong>Scheduled Date   </strong>@(sEvent.event_start_datetime.Value.ToString("dd-MM-yyyy HH:mm") + " " + sEvent.event_duration)
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <strong>Event Objective   </strong><b>@sEvent.program_objective</b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <strong>Facilitator    </strong>@sEvent.facilitator_name
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <strong>Organization    </strong>@sEvent.facilitator_organization
+                                </div>
+                            </div>
+                            <hr />
+                            if (sEvent.event_type == 1)
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <strong>Participant Limit    </strong>@sEvent.no_of_participants
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <strong>Participant Level  </strong>
+                                        @(sEvent.participant_level)
+                                    </div>
+                                </div>
+                            }
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-12" align="center">
+                                    <span style="font-family:'Century Gothic';font-size:16px; font-weight:600;text-align:center;">
+                                        Event Subcription Status List.
+                                    </span>
+                                    <br />
+                                    @if (sEvent.event_type == 1)
+                                    {
+                                        if (fullFlag)
+                                        {
+                                            <span style="font-family:'Century Gothic'; font-weight:800;text-align:center;">
+                                                Open Event Subscription Limit of @sEvent.no_of_participants is Full .
+                                            </span>
+                                            <br />
+                                            <span style="font-family:'Century Gothic';font-weight:500;text-align:center;">
+                                                Cannot add Any more Users.
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span style="font-family:'Century Gothic';font-weight:600;text-align:center;">
+                                                Open Event Subscription count : <b>@(event_count + " / " + sEvent.no_of_participants)</b>
+                                            </span>
+                                            <br />
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <hr />
+                            if (log.subscription_status == "A")
+                            {
+                                <div class="row " id="">
+                                    <div class="col-md-12" align="center">
+                                        <div class="panel panel-default m2ost_info">
+                                            <div class="panel-heading m2ost_info_hat">
+                                                <span>Approve User Request Status</span>
+                                            </div>
+                                            <div class="panel-body">
+                                                <span style="font-family:'Century Gothic';font-weight:600;text-align:center;">
+                                                    User Info : @(profile.FIRSTNAME + " " + profile.LASTNAME + " -" + user.USERID)
+                                                </span><br />
+                                                <span style="font-family:'Century Gothic';font-weight:600;text-align:center;">
+                                                    User request is approved .
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            if (log.subscription_status == "R")
+                            {
+                                <div class="row " id="">
+                                    <div class="col-md-12" align="center">
+                                        <div class="panel panel-default m2ost_info">
+                                            <div class="panel-heading m2ost_info_hat">
+                                                <span>Approve User Request Status </span>
+                                            </div>
+                                            <div class="panel-body">
+                                                <span style="font-family:'Century Gothic';font-weight:600;text-align:center;">
+                                                    User Info : @(profile.FIRSTNAME + " " + profile.LASTNAME + " -" + user.USERID)
+                                                </span><br />
+                                                <span style="font-family:'Century Gothic';font-weight:600;text-align:center;">
+                                                    Event subscription is declined by the user.
+                                                </span><br />
+                                                <span style="font-family:'Century Gothic';font-weight:500;text-align:center;">
+                                                    User Comment :<strong> @log.event_user_comment</strong>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                            if (log.subscription_status == "C")
+                            {
+                                <div class="row " id="">
+                                    <div class="col-md-12" align="center">
+                                        <div class="panel panel-default m2ost_info">
+                                            <div class="panel-heading m2ost_info_hat">
+                                                <span>Approve User Request Status </span>
+                                            </div>
+                                            <div class="panel-body">
+                                                <span style="font-family:'Century Gothic';font-weight:600;text-align:center;">
+                                                    User Info : @(profile.FIRSTNAME + " " + profile.LASTNAME + " -" + user.USERID)
+                                                </span><br />
+                                                <span style="font-family:'Century Gothic';font-weight:600;text-align:center;">
+                                                    User request is rejected by Reporting Manager.
+                                                </span><br />
+                                                <span style="font-family:'Century Gothic';font-weight:500;text-align:center;">
+                                                    RM Comment :<strong> @log.event_user_comment</strong>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            if (log.subscription_status == "P")
+                            {
+                                <div class="row " id="approve-event" align="center">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default m2ost_info">
+                                            <div class="panel-heading m2ost_info_hat">
+                                                <span>Approve User Request </span>
+                                            </div>
+                                            <div class="panel-body">
+                                                <span style="font-family:'Century Gothic';font-weight:600;text-align:center;">
+                                                    User Info : @(profile.FIRSTNAME + " " + profile.LASTNAME + " -" + user.USERID)
+                                                </span><hr />
+                                                <a href="javascript:void(0)" onclick="approveRequest()" class="btn btn-default">Approve Request</a>
+                                                <a href="javascript:void(0)" onclick="rejectModel()" class="btn btn-default">Reject Request</a>
+                                                <a href="@Url.Action("index","dashboard")" class="btn btn-default">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row " id="reject-event" align="center" style="display:none;">
+                                    <div class="col-md-12">
+                                        <textarea id="reject-desc" name="reject-desc" maxlength="1000" class="form-control validate[required]" placeholder="reason for rejecting user request" rows="4"></textarea>
+                                        <hr />
+                                        <a href="javascript:void(0)" onclick="rejectRequest()" class="btn btn-default">Reject Request</a>
+                                        <a href="javascript:void(0)" onclick="cancelModel()" class="btn btn-default">Cancel</a>
+                                    </div>
+                                </div>
+                            }
+
+
+
+
+                        }
+                        <hr />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

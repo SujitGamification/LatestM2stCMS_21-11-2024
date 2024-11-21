@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.33026.149
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "m2ostnext", "m2ostnext\m2ostnext.csproj", "{B13AB672-A3F1-4736-88FD-45D595C6027B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B13AB672-A3F1-4736-88FD-45D595C6027B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B13AB672-A3F1-4736-88FD-45D595C6027B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B13AB672-A3F1-4736-88FD-45D595C6027B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B13AB672-A3F1-4736-88FD-45D595C6027B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9590741-4BFD-4996-B7ED-2A573E835E18}
+	EndGlobalSection
+EndGlobal

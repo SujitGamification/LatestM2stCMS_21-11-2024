@@ -1,0 +1,1546 @@
+﻿@{
+    ViewBag.Title = "LoadContent";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+}
+
+@{
+    tbl_content content = (tbl_content)ViewData["content"];
+    tbl_content_answer content_answer = (tbl_content_answer)ViewData["content_answer"];
+    List<tbl_content_answer_steps> answer_step = (List<tbl_content_answer_steps>)ViewData["answer_step"];
+    List<tbl_content_metadata> metadata = (List<tbl_content_metadata>)ViewData["metadata"];
+    m2ostnext.Models.UserSession userSes = (m2ostnext.Models.UserSession)ViewData["users"];
+
+    List<tbl_content> linked = (List<tbl_content>)ViewData["linked"];
+    List<tbl_assessment> assessments = (List<tbl_assessment>)ViewData["assessments"];
+    List<tbl_content_type_link> links = (List<tbl_content_type_link>)ViewData["content_links"];
+    tbl_banner banner = (tbl_banner)ViewData["banner"];
+    string urls = (string)ViewData["urls"];
+    string imgurl = (string)ViewData["imgurl"];
+
+    bool flag = (bool)ViewData["accessflag"];
+    List<tbl_category> category = (List<tbl_category>)ViewData["category"];
+}
+<script type="text/javascript">
+    //$(window).load(function(){
+    //    $('#content-dialog').modal('show');
+    //});
+</script>
+<style>
+    h2, h3, h4, h5 {
+        color: #000;
+    }
+
+    .img-frame {
+        background: transparent;
+        padding: 4px;
+        border: 1px solid #999999;
+    }
+
+    hr {
+        margin-top: 5px;
+        margin-bottom: 8px;
+        border: 0;
+        border-top: 1px solid #19aa8d;
+    }
+
+    .panel-heading h3 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: normal;
+        width: 75%;
+        padding-top: 8px;
+    }
+
+
+    figcaption {
+        border-top: 1px solid #0880a2;
+        padding-top: 2px;
+    }
+
+    .img_normal {
+        max-width: 100%;
+        width: 100%;
+        margin: 5px;
+        padding: 5px;
+        height: auto;
+        width: auto\9; /* ie8 */
+    }
+
+    figure img {
+        max-width: 250px;
+        width: 250px;
+        margin: 5px;
+        padding: 5px;
+        height: auto;
+        width: auto\9; /* ie8 */
+    }
+
+    figure {
+        border: 1px solid #0880a2;
+        text-align: center;
+        display: table;
+        max-width: 30%; /* demo; set some amount (px or %) if you can */
+        margin: 10px auto; /* not needed unless you want centered */
+    }
+</style>
+
+<div id="pagecontent_dashboard">
+    <div class="panel panel-default custom-panel">
+        <div class="panel-heading custom-panel-heading clearfix">
+            <div class="panel-title">Content Details </div>
+
+        </div>
+        <div class="panel-body custom-panel-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <a style="margin-left:5px;" href="@Url.Action("Index", "dashboard")" class="btn btn-default  pull-right">Close&nbsp;<i class="glyphicon glyphicon-folder-close"></i></a>
+                    @if (flag)
+                    {
+                        <a style="margin-left:5px;" href="@Url.Action("editcontent", "contentDashboard" , new { id=content.ID_CONTENT })" class="btn btn-default  pull-right">Edit&nbsp;<i class="glyphicon glyphicon-edit"></i></a>
+                        <a target="_blank" style="margin-left:5px;" href="@Url.Action("AddContentLink", "dashboard", new { id = content.ID_CONTENT })" class="btn btn-default  pull-right">Linked Qtn&nbsp;<i class="glyphicon glyphicon-link"></i></a>
+                        <a target="_blank" style="margin-left:5px;" href="@Url.Action("ContentToAssessment", "Assessment", new { id = content.ID_CONTENT })" class="btn btn-default  pull-right">Assessment&nbsp;<i class="glyphicon glyphicon-link"></i></a>
+                        <a target="_blank" style="margin-left:5px;" href="@Url.Action("content_links", "dashboard", new { id = content.ID_CONTENT })" class="btn btn-default  pull-right">Add Link&nbsp;<i class="glyphicon glyphicon-adjust"></i></a>
+
+                    }
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-10">
+                    <h2>Category : </h2>
+                    @if (category.Count > 0)
+                    {
+                        foreach (tbl_category met in category)
+                        {
+                            <strong> @met.CATEGORYNAME</strong>
+                        }
+                        @(", ")
+                    }
+                    else
+                    {
+                        @("No Category Assigned")
+                    }
+
+                </div>
+                <div class="col-md-2">
+                    @if (flag)
+                    {
+
+                    }
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Content Title : <b>@content.CONTENT_TITLE</b></h4>
+                </div>
+                <div class="col-md-12">
+                    <h4>Content Header : <b>@content.CONTENT_HEADER</b></h4>
+                </div>
+            </div><hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <h4><b>Content Question</b></h4><h2><pre>@content.CONTENT_QUESTION</pre></h2>
+                </div>
+            </div>
+            <h4><b>Content Body</b></h4>
+            <!--------------------------------------------------------------------------------------------->
+            @if (content.ID_THEME == 15)
+            {
+                <div class="row">
+                    <div class=" col-md-12">
+                        @Html.Raw(content_answer.CONTENT_ANSWER1)
+                    </div>
+                </div>
+
+            }   
+            @if (content.ID_THEME == 16)
+            {
+                <div class="row">
+                    <div class=" col-md-12">
+                        @Html.Raw(content_answer.CONTENT_ANSWER1)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md-12">
+                        @*@if (content_answer.CONTENT_ANSWER_IMG1.Contains("youtube"))
+                        {
+                            <a href="@content_answer.CONTENT_ANSWER_IMG1" target="_blank">Click to preview Video</a>
+                        }*@
+                        @*else
+                        {*@
+                            @{ 
+                                string imagefile = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG1;
+                            }
+                                <a href="@imagefile" target="_blank">Click to preview Video</a>
+                                @*}*@
+
+                           
+                          
+                       
+                    </div>
+                </div>
+
+                            }   
+            @if (content.ID_THEME == 17)
+            {
+                <div class="row">
+                    <div class=" col-md-12">
+                        @Html.Raw(content_answer.CONTENT_ANSWER1)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md-12">
+                        @*@if (content_answer.CONTENT_ANSWER_IMG1.Contains("youtube"))
+                    {
+                        <a href="@content_answer.CONTENT_ANSWER_IMG1" target="_blank">Click to preview Video</a>
+                    }*@
+                        @*else
+                    {*@
+                        @{
+                            string imagefile =content_answer.CONTENT_ANSWER_IMG1;
+                        }
+                        <a href="@imagefile" target="_blank">Click to preview Video</a>
+                        @*}*@
+
+
+
+
+                    </div>
+                </div>
+
+                            } 
+             @if (content.ID_THEME == 1)
+            {
+                <div class="row">
+                    <div class=" col-md-12">
+                        <pre> @content_answer.CONTENT_ANSWER1</pre>
+                    </div>
+                </div>
+
+
+            }
+            @if (content.ID_THEME == 2)
+            {
+                <div class="row">
+                    <div class=" col-md-12">
+                        @{
+                string imagefile = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG1;
+                        }
+                        <figure>
+                            <img src="@imagefile">
+                            <figcaption>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md-12">
+                        <pre> @content_answer.CONTENT_ANSWER1</pre>
+                    </div>
+                </div>
+            }
+            @if (content.ID_THEME == 3)
+            {
+                <div class="row">
+                    <div class=" col-md-12">
+                        <pre> @content_answer.CONTENT_ANSWER1</pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md-12">
+                        <pre> @content_answer.CONTENT_ANSWER2</pre>
+                    </div>
+                </div>
+            }
+            @if (content.ID_THEME == 4)
+            {
+                <div class="row">
+                <div class=" col-md-12">
+                    @{
+                string imagefile = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG1;
+                    }
+                    <figure>
+                        <img src="@imagefile">
+                        <figcaption>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+                <div class="row">
+                    <div class=" col-md-12">
+                        <pre> @content_answer.CONTENT_ANSWER1</pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md-12">
+                        <pre> @content_answer.CONTENT_ANSWER2</pre>
+                    </div>
+                </div>
+            }
+            @if (content.ID_THEME == 5)
+            {
+                <div class="row">
+                    <div class=" col-md-12">
+                        <pre> @content_answer.CONTENT_ANSWER1</pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md-12">
+                        @{
+                string imagefile = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG1;
+                        }
+                        <figure>
+                            <img src="@imagefile">
+                            <figcaption>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md-12">
+                        <pre> @content_answer.CONTENT_ANSWER2</pre>
+                    </div>
+                </div>
+            }
+
+            @if (content.ID_THEME == 6)
+            {
+                <div class="row">
+                    <div class=" col-md-12">
+                        @{
+                string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG1;
+                        }
+                        <figure>
+                            <img src="@imagefile1">
+                            <figcaption>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md-12">
+                        <pre> @content_answer.CONTENT_ANSWER1</pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md-12">
+                        @{
+                string imagefile2 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG2;
+                        }
+                        <figure>
+                            <img src="@imagefile2">
+                            <figcaption>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md-12">
+                        <pre> @content_answer.CONTENT_ANSWER2</pre>
+                    </div>
+                </div>
+            }
+
+
+            @if (content.ID_THEME == 7)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label">Motive</label>
+                        <pre>@content_answer.CONTENT_ANSWER1</pre>
+                    </div>
+                    <div class="col-md-8">
+                        <label class="control-label">Purpose</label>
+                        <pre>@content_answer.CONTENT_ANSWER2</pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label">Subliminal Ignition</label>
+                        <pre>@content_answer.CONTENT_ANSWER3</pre>
+                    </div>
+                    <div class="col-md-8">
+                        <label class="control-label">Context</label>
+                        <pre>@content_answer.CONTENT_ANSWER4</pre>
+                    </div>
+                </div>
+            }
+            @if (content.ID_THEME == 8)
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG1;
+                            }
+                            <img src="@imagefile1">
+                            <figcaption>
+                                <h5>@content_answer.CONTENT_ANSWER1</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile2 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG2;
+                            }
+                            <img src="@imagefile2">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER2</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            }
+            @if (content.ID_THEME == 9)
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG1;
+                            }
+                            <img src="@imagefile1">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER1</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile2 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG2;
+                            }
+                            <img src="@imagefile2">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER2</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile3 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG3;
+                            }
+                            <img src="@imagefile3">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER3</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile4 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG4;
+                            }
+                            <img src="@imagefile4">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER4</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            }
+            @if (content.ID_THEME == 10)
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG1;
+                            }
+                            <img src="@imagefile1">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER1</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile2 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG2;
+                            }
+                            <img src="@imagefile2">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER2</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile3 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG3;
+                            }
+                            <img src="@imagefile3">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER3</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile4 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG4;
+                            }
+                            <img src="@imagefile4">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER4</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile5 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG5;
+                            }
+                            <img src="@imagefile5">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER5</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile6 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG6;
+                            }
+                            <img src="@imagefile6">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER6</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            }
+            @if (content.ID_THEME == 11)
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG1;
+                            }
+                            <img src="@imagefile1">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER1</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile2 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG2;
+                            }
+                            <img src="@imagefile2">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER2</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile3 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG3;
+                            }
+                            <img src="@imagefile3">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER3</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile4 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG4;
+                            }
+                            <img src="@imagefile4">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER4</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile5 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG5;
+                            }
+                            <img src="@imagefile5">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER5</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile6 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG6;
+                            }
+                            <img src="@imagefile6">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER6</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile7 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG7;
+                            }
+                            <img src="@imagefile7">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER7</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-6">
+                        <figure>
+                            @{
+                string imagefile8 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG8;
+                            }
+                            <img src="@imagefile8">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER8</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+            }
+            @if (content.ID_THEME == 12)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        <figure>
+                            @{
+                string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG1;
+                            }
+                            <img src="@imagefile1">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER1</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-4">
+                        <figure>
+                            @{
+                string imagefile2 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG2;
+                            }
+                            <img src="@imagefile2">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER2</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-4">
+                        <figure>
+                            @{
+                string imagefile3 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG3;
+                            }
+                            <img src="@imagefile3">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER3</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            }
+
+            @if (content.ID_THEME == 13)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        <figure>
+                            @{
+                string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG1;
+                            }
+                            <img src="@imagefile1">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER1</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-4">
+                        <figure>
+                            @{
+                string imagefile2 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG2;
+                            }
+                            <img src="@imagefile2">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER2</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-4">
+                        <figure>
+                            @{
+                string imagefile3 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG3;
+                            }
+                            <img src="@imagefile3">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER3</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <figure>
+                            @{
+                string imagefile4 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG4;
+                            }
+                            <img src="@imagefile4">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER4</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-4">
+                        <figure>
+                            @{
+                string imagefile5 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG5;
+                            }
+                            <img src="@imagefile5">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER5</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-4">
+                        <figure>
+                            @{
+                string imagefile6 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG6;
+                            }
+                            <img src="@imagefile6">
+                            <figcaption>
+                                <h5> @content_answer.CONTENT_ANSWER6</h5>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            }
+
+            @if (content.ID_THEME == 14)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label">Action Type</label>
+                        <pre>@content_answer.CONTENT_ANSWER1</pre>
+                    </div>
+                    <div class="col-md-8">
+                        <label class="control-label">Objective</label>
+                        <pre>@content_answer.CONTENT_ANSWER2</pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label">Duration</label>
+                        <pre>@content_answer.CONTENT_ANSWER3</pre>
+                    </div>
+                    <div class="col-md-8">
+                        <label class="control-label">Learning Outcome</label>
+                        <pre>@content_answer.CONTENT_ANSWER4</pre>
+                    </div>
+                </div>
+            }
+            <!--------------------------------------------------------------------------------------------->
+
+            <hr />
+            @if (answer_step.Count > 0)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Asnwer Steps  </h3>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>There are no answer steps attached</h3>
+                    </div>
+                </div>
+            }
+
+            @{int i = 0;}
+            @foreach (tbl_content_answer_steps steps in answer_step)
+            {
+                i++;
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Step  @(i) :  </h4>
+                    </div>
+                </div>
+                if (steps.ID_THEME == 8)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>@steps.ANSWER_STEPS_PART1  </pre>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>@steps.ANSWER_STEPS_PART2  </pre>
+                        </div>
+                    </div>
+                }
+                else if (steps.ID_THEME == 9)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            @{
+                    string imagefile = "~/Content/SKILLMUNI_DATA/" + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                            }
+                            @*<img class="img-frame" src="@(Url.Content(imagefile))" style="width:auto;height:auto" />*@
+                            <a href="@(Url.Content(imagefile))" target="_blank"><i class="glyphicon glyphicon-text-background"></i> &nbsp;(Click image for Preview)</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>@steps.ANSWER_STEPS_PART1  </pre>
+                        </div>
+                    </div>
+                                }
+                                else if (steps.ID_THEME == 25)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            @{
+                                                string imagefile = "~/Content/SKILLMUNI_DATA/" + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                                            }
+                                            @*<img class="img-frame" src="@(Url.Content(imagefile))" style="width:auto;height:auto" />*@
+                                            <a href="@(Url.Content(imagefile))" target="_blank"><i class="glyphicon glyphicon-text-background"></i> &nbsp;(Click here for Preview)</a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <pre>@steps.ANSWER_STEPS_PART1  </pre>
+                                        </div>
+                                    </div>
+                                                }
+                                                else if (steps.ID_THEME == 26)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            @{
+                                                                string imagefile = steps.ANSWER_STEPS_IMG1;
+                                                            }
+                                                            @*<img class="img-frame" src="@(Url.Content(imagefile))" style="width:auto;height:auto" />*@
+                                                            <a href="@(Url.Content(imagefile))" target="_blank"><i class="glyphicon glyphicon-text-background"></i> &nbsp;(Click here for Preview)</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <pre>@steps.ANSWER_STEPS_PART1  </pre>
+                                                        </div>
+                                                    </div>
+                                                                }
+                                                                else if (steps.ID_THEME == 10)
+                                                                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>@steps.ANSWER_STEPS_PART1  </pre>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>@steps.ANSWER_STEPS_PART2  </pre>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>@steps.ANSWER_STEPS_PART3  </pre>
+                        </div>
+                    </div>
+                }
+                else if (steps.ID_THEME == 11)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            @{
+                    string imagefile = "~/Content/SKILLMUNI_DATA/" + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                            }
+                            @*<img class="img-frame" src="@(Url.Content(imagefile))" style="width:auto;height:auto" />*@
+                            <a href="@(Url.Content(imagefile))" target="_blank"><i class="glyphicon glyphicon-text-background"></i> &nbsp;(Click image for Preview)</a>
+                        </div>
+                    </div>
+                }
+                else if (steps.ID_THEME == 12)
+                {
+                    <div class="row">
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                                }
+                                <img src="@imagefile1">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART1</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile2 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG2;
+                                }
+                                <img src="@imagefile2">
+                                <figcaption>
+                                    <h5> @steps.ANSWER_STEPS_PART2</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                }
+                else if (steps.ID_THEME == 13)
+                {
+                    <div class="row">
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                                }
+                                <img src="@imagefile1">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART1</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile2 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG2;
+                                }
+                                <img src="@imagefile2">
+                                <figcaption>
+                                    <h5> @steps.ANSWER_STEPS_PART2</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile3 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG3;
+                                }
+                                <img src="@imagefile3">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART3</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile4 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG4;
+                                }
+                                <img src="@imagefile4">
+                                <figcaption>
+                                    <h5> @steps.ANSWER_STEPS_PART4</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                }
+                else if (steps.ID_THEME == 14)
+                {
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                                }
+                                <img src="@imagefile1">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART1</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile2 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG2;
+                                }
+                                <img src="@imagefile2">
+                                <figcaption>
+                                    <h5> @steps.ANSWER_STEPS_PART2</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile3 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG3;
+                                }
+                                <img src="@imagefile3">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART3</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile4 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG4;
+                                }
+                                <img src="@imagefile4">
+                                <figcaption>
+                                    <h5> @steps.ANSWER_STEPS_PART4</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile5 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG5;
+                                }
+                                <img src="@imagefile5">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART5</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile6 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG6;
+                                }
+                                <img src="@imagefile6">
+                                <figcaption>
+                                    <h5> @steps.ANSWER_STEPS_PART6</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                }
+                else if (steps.ID_THEME == 15)
+                {
+                    <div class="row">
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                                }
+                                <img src="@imagefile1">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART1</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile2 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG2;
+                                }
+                                <img src="@imagefile2">
+                                <figcaption>
+                                    <h5> @steps.ANSWER_STEPS_PART2</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile3 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG3;
+                                }
+                                <img src="@imagefile3">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART3</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile4 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG4;
+                                }
+                                <img src="@imagefile4">
+                                <figcaption>
+                                    <h5> @steps.ANSWER_STEPS_PART4</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile5 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG5;
+                                }
+                                <img src="@imagefile5">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART5</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile6 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG6;
+                                }
+                                <img src="@imagefile6">
+                                <figcaption>
+                                    <h5> @steps.ANSWER_STEPS_PART6</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile7 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG7;
+                                }
+                                <img src="@imagefile7">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART7</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-6">
+                            <figure>
+                                @{
+                    string imagefile8 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG8;
+                                }
+                                <img src="@imagefile8">
+                                <figcaption>
+                                    <h5> @steps.ANSWER_STEPS_PART8</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                }
+                else if (steps.ID_THEME == 16)
+                {
+                    <div class="row">
+                        <div class="col-md-4">
+                            <figure>
+                                @{
+                    string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                                }
+                                <img src="@imagefile1">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART1</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4">
+                            <figure>
+                                @{
+                    string imagefile2 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG2;
+                                }
+                                <img src="@imagefile2">
+                                <figcaption>
+                                    <h5> @steps.ANSWER_STEPS_PART2</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4">
+                            <figure>
+                                @{
+                    string imagefile3 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG3;
+                                }
+                                <img src="@imagefile3">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART3</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                }
+                else if (steps.ID_THEME == 17)
+                {
+                    <div class="row">
+                        <div class="col-md-4">
+                            <figure>
+                                @{
+                    string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                                }
+                                <img src="@imagefile1">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART1</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4">
+                            <figure>
+                                @{
+                    string imagefile2 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG2;
+                                }
+                                <img src="@imagefile2">
+                                <figcaption>
+                                    <h5> @steps.ANSWER_STEPS_PART2</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4">
+                            <figure>
+                                @{
+                    string imagefile3 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG3;
+                                }
+                                <img src="@imagefile3">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART3</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <figure>
+                                @{
+                    string imagefile4 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG4;
+                                }
+                                <img src="@imagefile4">
+                                <figcaption>
+                                    <h5> @steps.ANSWER_STEPS_PART4</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4">
+                            <figure>
+                                @{
+                    string imagefile5 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG5;
+                                }
+                                <img src="@imagefile5">
+                                <figcaption>
+                                    <h5>@steps.ANSWER_STEPS_PART5</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4">
+                            <figure>
+                                @{
+                    string imagefile6 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG6;
+                                }
+                                <img src="@imagefile6">
+                                <figcaption>
+                                    <h5> @steps.ANSWER_STEPS_PART6</h5>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+
+                }
+                else if (steps.ID_THEME == 18)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>@steps.ANSWER_STEPS_PART1  </pre>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <figure>
+                                @{
+                    string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                                }
+                                <img src="@imagefile1">
+                                <figcaption>                                    
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>@steps.ANSWER_STEPS_PART2  </pre>
+                        </div>
+                    </div>
+                }
+                else if (steps.ID_THEME == 19)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>@steps.ANSWER_STEPS_PART1  </pre>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <figure>
+                                @{
+                    string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                                }
+                                <img src="@imagefile1">
+                                <figcaption>
+                                </figcaption>
+                            </figure>    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>@steps.ANSWER_STEPS_PART2  </pre>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <figure>
+                                @{
+                    string imagefile2 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG2;
+                                }
+                                <img src="@imagefile2">
+                                <figcaption>
+                                </figcaption>
+                            </figure>    </div>
+                    </div>
+                } 
+                else if (steps.ID_THEME == 20)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>Teaching Aids
+<br />@steps.ANSWER_STEPS_PART1  </pre>
+                        </div>410
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>Do:<br />@steps.ANSWER_STEPS_PART2  </pre>
+                        </div>
+                    </div>
+                }
+                else if (steps.ID_THEME == 21)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>Say:<br />@steps.ANSWER_STEPS_PART1  </pre>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>Ask:<br/>@steps.ANSWER_STEPS_PART2  </pre>
+                        </div>
+                    </div>
+                }
+                else if (steps.ID_THEME == 22)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>Say:<br/>@steps.ANSWER_STEPS_PART1  </pre>
+                        </div>
+                    </div>
+                    <div class="row">
+        <div class="col-md-12">
+            <figure>
+                @{
+                    string imagefile1 = imgurl + content.CONTENT_OWNER + "/" + content.ID_CONTENT + "/" + steps.ANSWER_STEPS_IMG1;
+                }
+                <img src="@imagefile1">
+                <figcaption>
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>ask:<br/>@steps.ANSWER_STEPS_PART2  </pre>
+                        </div>
+                    </div>
+                }
+                else if (steps.ID_THEME == 23)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>Notes:<br/>@steps.ANSWER_STEPS_PART1  </pre>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>Variations:<br/>@steps.ANSWER_STEPS_PART2  </pre>
+                        </div>
+                    </div>
+                }
+
+                else if (steps.ID_THEME == 24)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre>@steps.ANSWER_STEPS_PART1  </pre>
+                        </div>
+                    </div>
+                    }
+                    else if (steps.ID_THEME == 27)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                @Html.Raw(steps.ANSWER_STEPS_PART1)
+                               
+                            </div>
+                        </div>
+                        }
+
+
+
+
+
+                    }
+
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>
+                        METADATA :
+
+                        @foreach (tbl_content_metadata met in metadata)
+                        {
+                            <strong> @met.CONTENT_METADATA</strong>                                @(", ")
+                        }
+
+
+
+                    </h3>
+                </div>
+            </div>
+            <hr />
+            <h3> Banner : </h3>
+            @if (banner.banner_name != null)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4><strong>Banner : </strong> @banner.banner_name</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4><strong>Action URL : </strong>@banner.banner_action_url</h4>
+                    </div>
+                    @*<div class="col-md-2">
+                                @{
+                        urls = urls + @banner.banner_image;
+                                }
+                                <strong>Preview: </strong><a href="@urls" target="_blank"><i class="glyphicon glyphicon-text-background"></i></a>
+                            </div>*@
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>NO BANNER ATTACHED</h4>
+                    </div>
+                </div>
+
+            }
+
+
+            <hr />
+            <h3>Linked Content : </h3>
+            @if (linked.Count > 0)
+            {
+
+                foreach (tbl_content item in linked)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5><a id="@item.ID_CONTENT" href="@Url.Action("loadcontent", "contentDashboard" , new { id=item.ID_CONTENT })">@item.CONTENT_QUESTION</a></h5>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>There is no Linked Content </h3>
+                    </div>
+                </div>
+            }
+
+
+            <hr />
+            <h3>Assessment :</h3>
+            @if (assessments.Count > 0)
+            {
+                foreach (tbl_assessment item in assessments)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5><a id="@item.id_assessment" target="_blank" href="@Url.Action("LoadAssessment", "Assessment" , new { id=item.id_assessment })">@item.assessment_title</a></h5>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>There is no Assessment</h3>
+                    </div>
+                </div>
+            }
+
+
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="">
+                        <h3>
+                            Status :<strong>
+
+                                @if (content.STATUS == "P")
+                                {
+                                    @("Pending ")
+                                }
+                                else if (content.STATUS == "D")
+                                {
+                                    @("Rejected ")
+                                }
+                                else if (content.STATUS == "A")
+                                {
+                                    @("Approved")
+                                }
+                            </strong>
+                        </h3>
+
+                        @if (String.IsNullOrEmpty(content.COMMENT))
+                        {
+                            <h4>Approver Comments : </h4>
+                            <pre> @(content.COMMENT)</pre>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="content-dialog" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Content Status</h3>
+            </div>
+            <div class="modal-body" id="msg-txt">
+                <h3 style="text-align:center">Content Added Successfully</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

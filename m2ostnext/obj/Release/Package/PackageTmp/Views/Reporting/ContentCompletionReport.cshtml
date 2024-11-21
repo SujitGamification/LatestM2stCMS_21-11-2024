@@ -1,0 +1,242 @@
+﻿
+@{
+    ViewBag.Title = "Locationcount";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/buttons.dataTables.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" src="~/Content/datatable/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="~/Content/datatable/js/jszip.min.js"></script>
+
+<script type="text/javascript" src="~/Content/datatable/js/vfs_fonts.js"></script>
+<script type="text/javascript" src="~/Content/datatable/js/buttons.html5.min.js"></script>
+<script>
+    $(function () {
+        var month = new Date();
+        var minDate = new Date();
+        minDate.setMonth(month.getMonth() - 6);
+
+        $("#datetimepicker1").datepicker(
+       { dateFormat: "dd-mm-yy", maxDate: new Date(), minDate: minDate });
+
+        $("#datetimepicker2").datepicker(
+     { dateFormat: "dd-mm-yy", maxDate: new Date(), minDate: minDate });
+    });
+
+    function getContentReport() {
+        loading_on();
+        var catid = $("#user_category").val();
+        var contentid = $("#user_content").val();
+        var compstatusid = $("#user_completion_status").val();
+        var sdate = $("#datetimepicker1").val();
+        var edate = $("#datetimepicker2").val();
+        var url = '@Url.Action("getContentCompletionReport", "Reporting")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { catid: catid, contentid: contentid, compstatusid: compstatusid, stdate: sdate, endate: edate },
+            async: false,
+            success: function (data) {
+                $("#display_table").empty().append(data);
+
+                $('#report-table').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [
+                         'excelHtml5',
+                    ]
+                });
+            }
+        });
+        setBlock();
+        loading_off();
+    }
+
+    function BindContentDropdown(Ctrl) {
+        debugger;
+        var CategoryID = $('#' + Ctrl).val();
+        var url = '@Url.Action("VideoContentIDs", "Reporting")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            ////async:false,
+            dataType: "json",
+            data: { CategoryID: CategoryID },
+            success: function (data) {
+                debugger;
+                if (data!=null) {
+                    $('#user_content').html("").append('<option value="0">Select Content</option>');
+                    $(data).each(function () {
+                        $('#user_content').append('<option value=' + this.ID_CONTENT + '>' + this.CONTENT_QUESTION + '</option>');
+                    });
+                }
+            }
+        });
+    }
+
+    function getMonthWiseContentReport() {
+        loading_on();
+        var rid = $("#user_role").val();
+        var fid = $("#user_function").val();
+        var sdate = $("#datetimepicker1").val();
+        var edate = $("#datetimepicker2").val();
+        var url = '@Url.Action("getMonthWiseContentLocationReport", "Reporting")';
+        if (sdate != "" & edate != null) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { rid: rid, fid: fid, stdate: sdate, endate: edate },
+                async: false,
+                success: function (data) {
+                    $("#display_table").empty().append(data);
+
+                    $('#report-table-month').DataTable({
+                        "bSort": false, "scrollX": true,
+                        dom: 'Bfrtip',
+                        buttons: [
+                             {
+                                 extend: 'excelHtml5',
+                                 title: 'Export'
+                             }
+                        ]
+                    });
+                }
+            }); setBlock();
+        } else {
+            $("#msg-txt").html("<p>Please select Start and End Date</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+        loading_off();
+    }
+
+    function setBlock() {
+        $("#user_role").prop("disabled", true);
+        $("#user_function").prop("disabled", true);
+        $("#datetimepicker1").prop("disabled", true);
+        $("#datetimepicker2").prop("disabled", true);
+    }
+    function resetBlock() {
+        $("#user_category").prop("disabled", false);
+        $("#user_content").prop("disabled", false);
+        $("#user_completion_status").prop("disabled", false);
+        $("#datetimepicker1").prop("disabled", false);
+        $("#datetimepicker2").prop("disabled", false);
+    }
+
+
+</script>
+
+@{
+    //////List<string>function = (List<string>)ViewData["functions"];
+    //////List<tbl_csst_role>roleList = (List<tbl_csst_role>)ViewData["roleList"];
+    List<tbl_category> Categories = (List<tbl_category>)ViewData["CategoryList"];
+    //////List<tbl_content> ContentList = (List<tbl_content>)ViewData["ContentList"];
+}
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Content Completion Report</h4>
+            </div>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("", "", FormMethod.Post, new { id = "form-content-report" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+
+                            <div class="col-md-2 col-md-offset-1">
+                                <div class="form-group">
+                                    <label for="org">&nbsp;&nbsp;Category</label>
+                                    <select class="form-control " id="user_category" name="user_category" onchange="BindContentDropdown(this.id)">
+
+                                        <option value="0">Select Category</option>
+                                        @foreach (tbl_category pro in Categories)
+                                        {
+                                            <option value="@pro.ID_CATEGORY">@pro.CATEGORYNAME</option>
+                                        }
+                                    </select>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-md-2" style="margin-left:10px;">
+                                <div class="form-group">
+                                    <label for="usr">&nbsp;&nbsp;Content</label>
+                                    <select class="form-control " id="user_content" name="user_content">
+                                        <option value="0">Select Content</option>
+                                        @*@foreach (tbl_content pro in ContentList)
+                                            {
+                                                <option value="@pro.ID_CONTENT">@pro.CONTENT_TITLE</option>
+                                            }*@
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2" style="margin-left:10px;">
+                                <div class="form-group">
+                                    <label for="usr">&nbsp;&nbsp;Completion Status</label>
+                                    <select class="form-control " id="user_completion_status" name="user_completion_status">
+                                        <option value="0">Select Status</option>
+                                        <option value="1">Complete</option>
+                                        <option value="2">Incomplete</option>
+                                        <option value="3">Both</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="usr">&nbsp;&nbsp;Start Date</label>
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker1' name="start-date" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2" style="padding-left:0px;">
+                                <label for="usr">&nbsp;&nbsp;End Date</label>
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker2' name="end-date" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                <input style="margin-top: 24px; margin-left: 15px; height: 28px;" type="button" value="Search" name="btn_submit" class="btn btn-primary" onclick="getContentReport()" />
+                                &nbsp;
+                                <input style="margin-top: 24px; margin-left: 15px; height: 28px;" type="button" value="Reset" name="btn_submit" class="btn btn-primary" onclick="resetBlock()" />
+
+                            </div>
+
+                        </div>
+                    </div>
+                }
+                @*<div class="row">
+                        <div class="col-md-12 pull-right">
+                            <input style="margin-top: 24px; margin-left: 15px; height: 28px;" type="button" value="Month wise Data" name="btn_submit" class="btn btn-primary" onclick="getMonthWiseContentReport()" />
+                        </div>
+                    </div>*@
+                <hr />
+                <div id="display_table">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

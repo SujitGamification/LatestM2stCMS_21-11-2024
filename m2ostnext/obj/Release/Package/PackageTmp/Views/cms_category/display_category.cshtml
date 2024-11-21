@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+
+</script>
+
+@{
+    List<tbl_category> category = (List<tbl_category>)ViewData["Category"];
+    List<int> counter = (List<int>)ViewData["CatCount"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Category Detail</h6>
+            </div>
+            <div class="panel-body">
+                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Category Name
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>Content Count</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    @{
+                        int i = 0;
+                    }
+                    <tbody>
+                        @foreach (tbl_category item in category)
+                        {
+                            <tr>
+                                <td>
+                                    @item.CATEGORYNAME
+                                </td>
+                                <td>
+                                    @item.DESCRIPTION
+                                </td>
+                                <td>
+                                    @counter[i]
+                                </td>
+                                <td>
+
+                                    |&nbsp;<a href="@Url.Action("edit_category", "cms_category", new { id = item.ID_CATEGORY })"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;|
+                                    @if (counter[i] == 0)
+                                    {
+                                        <a href="@Url.Action("delete_category", "cms_category", new { id = item.ID_CATEGORY })"><i class="glyphicon glyphicon-remove"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" style="color:#ff0000;" title="Category Contains External References.Cannot Delete Category"><i class="glyphicon glyphicon-remove"></i></a>
+                                    }
+
+                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ID_CATEGORY }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.ID_CATEGORY }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.ID_CATEGORY })*@
+                                </td>
+                            </tr>
+                                    i++;
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>

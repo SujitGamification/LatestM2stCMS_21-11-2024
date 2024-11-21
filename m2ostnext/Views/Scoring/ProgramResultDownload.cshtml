@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "game";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/buttons.dataTables.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" src="~/Content/datatable/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="~/Content/datatable/js/jszip.min.js"></script>
+<script type="text/javascript" src="~/Content/datatable/js/vfs_fonts.js"></script>
+<script type="text/javascript" src="~/Content/datatable/js/buttons.html5.min.js"></script>
+<style>
+    .select-checkbox:before, .select-checkbox:after {
+        display: block;
+        position: absolute;
+        top: 1.2em;
+        left: 50%;
+        width: 12px;
+        height: 12px;
+        box-sizing: border-box;
+    }
+
+    .gpsdisplay .row {
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+
+    p {
+        padding-top: 12px;
+    }
+
+    .select-checkbox:after {
+        content: '\2714';
+        margin-top: -11px;
+        margin-left: -4px;
+        text-align: center;
+        text-shadow: 1px 1px #B0BED9, -1px -1px #B0BED9, 1px -1px #B0BED9, -1px 1px #B0BED9;
+    }
+
+    .dp-border {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.84);
+    }
+</style>
+
+<script>
+
+    function getGameReport() {
+        $("#div-loading-image").show();
+
+        var id = $("#game-select").val();
+        var url = '@Url.Action("getGameProgramScore", "Scoring")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { gid: id },
+
+            success: function (data) {
+                $("#div-loading-image").hide();
+                $("#display_table").empty().append(data);
+                $("#report-table").dataTable({
+                    "pageLength": 50,
+                    dom: 'Bfrtip',
+                    buttons: [
+                         'excelHtml5',
+                    ]
+                });
+                
+            }
+        });
+    }
+
+</script>
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+@{
+    List<tbl_game_creation> master = (List<tbl_game_creation>)ViewData["master"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Program Result</h4>
+            </div>
+            <div class="panel-body">
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h6 class="panel-title">Select Game</h6>
+                            <select class="form-control" id="game-select" name="game-select">
+                                @foreach (tbl_game_creation item in master)
+                                {
+                                    <option value="@item.id_game">@item.game_title</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <h6 class="panel-title">  . </h6>
+                            <input id="filter-to-all" type="button" class="btn btn-primary btn-sm" value="search" onclick="getGameReport()" />
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div id="display_table">
+
+                    </div>
+                    <br />
+                    <hr />                 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

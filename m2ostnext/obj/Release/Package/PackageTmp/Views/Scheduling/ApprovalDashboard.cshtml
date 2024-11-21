@@ -1,0 +1,268 @@
+﻿@{
+    ViewBag.Title = "Event Assignment";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+@{
+
+    tbl_scheduled_event sEvent = (tbl_scheduled_event)ViewData["event"];
+    bool fullFlag = (bool)ViewData["fullFlag"];
+    string resTable = (string)ViewData["tableData"];
+    int event_count = (int)ViewData["event_count"];
+}
+
+<script>
+
+    $(document).ready(function () {
+        $("#report-table").dataTable({ "pageLength": 25 });
+        $("#form-subscription").validationEngine();
+    });
+
+    function addUserToEvent(value) {
+        var eid = $("#id_scheduled_event").val();
+        if (eid > 0) {
+            var url = '@Url.Action("addUserToEvent", "Scheduling")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { eid: eid, uid: value },
+                success: function (data) {
+                    if (data == "1") {
+                        $("#msg-txt").html("<p>Success , User Subscription Accepted..</p>");
+                        $('#m2ost-dialog').modal('show');
+                        $("#linka_" + value).hide();
+                        $("#linkr_" + value).hide();
+                        $("#done_" + value).show();
+                    } else if (data == "L") {
+                        $("#msg-txt").html("<p>Subscription Limit Is Full, User Subscription cannot be  Accepted..</p>");
+                        $('#m2ost-dialog').modal('show');
+                        location.reload();
+                    }
+                }
+            });
+        }
+    }
+    function rejectUserToEventModel(value, uid) {
+        $("#reject-desc").val("");
+        $("#rejected-user").val(value);
+        $("#uInfo").text("Reject Subscription Request for " + uid);
+        $('#m2ost-event').modal('show');
+    }
+
+    function rejectUserToEvent(value) {
+        var valid = $("#form-subscription").validationEngine('validate');
+        if (valid) {
+
+            var url = '@Url.Action("rejectUserSubscription", "Scheduling")';
+            var msg = $("#reject-desc").val();
+            var uid = $("#rejected-user").val();
+            var eid = $("#id_scheduled_event").val();
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { eid: eid, uid: uid, msg: msg },
+                success: function (data) {
+                    if (data == "1") {
+                        $('#m2ost-event').modal('hide');
+
+                        $("#msg-txt").html("<p>Success , User Subscription request Rejected..</p>");
+                        $('#m2ost-dialog').modal('show');
+                        $("#linka_" + value).hide();
+                        $("#linkr_" + value).hide();
+                        $("#done_" + value).show();
+                        $("#reject-desc").val("");
+                        $("#rejected-user").val("");
+                        $("#uInfo").text("");
+                    } else if (data == "L") {
+                        $('#m2ost-event').modal('hide');
+                        $("#msg-txt").html("<p>Subscription Limit Is Full, Action cannot be Accepted..</p>");
+                        $('#m2ost-dialog').modal('show');
+                        location.reload();
+                    } else {
+                        $('#m2ost-event').modal('hide');
+                        $("#reject-desc").val("");
+                        $("#rejected-user").val("");
+                        $("#uInfo").text("");
+                    }
+                }
+            });
+        }
+    }
+
+
+</script>
+<style>
+    .col-md-12 strong {
+        width: 200px;
+        display: inline-block;
+    }
+</style>
+<div class="row clearfix">
+    <div class="modal fade" id="m2ost-event" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title" id="uInfo">  </h3>
+                </div>
+                <div class="modal-body" id="msg-txt">
+                    @using (Html.BeginForm("rejectUserSubscription", "Scheduling", FormMethod.Post, new { id = "form-subscription" }))
+                    {
+                        <input type="hidden" id="rejected-user" value="" />
+                        <textarea id="reject-desc" maxlength="1000" class="form-control validate[required]" placeholder="Event Description" rows="4"></textarea>
+                        <hr />
+                        <button type="button" onclick="rejectUserToEvent()" class="btn btn-default">Submit</button>
+                    }
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-12 column">
+        <div class="panel panel-default m2ost_info">
+            <div class="panel-heading m2ost_info_hat">
+                <span>Event - User Approval Dashboard </span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" id="id_scheduled_event" value="@sEvent.id_scheduled_event" />
+                        <div class="row">
+                            <div class="col-md-12" align="center">
+                                @if (fullFlag)
+                                {
+                                    <span style="font-family:'Century Gothic';font-weight:600;text-align:center;">
+                                        Open Event Subscription Limit of @sEvent.no_of_participants is Full .
+                                    </span>
+                                    <br />
+                                    <span style="font-family:'Century Gothic';font-weight:500;text-align:center;">
+                                        Cannot add Any more Users.
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                        <hr />
+
+                        <strong>Event Type   </strong>
+                        @if (sEvent.event_type == 1)
+                        {
+                            @("Open Event")
+                        }
+                        else if (sEvent.event_type == 2)
+                        {
+                            @("Closed Event")
+                        }
+                        <strong>
+                            @if (sEvent.event_group_type == 1)
+                            {
+                                @(" - Face To Face")
+                            }
+                            else if (sEvent.event_group_type == 2)
+                            {
+                                @(" - Online ")
+                            }
+                            else if (sEvent.event_group_type == 3)
+                            {
+                                @(" - M2OST")
+                            }
+                        </strong>
+                    </div>
+                </div>
+
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Event Title   </strong>@sEvent.event_title
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Registration Period   </strong>@(sEvent.registration_start_date.Value.ToString("dd-MM-yyyy HH:mm") + " To " + sEvent.registration_end_date.Value.ToString("dd-MM-yyyy HH:mm"))
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Scheduled Date   </strong>@(sEvent.event_start_datetime.Value.ToString("dd-MM-yyyy HH:mm") + " " + sEvent.event_duration)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Program Name   </strong>@sEvent.program_name
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Program Objective   </strong><b>@sEvent.program_objective</b>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Facilitator    </strong>@sEvent.facilitator_name
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Organization    </strong>@sEvent.facilitator_organization
+                    </div>
+                </div>
+                <hr />
+                @if (sEvent.event_type == 1)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Participant Limit    </strong>@sEvent.no_of_participants
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Participant Level  </strong>
+                            @(sEvent.participant_level)
+                        </div>
+                    </div>
+                }
+                <hr />
+                <div class="row">
+                    <div class="col-md-12" align="center">
+                        <span style="font-family:'Century Gothic';font-size:16px; font-weight:600;text-align:center;">
+                            Event Subcription Status List.
+                        </span>
+                        <br />
+                        @if (sEvent.event_type == 1)
+                        {
+                            if (fullFlag)
+                            {
+                                <span style="font-family:'Century Gothic'; font-weight:800;text-align:center;">
+                                    Open Event Subscription Limit of @sEvent.no_of_participants is Full .
+                                </span>
+                                <br />
+                                <span style="font-family:'Century Gothic';font-weight:500;text-align:center;">
+                                    Cannot add Any more Users.
+                                </span>
+                            }
+                            else
+                            {
+                                <span style="font-family:'Century Gothic';font-weight:600;text-align:center;">
+                                    Open Event Subscription count : <b>@(event_count + " / " + sEvent.no_of_participants)</b>
+                                </span>
+                                <br />
+                            }
+                        }
+                    </div>
+                </div>
+                <hr />
+                <div id="display_table">
+                    @Html.Raw(resTable)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

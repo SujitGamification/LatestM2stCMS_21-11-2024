@@ -1,0 +1,174 @@
+﻿@{
+    tbl_content content = null;
+    tbl_content_answer answer = null;
+    if (ViewData["content"] != null)
+    {
+        content = (tbl_content)ViewData["content"];
+    }
+    else
+    {
+        content = new tbl_content();
+    }
+    if (ViewData["answer"] != null)
+    {
+        answer = (tbl_content_answer)ViewData["answer"];
+    }
+    else
+    {
+        answer = new tbl_content_answer();
+    }
+
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="theme-1-header" class="form-group">
+            <input type="text" class="form-control validate[required]" value="@content.CONTENT_TITLE" placeholder="Content Title" id="t-title" name="t-title" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="theme-1-header" class="form-group">
+            <input type="text" class="form-control validate[required]" value="@content.CONTENT_HEADER" placeholder="Content Header" id="t-header" name="t-header" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <textarea class="form-control validate[required]" name="t-quetion" id="t-quetion" placeholder="Content Question" rows="6">@content.CONTENT_QUESTION</textarea>
+        </div>
+    </div>
+</div>
+<hr />
+
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="FirstName" class="control-label">Image 1:</label>
+                <div class="row">
+                    <div class="col-md-8" style="padding-right:1px;">
+                        <input type="text" class="form-control validate[required]" readonly value="@answer.CONTENT_ANSWER_IMG1" placeholder="Choose Image" id="t-ans-image-1" name="t-ans-image-1" />
+                    </div>
+                    <div class="col-md-4" style="padding-left:1px;">
+                        <div class="fileUpload btn btn-primary">
+                            <span>Browse </span>
+                            <input id="t-btn-1" name="t-btn-1" class="upload" type="file" accept="image/*" onchange="select_file('t-btn-1', 't-ans-image-1')" />
+                        </div>
+                    </div>
+                </div>
+                <textarea class="form-control validate[required]" placeholder="Enter Caption Text" name="t-content-1" id="t-content-1" rows="2">@answer.CONTENT_ANSWER1</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="FirstName" class="control-label">Image 2:</label>
+                <div class="row">
+                    <div class="col-md-8" style="padding-right:1px;">
+                        <input type="text" class="form-control validate[required]" readonly value="@answer.CONTENT_ANSWER_IMG2" placeholder="Choose Image" id="t-ans-image-2" name="t-ans-image-2" />
+                    </div>
+                    <div class="col-md-4" style="padding-left:1px;">
+                        <div class="fileUpload btn btn-primary">
+                            <span>Browse </span>
+                            <input id="t-btn-2" name="t-btn-2" class="upload" type="file" accept="image/*" onchange="select_file('t-btn-2', 't-ans-image-2')" />
+
+                        </div>
+                    </div>
+                </div>
+                <textarea class="form-control validate[required]" placeholder="Enter Caption Text" name="t-content-2" id="t-content-2" rows="2">@answer.CONTENT_ANSWER2</textarea>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="FirstName" class="control-label">Image 3:</label>
+                <div class="row">
+                    <div class="col-md-8" style="padding-right:1px;">
+                        <input type="text" class="form-control validate[required]" readonly value="@answer.CONTENT_ANSWER_IMG3" placeholder="Choose Image" id="t-ans-image-3" name="t-ans-image-3" />
+                    </div>
+                    <div class="col-md-4" style="padding-left:1px;">
+                        <div class="fileUpload btn btn-primary">
+                            <span>Browse </span>
+                            <input id="t-btn-3" name="t-btn-3" class="upload" type="file" accept="image/*" onchange="select_file('t-btn-3', 't-ans-image-3')" />
+                        </div>
+                    </div>
+                </div>
+                <textarea class="form-control validate[required]" placeholder="Enter Caption Text" name="t-content-3" id="t-content-3" rows="2">@answer.CONTENT_ANSWER3</textarea>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="FirstName" class="control-label">Image 4:</label>
+                <div class="row">
+                    <div class="col-md-8" style="padding-right:1px;">
+                        <input type="text" class="form-control validate[required]" readonly value="@answer.CONTENT_ANSWER_IMG4" placeholder="Choose Image" id="t-ans-image-4" name="t-ans-image-4" />
+                    </div>
+                    <div class="col-md-4" style="padding-left:1px;">
+                        <div class="fileUpload btn btn-primary">
+                            <span>Browse </span>
+                            <input id="t-btn-4" name="t-btn-4" class="upload" type="file" accept="image/*" onchange="select_file('t-btn-4', 't-ans-image-4')" />
+
+                        </div>
+                    </div>
+                </div>
+                <textarea class="form-control validate[required]" placeholder="Enter Caption Text" name="t-content-4" id="t-content-4" rows="2">@answer.CONTENT_ANSWER4</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="FirstName" class="control-label">Image 5:</label>
+                <div class="row">
+                    <div class="col-md-8" style="padding-right:1px;">
+                        <input type="text" class="form-control validate[required]" readonly value="@answer.CONTENT_ANSWER_IMG5" placeholder="Choose Image" id="t-ans-image-5" name="t-ans-image-5" />
+                    </div>
+                    <div class="col-md-4" style="padding-left:1px;">
+                        <div class="fileUpload btn btn-primary">
+                            <span>Browse </span>
+                            <input id="t-btn-5" name="t-btn-5" class="upload" type="file" accept="image/*" onchange="select_file('t-btn-5', 't-ans-image-5')" />
+
+                        </div>
+                    </div>
+                </div>
+                <textarea class="form-control validate[required]" placeholder="Enter Caption Text" name="t-content-5" id="t-content-5" rows="2">@answer.CONTENT_ANSWER5</textarea>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="FirstName" class="control-label">Image 6:</label>
+                <div class="row">
+                    <div class="col-md-8" style="padding-right:1px;">
+                        <input type="text" class="form-control validate[required]" readonly value="@answer.CONTENT_ANSWER_IMG6" placeholder="Choose Image" id="t-ans-image-6" name="t-ans-image-6" />
+                    </div>
+                    <div class="col-md-4" style="padding-left:1px;">
+                        <div class="fileUpload btn btn-primary">
+                            <span>Browse </span>
+                            <input id="t-btn-6" name="t-btn-6" class="upload" type="file" accept="image/*" onchange="select_file('t-btn-6', 't-ans-image-6')" />
+                        </div>
+                    </div>
+                </div>
+                <textarea class="form-control validate[required]" placeholder="Enter Caption Text" name="t-content-6" id="t-content-6" rows="2">@answer.CONTENT_ANSWER3</textarea>
+            </div>
+
+        </div>
+    </div>
+</div>

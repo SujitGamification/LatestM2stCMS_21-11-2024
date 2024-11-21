@@ -1,0 +1,447 @@
+﻿
+@{
+    ViewBag.Title = "contentCreationRichText";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+
+
+@*<link href="~/Content/dist/summernote.css" rel="stylesheet" />*@
+<link href="~/Content/RichText/dist/summernote.css" rel="stylesheet" />
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<!----------------------------------CSS/Script------------------------------------------>
+@*<script src="~/Content/dist/summernote.js"></script>*@
+<script src="~/Content/RichText/dist/summernote.js"></script>
+
+
+
+
+<link rel="stylesheet" href="~/Content/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<link rel="stylesheet" href="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+<script>
+    
+    $(document).ready(function () {
+        $('.summernote').summernote();
+    });
+
+</script>
+<script>
+    function InsertContent() {
+
+        var t_title = $("#t-title").val();
+
+        var t_header = $("#t-header").val();
+
+        var t_question = $("#t-quetion").val();
+
+        var select_level = $("#select-level").val();
+
+        var select_category = $("#select-category").val();
+
+        var content_expiry = $("#datetimepicker2").val();
+
+        var t_metadata = $("#t-metadata").val();
+        var hid_category = $("#hid-category").val();
+
+        var content_answer = $('.summernote').summernote('code');
+
+        var cats = "0";
+        for (i = 1; i <= hid_category; i++) {
+            var ic = $("#add-con-category-" + i).val();
+            if (ic) {
+                cats = cats + '|' + ic;
+            }
+        }
+        var valid = $("#form-add-content").validationEngine('validate');
+        if (valid) {
+
+            var url = '@Url.Action("createRichTextContent", "contentDashboard")';
+
+            var idata = {
+                t_title: t_title,
+                t_header: t_header,
+                t_question: t_question,
+                select_level: select_level,
+                select_category: select_category,
+                content_expiry: content_expiry,
+                t_metadata: t_metadata,
+                content_answer: content_answer,
+                category_list: cats
+            };
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: idata,
+
+                success: function (msg) {
+
+                }
+            });
+
+            location.reload();
+        }
+    }
+
+
+    $(function () {
+        $(".fancybox").fancybox();
+
+        $("#form-add-content").validationEngine();
+        //changetheme(0);
+        $("#datetimepicker2").datepicker(
+       { dateFormat: "dd-mm-yy", minDate: new Date() });
+        $("#preview-anchor").hover(function () {
+            $(this).click();
+        });
+
+    });
+
+
+    function add_category() {
+        var cid = $("#select-category").val();
+        var cText = $("#select-category option:selected").text();
+        if (cText.length > 20) cText = cText.substring(0, 20) + '..';
+
+        cText = cText + " ";
+        var i = $("#hid-category").val();
+        i++;
+        $("#hid-category").val(i);
+        var item = '<div class="data-tab col-md-2" id="div-dyn-category-' + cid + '" style="background-color: #23c6c8;"><span class="tag label label-info"><span>' + cText + '</span><input type="hidden" value="' + cid + '" id="add-con-category-' + i + '" name="add-con-category-' + i + '" /><a class="pull-right" onclick="delete_content_category(' + cid + ')"><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a></span></div>';
+        $("#div_category").append(item);
+        $("#hid-category").val(i);
+    }
+    function delete_content_category(i) {
+        $("#div-dyn-category-" + i + "").remove();
+    }
+    function dynam_step_add(val) {
+
+        var option = "";
+        var step = $("#step-count").val();
+
+        step++;
+        option = '<div class="row"><div class="col-md-12"> <div class="form-group"><div class="col-md-7"><h4 style="color:#000000;"><lable class="control-label">Answer Step No : ' + step + '</lable></h4></div><div class="col-md-4"><select id="select-theme-step-' + step + '" name="select-theme-step-' + step + '" class="form-control" onchange="changethemestep(this.value,' + step + ')"><option value="8">THEME 1</option><option value="9">THEME 2</option><option value="10">THEME 3</option><option value="11">THEME 4</option><option value="12">THEME 5</option><option value="13">THEME 6</option><option value="14">THEME 7</option><option value="15">THEME 8</option><option value="16">THEME 9</option><option value="17">THEME 10</option><option value="18">THEME 11</option><option value="19">THEME 12</option>';
+        option = option + '<option value="20">THEME 13</option>';
+        option = option + '<option value="21">THEME 14</option>';
+        option = option + '<option value="22">THEME 15</option>';
+        option = option + '<option value="23">THEME 16</option>';
+        option = option + '<option value="24">THEME 17</option>';
+        option = option + '<option value="25">THEME 18</option>';
+        option = option + '<option value="26">THEME 19</option>';//theme for youtube url and text
+        option = option + '<option value="27">RICH TEXT</option>';//theme for RichText
+
+        option = option + '</select> </div></div></div></div><div id="content-step-' + step + '"></div>';
+        $("#step-count").val(step);
+        $("#div-dynam-step").append(option);
+        changethemestep(8, step);
+    }
+    function changethemestep(val, id) {
+        var act = "themestep" + val + "";
+        var cntrl = "ContentView";
+        var count = $("#step-count").val();
+        var link = '@Url.Action("action", "control",new {id="-id",vid="0"})';
+        link = link.replace("action", act);
+        link = link.replace("control", cntrl);
+        link = link.replace("-id", id);
+        $.get(link, null, function (data) {
+            $("#content-step-" + id).empty().append(data);
+        });
+
+    }
+</script>
+
+
+@*<link href="~/Content/dist/summernote.css" rel="stylesheet" />*@
+<link href="~/Content/RichText/dist/summernote.css" rel="stylesheet" />
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<!----------------------------------CSS/Script------------------------------------------>
+@*<script src="~/Content/dist/summernote.js"></script>*@
+<script src="~/Content/RichText/dist/summernote.js"></script>
+
+
+
+
+
+
+<style>
+    #div_category {
+        margin: 3px 1px;
+    }
+
+    .data-tab {
+        padding: 2px 1px;
+        margin: 2px 1px;
+    }
+
+    .tag {
+        width: 100%;
+    }
+</style>
+@{
+    tbl_content parentContent = (tbl_content)ViewData["parent-content"];
+    List<tbl_category> category = (List<tbl_category>)ViewData["parent-category"];
+    int j = 0;
+    List<tbl_csst_role> roles = (List<tbl_csst_role>)ViewData["select-cscc-role"];
+}
+
+
+@using (Html.BeginForm("createRichTextContent", "contentDashboard", FormMethod.Post, new { id = "form-add-content", enctype = "multipart/form-data" }))
+{
+    <input type="hidden" value="0" name="link-parent" />
+    @*<input type="hidden" value="" name="content_answer" id="content_answer" />*@
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default custom-panel">
+            <div class="panel-heading custom-panel-heading">
+                <div class="panel-title">Add New Content </div>
+            </div>
+            <div class="panel-body custom-panel-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <input type="hidden" value="0" name="select-link-type" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label class="control-label">Category</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select id="select-category" name="select-category" class="form-control">
+                                            @foreach (var pro in (List<tbl_category>)ViewData["select-category"])
+                                            {
+                                                <option value="@pro.ID_CATEGORY">@pro.CATEGORYNAME</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input class="btn btn-default btn-primary" type="button" id="btn_categort" value="Add Category" onclick="add_category()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                    
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                    <div class="form-group" id="div_category">
+                                        @if (category != null)
+                                        {
+                                            foreach (tbl_category item in category)
+                                            {
+                                                j++;
+                                                <div class="data-tab col-md-2 form-control" id="div-dyn-category-@item.ID_CATEGORY" style="background-color: #23c6c8;"><span class="tag label label-info"><span>@item.CATEGORYNAME</span><input type="hidden" value="@item.ID_CATEGORY" id="add-con-category-@j" name="add-con-category-@j" /><a class="pull-right" onclick="delete_content_category('@item.ID_CATEGORY')"><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a></span></div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" value="@j" id="hid-category" name="hid-category" />
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label class="control-label">Theme</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        &nbsp;Rich Text Theme
+                                    </div>
+                                    <div class="col-md-3">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label class="control-label">Content Level</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select id="select-level" name="select-level" class="form-control">
+                                            @foreach (tbl_content_level level in (List<tbl_content_level>)ViewData["select-level"])
+                                            {
+                                                <option value="@level.ID_CONTENT_LEVEL">@level.LEVELNAME</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-3"><label class="control-label">Expiry Date</label></div>
+                                    <div class="col-md-6">
+                                        <div class='input-group date'>
+                                            <input type='text' class="form-control validate[required]" id='datetimepicker2' name="content-expiry" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="fancybox" id="preview-anchor" href="#" title="Theme Preview" style="width:164px;height:196px;">
+                            <center>
+                                <img id="preview-div" src="~/Content/images/thumbnail.png" alt="" style="min-width:164px;min-height:196px;" /><hr />
+                            </center>
+                            <center><label>Preview</label></center>
+                        </a>
+                    </div>
+                </div>
+
+                @if (Convert.ToInt32(ViewData["LINKTYPE"]) > 0)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="control-label">Parent Content : @parentContent.CONTENT_QUESTION</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }              
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4" id="loading-gif" style="display:none;">
+                                <img src="~/Content/images/loading.gif" />
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="div-theme-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="theme-1-header" class="form-group">
+                                        <input type="text" class="form-control validate[required]" value="" placeholder="Content Title" id="t-title" name="t-title" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="theme-1-header" class="form-group">
+                                        <input type="text" class="form-control validate[required]" value="" placeholder="Content Header" id="t-header" name="t-header" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Content Question
+                                    <div class="form-group">
+                                        <textarea class="form-control validate[required]" name="t-quetion" id="t-quetion" placeholder="Content Question" rows="6"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <hr />
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Content Answer
+                                    <div class="form-group">
+
+                                        <textarea class="summernote form-control validate[required]" name="content_rt">                                         
+
+                                        </textarea>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+
+                    </div>
+                </div>
+                <hr />
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="div-dynam-step">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-10">
+
+                            </div>
+                            <div class="col-md-1">
+                                <input type="hidden" value="0" id="step-count" name="step-count" />
+                                    <input id="t-1-btn-steps" type="button" class="btn btn-default btn-info" value="Add More Steps" onclick="dynam_step_add()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div id="theme-1-meta">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @*<input type="text" class="form-control validate[required]" value="" placeholder="Enter Metadata Comma Separated...." id="t-metadata" name="t-metadata" />*@
+								  <input type="text" class="form-control" value="" placeholder="Enter Metadata Comma Separated...." id="t-metadata" name="t-metadata" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+
+
+
+                            <div class="col-md-3">
+                                @*@if (Convert.ToInt32(ViewData["LINKTYPE"]) > 0)
+                                    {
+                                        <input id="btn_question1" type="submit" class="btn btn-default btn-info" name="btn_submit" value="Save and Add Lead-out to Parent" />
+                                    }*@
+                            </div>
+                            <div class="col-md-4">
+                                @*<input id="btn_question1" type="submit" class="btn btn-default btn-info" name="btn_submit" value="Save and Add Lead-out Current Question" />*@
+                            </div>
+                            <div class="col-md-2">
+
+                                @*<input id="submitrich" type="button" class="btn btn-default btn-info" name="submitrich" value="Save and Exit" onclick="InsertContent()" />*@
+                                <input id="submitrich" type="submit" class="btn btn-default btn-info" name="submitrich" value="Save and Exit" onclick="InsertContent()" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
+
+
+

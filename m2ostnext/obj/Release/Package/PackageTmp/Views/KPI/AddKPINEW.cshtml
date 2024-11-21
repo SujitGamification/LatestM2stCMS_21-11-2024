@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "KPI";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default m2ost_info">
+            <div class="panel-heading m2ost_info_hat">
+                <span>KPI - Add New KPI </span>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("kpi_add_new", "KPI", FormMethod.Post, new { id = "form-add-kpi" }))
+                {
+                    <div class="form-horizontal">
+
+                       <div class="form-group">
+                           <div class="col-md-3"><label class="control-label">Select KPI Name</label></div>
+                           <div class="col-md-5">
+                               <select id="KPI-mode" name="kpi-name" class="form-control">
+                                   <option value="0">Select KPI Name</option>
+                                   <option value="Mastery Score">Mastery Score</option>
+                                   <option value="Right Answers">Right Answers</option>
+                                   <option value="On Time Completion">On Time Completion</option>
+                               </select>
+                           </div>
+                       </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">KPI Description</label></div>
+                            <div class="col-md-9">
+                                <textarea name="kpi-desc" class="form-control validate[required]" placeholder="KPI Description" rows="3"></textarea>
+                            </div>
+                         </div>
+
+                 <div class="form-group">
+                     <div class="col-md-3"><label class="control-label">Select KPI Type</label></div>
+                     <div class="col-md-5">
+                         <select id="KPI-mode" name="kpi-type" class="form-control">
+                             <option value="0"> Select KPI</option>
+                             <option value="2">Content KPI</option>
+                             <option value="1">Assessment KPI</option>
+                         </select>
+                     </div>
+                 </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Select KPI Sub Type</label></div>
+                            <div class="col-md-5">
+                                <select id="KPI-mode" name="kpi-Subtype" class="form-control">
+                                    <option value="0">Select KPI Sub Type</option>
+                                    <option value="1">Mastery Score</option>
+                                    <option value="2">Right Answer</option>
+                                    <option value="4">Ontime Completion</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <hr />
+                        </div>
+
+                 
+
+
+
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-9 col-md-2">
+                                <input type="submit" value="Save" name="btn_submit" class="btn btn-default btn-lg" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                }
+
+                <div class="col-md-12">
+                    <hr />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

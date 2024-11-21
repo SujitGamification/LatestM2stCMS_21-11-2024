@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Content Detail";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+
+</script>
+
+@{
+    List<m2ostnext.Models.CMSUser> cmsList = (List<m2ostnext.Models.CMSUser>)ViewData["cms"];
+    m2ostnext.Models.UserSession Sessions = (m2ostnext.Models.UserSession)HttpContext.Current.Session["UserSession"];
+    bool access = false;
+    List<tbl_organization> orglist = (List<tbl_organization>)ViewData["orglist"];
+    foreach (tbl_cms_role_action_mapping item in Sessions.action)
+    {
+        if (item.id_cms_role_action == 3)
+        {
+            access = true;
+        }
+    }
+}
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">CMS User List</h6>
+            </div>
+            <div class="panel-body">
+                <a href="@Url.Action("cms_user_create", "Administrator")" class="btn btn-default btn-info pull-right">create user</a>
+                <hr />
+                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="40%">User Name</th>
+                            <th width="20%">Organization</th>
+                            <th width="35%">Role</th>
+                            @if (access)
+                            {
+                                <th width="5%">Edit</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (m2ostnext.Models.CMSUser item in cmsList)
+                        {
+                            <tr>
+                                <td>@item.user.USERNAME</td>
+                                <td>
+                                    @foreach (tbl_organization iAct in orglist)
+                                    {
+                                        if (item.role.ID_ORGANIZATION == iAct.ID_ORGANIZATION)
+                                        {
+                                            @(iAct.ORGANIZATION_NAME)
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    @item.role.ROLENAME
+                                </td>
+                                @if (access)
+                                {
+                                    <td><a href="@Url.Action("cms_user_edit", "Administrator", new { id = item.user.ID_USER })"><i class="glyphicon glyphicon-edit"></i></a></td>
+                                }
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

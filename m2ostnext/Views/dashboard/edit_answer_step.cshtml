@@ -1,0 +1,119 @@
+﻿@model m2ostcms.Models.answerSteps
+@{
+    ViewBag.Title = "Edit Action Steps";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+
+<script>
+    $(function () {
+        $("#form_edit_answer_steps").validationEngine();
+    });
+
+
+
+    function add_additional_steps() {
+        var id = $("#NO_STEP").val();
+        id++;
+        var row = "";
+
+
+
+        row += "<div class='row'><div class='col-md-12'><div class='form-group'><label class='control-label col-md-2 regLabel'>Step " + id + " :</label><div class='col-md-10'>";
+        row += "<input type='hidden' name='ID_ANSWER_STEP_" + id + " value='0' /><textarea rows='4' class='form-control validate[required]' placeholder='Step' id='ANSWER_STEP_" + id + "' name='ANSWER_STEP_" + id + "'></textarea></div></div></div></div>";
+
+        $("#additional_step").append(row);
+        $("#NO_STEP").val(id);
+    }
+
+</script>
+<div id="pagecontent_dashboard" class="container">
+    <div class="row clearfix">
+        <div class="col-md-4"><a href="@Url.Action("display_content", "dashboard")" class="btn btn-default" style="width:100%;">Content</a>&nbsp;</div>
+        <div class="col-md-4"><a href="@Url.Action("display_content_answer", "dashboard")" class="btn btn-default" style="width:100%;">Answer</a>&nbsp;</div>
+        <div class="col-md-4"><a href="@Url.Action("display_content_metadata", "dashboard")" class="btn btn-default" style="width:100%;">Metadata</a>&nbsp;</div>
+    </div>
+    <div class="row clearfix">
+
+        <div id="cms_content_body" class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">Edit Answer Step  </div>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("edit_cms_answer_steps", "dashboard", FormMethod.Post, new { id = "form_edit_answer_steps" }))
+                    {
+                        <input type="hidden" id="ID_CONTENT_ANSWER" name="ID_CONTENT_ANSWER" value="@Model.Answer.ID_CONTENT_ANSWER" />
+
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Answer" class="control-label col-md-2 regLabel">Answer :</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control validate[required]" value="@Model.Answer.CONTENT_ANSWER1" readonly placeholder="Answer" id="CONTENT_QUESTION" name="CONTENT_QUESTION" style="text-overflow:ellipsis;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @{var i = 0;}
+                            @if (Model.STEPS != null)
+                            {
+                                foreach (var item in Model.STEPS)
+                                {
+                                    i++;
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="Answer" class="control-label col-md-2 regLabel">Step @i :</label>
+                                                <div class="col-md-10">
+                                                    <input type="hidden" name="ID_ANSWER_STEP_@i" value="@item.ID_ANSWER_STEP" />
+                                                    <textarea rows="4" class="form-control validate[required]" placeholder="Step" id="ANSWER_STEP_@i" name="ANSWER_STEP_@i">@item.ANSWER_STEPS</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="col-md-10 col-lg-offset-2">   <strong>There Are no Action for this Answer</strong></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            }
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="hidden" id="NO_STEP" name="NO_STEP" value="@i" />
+                                    <div class="pull-right">
+                                        <input type="button" value="ADD ACTION STEPS" class="btn btn-default btn-info" onclick="add_additional_steps()" />
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-horizontal" id="additional_step">
+
+                            </div>
+                            <hr />
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <a href="@Url.Action("display_content_answer", "dashboard")" class="btn btn-default">Cancel</a>&nbsp;
+                                    <input type="submit" value="Update" class="btn btn-default" />
+
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,134 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_cms_layout_home.cshtml";
+}
+<script>
+    $(function () {
+        $("#form_login").validationEngine();
+        $("#error_alert").hide();
+        $("#exp_alert").hide();
+
+    });
+
+
+    function form_login_submit() {
+        var valid = $("#form_login").validationEngine('validate');
+        if (valid) {
+            var uname = $("#UserID").val();
+            var password = $("#Password").val();
+            // $('#aLink').click();
+            var form_data = $("#form_login").serialize();
+            var url = '@Url.Action("loginPost", "Login")';
+            $.post(url, form_data, function (data, sts) {
+                //  $.fancybox.close();
+                if (data.isRedirect) {
+                    $.cookie("username", uname);
+                    $.cookie("password", password);
+                    window.location.href = data.redirectUrl;
+                } else if (data == "FALSE") {
+                    $("#error_alert").show();
+                    $('#form_login')[0].reset();
+                    setTimeout(function () {
+                        $("#error_alert").hide();
+                    }, 2000);
+                }
+                else if (data == "EXP")
+                {
+                    $("#exp_alert").show();
+                    $('#form_login')[0].reset();
+                    setTimeout(function () {
+                        $("#exp_alert").hide();
+                    }, 5000);
+
+                }
+
+            });
+        }
+    }
+
+    debugger;
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Get the value of a specific parameter
+    const param1Value = urlParams.get('param1'); // This will return "value1"
+    const param2Value = urlParams.get('param2');
+
+</script>
+<style>
+    
+.Absolute-Center {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.Absolute-Center.is-Responsive {
+  width: 50%; 
+  height: 50%;
+  min-width: 200px;
+  max-width: 400px;
+  padding: 40px;
+}
+</style>
+<div id="pagecontent_dashboard" class="container">
+    <div class="row">
+        <div class="Absolute-Center is-Responsive">
+
+            @*<div class="form_first well">*@
+                <div id="error_alert">
+                    <div class="alert alert-block alert-danger">
+
+                        <p>
+                            <strong>
+                                m2ost - Authentication Required :
+                                &nbsp;&nbsp;Invalid UserId & Password
+                            </strong>
+                        </p>
+
+                    </div>
+                </div>
+               <div id="exp_alert">
+                <div class="alert alert-block alert-danger">
+
+                    <p>
+                        <strong>
+                            m2ost - Your Trial Expired :
+                            &nbsp;&nbsp;Please renew to continue service.
+                        </strong>
+                    </p>
+
+                </div>
+            </div>
+            
+                <form id="form_login" class="well" method="post" action="@Url.Action("loginPost", "Login")">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img src="~/Content/images/bcscc.png" alt="" style="align-content:center;" />
+                    <hr />
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" class="form-control validate[required]" value="" placeholder="User ID" id="UserID" name="UI" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="password" class="form-control validate[required]" value="" placeholder="Password" id="Password" name="PD" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-block btn-info  btn-long-center" value="Login" onclick="form_login_submit()" />
+                        </div>
+                    </div>
+
+
+
+                </form>
+            @*</div>*@
+        </div>
+    </div>
+</div>
+
+
+

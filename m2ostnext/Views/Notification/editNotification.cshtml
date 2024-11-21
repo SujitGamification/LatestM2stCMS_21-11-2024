@@ -1,0 +1,620 @@
+﻿@{
+    ViewBag.Title = "Notification";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+
+        $("#form-add-notification").validationEngine();
+
+        $("#datetimepicker1").datepicker(
+            { dateFormat: "dd-mm-yy" }
+        );
+        $("#datetimepicker2").datepicker(
+            { dateFormat: "dd-mm-yy" }
+        );
+        $("#datetimepicker3").datepicker(
+            { dateFormat: "dd-mm-yy" }
+        );
+
+    });
+
+    function funReminder(ids) {
+
+        if (ids == 1) {
+            $("#reminder-note-div").show();
+        } else {
+            $("#reminder-note-div").hide();
+        }
+    }
+    function changeRemType2(val) {
+        var tHour = $("#select-YH").val();
+        var tMin = $("#select-YM").val();
+        if (val == 1) {
+            $("#select-YM").val("0");
+        }
+        if (val == 2) {
+            $("#select-YH").val("0");
+
+        }
+    }
+
+     function get_cont(val)
+    {
+        alert(val)
+        if (val == 5)
+
+        {
+            var url1='@Url.Action("getCategories", "cms_category")';
+            $.ajax({
+                type: 'POST',
+                url: url1,
+               
+
+                success: function (data1) {
+
+                    alert(data1)
+                    $("#load_cat_div").show();
+                    $("#load_cat").append(data1);
+                    $("#load_Program").hide();
+                    $("#load_assessment").hide();
+
+                    
+                }
+            });
+
+        }
+        else if (val == 6)
+
+        {
+            var url2 = '@Url.Action("getPrograms", "contentDashboard")';
+            $.ajax({
+                type: 'POST',
+                url: url2,
+               
+
+                success: function (data2) {
+                    alert(data2)
+                    $("#load_Program").show();
+                    $("#load_Program_stuff").append(data2);
+                    $("#load_cat_div").hide();
+                    $("#load_assessment").hide();
+                    $("#load_ques").hide();
+                }
+            });
+
+
+        }
+        else if (val == 7)
+
+        {
+            @*var url3 = '@Url.Action("getAssessments", "Assessment")';*@
+             var url3 = '@Url.Action("getCategories", "cms_category")';
+            $.ajax({
+                type: 'POST',
+                url: url3,
+               
+
+                success: function (data3) {
+                    alert(data3)
+                    //$("#load_assessment").show();
+                    //$("#load_assessment_stuff").append(data3);
+                    //$("#load_cat_div").hide();
+                    //$("#load_Program").hide();
+                    //$("#load_ques").hide();
+                    $("#load_cat_div").show();
+                    $("#load_cat").append(data3);
+                    $("#load_Program").hide();
+                    $("#load_assessment").hide();
+                }
+            });
+
+
+
+        }
+    }
+    function get_cont_ty(val)
+    {
+        if (val == 1) {
+            $("#gen_in").hide();
+            $("#load_cat_div").hide();
+            $("#load_cat_div").show();
+
+        }
+        else {
+            $("#gen_in").show();
+
+        }
+    }
+    function get_content(val)
+    {
+        alert(val)
+        var tp = $("#gen_notification_type").val();
+        alert(tp)
+        var cid = val;
+        if (tp == 5) {
+            var url3 = '@Url.Action("getContent", "Notification")';
+            $.ajax({
+                type: 'POST',
+                url: url3,
+                data: { val: val },
+                success: function (data3) {
+                    alert(data3)
+                    $("#load_ques").show();
+                    $("#load_ques_con").append(data3);
+
+
+                }
+            });
+        }
+        else
+
+        {
+           var url4 = '@Url.Action("getAssessments", "Assessment")';
+            $.ajax({
+                type: 'POST',
+                url: url4,
+                data: { cat: val },
+                success: function (data4) {
+                    alert(data4)
+                    $("#load_assessment").show();
+                    $("#load_assessment_stuff").append(data4);
+                    //$("#load_cat_div").hide();
+                    //$("#load_Program").hide();
+                    //$("#load_ques").hide();
+
+                }
+            });
+        }
+
+    }
+</script>
+
+@{
+    List<tbl_category> cat = null;
+    List<tbl_content> con = null;
+    List<tbl_assessment> ass = null;
+
+    m2ostnext.Models.tbl_notification_pre_config pre = null;
+    tbl_notification notification = (tbl_notification)ViewData["notification"];
+    List<tbl_notification> notificationList = (List<tbl_notification>)ViewData["notificationList"];
+    int id_reminder = (int)ViewData["reminder"];
+    tbl_reminder_notification_config remNote = (tbl_reminder_notification_config)ViewData["reminderData"];
+    if (notification.notification_type == 5 || notification.notification_type == 7)
+    {
+        pre = (m2ostnext.Models.tbl_notification_pre_config)ViewData["pre"];
+        cat = (List<tbl_category>)ViewData["cat"];
+        if (notification.notification_type == 5)
+        {
+            con = (List<tbl_content>)ViewData["con"];
+        }
+        if (notification.notification_type == 7)
+        {
+            ass = (List<tbl_assessment>)ViewData["ass"];
+        }
+    }
+}
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Edit Notification</h4>
+            </div>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("edit_notification", "Notification", FormMethod.Post, new { id = "form-add-notification" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" name="id_notification" value="@notification.id_notification" />
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Notification Type</label></div>
+                            <div class="col-md-9">
+                                <h4>
+                                    @if (notification.notification_type == 1)
+                                    {@(" Generic Notification")}
+                                    @if (notification.notification_type == 2)
+                                    {@(" Event Based Notification")}
+                                    @if (notification.notification_type == 3)
+                                    {@(" Content Specific Notification")}
+                                    @if (notification.notification_type == 4)
+                                    {@(" Content Reminder Notification")}
+                                    @if (notification.notification_type == 5)
+                                    {@("Generic Content Notification")}
+                                    @if (notification.notification_type == 7)
+                                    {@("Generic Assessmnet Notification")}
+
+
+                                </h4>
+                                <input type="hidden" name="notification-type" value="@notification.notification_type" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Notification Title</label></div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control validate[required]" value="@notification.notification_name" placeholder="" id="notification-title" name="notification-title" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Notification Description</label></div>
+                            <div class="col-md-9">
+                                <textarea name="notification-desc" class="form-control validate[required]" placeholder="Notification Description" rows="3">@notification.notification_description</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Notification Message</label></div>
+                            <div class="col-md-9">
+                                <textarea name="notification-message" class="form-control validate[required]" placeholder="Notification Text/Message" rows="4">@notification.notification_message</textarea>
+                            </div>
+                        </div>
+                        @if (notification.notification_type != 4)
+                        {
+                            <div id="reminder-div">
+                                <div class="form-group">
+                                    <div class="col-md-3"><label class="control-label">Reminder Required </label></div>
+                                    <div class="col-md-5">
+                                        <select id="reminder-flag" name="reminder-flag" class="form-control " onchange="funReminder(this.value)">
+                                            <option @if (notification.reminder_flag == 1) { @(" selected") } value="1">Yes</option>
+                                            <option @if (notification.reminder_flag == 2) { @(" selected") } value="2">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <!---->
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Notification Created</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker1' name="notification-created" value="@notification.created_date.Value.ToString("dd-MM-yyyy")" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Notification Start Date</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker2' name="notification-started" value="@notification.start_date.Value.ToString("dd-MM-yyyy")" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Notification End Date</label></div>
+
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker3' name="notification-ended" value="@notification.end_date.Value.ToString("dd-MM-yyyy")" />
+
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Status Type</label></div>
+                            <div class="col-md-5">
+                                <select id="availablity-div" name="availablity-div" class="form-control">
+                                    <option @if (notification.status == "A") { @(" selected") } value="1">Available </option>
+                                    <option @if (notification.status == "N") { @(" selected") } value="2">Not Available</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr />
+                        @if (notification.notification_type != 4)
+                        {
+                            string sAdd = "";
+                            if (notification.reminder_flag == 2)
+                            {
+                                sAdd = "display:none;";
+                            }
+                            <div class="form-group" id="reminder-note-div" style="@sAdd">
+                                <div class="col-md-3"><label class="control-label">Select Reminder Notification </label></div>
+                                <div class="col-md-5">
+                                    <select id="reminder-notification" name="reminder-notification" class="form-control validate[required]">
+                                        @foreach (tbl_notification item in notificationList)
+                                        {
+                                            if (item.id_notification == id_reminder)
+                                            {
+                                                <option selected value="@item.id_notification">@item.notification_name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.id_notification">@item.notification_name</option>
+                                            }
+
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                        }
+                        @if (notification.notification_type == 4)
+                        {
+                            <div id="create-reminder-div">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row" style="padding-bottom:5px;">
+                                            <div class="col-md-3">
+                                                <label class="control-label">
+                                                    Select Reminder Setup
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="radio" @if (remNote.reminder_type == 1) { @(" checked") } name="setup-type" value="1" onchange="radio_reminder()" />Defalut
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="radio" @if (remNote.reminder_type == 2) { @(" checked") } name="setup-type" value="2" onchange="radio_reminder()" /> Custom
+                                            </div>
+                                        </div>
+                                        @{
+                                            string defRem = "", cusRem = "";
+                                        }
+
+                                        @if (remNote.reminder_type == 2)
+                                        {
+                                            defRem = "display:none";
+                                        }
+                                        else
+                                        {
+                                            cusRem = "display:none";
+                                        }
+
+                                        <div id="default-rem-setup" style="@(defRem+";")">
+                                            <div class="m2ost_info" align="center">
+                                                <div class="m2ost_info_hat">
+                                                    <p>
+                                                        <span>Default Setup</span>
+                                                    </p>
+                                                </div>
+                                                <br />
+                                                <span>
+                                                    Reminder 1 : 48 hours before expiry (of the content to which it is attached)
+                                                </span>
+                                                <br /><span>
+                                                    Reminder 2 : 24 hours before expiry (of the content to which it is attached)
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div id="custom-rem-setup" style="@(cusRem + ";")">
+                                            <div class="m2ost_info" align="center">
+                                                <div class="m2ost_info_hat">
+                                                    <p>
+                                                        <span>Custom Setup</span>
+                                                    </p>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="col-md-offset-3 col-md-1">
+                                                        <label for="favoritefood">in Hour</label>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <label for="favoritefood">in Minute</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-offset-3 col-md-1">
+                                                        <select id="select-DH" name="select-DH" class="form-control">
+                                                            <option @if (remNote.DH == 2) { @(" selected") } value="2">2 </option>
+                                                            <option @if (remNote.DH == 3) { @(" selected") } value="3">3 </option>
+                                                            <option @if (remNote.DH == 4) { @(" selected") } value="4">4 </option>
+                                                            <option @if (remNote.DH == 5) { @(" selected") } value="5">5 </option>
+                                                            <option @if (remNote.DH == 6) { @(" selected") } value="6">6 </option>
+                                                            <option @if (remNote.DH == 7) { @(" selected") } value="7">7 </option>
+                                                            <option @if (remNote.DH == 8) { @(" selected") } value="8">8 </option>
+                                                            <option @if (remNote.DH == 9) { @(" selected") } value="9">9 </option>
+                                                            <option @if (remNote.DH == 10) { @(" selected") } value="10">10 </option>
+                                                            <option @if (remNote.DH == 11) { @(" selected") } value="11">11 </option>
+                                                            <option @if (remNote.DH == 12) { @(" selected") } value="12">12 </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-1"></div>
+                                                    <div class="col-md-6" style="text-align:left;height:35px;">in Hrs interval Every Day , till 24 hour before Expiry</div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-offset-3 col-md-1">
+                                                        <select id="select-YH" name="select-YH" class="form-control" onchange="changeRemType2(1)">
+                                                            <option @if (remNote.YH == 0) { @(" selected") } value="0">0 </option>
+                                                            <option @if (remNote.YH == 1) { @(" selected") } value="1">1 </option>
+                                                            <option @if (remNote.YH == 2) { @(" selected") } value="2">2 </option>
+                                                            <option @if (remNote.YH == 3) { @(" selected") } value="3">3 </option>
+                                                            <option @if (remNote.YH == 4) { @(" selected") } value="4">4 </option>
+                                                            <option @if (remNote.YH == 5) { @(" selected") } value="5">5 </option>
+                                                            <option @if (remNote.YH == 6) { @(" selected") } value="6">6 </option>
+                                                            <option @if (remNote.YH == 7) { @(" selected") } value="7">7 </option>
+                                                            <option @if (remNote.YH == 8) { @(" selected") } value="8">8 </option>
+                                                            <option @if (remNote.YH == 9) { @(" selected") } value="9">9 </option>
+                                                            <option @if (remNote.YH == 10) { @(" selected") } value="10">10 </option>
+                                                            <option @if (remNote.YH == 11) { @(" selected") } value="11">11 </option>
+                                                            <option @if (remNote.YH == 12) { @(" selected") } value="12">12 </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <select id="select-YM" name="select-YM" class="form-control" onchange="changeRemType2(2)">
+                                                            <option @if (remNote.YM == 0) { @(" selected") } value="0">0 </option>
+                                                            <option @if (remNote.YM == 10) { @(" selected") } value="10">10 </option>
+                                                            <option @if (remNote.YM == 15) { @(" selected") } value="15">15 </option>
+                                                            <option @if (remNote.YM == 20) { @(" selected") } value="20">20 </option>
+
+                                                            <option @if (remNote.YM == 30) { @(" selected") } value="30">30 </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6" style="text-align:left">in Hours or in Minute interval in the day of Expiry</div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-offset-3 col-md-1">
+
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <select id="select-TM" name="select-TM" class="form-control">
+                                                            <option @if (remNote.TM == 10) { @(" selected") } value="10">10 </option>
+                                                            <option @if (remNote.TM == 15) { @(" selected") } value="15">15 </option>
+                                                            <option @if (remNote.TM == 20) { @(" selected") } value="20">20 </option>
+                                                            <option @if (remNote.TM == 30) { @(" selected") } value="30">30 </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6" style="text-align:left">in Min interval 1 Hour befory Expiry</div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="reminder-body">
+                                    @*<div class="form-group">
+                                            <div class="col-md-3"><label class="control-label">Reminder Frequency</label></div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control validate[required,custom[integer]]" value="" placeholder="" id="reminder-frequency" name="reminder-frequency" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3"><label class="control-label">Reminder Time Gap in Hours</label></div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control validate[required,custom[integer]]" value="" placeholder="" id="reminder-timegap" name="reminder-timegap" />
+                                            </div>
+                                        </div>*@
+                                </div>
+                            </div>
+                        }
+                        <hr />
+
+                        @if (notification.notification_type == 5 || notification.notification_type == 7 || notification.notification_type == 1)
+                        {
+                            <div class="form-group" id="gen_in_rad" style="">
+                                <div class="col-md-3"><label class="control-label">Generic Notification Type</label></div>
+                                <div class="col-md-5"> @if (notification.notification_type == 1){<p>General</p>}else{<p>General with content</p>}
+                                    @*<select id="gen_notification_ty" name="gen_notification_ty" class="form-control " onchange="get_cont_ty(this.value)">
+                                        @if (notification.notification_type == 1)
+                                        {
+                                            <option value="">Select</option>
+                                            <option selected value="1">General</option>
+                                            <option value="2">Add Stuff</option>
+
+
+
+
+                                        }
+
+                                        else
+                                        {
+                                            <option value="">Select</option>
+                                            <option value="1">General</option>
+                                            <option selected value="2">Add Stuff</option>
+                                        }
+                                    </select>*@
+                                </div>
+                            </div>
+                            if (notification.notification_type == 5 || notification.notification_type == 7)
+                            {
+                                <div class="form-group" id="gen_in" style="">
+                                    <div class="col-md-3"><label class="control-label">Content Type</label></div>
+                                    <div class="col-md-5">
+
+                                        @if (notification.notification_type == 5)
+    {
+                                    <p>Content</p>
+
+
+
+}
+else if (notification.notification_type == 7)
+{
+
+                                    <p>Assessment</p>
+                                  
+
+}
+
+
+
+                                    </div>
+                                </div>
+
+                            }
+                            if (notification.notification_type == 5 || notification.notification_type == 7)
+                            {
+                                <div class="form-group" id="load_cat_div" style="">
+                                    <div class="col-md-3"><label class="control-label">Category</label></div>
+                                    <div class="col-md-5">
+                                      
+                                            @foreach (var itm in cat)
+                                            {
+                                                if (pre.id_category == itm.ID_CATEGORY)
+                                                {
+                                        <p>@itm.CATEGORYNAME</p>
+                                                }
+
+                                            }
+                                      
+                                    </div>
+                                </div>
+                            }
+
+                            if (notification.notification_type == 5)
+                            {
+                                <div class="form-group" id="load_ques" style="">
+                                    <div class="col-md-3"><label class="control-label">Select Content Question</label></div>
+                                    <div class="col-md-5">
+
+                                        @foreach (var itm in con)
+    {
+        if (pre.id_content == itm.ID_CONTENT)
+        {
+                                    <p>@itm.CONTENT_QUESTION</p>
+}
+
+
+}
+
+                                    </div>
+                                </div>
+                            }
+                            if (notification.notification_type == 7)
+                            {
+                                <div class="form-group" id="load_assessment" style="">
+                                    <div class="col-md-3"><label class="control-label">Select Assessment</label></div>
+                                    <div class="col-md-5">
+                                            @foreach (var itm in ass)
+    {
+        if (pre.id_assessment == itm.id_assessment)
+
+        {
+                                        <p>@itm.assessment_title</p>
+}
+
+}
+     
+                                    
+                                    </div>
+                                </div>
+                            }
+                        }
+                        <div class="form-group">
+                            <div class="col-md-offset-1 col-md-9">
+                                <input type="submit" value="Save" name="btn_submit" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

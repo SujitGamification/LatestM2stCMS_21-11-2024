@@ -1,0 +1,340 @@
+﻿@{
+    ViewBag.Title = "Event Assignment";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+@{
+    DateTime current = System.DateTime.Now;
+    tbl_scheduled_event sEvent = (tbl_scheduled_event)ViewData["event"];
+    string attachment = (string)ViewData["attachment"];
+    string resTable = (string)ViewData["tableData"];
+    string checkFlag = (string)ViewData["approval_check"];
+    int publishFlag = (int)ViewData["publishFlag"];
+    int attachmentid = (int)ViewData["attachmentid"];
+    bool fullFlag = (bool)ViewData["fullFlag"];
+    int event_count = (int)ViewData["event_count"];
+    m2ostnext.Models.UserSession Sessions = (m2ostnext.Models.UserSession)HttpContext.Current.Session["UserSession"];
+    int UID = Convert.ToInt32(Sessions.ID_USER);
+    tbl_cms_users eventCreator = (tbl_cms_users)ViewData["eventCreator"];
+    DateTime deadline = sEvent.event_start_datetime.Value.AddHours(-2);
+}
+
+<script>
+
+    $(document).ready(function () {
+        $("#form-subscription").validationEngine();
+        $("#report-table").dataTable({ "pageLength": 25 });
+    });
+
+    function cancleEventModel(val) {
+        $("#rejected-event").val(val);
+
+        $('#m2ost-event').modal('show');
+    }
+</script>
+<style>
+    .col-md-12 strong {
+        width: 200px;
+        display: inline-block;
+    }
+</style>
+<div class="modal fade" id="m2ost-event" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" id="uInfo">Cancel Event </h3>
+            </div>
+            <div class="modal-body" id="msg-txt">
+                @using (Html.BeginForm("cancleEvent", "Scheduling", FormMethod.Post, new { id = "form-subscription" }))
+                {
+                    <input type="hidden" id="rejected-event" name="rejected-event" value="" />
+                    if (publishFlag == 1)
+                    {
+                        <p>
+                            Event will be purged from the system.
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            Event will be Canceled and all users will be updated.
+                        </p>
+
+                    }
+                    <textarea id="cancel-desc" name="cancel-desc" maxlength="1000" class="form-control validate[required]" placeholder="Reason for Cancellation " rows="4"></textarea>
+                    <hr />
+                    <button type="submit" class="btn btn-default pull-right">Submit</button>
+                }
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row clearfix">
+
+    <div class="col-md-12 column">
+        <div class="panel panel-default m2ost_info">
+            <div class="panel-heading m2ost_info_hat">
+                <span>Scheduled Event Details </span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @if (sEvent.status != "X")
+                        {
+                            if (sEvent.event_type == 1)
+                            {
+                                if (checkFlag == "1")
+                                {
+                                    <a style="margin-left:5px;" href="@Url.Action("ApprovalDashboard", "Scheduling", new { id = sEvent.id_scheduled_event })" class="btn btn-default  pull-right">Approve Subscription&nbsp;<i class="glyphicon glyphicon-user"></i></a>
+                                }
+                            }
+                            else if (sEvent.event_type == 2)
+                            {
+                                if (sEvent.id_event_creator == UID)
+                                {
+                                    <a style="margin-left:5px;" href="@Url.Action("EventAssignment", "Scheduling", new { id = sEvent.id_scheduled_event })" class="btn btn-default  pull-right">Add User&nbsp;<i class="glyphicon glyphicon-user"></i></a>
+                                }
+                            }
+                            if (publishFlag == 1)
+                            {
+                                <a style="margin-left:5px;" href="@Url.Action("PublishEvent", "Scheduling", new { id = sEvent.id_scheduled_event })" class="btn btn-default  pull-right">Publish Event&nbsp;<i class="glyphicon glyphicon-check"></i></a>
+                            }
+                            if (current <= deadline)
+                            {
+                                <a style="margin-left:5px;" href="javascript:void(0)" onclick="cancleEventModel('@sEvent.id_scheduled_event')" class="btn btn-default  pull-right">Cancel Event&nbsp;<i class="glyphicon glyphicon-folder-close"></i></a>
+                            }
+                            if (sEvent.id_event_creator == UID)
+                            {
+                                <a style="margin-left:5px;" href="@Url.Action("editEvent", "Scheduling", new { id = sEvent.id_scheduled_event })" class="btn btn-default  pull-right">Edit&nbsp;<i class="glyphicon glyphicon-edit"></i></a>
+                            }
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-md-12" align="center">
+                                    <span style="font-family:'Century Gothic';font-size:16px; font-weight:600;text-align:center;">
+                                        Event is Canceled.
+                                    </span>
+                                    <br />
+                                    <span style="font-family:'Century Gothic'; font-weight:800;text-align:center;">
+                                        Reasone : @sEvent.event_comment
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-4">
+                        <span style="font-family:'Century Gothic'; font-weight:500;text-align:center;">
+                            User Response Required : 
+                            @if (sEvent.is_response == "1")
+                            {
+                                <b> Yes</b>
+                            }
+                            else
+                            {
+                                <b> No</b>
+                            }
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <span style="font-family:'Century Gothic'; font-weight:500;text-align:center;">
+                            RM Approval Required  :
+                            @if (sEvent.is_approval == "1")
+                            {
+                                <b> Yes</b>
+                            }
+                            else
+                            {
+                                <b> No</b>
+                            }
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <span style="font-family:'Century Gothic'; font-weight:500;text-align:center;">
+                            User can Unsubscribe an Event :
+                            @if (sEvent.is_unsubscribe == "1")
+                            {
+                                <b> Yes</b>
+                            }
+                            else
+                            {
+                                <b> No</b>
+                            }
+                        </span>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        @if (eventCreator != null)
+                        {
+                            <strong>Event Creator   </strong>
+                            <strong>@(eventCreator.USERNAME + " [ ID : " + eventCreator.employee_id + " ]")</strong>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Event Status   </strong>
+                        @if (sEvent.status == "A")
+                        {
+                            <strong>Event Is Published.</strong>
+                        }
+                        else
+                        {
+                            <strong>Event is in Draft Mode.</strong>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Event Type   </strong>
+                        @if (sEvent.event_type == 1)
+                        {
+                            @("Open Event")
+                        }
+                        else if (sEvent.event_type == 2)
+                        {
+                            @("Closed Event")
+                        }
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Event Program Type   </strong>
+                        @if (sEvent.event_group_type == 1)
+                        {
+                            @("Face To Face")
+                        }
+                        else if (sEvent.event_group_type == 2)
+                        {
+                            @("Online ")
+                        }
+                        else if (sEvent.event_group_type == 3)
+                        {
+                            @("M2OST")
+                        }
+                    </div>
+                </div>
+                @if (sEvent.event_group_type == 3)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Program Info   </strong><b> @attachment </b>
+                        </div>
+                    </div>
+                }
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Event Title   </strong><strong> @sEvent.event_title </strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Event Description   </strong>@sEvent.event_description
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Program Objective   </strong><b>@sEvent.program_objective</b>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Facilitator    </strong>@sEvent.facilitator_name
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Organization    </strong>@sEvent.facilitator_organization
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Registration Period   </strong>@(sEvent.registration_start_date.Value.ToString("dd-MM-yyyy HH:mm") + " To " + sEvent.registration_end_date.Value.ToString("dd-MM-yyyy HH:mm"))
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Scheduled Date   </strong><strong> @(sEvent.event_start_datetime.Value.ToString("dd-MM-yyyy HH:mm")) </strong>
+                        @(" " + sEvent.event_duration)
+                    </div>
+                </div>
+                @if (sEvent.event_group_type == 1)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Venue   </strong> <strong> @(sEvent.program_venue + " , " + sEvent.program_location)</strong>
+                        </div>
+                    </div>
+                }
+
+                @if (sEvent.event_type == 1)
+                {  <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Participant Limit    </strong>@sEvent.no_of_participants
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Participant Level  </strong>
+                            @(sEvent.participant_level)
+                        </div>
+                    </div>
+                }
+                <hr />
+                <div class="row">
+                    <div class="col-md-12" align="center">
+                        <span style="font-family:'Century Gothic';font-size:16px; font-weight:600;text-align:center;">
+                            Event Subcription Status List.
+                        </span>
+                        <br />
+                        @if (sEvent.event_type == 1)
+                        {
+                            if (fullFlag)
+                            {
+                                <span style="font-family:'Century Gothic'; font-weight:800;text-align:center;">
+                                    Open Event Subscription Limit of @sEvent.no_of_participants is Full .
+                                </span>
+                                <br />
+                                <span style="font-family:'Century Gothic';font-weight:500;text-align:center;">
+                                    Cannot add Any more Users.
+                                </span>
+                            }
+                            else
+                            {
+                                <span style="font-family:'Century Gothic';font-weight:600;text-align:center;">
+                                    Open Event Subscription count : <strong>@(event_count + " / " + sEvent.no_of_participants)</strong>
+                                </span>
+                                <br />
+                            }
+                        }
+                    </div>
+                </div>
+
+                <hr />
+
+                <div id="display_table">
+                    @Html.Raw(resTable)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

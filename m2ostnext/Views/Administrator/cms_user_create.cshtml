@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script>
+    $(function () {
+        $("#form-add-cms-user").validationEngine();
+    });
+
+
+
+</script>
+@{
+    List<tbl_cms_roles> role = (List<tbl_cms_roles>)ViewData["rolelist"];
+    List<tbl_organization> orglist = (List<tbl_organization>)ViewData["orglist"];
+    string typer = (string)ViewData["type_flag"];   
+}
+<script>
+    function getRolesFromOrg(cid) {
+
+        var oid = $("#select-org").val();
+        var url = '@Url.Action("getRolesFromOrg", "Administrator")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: oid },
+         
+            success: function (data) {
+                $("#select-role").empty().append(data);
+            }
+        });
+    }
+</script>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Add CMS User</h4>
+            </div>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("create_cms_user", "Administrator", FormMethod.Post, new { id = "form-add-cms-user" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @if (typer == "1") { 
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Organisation </label></div>
+                            <div class="col-md-5">
+                                <select id="select-org" name="select-org" class="form-control" onchange="getRolesFromOrg()">
+
+                                    @foreach (tbl_organization item in orglist)
+                                    {                                        
+                                        <option value="@item.ID_ORGANIZATION">@item.ORGANIZATION_NAME</option>
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+
+                        }
+
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Role </label></div>
+
+                            <div class="col-md-5">
+                                <select id="select-role" name="select-role" class="form-control">
+                                
+                                    @foreach (tbl_cms_roles item in role)
+                                    {
+                                        <option value="@item.ID_ROLE">@item.ROLENAME</option>
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">User Name</label></div>
+
+                            <div class="col-md-10">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="user-name" name="user-name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Password</label></div>
+
+                            <div class="col-md-10">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="pass-word" name="pass-word" />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Employee Name</label></div>
+
+                            <div class="col-md-10">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="first-name" name="first-name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Employee ID</label></div>
+
+                            <div class="col-md-10">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="employee-id" name="employee-id" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Submit" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+    </div>
+</div>

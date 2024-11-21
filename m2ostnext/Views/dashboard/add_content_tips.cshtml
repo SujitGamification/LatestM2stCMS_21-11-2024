@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "Add Category";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script>
+    $(function () {
+        $("#form_add_category").validationEngine();
+    });
+
+    function select_file(val) {
+        var file = $("#uploadBtn-" + val)[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        }
+        $("#ImageFile-" + val).val(filename);
+    }
+    function add_additional_files() {
+        var count = $("#file-count").val();
+        count++;
+        var option = '<div id="file-div-' + count + '" class="row"><div class="col-md-12"><div class="form-group">';
+        option += '<div class="col-md-2"><select onchange="changeType(this.value,' + count + ')" id="type-select-' + count + '" name="type-select-' + count + '" class="form-control"><option value="1">Image</option><option value="2">Pdf</option><option value="3">Video</option></select></div>';
+        option += '<div id="div-parts-1-' + count + '" class="col-md-7"><input type="text" class="form-control validate[required]" readonly value="File ' + count + '" placeholder="Choose file" id="ImageFile-' + count + '" name="ImageFile-' + count + '" />';
+        option += '<div class="fileUpload btn btn-primary"><span>Browse file</span><input id="uploadBtn-' + count + '" name="uploadBtn-' + count + '" class="upload" type="file" onchange="select_file(' + count + ')" />';
+        option += '</div></div>';
+        option += '<div style="display:none;" id="div-parts-2-' + count + '" class="col-md-7"><input type="text" class="form-control validate[required,custom[url]]" value="" placeholder="URL...." id="t-url-' + count + '" name="t-url-' + count + '" /></div>';
+        option += '<div class="col-md-1"><input type="button" value="remove" class="form-control btn btn-primary  btn-sm" onclick="close_div(' + count + ')" /> </div></div></div></div>';
+        $("#additional_files").append(option);
+        $("#file-count").val(count);
+
+    }
+
+    function changeType(val, id) {
+        if (val == 3) {
+            $("#div-parts-1-" + id).hide();
+            $("#div-parts-2-" + id).show();
+        } else {
+            $("#div-parts-2-" + id).hide();
+            $("#div-parts-1-" + id).show();
+        }
+    }
+
+    function close_div(val) {
+        $("#file-div-" + val).hide();
+    }
+</script>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <h4 class="panel-title">Add Content for Tips</h4>
+        <hr />
+        @using (Html.BeginForm("add_tip_contents", "dashboard", FormMethod.Post, new { id = "form_add_category", enctype = "multipart/form-data" }))
+        {
+            <input type="hidden" name="file-count" id="file-count" value="1" />
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-2 regLabel">Content Name </label>
+                            <div class="col-md-9">
+                                <textarea class="form-control validate[required]" name="t-quetion" id="t-quetion" placeholder="Content Question" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-2 regLabel">Description</label>
+                            <div class="col-md-9">
+                                <textarea class="form-control validate[required]" name="t-description" id="t-description" placeholder="Content Description" rows="6"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-2 regLabel">Metadata  </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="Enter Metadata Comma Separated...." id="t-metadata" name="t-metadata" />
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+                <!--
+                 <div class="row">
+                     <div class="col-md-12">
+                         <div class="form-group">
+                             <div class="col-md-9">
+                             </div>
+                             <div class="col-md-2">
+                                 <input type="button" value="Add More File" class="form-control btn btn-primary" onclick="add_additional_files()" />
+                             </div>
+
+                         </div>
+                     </div>
+                 </div>
+                -->
+                <hr />
+                <div id="file-div-1" class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-2"><select onchange="changeType(this.value,1)" id="type-select-1" name="type-select-1" class="form-control"><option value="1">Image</option><option value="2">Pdf</option><option value="3">Video</option></select></div>
+                            <div id="div-parts-1-1" class="col-md-7">
+                                <input type="text" class="form-control validate[required]" readonly value="File 1" placeholder="Choose file" id="ImageFile-1" name="ImageFile-1" />
+                                <div class="fileUpload btn btn-primary">
+                                    <span>Browse file</span>
+                                    <input id="uploadBtn-1" name="uploadBtn-1" class="upload" type="file" onchange="select_file(1)" />
+
+                                </div>
+                            </div>
+                            <div style="display:none;" id="div-parts-2-1" class="col-md-7"><input type="text" class="form-control validate[required,custom[url]]" value="" placeholder="URL...." id="t-url-1" name="t-url-1" /></div>
+                            <div class="col-md-1">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="additional_files">
+
+                </div>
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

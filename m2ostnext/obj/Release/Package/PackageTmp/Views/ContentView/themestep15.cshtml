@@ -1,0 +1,176 @@
+﻿@{
+    int step = (int)ViewData["step-count"];
+    tbl_content_answer_steps steps = null;
+    if (ViewData["stepinfo"] != null)
+    {
+        steps = (tbl_content_answer_steps)ViewData["stepinfo"];
+    }
+    else
+    {
+        steps = new tbl_content_answer_steps();
+    }
+}
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="FirstName" class="control-label">Image 1:</label>
+                <div class="row">
+                    <div class="col-md-10" style="padding-right:1px;">
+                        <input type="text" class="form-control validate[required]" readonly value="@(steps.ANSWER_STEPS_IMG1)" placeholder="Choose Image" id="step-@(step)-image-1" name="step-@(step)-image-1" />
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;">
+                        <div class="fileUpload btn btn-primary">
+                            <span>Browse </span>
+                            <input id="step-@(step)-btn-1" name="step-@(step)-btn-1" class="upload" type="file" accept="image/*" onchange="select_file('step-@(step)-btn-1', 'step-@(step)-image-1')" />
+                        </div>
+                    </div>
+                </div>
+                <textarea class="form-control validate[required]" name="step-@(step)-part-1" id="step-@(step)-part-1" placeholder="Enter Caption Text" rows="4">@steps.ANSWER_STEPS_PART1</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="FirstName" class="control-label">Image 2:</label>
+                <div class="row">
+                    <div class="col-md-10" style="padding-right:1px;">
+                        <input type="text" class="form-control validate[required]" readonly value="@(steps.ANSWER_STEPS_IMG2)" placeholder="Choose Image" id="step-@(step)-image-2" name="step-@(step)-image-2" />
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;">
+                        <div class="fileUpload btn btn-primary">
+                            <span>Browse </span>
+                            <input id="step-@(step)-btn-2" name="step-@(step)-btn-2" class="upload" type="file" accept="image/*" onchange="select_file('step-@(step)-btn-2', 'step-@(step)-image-2')" />
+                        </div>
+                    </div>
+                </div>
+                <textarea class="form-control validate[required]" name="step-@(step)-part-2" id="step-@(step)-part-2" placeholder="Enter Caption Text" rows="4">@steps.ANSWER_STEPS_PART2</textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="FirstName" class="control-label">Image 3:</label>
+                <div class="row">
+                    <div class="col-md-10" style="padding-right:1px;">
+                        <input type="text" class="form-control validate[required]" readonly value="@(steps.ANSWER_STEPS_IMG3)" placeholder="Choose Image" id="step-@(step)-image-3" name="step-@(step)-image-3" />
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;">
+                        <div class="fileUpload btn btn-primary">
+                            <span>Browse </span>
+                            <input id="step-@(step)-btn-3" name="step-@(step)-btn-3" class="upload" type="file" accept="image/*" onchange="select_file('step-@(step)-btn-3', 'step-@(step)-image-3')" />
+                        </div>
+                    </div>
+                </div>
+                <textarea class="form-control validate[required]" name="step-@(step)-part-3" id="step-@(step)-part-3" placeholder="Enter Caption Text" rows="4">@steps.ANSWER_STEPS_PART3</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="FirstName" class="control-label">Image 4:</label>
+                <div class="row">
+                    <div class="col-md-10" style="padding-right:1px;">
+                        <input type="text" class="form-control validate[required]" readonly value="@(steps.ANSWER_STEPS_IMG4)" placeholder="Choose Image" id="step-@(step)-image-4" name="step-@(step)-image-4" />
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;">
+                        <div class="fileUpload btn btn-primary">
+                            <span>Browse </span>
+                            <input id="step-@(step)-btn-4" name="step-@(step)-btn-4" class="upload" type="file" accept="image/*" onchange="select_file('step-@(step)-btn-4', 'step-@(step)-image-4')" />
+                        </div>
+                    </div>
+                </div>
+                <textarea class="form-control validate[required]" name="step-@(step)-part-4" id="step-@(step)-part-4" placeholder="Enter Caption Text" rows="4">@steps.ANSWER_STEPS_PART4</textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="FirstName" class="control-label">Image 5:</label>
+                <div class="row">
+                    <div class="col-md-10" style="padding-right:1px;">
+                        <input type="text" class="form-control validate[required]" readonly value="@(steps.ANSWER_STEPS_IMG5)" placeholder="Choose Image" id="step-@(step)-image-5" name="step-@(step)-image-5" />
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;">
+                        <div class="fileUpload btn btn-primary">
+                            <span>Browse </span>
+                            <input id="step-@(step)-btn-5" name="step-@(step)-btn-5" class="upload" type="file" accept="image/*" onchange="select_file('step-@(step)-btn-5', 'step-@(step)-image-5')" />
+                        </div>
+                    </div>
+                </div>
+                <textarea class="form-control validate[required]" name="step-@(step)-part-5" id="step-@(step)-part-5" placeholder="Enter Caption Text" rows="4">@steps.ANSWER_STEPS_PART5</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="FirstName" class="control-label">Image 6:</label>
+                <div class="row">
+                    <div class="col-md-10" style="padding-right:1px;">
+                        <input type="text" class="form-control validate[required]" readonly value="@(steps.ANSWER_STEPS_IMG6)" placeholder="Choose Image" id="step-@(step)-image-6" name="step-@(step)-image-6" />
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;">
+                        <div class="fileUpload btn btn-primary">
+                            <span>Browse </span>
+                            <input id="step-@(step)-btn-6" name="step-@(step)-btn-6" class="upload" type="file" accept="image/*" onchange="select_file('step-@(step)-btn-6', 'step-@(step)-image-6')" />
+                        </div>
+                    </div>
+                </div>
+                <textarea class="form-control validate[required]" name="step-@(step)-part-6" id="step-@(step)-part-6" placeholder="Enter Caption Text" rows="4">@steps.ANSWER_STEPS_PART6</textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="FirstName" class="control-label">Image 7:</label>
+                <div class="row">
+                    <div class="col-md-10" style="padding-right:1px;">
+                        <input type="text" class="form-control validate[required]" readonly value="@(steps.ANSWER_STEPS_IMG7)" placeholder="Choose Image" id="step-@(step)-image-7" name="step-@(step)-image-7" />
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;">
+                        <div class="fileUpload btn btn-primary">
+                            <span>Browse </span>
+                            <input id="step-@(step)-btn-7" name="step-@(step)-btn-7" class="upload" type="file" accept="image/*" onchange="select_file('step-@(step)-btn-7', 'step-@(step)-image-7')" />
+                        </div>
+                    </div>
+                </div>
+                <textarea class="form-control validate[required]" name="step-@(step)-part-7" id="step-@(step)-part-7" placeholder="Enter Caption Text" rows="4">@steps.ANSWER_STEPS_PART7</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="FirstName" class="control-label">Image 8:</label>
+                <div class="row">
+                    <div class="col-md-10" style="padding-right:1px;">
+                        <input type="text" class="form-control validate[required]" readonly value="@(steps.ANSWER_STEPS_IMG8)" placeholder="Choose Image" id="step-@(step)-image-8" name="step-@(step)-image-8" />
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;">
+                        <div class="fileUpload btn btn-primary">
+                            <span>Browse </span>
+                            <input id="step-@(step)-btn-8" name="step-@(step)-btn-8" class="upload" type="file" accept="image/*" onchange="select_file('step-@(step)-btn-8', 'step-@(step)-image-8')" />
+                        </div>
+                    </div>
+                </div>
+                <textarea class="form-control validate[required]" name="step-@(step)-part-8" id="step-@(step)-part-8" placeholder="Enter Caption Text" rows="4">@steps.ANSWER_STEPS_PART8</textarea>
+            </div>
+        </div>
+    </div>
+</div>

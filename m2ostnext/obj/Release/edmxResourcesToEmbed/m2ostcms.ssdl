@@ -1,0 +1,3066 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db_m2ost_production_v_5Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="downtime_log">
+    <Key>
+      <PropertyRef Name="id_downtime_log" />
+    </Key>
+    <Property Name="id_downtime_log" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="message_text" Type="text" />
+    <Property Name="status" Type="text" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'def.db_m2ost_production_v_5.dummy_mapping' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="dummy_mapping">
+    <Key>
+      <PropertyRef Name="id_category_association" />
+    </Key>
+    <Property Name="id_category_association" Type="int" Nullable="false" />
+    <Property Name="id_category_tile" Type="int" />
+    <Property Name="id_category_heading" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="category_order" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'def.db_m2ost_production_v_5.dummy_tile' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="dummy_tile">
+          <Property Name="tile_id" Type="int" />
+          <Property Name="cat_id" Type="int" />
+        </EntityType>-->
+  <EntityType Name="error_log">
+    <Key>
+      <PropertyRef Name="Error_ID" />
+    </Key>
+    <Property Name="Error_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Error_Message" Type="text" Nullable="false" />
+    <Property Name="Error_Inner" Type="text" />
+    <Property Name="STATUS" Type="varchar" MaxLength="10" />
+    <Property Name="UPDATEDDATETIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="masti_parent_teacher_mapping">
+    <Key>
+      <PropertyRef Name="id_parent_teacher" />
+    </Key>
+    <Property Name="id_parent_teacher" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_parent" Type="int" />
+    <Property Name="id_teacher" Type="int" />
+    <Property Name="id_parent_org" Type="int" />
+    <Property Name="id_teacher_org" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="masti_teacher_galleryfolder">
+    <Key>
+      <PropertyRef Name="id_gallery_folder" />
+    </Key>
+    <Property Name="id_gallery_folder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_teacher" Type="int" />
+    <Property Name="folder_name" Type="varchar" MaxLength="200" />
+    <Property Name="folder_size" Type="double" />
+    <Property Name="updated_time" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="id_org" Type="int" />
+  </EntityType>
+  <EntityType Name="masti_teacher_photo_mapping">
+    <Key>
+      <PropertyRef Name="id_photo_mapping" />
+    </Key>
+    <Property Name="id_photo_mapping" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_teacher" Type="int" />
+    <Property Name="photo" Type="varchar" MaxLength="200" />
+    <Property Name="updated_time" Type="datetime" Precision="0" />
+    <Property Name="id_org" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="sc_game_element_weightage">
+    <Key>
+      <PropertyRef Name="id_sc_game_element_weightage" />
+    </Key>
+    <Property Name="id_sc_game_element_weightage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_game" Type="int" />
+    <Property Name="element_type" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="id_kpi_master" Type="int" />
+    <Property Name="element_score" Type="double" />
+    <Property Name="element_weightage" Type="double" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_darte_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="sc_program_assessment_scoring">
+    <Key>
+      <PropertyRef Name="id_sc_program_assessment_scoring" />
+    </Key>
+    <Property Name="id_sc_program_assessment_scoring" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="assessment_score" Type="double" />
+    <Property Name="assessment_wieghtage" Type="double" />
+    <Property Name="attempt_number" Type="int" />
+    <Property Name="log_datetime" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="sc_program_content_summary">
+    <Key>
+      <PropertyRef Name="id_sc_program_content_summary" />
+    </Key>
+    <Property Name="id_sc_program_content_summary" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="totoal_count" Type="int" />
+    <Property Name="completed_count" Type="int" />
+    <Property Name="percentage" Type="double" />
+    <Property Name="content_weightage" Type="double" />
+    <Property Name="log_datetime" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="sc_program_kpi_score">
+    <Key>
+      <PropertyRef Name="id_sc_program_kpi_score" />
+    </Key>
+    <Property Name="id_sc_program_kpi_score" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="transactionid" Type="varchar" MaxLength="45" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_kpi_master" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="score" Type="double" />
+    <Property Name="log_datetime" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="sc_program_kpi_weightage">
+    <Key>
+      <PropertyRef Name="id_sc_program_kpi_weightage" />
+    </Key>
+    <Property Name="id_sc_program_kpi_weightage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_kpi_master" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="score" Type="double" />
+    <Property Name="kpi_wieghtage" Type="double" />
+    <Property Name="log_datetime" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="sc_program_log">
+    <Key>
+      <PropertyRef Name="id_sc_program_log" />
+    </Key>
+    <Property Name="id_sc_program_log" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="id_kpi_master" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="score_value" Type="double" />
+    <Property Name="score_timestamp" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="sc_report_game_process_path">
+    <Key>
+      <PropertyRef Name="id_sc_report_game_process_path" />
+    </Key>
+    <Property Name="id_sc_report_game_process_path" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_game" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="process_type" Type="int" />
+    <Property Name="sequence_number" Type="int" />
+    <Property Name="score" Type="double" />
+    <Property Name="element_weightage" Type="double" />
+    <Property Name="element_type" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="sc_report_game_process_score">
+    <Key>
+      <PropertyRef Name="id_sc_report_game_process_score" />
+    </Key>
+    <Property Name="id_sc_report_game_process_score" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_game" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="element_type" Type="int" />
+    <Property Name="sequence_number" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="id_kpi_master" Type="int" />
+    <Property Name="score" Type="double" />
+    <Property Name="kpi_weightage" Type="double" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_action">
+    <Key>
+      <PropertyRef Name="ID_ACTION" />
+    </Key>
+    <Property Name="ID_ACTION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ACTION_NAME" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="500" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_assessment">
+    <Key>
+      <PropertyRef Name="id_assessment" />
+    </Key>
+    <Property Name="id_assessment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="assessment_title" Type="text" />
+    <Property Name="assesment_description" Type="text" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="assessment_type" Type="int" />
+    <Property Name="assess_created" Type="datetime" Precision="0" />
+    <Property Name="assess_start" Type="datetime" Precision="0" />
+    <Property Name="assess_ended" Type="datetime" Precision="0" />
+    <Property Name="assess_type" Type="varchar" MaxLength="45" />
+    <Property Name="assess_group" Type="int" />
+    <Property Name="lower_title" Type="text" />
+    <Property Name="high_title" Type="text" />
+    <Property Name="lower_value" Type="varchar" MaxLength="45" />
+    <Property Name="high_value" Type="varchar" MaxLength="45" />
+    <Property Name="total_attempt" Type="int" />
+    <Property Name="ans_requiered" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+    <Property Name="answer_description" Type="text" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_answer">
+    <Key>
+      <PropertyRef Name="id_assessment_answer" />
+    </Key>
+    <Property Name="id_assessment_answer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="id_assessment_question" Type="int" />
+    <Property Name="id_assessment_scoring_key" Type="int" />
+    <Property Name="answer_description" Type="text" />
+    <Property Name="position" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_audit">
+    <Key>
+      <PropertyRef Name="id_assessment_audit" />
+    </Key>
+    <Property Name="id_assessment_audit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="id_assessment_sheet" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_assessment_question" Type="int" />
+    <Property Name="id_assessment_answer" Type="int" />
+    <Property Name="value_sent" Type="int" />
+    <Property Name="attempt_no" Type="int" />
+    <Property Name="recorded_timestamp" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_categoty_mapping">
+    <Key>
+      <PropertyRef Name="id_assessment_categoty_mapping" />
+    </Key>
+    <Property Name="id_assessment_categoty_mapping" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_assessment_sheet" Type="int" Nullable="false" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="id_category" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_general">
+    <Key>
+      <PropertyRef Name="id_assessment_general" />
+    </Key>
+    <Property Name="id_assessment_general" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_assesment_sheet" Type="int" Nullable="false" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_header">
+    <Key>
+      <PropertyRef Name="id_assessment_header" />
+    </Key>
+    <Property Name="id_assessment_header" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_assessment_scoring_key" Type="int" Nullable="false" />
+    <Property Name="id_assessment_question" Type="int" Nullable="false" />
+    <Property Name="id_assessment_answer" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_index">
+    <Key>
+      <PropertyRef Name="id_assessment_index" />
+    </Key>
+    <Property Name="id_assessment_index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_user" Type="int" Nullable="false" />
+    <Property Name="id_assessment_sheet" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_mapping">
+    <Key>
+      <PropertyRef Name="id_assessment_mapping" />
+    </Key>
+    <Property Name="id_assessment_mapping" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_assessment_sheet" Type="int" />
+    <Property Name="id_content" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_push">
+    <Key>
+      <PropertyRef Name="id_assessment_push" />
+    </Key>
+    <Property Name="id_assessment_push" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_assesment_sheet" Type="int" Nullable="false" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_question">
+    <Key>
+      <PropertyRef Name="id_assessment_question" />
+    </Key>
+    <Property Name="id_assessment_question" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="id_assessment_scoring_key" Type="int" />
+    <Property Name="assessment_question" Type="text" Nullable="false" />
+    <Property Name="question_image" Type="varchar" MaxLength="1000" />
+    <Property Name="aq_answer" Type="varchar" MaxLength="45" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_scoring_key">
+    <Key>
+      <PropertyRef Name="id_assessment_scoring_key" />
+    </Key>
+    <Property Name="id_assessment_scoring_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="header_name" Type="varchar" MaxLength="450" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="id_assessment_theme" Type="int" />
+    <Property Name="position" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_sheet">
+    <Key>
+      <PropertyRef Name="id_assessment_sheet" />
+    </Key>
+    <Property Name="id_assessment_sheet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_assesment" Type="int" Nullable="false" />
+    <Property Name="id_assessment_theme" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_theme">
+    <Key>
+      <PropertyRef Name="id_assessment_theme" />
+    </Key>
+    <Property Name="id_assessment_theme" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="assessment_theme" Type="text" />
+    <Property Name="id_organization" Type="int" Nullable="false" />
+    <Property Name="description" Type="text" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assessment_user_assignment">
+    <Key>
+      <PropertyRef Name="id_assessment_user_assignment" />
+    </Key>
+    <Property Name="id_assessment_user_assignment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="start_date" Type="datetime" Precision="0" />
+    <Property Name="expire_date" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assessmnt_log">
+    <Key>
+      <PropertyRef Name="id_assessmnt_log" />
+    </Key>
+    <Property Name="id_assessmnt_log" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_user" Type="int" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_assessment_sheet" Type="int" Nullable="false" />
+    <Property Name="json_response" Type="text" Nullable="false" />
+    <Property Name="attempt_no" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assignment_role_assessment">
+    <Key>
+      <PropertyRef Name="id_assignment_role_assessment" />
+    </Key>
+    <Property Name="id_assignment_role_assessment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_role" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="start_datetime" Type="datetime" Precision="0" />
+    <Property Name="end_datetime" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assignment_role_content">
+    <Key>
+      <PropertyRef Name="id_assignment_role_content" />
+    </Key>
+    <Property Name="id_assignment_role_content" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_role" Type="int" />
+    <Property Name="id_content" Type="int" />
+    <Property Name="start_datetime" Type="datetime" Precision="0" />
+    <Property Name="end_datetime" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_assignment_role_program">
+    <Key>
+      <PropertyRef Name="id_assignment_role_program" />
+    </Key>
+    <Property Name="id_assignment_role_program" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_role" Type="int" />
+    <Property Name="id_program" Type="int" />
+    <Property Name="start_datetime" Type="datetime" Precision="0" />
+    <Property Name="end_datetime" Type="datetime" Precision="0" />
+    <Property Name="id_category_tile" Type="int" />
+    <Property Name="id_category_heading" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_authcode">
+    <Key>
+      <PropertyRef Name="ID_CODE" />
+    </Key>
+    <Property Name="ID_CODE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CODE" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="UPDATEDTIME" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_banner">
+    <Key>
+      <PropertyRef Name="id_banner" />
+    </Key>
+    <Property Name="id_banner" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" Nullable="false" />
+    <Property Name="banner_name" Type="text" />
+    <Property Name="banner_image" Type="text" />
+    <Property Name="banner_action_url" Type="text" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_brief_category_tile">
+    <Key>
+      <PropertyRef Name="id_brief_category_tile" />
+    </Key>
+    <Property Name="id_brief_category_tile" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="category_tile" Type="varchar" MaxLength="450" />
+    <Property Name="tile_code" Type="varchar" MaxLength="450" />
+    <Property Name="tile_description" Type="varchar" MaxLength="2500" />
+    <Property Name="tile_image" Type="varchar" MaxLength="4500" />
+    <Property Name="category_tile_type" Type="int" />
+    <Property Name="tile_position" Type="int" />
+    <Property Name="assessment_complation" Type="int" />
+    <Property Name="attempt_limit" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_brief_tile_category_mapping">
+    <Key>
+      <PropertyRef Name="id_brief_tile_category_mapping" />
+    </Key>
+    <Property Name="id_brief_tile_category_mapping" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_brief_category_tile" Type="int" />
+    <Property Name="id_brief_category" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_business_type">
+    <Key>
+      <PropertyRef Name="ID_BUSINESS_TYPE" />
+    </Key>
+    <Property Name="ID_BUSINESS_TYPE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BUSINESS_TYPE_NAME" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="200" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_category">
+    <Key>
+      <PropertyRef Name="ID_CATEGORY" />
+    </Key>
+    <Property Name="ID_CATEGORY" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ORGANIZATION" Type="int" Nullable="false" />
+    <Property Name="CATEGORYNAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="2000" />
+    <Property Name="IMAGE_PATH" Type="varchar" MaxLength="100" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="SUB_HEADING" Type="varchar" MaxLength="200" />
+    <Property Name="ORDERID" Type="int" />
+    <Property Name="IS_PRIMARY" Type="int" />
+    <Property Name="ID_PARENT" Type="int" />
+    <Property Name="SEARCH_MAX_COUNT" Type="int" />
+    <Property Name="COUNT_REQUIRED" Type="int" />
+    <Property Name="CATEGORY_TYPE" Type="int" />
+    <Property Name="IMAGE_URL" Type="text" />
+  </EntityType>
+  <EntityType Name="tbl_category_associantion">
+    <Key>
+      <PropertyRef Name="id_category_association" />
+    </Key>
+    <Property Name="id_category_association" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_category_tile" Type="int" />
+    <Property Name="id_category_heading" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="category_order" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="tbl_category_heading">
+    <Key>
+      <PropertyRef Name="id_category_heading" />
+    </Key>
+    <Property Name="id_category_heading" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Heading_title" Type="varchar" MaxLength="350" />
+    <Property Name="id_category_tiles" Type="int" />
+    <Property Name="heading_order" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="tbl_category_order">
+    <Key>
+      <PropertyRef Name="id_category_order" />
+    </Key>
+    <Property Name="id_category_order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_heading_category" Type="int" />
+    <Property Name="category_heading" Type="varchar" MaxLength="500" />
+    <Property Name="heading_order" Type="varchar" MaxLength="45" />
+    <Property Name="id_organisation" Type="int" />
+    <Property Name="category_list" Type="varchar" MaxLength="500" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_category_tiles">
+    <Key>
+      <PropertyRef Name="id_category_tiles" />
+    </Key>
+    <Property Name="id_category_tiles" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tile_heading" Type="varchar" MaxLength="350" />
+    <Property Name="category_theme" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="tile_image" Type="varchar" MaxLength="150" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="category_order" Type="int" />
+    <Property Name="image_url" Type="text" />
+  </EntityType>
+  <EntityType Name="tbl_certificate_assignment">
+    <Key>
+      <PropertyRef Name="id_certificate_assignment" />
+    </Key>
+    <Property Name="id_certificate_assignment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_certificate" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+    <Property Name="id_org" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_certificate_configure">
+    <Key>
+      <PropertyRef Name="id_certificate" />
+    </Key>
+    <Property Name="id_certificate" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="certificate_title" Type="varchar" MaxLength="60" />
+    <Property Name="signature" Type="varchar" MaxLength="45" />
+    <Property Name="label_1" Type="varchar" MaxLength="45" />
+    <Property Name="label_2" Type="varchar" MaxLength="45" />
+    <Property Name="label_3" Type="varchar" MaxLength="45" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_certificate_configure_data">
+    <Key>
+      <PropertyRef Name="id_configure_data" />
+    </Key>
+    <Property Name="id_configure_data" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_certificate" Type="int" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="label_1" Type="varchar" MaxLength="45" />
+    <Property Name="label_2" Type="varchar" MaxLength="45" />
+    <Property Name="label_3" Type="varchar" MaxLength="45" />
+    <Property Name="label_1_range" Type="varchar" MaxLength="45" />
+    <Property Name="label_2_range" Type="varchar" MaxLength="45" />
+    <Property Name="label_3_range" Type="varchar" MaxLength="45" />
+    <Property Name="signature" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="tbl_childinformation">
+    <Key>
+      <PropertyRef Name="id_child" />
+    </Key>
+    <Property Name="id_child" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="roll_no" Type="varchar" MaxLength="45" />
+    <Property Name="first_name" Type="varchar" MaxLength="45" />
+    <Property Name="middle_name" Type="varchar" MaxLength="45" />
+    <Property Name="sur_name" Type="varchar" MaxLength="45" />
+    <Property Name="year" Type="varchar" MaxLength="45" />
+    <Property Name="id_organization" Type="varchar" MaxLength="45" />
+    <Property Name="id_teacher" Type="varchar" MaxLength="45" />
+    <Property Name="gender" Type="varchar" MaxLength="45" />
+    <Property Name="dob" Type="datetime" Precision="0" />
+    <Property Name="age" Type="int" />
+    <Property Name="doj" Type="datetime" Precision="0" />
+    <Property Name="street" Type="varchar" MaxLength="45" />
+    <Property Name="city" Type="varchar" MaxLength="45" />
+    <Property Name="state" Type="varchar" MaxLength="45" />
+    <Property Name="country" Type="varchar" MaxLength="45" />
+    <Property Name="pincode" Type="varchar" MaxLength="45" />
+    <Property Name="father_name" Type="varchar" MaxLength="45" />
+    <Property Name="father_mob" Type="varchar" MaxLength="45" />
+    <Property Name="mother_name" Type="varchar" MaxLength="45" />
+    <Property Name="mother_mob" Type="varchar" MaxLength="45" />
+    <Property Name="email_id" Type="varchar" MaxLength="45" />
+    <Property Name="other_contact_name" Type="varchar" MaxLength="45" />
+    <Property Name="other_contact_mob" Type="varchar" MaxLength="45" />
+    <Property Name="remarks_med_alergies" Type="varchar" MaxLength="100" />
+    <Property Name="identification_marks" Type="varchar" MaxLength="100" />
+    <Property Name="payment_term1" Type="varchar" MaxLength="45" />
+    <Property Name="payment_term2" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="tbl_cms_role_action">
+    <Key>
+      <PropertyRef Name="id_cms_role_action" />
+    </Key>
+    <Property Name="id_cms_role_action" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cms_role_action" Type="text" />
+    <Property Name="description" Type="text" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+    <Property Name="action_type" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_cms_role_action_mapping">
+    <Key>
+      <PropertyRef Name="id_cms_role_action_mapping" />
+    </Key>
+    <Property Name="id_cms_role_action_mapping" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_cms_role_action" Type="int" />
+    <Property Name="id_cms_role" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_cms_roles">
+    <Key>
+      <PropertyRef Name="ID_ROLE" />
+    </Key>
+    <Property Name="ID_ROLE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ORGANIZATION" Type="int" Nullable="false" />
+    <Property Name="ROLENAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="200" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_cms_users">
+    <Key>
+      <PropertyRef Name="ID_USER" />
+    </Key>
+    <Property Name="ID_USER" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ROLE" Type="int" Nullable="false" />
+    <Property Name="USERNAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PASSWORD" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="cmd_user_type" Type="int" />
+    <Property Name="employee_id" Type="text" />
+    <Property Name="employee_name" Type="text" />
+  </EntityType>
+  <EntityType Name="tbl_color_config">
+    <Key>
+      <PropertyRef Name="id_color_config" />
+    </Key>
+    <Property Name="id_color_config" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organisation" Type="int" />
+    <Property Name="config_type" Type="int" />
+    <Property Name="grid1_bk_color" Type="varchar" MaxLength="45" />
+    <Property Name="grid1_text_color" Type="varchar" MaxLength="45" />
+    <Property Name="grid2_bk_color" Type="varchar" MaxLength="45" />
+    <Property Name="grid2_text_color" Type="varchar" MaxLength="45" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="created_date_time" Type="datetime" Precision="0" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_color_config_flag">
+    <Key>
+      <PropertyRef Name="id_flag" />
+    </Key>
+    <Property Name="id_flag" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_org" Type="int" />
+    <Property Name="flag" Type="int" />
+    <Property Name="updated_date" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="tbl_content">
+    <Key>
+      <PropertyRef Name="ID_CONTENT" />
+    </Key>
+    <Property Name="ID_CONTENT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_THEME" Type="int" Nullable="false" />
+    <Property Name="ID_USER" Type="int" Nullable="false" />
+    <Property Name="ID_CONTENT_LEVEL" Type="int" Nullable="false" />
+    <Property Name="CONTENT_TITLE" Type="text" />
+    <Property Name="CONTENT_HEADER" Type="text" />
+    <Property Name="CONTENT_QUESTION" Type="text" Nullable="false" />
+    <Property Name="CONTENT_COUNTER" Type="int" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="LINK_COUNT" Type="int" Nullable="false" />
+    <Property Name="IS_PRIMARY" Type="int" Nullable="false" />
+    <Property Name="EXPIRY_DATE" Type="datetime" Precision="0" />
+    <Property Name="COMMENT" Type="mediumtext" />
+    <Property Name="CONTENT_IDENTIFIER" Type="text" />
+    <Property Name="CONTENT_OWNER" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_content_answer">
+    <Key>
+      <PropertyRef Name="ID_CONTENT_ANSWER" />
+    </Key>
+    <Property Name="ID_CONTENT_ANSWER" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_CONTENT" Type="int" Nullable="false" />
+    <Property Name="CONTENT_ANSWER_TITLE" Type="varchar" MaxLength="500" />
+    <Property Name="CONTENT_ANSWER_HEADER" Type="varchar" MaxLength="2000" Nullable="false" />
+    <Property Name="CONTENT_ANSWER1" Type="mediumtext" Nullable="false" />
+    <Property Name="CONTENT_ANSWER2" Type="mediumtext" />
+    <Property Name="CONTENT_ANSWER3" Type="mediumtext" />
+    <Property Name="CONTENT_ANSWER4" Type="mediumtext" />
+    <Property Name="CONTENT_ANSWER_IMG1" Type="varchar" MaxLength="200" />
+    <Property Name="CONTENT_ANSWER_IMG2" Type="varchar" MaxLength="200" />
+    <Property Name="CONTENT_ANSWER_IMG3" Type="varchar" MaxLength="200" />
+    <Property Name="CONTENT_ANSWER_BANNER" Type="varchar" MaxLength="200" />
+    <Property Name="REDIRECTION_URL" Type="varchar" MaxLength="200" />
+    <Property Name="CONTENT_ANSWER_COUNTER" Type="int" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATEDTIME" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="CONTENT_ANSWER10" Type="mediumtext" />
+    <Property Name="CONTENT_ANSWER5" Type="mediumtext" />
+    <Property Name="CONTENT_ANSWER6" Type="mediumtext" />
+    <Property Name="CONTENT_ANSWER7" Type="mediumtext" />
+    <Property Name="CONTENT_ANSWER8" Type="mediumtext" />
+    <Property Name="CONTENT_ANSWER9" Type="mediumtext" />
+    <Property Name="CONTENT_ANSWER_IMG10" Type="varchar" MaxLength="450" />
+    <Property Name="CONTENT_ANSWER_IMG4" Type="varchar" MaxLength="450" />
+    <Property Name="CONTENT_ANSWER_IMG5" Type="varchar" MaxLength="450" />
+    <Property Name="CONTENT_ANSWER_IMG6" Type="varchar" MaxLength="450" />
+    <Property Name="CONTENT_ANSWER_IMG7" Type="varchar" MaxLength="450" />
+    <Property Name="CONTENT_ANSWER_IMG8" Type="varchar" MaxLength="450" />
+    <Property Name="CONTENT_ANSWER_IMG9" Type="varchar" MaxLength="450" />
+  </EntityType>
+  <EntityType Name="tbl_content_answer_steps">
+    <Key>
+      <PropertyRef Name="ID_ANSWER_STEP" />
+    </Key>
+    <Property Name="ID_ANSWER_STEP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_CONTENT_ANSWER" Type="int" Nullable="false" />
+    <Property Name="STEPNO" Type="int" Nullable="false" />
+    <Property Name="ANSWER_STEPS_PART1" Type="mediumtext" Nullable="false" />
+    <Property Name="ANSWER_STEPS_PART2" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_IMG1" Type="varchar" MaxLength="200" />
+    <Property Name="ANSWER_STEPS_IMG2" Type="varchar" MaxLength="200" />
+    <Property Name="ANSWER_STEPS_BANNER" Type="varchar" MaxLength="200" />
+    <Property Name="REDIRECTION_URL" Type="varchar" MaxLength="200" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATEDDATETIME" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="ID_THEME" Type="int" />
+    <Property Name="ANSWER_STEPS_PART3" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_IMG3" Type="varchar" MaxLength="200" />
+    <Property Name="ANSWER_STEPS_IMG10" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_IMG5" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_IMG6" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_IMG7" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_IMG8" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_IMG9" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_PART10" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_PART4" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_PART5" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_PART6" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_PART7" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_PART8" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_PART9" Type="mediumtext" />
+    <Property Name="ANSWER_STEPS_IMG4" Type="varchar" MaxLength="450" />
+  </EntityType>
+  <EntityType Name="tbl_content_banner">
+    <Key>
+      <PropertyRef Name="id_content_banner" />
+    </Key>
+    <Property Name="id_content_banner" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_content" Type="int" Nullable="false" />
+    <Property Name="id_banner" Type="int" Nullable="false" />
+    <Property Name="id_organization" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+    <Property Name="date_assigned" Type="datetime" Precision="0" />
+    <Property Name="date_removed" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_content_counters">
+    <Key>
+      <PropertyRef Name="id_content_counters" />
+    </Key>
+    <Property Name="id_content_counters" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_content" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="flag" Type="int" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_content_footer">
+    <Key>
+      <PropertyRef Name="id_content_footer" />
+    </Key>
+    <Property Name="id_content_footer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" Nullable="false" />
+    <Property Name="content_footer_name" Type="text" />
+    <Property Name="content_footer_image" Type="text" />
+    <Property Name="content_footer_action_url" Type="text" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_content_header">
+    <Key>
+      <PropertyRef Name="id_content_header" />
+    </Key>
+    <Property Name="id_content_header" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" Nullable="false" />
+    <Property Name="content_header_name" Type="text" />
+    <Property Name="content_header_image" Type="text" />
+    <Property Name="content_header_action_url" Type="text" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_content_header_footer">
+    <Key>
+      <PropertyRef Name="id_content_header_footer" />
+    </Key>
+    <Property Name="id_content_header_footer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_content" Type="int" Nullable="false" />
+    <Property Name="id_header" Type="int" />
+    <Property Name="id_footer" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_content_level">
+    <Key>
+      <PropertyRef Name="ID_CONTENT_LEVEL" />
+    </Key>
+    <Property Name="ID_CONTENT_LEVEL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LEVELNAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="200" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_content_link">
+    <Key>
+      <PropertyRef Name="ID_CONTENT_LINK" />
+    </Key>
+    <Property Name="ID_CONTENT_LINK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_CONTENT_PARENT" Type="int" Nullable="false" />
+    <Property Name="ID_CONTENT_CHILD" Type="int" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="ID_LINK_TYPE" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_content_metadata">
+    <Key>
+      <PropertyRef Name="ID_CONTENT_METADATA" />
+    </Key>
+    <Property Name="ID_CONTENT_METADATA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CONTENT_METADATA" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CONTENT_METADATA_COUNTER" Type="int" Nullable="false" />
+    <Property Name="ID_CONTENT_ANSWER" Type="int" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATEDTIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_content_organization_mapping">
+    <Key>
+      <PropertyRef Name="id_content_organization_mapping" />
+    </Key>
+    <Property Name="id_content_organization_mapping" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" Nullable="false" />
+    <Property Name="id_category" Type="int" Nullable="false" />
+    <Property Name="id_content" Type="int" Nullable="false" />
+    <Property Name="status" Type="text" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_content_program_mapping">
+    <Key>
+      <PropertyRef Name="id_content_program_mapping" />
+    </Key>
+    <Property Name="id_content_program_mapping" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_assessment_sheet" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_role" Type="int" />
+    <Property Name="map_type" Type="int" />
+    <Property Name="option_type" Type="int" />
+    <Property Name="start_date" Type="datetime" Precision="0" />
+    <Property Name="expiry_date" Type="datetime" Precision="0" />
+    <Property Name="id_category_tile" Type="int" />
+    <Property Name="id_category_heading" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_content_right_association">
+    <Key>
+      <PropertyRef Name="id_content_right_association" />
+    </Key>
+    <Property Name="id_content_right_association" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_content" Type="int" Nullable="false" />
+    <Property Name="id_organization" Type="int" Nullable="false" />
+    <Property Name="content_expiry_date" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+    <Property Name="real_content_id" Type="int" />
+    <Property Name="real_organization_id" Type="int" />
+    <Property Name="transfered_date" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_content_role_mapping">
+    <Key>
+      <PropertyRef Name="id_content_role_mapping" />
+    </Key>
+    <Property Name="id_content_role_mapping" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_content" Type="int" />
+    <Property Name="id_csst_role" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="timestamp" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_content_type">
+    <Key>
+      <PropertyRef Name="ID_CONTENT_TYPE" />
+    </Key>
+    <Property Name="ID_CONTENT_TYPE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TYPE_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TYPE_DESCRIPTION" Type="varchar" MaxLength="200" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_content_type_link">
+    <Key>
+      <PropertyRef Name="ID_CONTENT_TYPE_LINK" />
+    </Key>
+    <Property Name="ID_CONTENT_TYPE_LINK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_CONTENT_ANSWER" Type="int" Nullable="false" />
+    <Property Name="ID_CONTENT_TYPE" Type="int" Nullable="false" />
+    <Property Name="LINK_VALUE" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="500" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_content_user_assisgnment">
+    <Key>
+      <PropertyRef Name="id_content_user_assisgnment" />
+    </Key>
+    <Property Name="id_content_user_assisgnment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_content" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="start_date" Type="datetime" Precision="0" />
+    <Property Name="expiry_date" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_csst_role">
+    <Key>
+      <PropertyRef Name="id_csst_role" />
+    </Key>
+    <Property Name="id_csst_role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="csst_role" Type="varchar" MaxLength="45" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_dated_time" Type="timestamp" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_device_type">
+    <Key>
+      <PropertyRef Name="ID_DEVICE_TYPE" />
+    </Key>
+    <Property Name="ID_DEVICE_TYPE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DEVICENAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="200" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATEDDATETIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_feedback_bank">
+    <Key>
+      <PropertyRef Name="ID_FEEDBACK_BANK" />
+    </Key>
+    <Property Name="ID_FEEDBACK_BANK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FEEDBACK_NAME" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="FEEDBACK_QUESTION" Type="varchar" MaxLength="2000" Nullable="false" />
+    <Property Name="FEEDBACK_CHOICES" Type="varchar" MaxLength="5000" />
+    <Property Name="FEEDBACK_IMAGE" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_feedback_bank_link">
+    <Key>
+      <PropertyRef Name="ID_FEEDBACK_BANK_LINK" />
+    </Key>
+    <Property Name="ID_FEEDBACK_BANK_LINK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_FEEDBACK_BANK" Type="int" Nullable="false" />
+    <Property Name="ID_CONTENT_ANSWER" Type="int" Nullable="false" />
+    <Property Name="ID_ANSWER_ASSOCIATION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_feedback_data">
+    <Key>
+      <PropertyRef Name="ID_FEEDBACK_DATA" />
+    </Key>
+    <Property Name="ID_FEEDBACK_DATA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_FEEDBACK_BANK" Type="int" Nullable="false" />
+    <Property Name="ID_USER" Type="int" Nullable="false" />
+    <Property Name="FEEDBACK_CHOICE" Type="varchar" MaxLength="1000" />
+    <Property Name="FEEDBACK_TEXT" Type="varchar" MaxLength="500" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_game_creation">
+    <Key>
+      <PropertyRef Name="id_game" />
+    </Key>
+    <Property Name="id_game" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organisation" Type="int" />
+    <Property Name="id_game_creator" Type="int" />
+    <Property Name="gameid" Type="varchar" MaxLength="45" />
+    <Property Name="game_title" Type="varchar" MaxLength="45" />
+    <Property Name="game_description" Type="varchar" MaxLength="1000" />
+    <Property Name="game_creator_name" Type="varchar" MaxLength="45" />
+    <Property Name="game_expiry_date" Type="datetime" Precision="0" />
+    <Property Name="game_start_date" Type="datetime" Precision="0" />
+    <Property Name="game_mode" Type="varchar" MaxLength="45" />
+    <Property Name="game_type" Type="varchar" MaxLength="45" />
+    <Property Name="id_game_path" Type="varchar" MaxLength="45" />
+    <Property Name="player_type" Type="varchar" MaxLength="45" />
+    <Property Name="id_game_group" Type="int" />
+    <Property Name="game_comment" Type="varchar" MaxLength="45" />
+    <Property Name="game_phase" Type="varchar" MaxLength="45" />
+    <Property Name="game_creation_datetime" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_game_group">
+    <Key>
+      <PropertyRef Name="id_game_group" />
+    </Key>
+    <Property Name="id_game_group" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="group_name" Type="varchar" MaxLength="450" />
+    <Property Name="group_image_path" Type="varchar" MaxLength="450" />
+    <Property Name="id_creator" Type="int" />
+    <Property Name="game_group_type" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_game_group_association">
+    <Key>
+      <PropertyRef Name="id_game_group_association" />
+    </Key>
+    <Property Name="id_game_group_association" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_game" Type="int" />
+    <Property Name="association_type" Type="int" />
+    <Property Name="id_game_group" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="creation_date" Type="datetime" Precision="0" />
+    <Property Name="removed_date" Type="datetime" Precision="0" />
+    <Property Name="start_date" Type="datetime" Precision="0" />
+    <Property Name="expiry_date" Type="datetime" Precision="0" />
+    <Property Name="assigned_by" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_game_group_participatant">
+    <Key>
+      <PropertyRef Name="id_game_group_participatant" />
+    </Key>
+    <Property Name="id_game_group_participatant" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_game_group" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="participatant_level" Type="int" />
+    <Property Name="addition_date" Type="datetime" Precision="0" />
+    <Property Name="removal_date" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_game_path">
+    <Key>
+      <PropertyRef Name="id_game_path" />
+    </Key>
+    <Property Name="id_game_path" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_category_tile" Type="int" />
+    <Property Name="id_category_heading" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_program" Type="int" />
+    <Property Name="Program_sequence_order" Type="int" />
+    <Property Name="is_program_mandatory" Type="varchar" MaxLength="45" />
+    <Property Name="program_weightage" Type="varchar" MaxLength="45" />
+    <Property Name="program_select_flag" Type="varchar" MaxLength="45" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="assessment_sequence_order" Type="int" />
+    <Property Name="is_assessment_mandatory" Type="varchar" MaxLength="45" />
+    <Property Name="assessment_weightage" Type="int" />
+    <Property Name="assessment_select_flag" Type="varchar" MaxLength="45" />
+    <Property Name="id_game" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_game_phase">
+    <Key>
+      <PropertyRef Name="id_game_path" />
+    </Key>
+    <Property Name="id_game_path" Type="int" Nullable="false" />
+    <Property Name="id_game" Type="int" />
+    <Property Name="content_type" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="id_content" Type="int" />
+    <Property Name="order_no" Type="int" />
+    <Property Name="is_mandatory" Type="varchar" MaxLength="45" />
+    <Property Name="weightage" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_game_process_path">
+    <Key>
+      <PropertyRef Name="id_game_process_path" />
+    </Key>
+    <Property Name="id_game_process_path" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_game" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="process_type" Type="int" />
+    <Property Name="sequence_number" Type="int" />
+    <Property Name="is_mandatory" Type="int" />
+    <Property Name="weightage" Type="double" />
+    <Property Name="element_type" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_game_solo">
+    <Key>
+      <PropertyRef Name="id_game" />
+    </Key>
+    <Property Name="id_game" Type="int" Nullable="false" />
+    <Property Name="id_participatant" Type="int" />
+    <Property Name="participatant_level" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_industry">
+    <Key>
+      <PropertyRef Name="ID_INDUSTRY" />
+    </Key>
+    <Property Name="ID_INDUSTRY" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="INDUSTRYNAME" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="200" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_kpi_grid">
+    <Key>
+      <PropertyRef Name="id_kpi_grid" />
+    </Key>
+    <Property Name="id_kpi_grid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_kpi_master" Type="int" />
+    <Property Name="start_range" Type="double" />
+    <Property Name="end_range" Type="double" />
+    <Property Name="kpi_value" Type="int" />
+    <Property Name="kpi_text" Type="varchar" MaxLength="45" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_kpi_master">
+    <Key>
+      <PropertyRef Name="id_kpi_master" />
+    </Key>
+    <Property Name="id_kpi_master" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="kpi_name" Type="text" />
+    <Property Name="kpi_description" Type="text" />
+    <Property Name="kpi_type" Type="int" />
+    <Property Name="KPIID" Type="varchar" MaxLength="400" />
+    <Property Name="start_date" Type="datetime" Precision="0" />
+    <Property Name="expiry_date" Type="datetime" Precision="0" />
+    <Property Name="id_creator" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_kpi_program_scoring">
+    <Key>
+      <PropertyRef Name="id_kpi_program_scoring" />
+    </Key>
+    <Property Name="id_kpi_program_scoring" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="kpi_type" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="id_kpi_master" Type="int" />
+    <Property Name="ps_weightage" Type="double" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_menu">
+    <Key>
+      <PropertyRef Name="id_menu" />
+    </Key>
+    <Property Name="id_menu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_org" Type="int" Nullable="false" />
+    <Property Name="menu_name" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="menu_url" Type="varchar" MaxLength="100" />
+    <Property Name="menu_icon" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_menu_type">
+    <Key>
+      <PropertyRef Name="id_menu_type" />
+    </Key>
+    <Property Name="id_menu_type" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organisation" Type="int" />
+    <Property Name="menu_type" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_mutthi_mein_sitare_milestone">
+    <Key>
+      <PropertyRef Name="id_milestone" />
+    </Key>
+    <Property Name="id_milestone" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_skill" Type="int" />
+    <Property Name="milestone_description" Type="varchar" MaxLength="200" />
+    <Property Name="created_date" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="last_modified" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="tbl_mutthi_mein_sitare_skill">
+    <Key>
+      <PropertyRef Name="id_skill" />
+    </Key>
+    <Property Name="id_skill" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="skill_description" Type="varchar" MaxLength="200" />
+    <Property Name="created_date" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="last_modified" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="tbl_mutthi_skill_development_detail">
+    <Key>
+      <PropertyRef Name="id_mutthi_skill_development_detail" />
+    </Key>
+    <Property Name="id_mutthi_skill_development_detail" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_mutthi_sheet" Type="int" />
+    <Property Name="id_skill" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_mutthi_skill_milestone_detail">
+    <Key>
+      <PropertyRef Name="id_mutthi_skill_milestone_detail" />
+    </Key>
+    <Property Name="id_mutthi_skill_milestone_detail" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_mutthi_sheet" Type="int" />
+    <Property Name="id_milestone" Type="int" />
+    <Property Name="milestone_detail" Type="varchar" MaxLength="45" />
+    <Property Name="milestone_comments" Type="varchar" MaxLength="200" />
+    <Property Name="id_skill" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_mutthimeinsitare_master">
+    <Key>
+      <PropertyRef Name="id_mutthi_sheet" />
+    </Key>
+    <Property Name="id_mutthi_sheet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="roll_no" Type="varchar" MaxLength="45" />
+    <Property Name="year" Type="varchar" MaxLength="45" />
+    <Property Name="doj" Type="datetime" Precision="0" />
+    <Property Name="created_on" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="last_modified" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="term" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_news_ticker">
+    <Key>
+      <PropertyRef Name="Id_ticker" />
+    </Key>
+    <Property Name="Id_ticker" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_org" Type="int" />
+    <Property Name="Id_creator" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="4" />
+    <Property Name="update_date" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="expiry_date" Type="datetime" Precision="0" />
+    <Property Name="ticker_news" Type="varchar" MaxLength="200" />
+    <Property Name="background_color" Type="varchar" MaxLength="45" />
+    <Property Name="font_color" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="tbl_non_disclousure_clause_content">
+    <Key>
+      <PropertyRef Name="id_clause_content" />
+    </Key>
+    <Property Name="id_clause_content" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_org" Type="int" />
+    <Property Name="content_title" Type="varchar" MaxLength="45" />
+    <Property Name="content" Type="text" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+    <Property Name="id_creator" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="tbl_non_disclousure_clause_log">
+    <Key>
+      <PropertyRef Name="id_clause_log" />
+    </Key>
+    <Property Name="id_clause_log" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_org" Type="int" />
+    <Property Name="log_status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_notification">
+    <Key>
+      <PropertyRef Name="id_notification" />
+    </Key>
+    <Property Name="id_notification" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="notification_type" Type="int" Nullable="false" />
+    <Property Name="notification_key" Type="text" />
+    <Property Name="notification_name" Type="text" />
+    <Property Name="notification_description" Type="text" />
+    <Property Name="notification_message" Type="text" />
+    <Property Name="reminder_flag" Type="int" Nullable="false" />
+    <Property Name="id_organization" Type="int" Nullable="false" />
+    <Property Name="created_date" Type="datetime" Precision="0" />
+    <Property Name="reminder_time" Type="int" Nullable="false" />
+    <Property Name="reminder_frequency" Type="int" Nullable="false" />
+    <Property Name="start_date" Type="datetime" Precision="0" />
+    <Property Name="end_date" Type="datetime" Precision="0" />
+    <Property Name="notification_action_type" Type="text" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_notification_config">
+    <Key>
+      <PropertyRef Name="id_notification_config" />
+    </Key>
+    <Property Name="id_notification_config" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_notification" Type="int" />
+    <Property Name="id_creater" Type="int" />
+    <Property Name="notification_key" Type="text" />
+    <Property Name="notification_action_type" Type="text" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_content" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="user_type" Type="text" />
+    <Property Name="read_timestamp" Type="datetime" Precision="0" />
+    <Property Name="start_date" Type="datetime" Precision="0" />
+    <Property Name="end_date" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_notification_pre_config">
+    <Key>
+      <PropertyRef Name="id_notification_config" />
+    </Key>
+    <Property Name="id_notification_config" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_notification" Type="int" />
+    <Property Name="id_creater" Type="int" />
+    <Property Name="notification_key" Type="text" />
+    <Property Name="notification_action_type" Type="text" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_content" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="user_type" Type="text" />
+    <Property Name="read_timestamp" Type="datetime" Precision="0" />
+    <Property Name="start_date" Type="datetime" Precision="0" />
+    <Property Name="end_date" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_notification_reminder">
+    <Key>
+      <PropertyRef Name="id_notification_reminder" />
+    </Key>
+    <Property Name="id_notification_reminder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_notification" Type="int" />
+    <Property Name="id_reminder_notification" Type="int" />
+    <Property Name="reminder_timeout" Type="int" />
+    <Property Name="reminder_frequency" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_offline_expiry">
+    <Key>
+      <PropertyRef Name="ID_OFFLINE_EXPIRY" />
+    </Key>
+    <Property Name="ID_OFFLINE_EXPIRY" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_USER" Type="int" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="EXPIRY" Type="timestamp" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_organisation_banner">
+    <Key>
+      <PropertyRef Name="id_organisation_banner" />
+    </Key>
+    <Property Name="id_organisation_banner" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="banner_name" Type="varchar" MaxLength="500" />
+    <Property Name="Banner_path" Type="varchar" MaxLength="500" />
+    <Property Name="updated_date_time" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="id_organisation" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_organisation_banner_links">
+    <Key>
+      <PropertyRef Name="id_organisation_banner_links" />
+    </Key>
+    <Property Name="id_organisation_banner_links" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organisation_banner" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="user_option" Type="int" />
+    <Property Name="updated_date_time" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="tbl_organisation_status">
+    <Key>
+      <PropertyRef Name="id_organisation_status" />
+    </Key>
+    <Property Name="id_organisation_status" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organisation" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="expiry_date" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_organization">
+    <Key>
+      <PropertyRef Name="ID_ORGANIZATION" />
+    </Key>
+    <Property Name="ID_ORGANIZATION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_INDUSTRY" Type="int" Nullable="false" />
+    <Property Name="ID_BUSINESS_TYPE" Type="int" Nullable="false" />
+    <Property Name="ORGANIZATION_NAME" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="200" />
+    <Property Name="LOGO" Type="varchar" MaxLength="450" />
+    <Property Name="CONTACT NAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CONTACTNUMBER" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="CONTACTEMAIL" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DEFAULT_EMAIL" Type="text" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_overall_assessment_user_log">
+    <Key>
+      <PropertyRef Name="srno" />
+    </Key>
+    <Property Name="srno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" />
+    <Property Name="name" Type="varchar" MaxLength="100" />
+    <Property Name="location" Type="varchar" MaxLength="100" />
+    <Property Name="percentage" Type="double" />
+  </EntityType>
+  <EntityType Name="tbl_overall_program_content_user_log">
+    <Key>
+      <PropertyRef Name="srno" />
+    </Key>
+    <Property Name="srno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" />
+    <Property Name="name" Type="varchar" MaxLength="100" />
+    <Property Name="location" Type="varchar" MaxLength="100" />
+    <Property Name="percentage" Type="double" />
+  </EntityType>
+  <EntityType Name="tbl_profile">
+    <Key>
+      <PropertyRef Name="ID_PROFILE" />
+    </Key>
+    <Property Name="ID_PROFILE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_USER" Type="int" Nullable="false" />
+    <Property Name="FIRSTNAME" Type="varchar" MaxLength="100" />
+    <Property Name="LASTNAME" Type="varchar" MaxLength="100" />
+    <Property Name="AGE" Type="int" />
+    <Property Name="LOCATION" Type="varchar" MaxLength="100" />
+    <Property Name="EMAIL" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="MOBILE" Type="varchar" MaxLength="15" />
+    <Property Name="GENDER" Type="varchar" MaxLength="45" />
+    <Property Name="DESIGNATION" Type="text" />
+    <Property Name="CITY" Type="varchar" MaxLength="100" />
+    <Property Name="OFFICE_ADDRESS" Type="text" />
+    <Property Name="DATE_OF_BIRTH" Type="datetime" Precision="0" />
+    <Property Name="DATE_OF_JOINING" Type="datetime" Precision="0" />
+    <Property Name="REPORTING_MANAGER" Type="text" />
+  </EntityType>
+  <EntityType Name="tbl_reminder_notification_config">
+    <Key>
+      <PropertyRef Name="id_reminder_notification_config" />
+    </Key>
+    <Property Name="id_reminder_notification_config" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_notification" Type="int" />
+    <Property Name="reminder_type" Type="int" />
+    <Property Name="DH" Type="int" />
+    <Property Name="YH" Type="int" />
+    <Property Name="YM" Type="int" />
+    <Property Name="TM" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_reminder_notification_log">
+    <Key>
+      <PropertyRef Name="id_reminder_notification_log" />
+    </Key>
+    <Property Name="id_reminder_notification_log" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_notification" Type="int" />
+    <Property Name="id_reminder_notification" Type="int" />
+    <Property Name="reminder_type" Type="int" />
+    <Property Name="default_counter" Type="int" />
+    <Property Name="custom_counter" Type="int" />
+    <Property Name="last_notification" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_report_content">
+    <Key>
+      <PropertyRef Name="ID_REPORT_CONTENT" />
+    </Key>
+    <Property Name="ID_REPORT_CONTENT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ORGANIZATION" Type="int" Nullable="false" />
+    <Property Name="ID_CONTENT" Type="int" Nullable="false" />
+    <Property Name="ID_USER" Type="int" Nullable="false" />
+    <Property Name="CHOICE" Type="int" />
+    <Property Name="STATUS" Type="varchar" MaxLength="45" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_report_login_log">
+    <Key>
+      <PropertyRef Name="id_report_login_log" />
+    </Key>
+    <Property Name="id_report_login_log" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="LOG_DATETIME" Type="datetime" Precision="0" />
+    <Property Name="IMEI" Type="text" />
+  </EntityType>
+  <EntityType Name="tbl_role">
+    <Key>
+      <PropertyRef Name="ID_ROLE" />
+    </Key>
+    <Property Name="ID_ROLE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ORGANIZATION" Type="int" Nullable="false" />
+    <Property Name="ROLENAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="200" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATEDTIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_role_user_mapping">
+    <Key>
+      <PropertyRef Name="id_role_user_mapping" />
+    </Key>
+    <Property Name="id_role_user_mapping" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_csst_role" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_rs_type_qna">
+    <Key>
+      <PropertyRef Name="id_rs_type_qna" />
+    </Key>
+    <Property Name="id_rs_type_qna" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_assessment_log" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_assessment_sheet" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="attempt_number" Type="int" />
+    <Property Name="total_question" Type="int" />
+    <Property Name="right_answer_count" Type="int" />
+    <Property Name="wrong_answer_count" Type="int" />
+    <Property Name="result_in_percentage" Type="double" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_saksham_assessment_master">
+    <Key>
+      <PropertyRef Name="id_saksham_assessment_master" />
+    </Key>
+    <Property Name="id_saksham_assessment_master" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="roll_no" Type="varchar" MaxLength="45" />
+    <Property Name="id_teacher" Type="varchar" MaxLength="45" />
+    <Property Name="id_organization" Type="varchar" MaxLength="45" />
+    <Property Name="year" Type="varchar" MaxLength="45" />
+    <Property Name="doj" Type="datetime" Precision="0" />
+    <Property Name="assessment_date" Type="datetime" Precision="0" />
+    <Property Name="growth_date_capture" Type="datetime" Precision="0" />
+    <Property Name="height" Type="varchar" MaxLength="45" />
+    <Property Name="weight" Type="varchar" MaxLength="45" />
+    <Property Name="created_date" Type="datetime" Precision="0" />
+    <Property Name="last_modified" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_saksham_assessment_skill_detail">
+    <Key>
+      <PropertyRef Name="id_saksham_assessment_skill_detail" />
+    </Key>
+    <Property Name="id_saksham_assessment_skill_detail" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_saksham_assessment_master" Type="int" />
+    <Property Name="id_skill" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_scheduled_event">
+    <Key>
+      <PropertyRef Name="id_scheduled_event" />
+    </Key>
+    <Property Name="id_scheduled_event" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_event_creator" Type="int" />
+    <Property Name="event_title" Type="text" />
+    <Property Name="event_description" Type="text" />
+    <Property Name="registration_start_date" Type="datetime" Precision="0" />
+    <Property Name="registration_end_date" Type="datetime" Precision="0" />
+    <Property Name="event_start_datetime" Type="datetime" Precision="0" />
+    <Property Name="event_duration" Type="text" />
+    <Property Name="event_type" Type="int" />
+    <Property Name="event_group_type" Type="int" />
+    <Property Name="program_name" Type="text" />
+    <Property Name="program_description" Type="text" />
+    <Property Name="program_objective" Type="text" />
+    <Property Name="facilitator_name" Type="text" />
+    <Property Name="facilitator_organization" Type="text" />
+    <Property Name="program_image" Type="text" />
+    <Property Name="no_of_participants" Type="int" />
+    <Property Name="program_venue" Type="text" />
+    <Property Name="program_location" Type="text" />
+    <Property Name="attachment_type" Type="int" />
+    <Property Name="id_program" Type="int" />
+    <Property Name="id_assessment" Type="int" />
+    <Property Name="id_category_tile" Type="int" />
+    <Property Name="id_category_heading" Type="int" />
+    <Property Name="id_category" Type="int" />
+    <Property Name="is_approval" Type="varchar" MaxLength="45" />
+    <Property Name="is_response" Type="varchar" MaxLength="45" />
+    <Property Name="is_unsubscribe" Type="varchar" MaxLength="45" />
+    <Property Name="program_start_date" Type="datetime" Precision="0" />
+    <Property Name="program_duration_type" Type="int" />
+    <Property Name="program_duration" Type="int" />
+    <Property Name="program_duration_unit" Type="text" />
+    <Property Name="program_end_date" Type="datetime" Precision="0" />
+    <Property Name="event_additional_info" Type="text" />
+    <Property Name="event_online_url" Type="text" />
+    <Property Name="participant_level" Type="text" />
+    <Property Name="event_comment" Type="text" />
+    <Property Name="status" Type="text" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_scheduled_event_subscription_log">
+    <Key>
+      <PropertyRef Name="id_scheduled_event_subscription_log" />
+    </Key>
+    <Property Name="id_scheduled_event_subscription_log" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_scheduled_event" Type="int" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_cms_user" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="event_sent_timestamp" Type="datetime" Precision="0" />
+    <Property Name="event_user_response" Type="int" />
+    <Property Name="event_user_response_timestamp" Type="datetime" Precision="0" />
+    <Property Name="event_user_comment" Type="text" />
+    <Property Name="apporoved_reporting_manager" Type="int" />
+    <Property Name="approved_date" Type="datetime" Precision="0" />
+    <Property Name="subscription_status" Type="text" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'def.db_m2ost_production_v_5.tbl_skill_development' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="tbl_skill_development">
+          <Property Name="id_skill" Type="int" />
+          <Property Name="id_organization" Type="int" />
+          <Property Name="year" Type="text" />
+          <Property Name="skill_description" Type="text" />
+          <Property Name="status" Type="text" />
+          <Property Name="created_date" Type="text" />
+          <Property Name="last_modified" Type="text" />
+        </EntityType>-->
+  <EntityType Name="tbl_skill_milestone">
+    <Key>
+      <PropertyRef Name="id_milestone" />
+    </Key>
+    <Property Name="id_milestone" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="id_skill" Type="int" />
+    <Property Name="miilestone_description" Type="varchar" MaxLength="200" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="created_date" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="last_modified" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="tbl_sso_log">
+    <Key>
+      <PropertyRef Name="id_sso_log" />
+    </Key>
+    <Property Name="id_sso_log" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tran_id" Type="varchar" MaxLength="300" />
+    <Property Name="datetime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="tbl_subscriptions">
+    <Key>
+      <PropertyRef Name="ID_SUBSCRIPTION" />
+    </Key>
+    <Property Name="ID_SUBSCRIPTION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_USER" Type="int" Nullable="false" />
+    <Property Name="ID_CONTENT" Type="int" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATEDTIME" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="EXPIRY_DATE" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_survey">
+    <Key>
+      <PropertyRef Name="ID_SURVEY" />
+    </Key>
+    <Property Name="ID_SURVEY" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_CONTENT_ANSWER" Type="int" />
+    <Property Name="ID_ANSWER_STEP" Type="int" />
+    <Property Name="SURVEY_NAME" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="1000" />
+    <Property Name="SURVEY_IMAGE" Type="varchar" MaxLength="100" />
+    <Property Name="START_DATE" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="END_DATE" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_survey_bank">
+    <Key>
+      <PropertyRef Name="ID_SURVEY_BANK" />
+    </Key>
+    <Property Name="ID_SURVEY_BANK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SURVEY_QUESTION" Type="varchar" MaxLength="2000" Nullable="false" />
+    <Property Name="SURVEY_CHOICES" Type="varchar" MaxLength="5000" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_survey_bank_link">
+    <Key>
+      <PropertyRef Name="ID_SURVEY_BANK_LINK" />
+    </Key>
+    <Property Name="ID_SURVEY_BANK_LINK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_SURVEY" Type="int" Nullable="false" />
+    <Property Name="ID_SURVEY_BANK" Type="int" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_survey_data">
+    <Key>
+      <PropertyRef Name="ID_SURVEY_DATA" />
+    </Key>
+    <Property Name="ID_SURVEY_DATA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_SURVEY" Type="int" Nullable="false" />
+    <Property Name="ID_SURVEY_BANK" Type="int" Nullable="false" />
+    <Property Name="ID_USER" Type="int" Nullable="false" />
+    <Property Name="SURVEY_DATA" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_task">
+    <Key>
+      <PropertyRef Name="id_task" />
+    </Key>
+    <Property Name="id_task" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_org" Type="int" />
+    <Property Name="task" Type="varchar" MaxLength="200" />
+    <Property Name="modified_date" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="status" Type="varchar" MaxLength="4" />
+  </EntityType>
+  <EntityType Name="tbl_temp_user_upload">
+    <Key>
+      <PropertyRef Name="id_temp_user_upload" />
+    </Key>
+    <Property Name="id_temp_user_upload" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="temp_user_upload_key" Type="text" />
+    <Property Name="EMPLOYEEID" Type="text" />
+    <Property Name="ROLE" Type="text" />
+    <Property Name="ID_ROLE" Type="int" />
+    <Property Name="USERID" Type="text" />
+    <Property Name="PASSWORD" Type="text" />
+    <Property Name="FIRSTNAME" Type="text" />
+    <Property Name="LASTNAME" Type="text" />
+    <Property Name="AGE" Type="text" />
+    <Property Name="EMAIL" Type="text" />
+    <Property Name="MOBILE" Type="text" />
+    <Property Name="GENDER" Type="text" />
+    <Property Name="CITY" Type="text" />
+    <Property Name="OFFICE_ADDRESS" Type="text" />
+    <Property Name="DATE_OF_BIRTH" Type="text" />
+    <Property Name="DATE_OF_JOINING" Type="text" />
+    <Property Name="user_department" Type="text" />
+    <Property Name="user_designation" Type="text" />
+    <Property Name="user_function" Type="text" />
+    <Property Name="user_grade" Type="text" />
+    <Property Name="user_status" Type="text" />
+    <Property Name="reporting_manager" Type="text" />
+    <Property Name="id_reporting_manager" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="tbl_themes">
+    <Key>
+      <PropertyRef Name="ID_THEME" />
+    </Key>
+    <Property Name="ID_THEME" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="THEME_NAME" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="200" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_user">
+    <Key>
+      <PropertyRef Name="ID_USER" />
+    </Key>
+    <Property Name="ID_USER" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_CODE" Type="int" Nullable="false" />
+    <Property Name="ID_ORGANIZATION" Type="int" />
+    <Property Name="ID_ROLE" Type="int" Nullable="false" />
+    <Property Name="USERID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PASSWORD" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="FBSOCIALID" Type="varchar" MaxLength="50" />
+    <Property Name="GPSOCIALID" Type="varchar" MaxLength="50" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATEDTIME" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="EXPIRY_DATE" Type="datetime" Precision="0" />
+    <Property Name="EMPLOYEEID" Type="text" />
+    <Property Name="user_department" Type="text" />
+    <Property Name="user_designation" Type="text" />
+    <Property Name="user_function" Type="text" />
+    <Property Name="user_grade" Type="text" />
+    <Property Name="user_status" Type="varchar" MaxLength="450" />
+    <Property Name="reporting_manager" Type="int" />
+    <Property Name="is_reporting" Type="int" />
+    <Property Name="created_datetime" Type="datetime" Precision="0" />
+    <Property Name="last_modified_datetime" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_user_data">
+    <Key>
+      <PropertyRef Name="ID_USER_DATA" />
+    </Key>
+    <Property Name="ID_USER_DATA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_USER" Type="int" Nullable="false" />
+    <Property Name="ID_DEVICE_TYPE" Type="int" Nullable="false" />
+    <Property Name="DEVICE_ID" Type="varchar" MaxLength="100" />
+    <Property Name="ID_ACTION" Type="int" Nullable="false" />
+    <Property Name="UPDATEDDATETIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_user_device_link">
+    <Key>
+      <PropertyRef Name="ID_USER_DEVICE_LINK" />
+    </Key>
+    <Property Name="ID_USER_DEVICE_LINK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_USER" Type="int" Nullable="false" />
+    <Property Name="ID_DEVICE_TYPE" Type="int" Nullable="false" />
+    <Property Name="DEVICE_ID" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_user_gcm_log">
+    <Key>
+      <PropertyRef Name="id_user_gcm_log" />
+    </Key>
+    <Property Name="id_user_gcm_log" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GCMID" Type="text" />
+    <Property Name="id_user" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_user_programs">
+    <Key>
+      <PropertyRef Name="ID_USER_PROGRAM" />
+    </Key>
+    <Property Name="ID_USER_PROGRAM" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_USER" Type="int" Nullable="false" />
+    <Property Name="ID_CONTENT" Type="int" Nullable="false" />
+    <Property Name="EXPIRY_DATE" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="UPDATED_DATE_TIME" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_user_zone">
+    <Key>
+      <PropertyRef Name="id_user_zone" />
+    </Key>
+    <Property Name="id_user_zone" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_user_zone_master" Type="int" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="location" Type="varchar" MaxLength="100" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="tbl_user_zone_master">
+    <Key>
+      <PropertyRef Name="id_user_zone_master" />
+    </Key>
+    <Property Name="id_user_zone_master" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_organization" Type="int" />
+    <Property Name="zone_title" Type="varchar" MaxLength="450" />
+    <Property Name="trainer_name" Type="varchar" MaxLength="450" />
+    <Property Name="id_user_trainer" Type="int" />
+    <Property Name="employee_id" Type="varchar" MaxLength="45" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="tbl_version_control">
+    <Key>
+      <PropertyRef Name="id_version_control" />
+    </Key>
+    <Property Name="id_version_control" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version_number" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_version_control_ios">
+    <Key>
+      <PropertyRef Name="id_version_control" />
+    </Key>
+    <Property Name="id_version_control" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version_number" Type="varchar" MaxLength="45" />
+    <Property Name="updated_date_time" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="tbl_welcome_gif">
+    <Key>
+      <PropertyRef Name="id_welcome_gif" />
+    </Key>
+    <Property Name="id_welcome_gif" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_org" Type="int" />
+    <Property Name="gif" Type="varchar" MaxLength="200" />
+    <Property Name="status" Type="varchar" MaxLength="45" />
+    <Property Name="created_date" Type="datetime" Precision="0" />
+    <Property Name="updated_date" Type="datetime" Precision="0" />
+    <Property Name="flag" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'def.db_m2ost_production_v_5.content_access_existing' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="content_access_existing">
+    <Key>
+      <PropertyRef Name="id_user" />
+      <PropertyRef Name="USERID" />
+      <PropertyRef Name="id_organization" />
+      <PropertyRef Name="ORGANIZATION_NAME" />
+      <PropertyRef Name="CONTENT_QUESTION" />
+      <PropertyRef Name="USTATUS" />
+    </Key>
+    <Property Name="id_user" Type="int" Nullable="false" />
+    <Property Name="EMPLOYEEID" Type="text" />
+    <Property Name="USERID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RMUSER" Type="varchar" MaxLength="50" />
+    <Property Name="UNAME" Type="mediumtext" />
+    <Property Name="id_organization" Type="int" Nullable="false" />
+    <Property Name="ORGANIZATION_NAME" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="id_content" Type="int" />
+    <Property Name="CONTENT_QUESTION" Type="text" Nullable="false" />
+    <Property Name="LASTACCESS" Type="datetime" Precision="0" />
+    <Property Name="LOCATION" Type="varchar" MaxLength="100" />
+    <Property Name="zone_title" Type="varchar" MaxLength="450" />
+    <Property Name="user_designation" Type="text" />
+    <Property Name="USTATUS" Type="varchar" MaxLength="9" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'def.db_m2ost_production_v_5.content_access_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="content_access_view">
+    <Key>
+      <PropertyRef Name="id_user" />
+      <PropertyRef Name="USERID" />
+      <PropertyRef Name="id_organization" />
+      <PropertyRef Name="ORGANIZATION_NAME" />
+      <PropertyRef Name="CONTENT_QUESTION" />
+      <PropertyRef Name="USTATUS" />
+    </Key>
+    <Property Name="id_user" Type="int" Nullable="false" />
+    <Property Name="EMPLOYEEID" Type="text" />
+    <Property Name="USERID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="UNAMEE" Type="mediumtext" />
+    <Property Name="id_organization" Type="int" Nullable="false" />
+    <Property Name="ORGANIZATION_NAME" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="id_content" Type="int" />
+    <Property Name="CONTENT_QUESTION" Type="text" Nullable="false" />
+    <Property Name="LASTACCESS" Type="datetime" Precision="0" />
+    <Property Name="LOCATION" Type="varchar" MaxLength="100" />
+    <Property Name="user_designation" Type="text" />
+    <Property Name="USTATUS" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="zone_title" Type="varchar" MaxLength="450" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'def.db_m2ost_production_v_5.dummy_map' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="dummy_map">
+    <Key>
+      <PropertyRef Name="id_category_association" />
+    </Key>
+    <Property Name="id_category_association" Type="int" Nullable="false" />
+    <Property Name="id_parent" Type="int" />
+    <Property Name="id_category" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'def.db_m2ost_production_v_5.indavgscore_view' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="indavgscore_view">
+          <Property Name="id_user" Type="int" />
+          <Property Name="id_game" Type="int" />
+          <Property Name="CATEGORYNAME" Type="varchar" MaxLength="50" />
+          <Property Name="IndavgScore" Type="double" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'def.db_m2ost_production_v_5.indavgscore_view_old' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="indavgscore_view_old">
+    <Key>
+      <PropertyRef Name="CATEGORYNAME" />
+    </Key>
+    <Property Name="id_user" Type="int" />
+    <Property Name="id_game" Type="int" />
+    <Property Name="CATEGORYNAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IndavgScore" Type="double" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'def.db_m2ost_production_v_5.overall_score' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="overall_score">
+          <Property Name="id_user" Type="int" />
+          <Property Name="id_organization" Type="int" />
+          <Property Name="id_game" Type="int" />
+          <Property Name="OverallScore" Type="double" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'def.db_m2ost_production_v_5.overall_score_old' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="overall_score_old">
+          <Property Name="id_user" Type="int" />
+          <Property Name="id_organisation" Type="int" />
+          <Property Name="OverallScore" Type="double" />
+        </EntityType>-->
+  <Association Name="fk_assesment_sht1">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="0..1" />
+    <End Role="tbl_assessment_sheet" Type="Self.tbl_assessment_sheet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_assessment_sheet">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assesment_sht2">
+    <End Role="tbl_assessment" Type="Self.tbl_assessment" Multiplicity="1" />
+    <End Role="tbl_assessment_sheet" Type="Self.tbl_assessment_sheet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_assessment">
+        <PropertyRef Name="id_assessment" />
+      </Principal>
+      <Dependent Role="tbl_assessment_sheet">
+        <PropertyRef Name="id_assesment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assess_gene1">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="0..1" />
+    <End Role="tbl_assessment_general" Type="Self.tbl_assessment_general" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_assessment_general">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assess_gene2">
+    <End Role="tbl_assessment_sheet" Type="Self.tbl_assessment_sheet" Multiplicity="1" />
+    <End Role="tbl_assessment_general" Type="Self.tbl_assessment_general" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_assessment_sheet">
+        <PropertyRef Name="id_assessment_sheet" />
+      </Principal>
+      <Dependent Role="tbl_assessment_general">
+        <PropertyRef Name="id_assesment_sheet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assess_gene3">
+    <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="0..1" />
+    <End Role="tbl_assessment_general" Type="Self.tbl_assessment_general" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_user">
+        <PropertyRef Name="ID_USER" />
+      </Principal>
+      <Dependent Role="tbl_assessment_general">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assessment_header1">
+    <End Role="tbl_assessment_scoring_key" Type="Self.tbl_assessment_scoring_key" Multiplicity="1" />
+    <End Role="tbl_assessment_header" Type="Self.tbl_assessment_header" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_assessment_scoring_key">
+        <PropertyRef Name="id_assessment_scoring_key" />
+      </Principal>
+      <Dependent Role="tbl_assessment_header">
+        <PropertyRef Name="id_assessment_scoring_key" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assessment_header2">
+    <End Role="tbl_assessment_question" Type="Self.tbl_assessment_question" Multiplicity="1" />
+    <End Role="tbl_assessment_header" Type="Self.tbl_assessment_header" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_assessment_question">
+        <PropertyRef Name="id_assessment_question" />
+      </Principal>
+      <Dependent Role="tbl_assessment_header">
+        <PropertyRef Name="id_assessment_question" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assessment_header3">
+    <End Role="tbl_assessment_answer" Type="Self.tbl_assessment_answer" Multiplicity="0..1" />
+    <End Role="tbl_assessment_header" Type="Self.tbl_assessment_header" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_assessment_answer">
+        <PropertyRef Name="id_assessment_answer" />
+      </Principal>
+      <Dependent Role="tbl_assessment_header">
+        <PropertyRef Name="id_assessment_answer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_assessment1">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="0..1" />
+    <End Role="tbl_assessment" Type="Self.tbl_assessment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_assessment">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_asso1">
+    <End Role="tbl_category_tiles" Type="Self.tbl_category_tiles" Multiplicity="0..1" />
+    <End Role="tbl_category_associantion" Type="Self.tbl_category_associantion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_category_tiles">
+        <PropertyRef Name="id_category_tiles" />
+      </Principal>
+      <Dependent Role="tbl_category_associantion">
+        <PropertyRef Name="id_category_tile" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_asso2">
+    <End Role="tbl_category_heading" Type="Self.tbl_category_heading" Multiplicity="0..1" />
+    <End Role="tbl_category_associantion" Type="Self.tbl_category_associantion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_category_heading">
+        <PropertyRef Name="id_category_heading" />
+      </Principal>
+      <Dependent Role="tbl_category_associantion">
+        <PropertyRef Name="id_category_heading" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_asso3">
+    <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="0..1" />
+    <End Role="tbl_category_associantion" Type="Self.tbl_category_associantion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_category">
+        <PropertyRef Name="ID_CATEGORY" />
+      </Principal>
+      <Dependent Role="tbl_category_associantion">
+        <PropertyRef Name="id_category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_bann1">
+    <End Role="tbl_content" Type="Self.tbl_content" Multiplicity="1" />
+    <End Role="tbl_content_banner" Type="Self.tbl_content_banner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content">
+        <PropertyRef Name="ID_CONTENT" />
+      </Principal>
+      <Dependent Role="tbl_content_banner">
+        <PropertyRef Name="id_content" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_bann2">
+    <End Role="tbl_banner" Type="Self.tbl_banner" Multiplicity="1" />
+    <End Role="tbl_content_banner" Type="Self.tbl_content_banner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_banner">
+        <PropertyRef Name="id_banner" />
+      </Principal>
+      <Dependent Role="tbl_content_banner">
+        <PropertyRef Name="id_banner" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_hf1">
+    <End Role="tbl_content" Type="Self.tbl_content" Multiplicity="1" />
+    <End Role="tbl_content_header_footer" Type="Self.tbl_content_header_footer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content">
+        <PropertyRef Name="ID_CONTENT" />
+      </Principal>
+      <Dependent Role="tbl_content_header_footer">
+        <PropertyRef Name="id_content" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_hf2">
+    <End Role="tbl_content_footer" Type="Self.tbl_content_footer" Multiplicity="0..1" />
+    <End Role="tbl_content_header_footer" Type="Self.tbl_content_header_footer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_footer">
+        <PropertyRef Name="id_content_footer" />
+      </Principal>
+      <Dependent Role="tbl_content_header_footer">
+        <PropertyRef Name="id_footer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_hf3">
+    <End Role="tbl_content_header" Type="Self.tbl_content_header" Multiplicity="0..1" />
+    <End Role="tbl_content_header_footer" Type="Self.tbl_content_header_footer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_header">
+        <PropertyRef Name="id_content_header" />
+      </Principal>
+      <Dependent Role="tbl_content_header_footer">
+        <PropertyRef Name="id_header" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_org_1">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="1" />
+    <End Role="tbl_content_right_association" Type="Self.tbl_content_right_association" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_content_right_association">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_org_2">
+    <End Role="tbl_content" Type="Self.tbl_content" Multiplicity="1" />
+    <End Role="tbl_content_right_association" Type="Self.tbl_content_right_association" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content">
+        <PropertyRef Name="ID_CONTENT" />
+      </Principal>
+      <Dependent Role="tbl_content_right_association">
+        <PropertyRef Name="id_content" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_org_cont1">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="1" />
+    <End Role="tbl_content_organization_mapping" Type="Self.tbl_content_organization_mapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_content_organization_mapping">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_org_cont2">
+    <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="1" />
+    <End Role="tbl_content_organization_mapping" Type="Self.tbl_content_organization_mapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_category">
+        <PropertyRef Name="ID_CATEGORY" />
+      </Principal>
+      <Dependent Role="tbl_content_organization_mapping">
+        <PropertyRef Name="id_category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_content_org_cont3">
+    <End Role="tbl_content" Type="Self.tbl_content" Multiplicity="1" />
+    <End Role="tbl_content_organization_mapping" Type="Self.tbl_content_organization_mapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content">
+        <PropertyRef Name="ID_CONTENT" />
+      </Principal>
+      <Dependent Role="tbl_content_organization_mapping">
+        <PropertyRef Name="id_content" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_head1">
+    <End Role="tbl_category_tiles" Type="Self.tbl_category_tiles" Multiplicity="0..1" />
+    <End Role="tbl_category_heading" Type="Self.tbl_category_heading" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_category_tiles">
+        <PropertyRef Name="id_category_tiles" />
+      </Principal>
+      <Dependent Role="tbl_category_heading">
+        <PropertyRef Name="id_category_tiles" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_org_ban">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="0..1" />
+    <End Role="tbl_organisation_banner" Type="Self.tbl_organisation_banner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_organisation_banner">
+        <PropertyRef Name="id_organisation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_org_banner">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="1" />
+    <End Role="tbl_banner" Type="Self.tbl_banner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_banner">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_org_csst">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="0..1" />
+    <End Role="tbl_csst_role" Type="Self.tbl_csst_role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_csst_role">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tile1">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="0..1" />
+    <End Role="tbl_category_tiles" Type="Self.tbl_category_tiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_category_tiles">
+        <PropertyRef Name="id_organization" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_category">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="1" />
+    <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_category">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_content_answer_steps">
+    <End Role="tbl_content_answer" Type="Self.tbl_content_answer" Multiplicity="1" />
+    <End Role="tbl_content_answer_steps" Type="Self.tbl_content_answer_steps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_answer">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Principal>
+      <Dependent Role="tbl_content_answer_steps">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_content_metadata">
+    <End Role="tbl_content_answer" Type="Self.tbl_content_answer" Multiplicity="1" />
+    <End Role="tbl_content_metadata" Type="Self.tbl_content_metadata" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_answer">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Principal>
+      <Dependent Role="tbl_content_metadata">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_content_type_link">
+    <End Role="tbl_content_answer" Type="Self.tbl_content_answer" Multiplicity="1" />
+    <End Role="tbl_content_type_link" Type="Self.tbl_content_type_link" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_answer">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Principal>
+      <Dependent Role="tbl_content_type_link">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_offline_expiry">
+    <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+    <End Role="tbl_offline_expiry" Type="Self.tbl_offline_expiry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_user">
+        <PropertyRef Name="ID_USER" />
+      </Principal>
+      <Dependent Role="tbl_offline_expiry">
+        <PropertyRef Name="ID_USER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_organization">
+    <End Role="tbl_industry" Type="Self.tbl_industry" Multiplicity="1" />
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_industry">
+        <PropertyRef Name="ID_INDUSTRY" />
+      </Principal>
+      <Dependent Role="tbl_organization">
+        <PropertyRef Name="ID_INDUSTRY" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_subscriptions">
+    <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+    <End Role="tbl_subscriptions" Type="Self.tbl_subscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_user">
+        <PropertyRef Name="ID_USER" />
+      </Principal>
+      <Dependent Role="tbl_subscriptions">
+        <PropertyRef Name="ID_USER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_survey">
+    <End Role="tbl_content_answer" Type="Self.tbl_content_answer" Multiplicity="0..1" />
+    <End Role="tbl_survey" Type="Self.tbl_survey" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_answer">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Principal>
+      <Dependent Role="tbl_survey">
+        <PropertyRef Name="ID_CONTENT_ANSWER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK1_tbl_survey_bank_link">
+    <End Role="tbl_survey" Type="Self.tbl_survey" Multiplicity="1" />
+    <End Role="tbl_survey_bank_link" Type="Self.tbl_survey_bank_link" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_survey">
+        <PropertyRef Name="ID_SURVEY" />
+      </Principal>
+      <Dependent Role="tbl_survey_bank_link">
+        <PropertyRef Name="ID_SURVEY" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_survey_data">
+    <End Role="tbl_survey" Type="Self.tbl_survey" Multiplicity="1" />
+    <End Role="tbl_survey_data" Type="Self.tbl_survey_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_survey">
+        <PropertyRef Name="ID_SURVEY" />
+      </Principal>
+      <Dependent Role="tbl_survey_data">
+        <PropertyRef Name="ID_SURVEY" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_tbl_user_data">
+    <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+    <End Role="tbl_user_data" Type="Self.tbl_user_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_user">
+        <PropertyRef Name="ID_USER" />
+      </Principal>
+      <Dependent Role="tbl_user_data">
+        <PropertyRef Name="ID_USER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_tbl_content_type_link">
+    <End Role="tbl_content_type" Type="Self.tbl_content_type" Multiplicity="1" />
+    <End Role="tbl_content_type_link" Type="Self.tbl_content_type_link" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_type">
+        <PropertyRef Name="ID_CONTENT_TYPE" />
+      </Principal>
+      <Dependent Role="tbl_content_type_link">
+        <PropertyRef Name="ID_CONTENT_TYPE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK2_tbl_feedback_bank_link">
+    <End Role="tbl_feedback_bank" Type="Self.tbl_feedback_bank" Multiplicity="1" />
+    <End Role="tbl_feedback_bank_link" Type="Self.tbl_feedback_bank_link" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_feedback_bank">
+        <PropertyRef Name="ID_FEEDBACK_BANK" />
+      </Principal>
+      <Dependent Role="tbl_feedback_bank_link">
+        <PropertyRef Name="ID_FEEDBACK_BANK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_tbl_feedback_data">
+    <End Role="tbl_feedback_bank" Type="Self.tbl_feedback_bank" Multiplicity="1" />
+    <End Role="tbl_feedback_data" Type="Self.tbl_feedback_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_feedback_bank">
+        <PropertyRef Name="ID_FEEDBACK_BANK" />
+      </Principal>
+      <Dependent Role="tbl_feedback_data">
+        <PropertyRef Name="ID_FEEDBACK_BANK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_tbl_organization">
+    <End Role="tbl_business_type" Type="Self.tbl_business_type" Multiplicity="1" />
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_business_type">
+        <PropertyRef Name="ID_BUSINESS_TYPE" />
+      </Principal>
+      <Dependent Role="tbl_organization">
+        <PropertyRef Name="ID_BUSINESS_TYPE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_tbl_subscriptions">
+    <End Role="tbl_content" Type="Self.tbl_content" Multiplicity="1" />
+    <End Role="tbl_subscriptions" Type="Self.tbl_subscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content">
+        <PropertyRef Name="ID_CONTENT" />
+      </Principal>
+      <Dependent Role="tbl_subscriptions">
+        <PropertyRef Name="ID_CONTENT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_tbl_survey">
+    <End Role="tbl_content_answer_steps" Type="Self.tbl_content_answer_steps" Multiplicity="0..1" />
+    <End Role="tbl_survey" Type="Self.tbl_survey" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_content_answer_steps">
+        <PropertyRef Name="ID_ANSWER_STEP" />
+      </Principal>
+      <Dependent Role="tbl_survey">
+        <PropertyRef Name="ID_ANSWER_STEP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK2_tbl_survey_bank_link">
+    <End Role="tbl_survey_bank" Type="Self.tbl_survey_bank" Multiplicity="1" />
+    <End Role="tbl_survey_bank_link" Type="Self.tbl_survey_bank_link" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_survey_bank">
+        <PropertyRef Name="ID_SURVEY_BANK" />
+      </Principal>
+      <Dependent Role="tbl_survey_bank_link">
+        <PropertyRef Name="ID_SURVEY_BANK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_tbl_survey_data">
+    <End Role="tbl_survey_bank" Type="Self.tbl_survey_bank" Multiplicity="1" />
+    <End Role="tbl_survey_data" Type="Self.tbl_survey_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_survey_bank">
+        <PropertyRef Name="ID_SURVEY_BANK" />
+      </Principal>
+      <Dependent Role="tbl_survey_data">
+        <PropertyRef Name="ID_SURVEY_BANK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_tbl_user_data">
+    <End Role="tbl_device_type" Type="Self.tbl_device_type" Multiplicity="1" />
+    <End Role="tbl_user_data" Type="Self.tbl_user_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_device_type">
+        <PropertyRef Name="ID_DEVICE_TYPE" />
+      </Principal>
+      <Dependent Role="tbl_user_data">
+        <PropertyRef Name="ID_DEVICE_TYPE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk3_tbl_feedback_data">
+    <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+    <End Role="tbl_feedback_data" Type="Self.tbl_feedback_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_user">
+        <PropertyRef Name="ID_USER" />
+      </Principal>
+      <Dependent Role="tbl_feedback_data">
+        <PropertyRef Name="ID_USER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk3_tbl_survey_data">
+    <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+    <End Role="tbl_survey_data" Type="Self.tbl_survey_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_user">
+        <PropertyRef Name="ID_USER" />
+      </Principal>
+      <Dependent Role="tbl_survey_data">
+        <PropertyRef Name="ID_USER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk3_tbl_user_data">
+    <End Role="tbl_action" Type="Self.tbl_action" Multiplicity="1" />
+    <End Role="tbl_user_data" Type="Self.tbl_user_data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_action">
+        <PropertyRef Name="ID_ACTION" />
+      </Principal>
+      <Dependent Role="tbl_user_data">
+        <PropertyRef Name="ID_ACTION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="tbl_role1">
+    <End Role="tbl_organization" Type="Self.tbl_organization" Multiplicity="1" />
+    <End Role="tbl_role" Type="Self.tbl_role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_organization">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Principal>
+      <Dependent Role="tbl_role">
+        <PropertyRef Name="ID_ORGANIZATION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="getProgramCompletionReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="db_m2ost_production_v_5">
+    <Parameter Name="oid" Type="int" Mode="In" />
+    <Parameter Name="sdate" Type="varchar" Mode="In" />
+    <Parameter Name="edate" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="indgamepercentile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="db_m2ost_production_v_5">
+    <Parameter Name="gameid" Type="int" Mode="In" />
+    <Parameter Name="userid" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="db_m2ost_production_v_5ModelStoreContainer">
+    <EntitySet Name="downtime_log" EntityType="Self.downtime_log" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="error_log" EntityType="Self.error_log" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="masti_parent_teacher_mapping" EntityType="Self.masti_parent_teacher_mapping" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="masti_teacher_galleryfolder" EntityType="Self.masti_teacher_galleryfolder" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="masti_teacher_photo_mapping" EntityType="Self.masti_teacher_photo_mapping" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="sc_game_element_weightage" EntityType="Self.sc_game_element_weightage" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="sc_program_assessment_scoring" EntityType="Self.sc_program_assessment_scoring" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="sc_program_content_summary" EntityType="Self.sc_program_content_summary" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="sc_program_kpi_score" EntityType="Self.sc_program_kpi_score" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="sc_program_kpi_weightage" EntityType="Self.sc_program_kpi_weightage" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="sc_program_log" EntityType="Self.sc_program_log" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="sc_report_game_process_path" EntityType="Self.sc_report_game_process_path" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="sc_report_game_process_score" EntityType="Self.sc_report_game_process_score" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_action" EntityType="Self.tbl_action" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessment" EntityType="Self.tbl_assessment" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessment_answer" EntityType="Self.tbl_assessment_answer" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessment_audit" EntityType="Self.tbl_assessment_audit" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessment_categoty_mapping" EntityType="Self.tbl_assessment_categoty_mapping" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessment_general" EntityType="Self.tbl_assessment_general" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessment_header" EntityType="Self.tbl_assessment_header" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessment_index" EntityType="Self.tbl_assessment_index" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessment_mapping" EntityType="Self.tbl_assessment_mapping" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessment_push" EntityType="Self.tbl_assessment_push" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessment_question" EntityType="Self.tbl_assessment_question" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessment_scoring_key" EntityType="Self.tbl_assessment_scoring_key" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessment_sheet" EntityType="Self.tbl_assessment_sheet" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessment_theme" EntityType="Self.tbl_assessment_theme" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessment_user_assignment" EntityType="Self.tbl_assessment_user_assignment" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assessmnt_log" EntityType="Self.tbl_assessmnt_log" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assignment_role_assessment" EntityType="Self.tbl_assignment_role_assessment" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assignment_role_content" EntityType="Self.tbl_assignment_role_content" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_assignment_role_program" EntityType="Self.tbl_assignment_role_program" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_authcode" EntityType="Self.tbl_authcode" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_banner" EntityType="Self.tbl_banner" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_brief_category_tile" EntityType="Self.tbl_brief_category_tile" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_brief_tile_category_mapping" EntityType="Self.tbl_brief_tile_category_mapping" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_business_type" EntityType="Self.tbl_business_type" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_category" EntityType="Self.tbl_category" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_category_associantion" EntityType="Self.tbl_category_associantion" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_category_heading" EntityType="Self.tbl_category_heading" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_category_order" EntityType="Self.tbl_category_order" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_category_tiles" EntityType="Self.tbl_category_tiles" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_certificate_assignment" EntityType="Self.tbl_certificate_assignment" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_certificate_configure" EntityType="Self.tbl_certificate_configure" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_certificate_configure_data" EntityType="Self.tbl_certificate_configure_data" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_childinformation" EntityType="Self.tbl_childinformation" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_cms_role_action" EntityType="Self.tbl_cms_role_action" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_cms_role_action_mapping" EntityType="Self.tbl_cms_role_action_mapping" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_cms_roles" EntityType="Self.tbl_cms_roles" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_cms_users" EntityType="Self.tbl_cms_users" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_color_config" EntityType="Self.tbl_color_config" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_color_config_flag" EntityType="Self.tbl_color_config_flag" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content" EntityType="Self.tbl_content" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_answer" EntityType="Self.tbl_content_answer" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_answer_steps" EntityType="Self.tbl_content_answer_steps" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_banner" EntityType="Self.tbl_content_banner" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_counters" EntityType="Self.tbl_content_counters" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_footer" EntityType="Self.tbl_content_footer" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_header" EntityType="Self.tbl_content_header" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_header_footer" EntityType="Self.tbl_content_header_footer" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_level" EntityType="Self.tbl_content_level" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_link" EntityType="Self.tbl_content_link" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_metadata" EntityType="Self.tbl_content_metadata" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_organization_mapping" EntityType="Self.tbl_content_organization_mapping" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_program_mapping" EntityType="Self.tbl_content_program_mapping" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_right_association" EntityType="Self.tbl_content_right_association" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_role_mapping" EntityType="Self.tbl_content_role_mapping" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_type" EntityType="Self.tbl_content_type" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_type_link" EntityType="Self.tbl_content_type_link" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_content_user_assisgnment" EntityType="Self.tbl_content_user_assisgnment" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_csst_role" EntityType="Self.tbl_csst_role" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_device_type" EntityType="Self.tbl_device_type" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_feedback_bank" EntityType="Self.tbl_feedback_bank" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_feedback_bank_link" EntityType="Self.tbl_feedback_bank_link" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_feedback_data" EntityType="Self.tbl_feedback_data" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_game_creation" EntityType="Self.tbl_game_creation" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_game_group" EntityType="Self.tbl_game_group" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_game_group_association" EntityType="Self.tbl_game_group_association" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_game_group_participatant" EntityType="Self.tbl_game_group_participatant" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_game_path" EntityType="Self.tbl_game_path" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_game_phase" EntityType="Self.tbl_game_phase" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_game_process_path" EntityType="Self.tbl_game_process_path" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_game_solo" EntityType="Self.tbl_game_solo" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_industry" EntityType="Self.tbl_industry" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_kpi_grid" EntityType="Self.tbl_kpi_grid" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_kpi_master" EntityType="Self.tbl_kpi_master" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_kpi_program_scoring" EntityType="Self.tbl_kpi_program_scoring" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_menu" EntityType="Self.tbl_menu" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_menu_type" EntityType="Self.tbl_menu_type" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_mutthi_mein_sitare_milestone" EntityType="Self.tbl_mutthi_mein_sitare_milestone" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_mutthi_mein_sitare_skill" EntityType="Self.tbl_mutthi_mein_sitare_skill" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_mutthi_skill_development_detail" EntityType="Self.tbl_mutthi_skill_development_detail" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_mutthi_skill_milestone_detail" EntityType="Self.tbl_mutthi_skill_milestone_detail" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_mutthimeinsitare_master" EntityType="Self.tbl_mutthimeinsitare_master" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_news_ticker" EntityType="Self.tbl_news_ticker" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_non_disclousure_clause_content" EntityType="Self.tbl_non_disclousure_clause_content" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_non_disclousure_clause_log" EntityType="Self.tbl_non_disclousure_clause_log" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_notification" EntityType="Self.tbl_notification" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_notification_config" EntityType="Self.tbl_notification_config" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_notification_pre_config" EntityType="Self.tbl_notification_pre_config" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_notification_reminder" EntityType="Self.tbl_notification_reminder" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_offline_expiry" EntityType="Self.tbl_offline_expiry" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_organisation_banner" EntityType="Self.tbl_organisation_banner" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_organisation_banner_links" EntityType="Self.tbl_organisation_banner_links" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_organisation_status" EntityType="Self.tbl_organisation_status" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_organization" EntityType="Self.tbl_organization" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_overall_assessment_user_log" EntityType="Self.tbl_overall_assessment_user_log" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_overall_program_content_user_log" EntityType="Self.tbl_overall_program_content_user_log" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_profile" EntityType="Self.tbl_profile" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_reminder_notification_config" EntityType="Self.tbl_reminder_notification_config" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_reminder_notification_log" EntityType="Self.tbl_reminder_notification_log" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_report_content" EntityType="Self.tbl_report_content" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_report_login_log" EntityType="Self.tbl_report_login_log" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_role" EntityType="Self.tbl_role" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_role_user_mapping" EntityType="Self.tbl_role_user_mapping" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_rs_type_qna" EntityType="Self.tbl_rs_type_qna" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_saksham_assessment_master" EntityType="Self.tbl_saksham_assessment_master" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_saksham_assessment_skill_detail" EntityType="Self.tbl_saksham_assessment_skill_detail" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_scheduled_event" EntityType="Self.tbl_scheduled_event" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_scheduled_event_subscription_log" EntityType="Self.tbl_scheduled_event_subscription_log" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_skill_milestone" EntityType="Self.tbl_skill_milestone" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_sso_log" EntityType="Self.tbl_sso_log" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_subscriptions" EntityType="Self.tbl_subscriptions" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_survey" EntityType="Self.tbl_survey" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_survey_bank" EntityType="Self.tbl_survey_bank" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_survey_bank_link" EntityType="Self.tbl_survey_bank_link" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_survey_data" EntityType="Self.tbl_survey_data" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_task" EntityType="Self.tbl_task" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_temp_user_upload" EntityType="Self.tbl_temp_user_upload" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_themes" EntityType="Self.tbl_themes" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_user" EntityType="Self.tbl_user" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_user_data" EntityType="Self.tbl_user_data" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_user_device_link" EntityType="Self.tbl_user_device_link" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_user_gcm_log" EntityType="Self.tbl_user_gcm_log" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_user_programs" EntityType="Self.tbl_user_programs" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_user_zone" EntityType="Self.tbl_user_zone" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_user_zone_master" EntityType="Self.tbl_user_zone_master" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_version_control" EntityType="Self.tbl_version_control" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_version_control_ios" EntityType="Self.tbl_version_control_ios" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="tbl_welcome_gif" EntityType="Self.tbl_welcome_gif" Schema="db_m2ost_production_v_5" store:Type="Tables" />
+    <EntitySet Name="dummy_mapping" EntityType="Self.dummy_mapping" store:Type="Tables" store:Schema="db_m2ost_production_v_5">
+      <DefiningQuery>SELECT 
+`dummy_mapping`.`id_category_association`, 
+`dummy_mapping`.`id_category_tile`, 
+`dummy_mapping`.`id_category_heading`, 
+`dummy_mapping`.`id_category`, 
+`dummy_mapping`.`category_order`, 
+`dummy_mapping`.`status`, 
+`dummy_mapping`.`updated_date_time`
+ FROM `dummy_mapping` AS `dummy_mapping`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="content_access_existing" EntityType="Self.content_access_existing" store:Type="Views" store:Schema="db_m2ost_production_v_5">
+      <DefiningQuery>SELECT 
+`content_access_existing`.`id_user`, 
+`content_access_existing`.`EMPLOYEEID`, 
+`content_access_existing`.`USERID`, 
+`content_access_existing`.`RMUSER`, 
+`content_access_existing`.`UNAME`, 
+`content_access_existing`.`id_organization`, 
+`content_access_existing`.`ORGANIZATION_NAME`, 
+`content_access_existing`.`id_content`, 
+`content_access_existing`.`CONTENT_QUESTION`, 
+`content_access_existing`.`LASTACCESS`, 
+`content_access_existing`.`LOCATION`, 
+`content_access_existing`.`zone_title`, 
+`content_access_existing`.`user_designation`, 
+`content_access_existing`.`USTATUS`
+ FROM `content_access_existing` AS `content_access_existing`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="content_access_view" EntityType="Self.content_access_view" store:Type="Views" store:Schema="db_m2ost_production_v_5">
+      <DefiningQuery>SELECT 
+`content_access_view`.`id_user`, 
+`content_access_view`.`EMPLOYEEID`, 
+`content_access_view`.`USERID`, 
+`content_access_view`.`UNAMEE`, 
+`content_access_view`.`id_organization`, 
+`content_access_view`.`ORGANIZATION_NAME`, 
+`content_access_view`.`id_content`, 
+`content_access_view`.`CONTENT_QUESTION`, 
+`content_access_view`.`LASTACCESS`, 
+`content_access_view`.`LOCATION`, 
+`content_access_view`.`user_designation`, 
+`content_access_view`.`USTATUS`, 
+`content_access_view`.`zone_title`
+ FROM `content_access_view` AS `content_access_view`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="dummy_map" EntityType="Self.dummy_map" store:Type="Views" store:Schema="db_m2ost_production_v_5">
+      <DefiningQuery>SELECT 
+`dummy_map`.`id_category_association`, 
+`dummy_map`.`id_parent`, 
+`dummy_map`.`id_category`
+ FROM `dummy_map` AS `dummy_map`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="indavgscore_view_old" EntityType="Self.indavgscore_view_old" store:Type="Views" store:Schema="db_m2ost_production_v_5">
+      <DefiningQuery>SELECT 
+`indavgscore_view_old`.`id_user`, 
+`indavgscore_view_old`.`id_game`, 
+`indavgscore_view_old`.`CATEGORYNAME`, 
+`indavgscore_view_old`.`IndavgScore`
+ FROM `indavgscore_view_old` AS `indavgscore_view_old`</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="fk_assesment_sht1" Association="Self.fk_assesment_sht1">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_assessment_sheet" EntitySet="tbl_assessment_sheet" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assesment_sht2" Association="Self.fk_assesment_sht2">
+      <End Role="tbl_assessment" EntitySet="tbl_assessment" />
+      <End Role="tbl_assessment_sheet" EntitySet="tbl_assessment_sheet" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assess_gene1" Association="Self.fk_assess_gene1">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_assessment_general" EntitySet="tbl_assessment_general" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assess_gene2" Association="Self.fk_assess_gene2">
+      <End Role="tbl_assessment_sheet" EntitySet="tbl_assessment_sheet" />
+      <End Role="tbl_assessment_general" EntitySet="tbl_assessment_general" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assess_gene3" Association="Self.fk_assess_gene3">
+      <End Role="tbl_user" EntitySet="tbl_user" />
+      <End Role="tbl_assessment_general" EntitySet="tbl_assessment_general" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assessment_header1" Association="Self.fk_assessment_header1">
+      <End Role="tbl_assessment_scoring_key" EntitySet="tbl_assessment_scoring_key" />
+      <End Role="tbl_assessment_header" EntitySet="tbl_assessment_header" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assessment_header2" Association="Self.fk_assessment_header2">
+      <End Role="tbl_assessment_question" EntitySet="tbl_assessment_question" />
+      <End Role="tbl_assessment_header" EntitySet="tbl_assessment_header" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assessment_header3" Association="Self.fk_assessment_header3">
+      <End Role="tbl_assessment_answer" EntitySet="tbl_assessment_answer" />
+      <End Role="tbl_assessment_header" EntitySet="tbl_assessment_header" />
+    </AssociationSet>
+    <AssociationSet Name="fk_assessment1" Association="Self.fk_assessment1">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_assessment" EntitySet="tbl_assessment" />
+    </AssociationSet>
+    <AssociationSet Name="fk_asso1" Association="Self.fk_asso1">
+      <End Role="tbl_category_tiles" EntitySet="tbl_category_tiles" />
+      <End Role="tbl_category_associantion" EntitySet="tbl_category_associantion" />
+    </AssociationSet>
+    <AssociationSet Name="fk_asso2" Association="Self.fk_asso2">
+      <End Role="tbl_category_heading" EntitySet="tbl_category_heading" />
+      <End Role="tbl_category_associantion" EntitySet="tbl_category_associantion" />
+    </AssociationSet>
+    <AssociationSet Name="fk_asso3" Association="Self.fk_asso3">
+      <End Role="tbl_category" EntitySet="tbl_category" />
+      <End Role="tbl_category_associantion" EntitySet="tbl_category_associantion" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_bann1" Association="Self.fk_content_bann1">
+      <End Role="tbl_content" EntitySet="tbl_content" />
+      <End Role="tbl_content_banner" EntitySet="tbl_content_banner" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_bann2" Association="Self.fk_content_bann2">
+      <End Role="tbl_banner" EntitySet="tbl_banner" />
+      <End Role="tbl_content_banner" EntitySet="tbl_content_banner" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_hf1" Association="Self.fk_content_hf1">
+      <End Role="tbl_content" EntitySet="tbl_content" />
+      <End Role="tbl_content_header_footer" EntitySet="tbl_content_header_footer" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_hf2" Association="Self.fk_content_hf2">
+      <End Role="tbl_content_footer" EntitySet="tbl_content_footer" />
+      <End Role="tbl_content_header_footer" EntitySet="tbl_content_header_footer" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_hf3" Association="Self.fk_content_hf3">
+      <End Role="tbl_content_header" EntitySet="tbl_content_header" />
+      <End Role="tbl_content_header_footer" EntitySet="tbl_content_header_footer" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_org_1" Association="Self.fk_content_org_1">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_content_right_association" EntitySet="tbl_content_right_association" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_org_2" Association="Self.fk_content_org_2">
+      <End Role="tbl_content" EntitySet="tbl_content" />
+      <End Role="tbl_content_right_association" EntitySet="tbl_content_right_association" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_org_cont1" Association="Self.fk_content_org_cont1">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_content_organization_mapping" EntitySet="tbl_content_organization_mapping" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_org_cont2" Association="Self.fk_content_org_cont2">
+      <End Role="tbl_category" EntitySet="tbl_category" />
+      <End Role="tbl_content_organization_mapping" EntitySet="tbl_content_organization_mapping" />
+    </AssociationSet>
+    <AssociationSet Name="fk_content_org_cont3" Association="Self.fk_content_org_cont3">
+      <End Role="tbl_content" EntitySet="tbl_content" />
+      <End Role="tbl_content_organization_mapping" EntitySet="tbl_content_organization_mapping" />
+    </AssociationSet>
+    <AssociationSet Name="fk_head1" Association="Self.fk_head1">
+      <End Role="tbl_category_tiles" EntitySet="tbl_category_tiles" />
+      <End Role="tbl_category_heading" EntitySet="tbl_category_heading" />
+    </AssociationSet>
+    <AssociationSet Name="fk_org_ban" Association="Self.fk_org_ban">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_organisation_banner" EntitySet="tbl_organisation_banner" />
+    </AssociationSet>
+    <AssociationSet Name="fk_org_banner" Association="Self.fk_org_banner">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_banner" EntitySet="tbl_banner" />
+    </AssociationSet>
+    <AssociationSet Name="fk_org_csst" Association="Self.fk_org_csst">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_csst_role" EntitySet="tbl_csst_role" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tile1" Association="Self.fk_tile1">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_category_tiles" EntitySet="tbl_category_tiles" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_category" Association="Self.fk1_tbl_category">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_category" EntitySet="tbl_category" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_content_answer_steps" Association="Self.fk1_tbl_content_answer_steps">
+      <End Role="tbl_content_answer" EntitySet="tbl_content_answer" />
+      <End Role="tbl_content_answer_steps" EntitySet="tbl_content_answer_steps" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_content_metadata" Association="Self.fk1_tbl_content_metadata">
+      <End Role="tbl_content_answer" EntitySet="tbl_content_answer" />
+      <End Role="tbl_content_metadata" EntitySet="tbl_content_metadata" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_content_type_link" Association="Self.fk1_tbl_content_type_link">
+      <End Role="tbl_content_answer" EntitySet="tbl_content_answer" />
+      <End Role="tbl_content_type_link" EntitySet="tbl_content_type_link" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_offline_expiry" Association="Self.fk1_tbl_offline_expiry">
+      <End Role="tbl_user" EntitySet="tbl_user" />
+      <End Role="tbl_offline_expiry" EntitySet="tbl_offline_expiry" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_organization" Association="Self.fk1_tbl_organization">
+      <End Role="tbl_industry" EntitySet="tbl_industry" />
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_subscriptions" Association="Self.fk1_tbl_subscriptions">
+      <End Role="tbl_user" EntitySet="tbl_user" />
+      <End Role="tbl_subscriptions" EntitySet="tbl_subscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_survey" Association="Self.fk1_tbl_survey">
+      <End Role="tbl_content_answer" EntitySet="tbl_content_answer" />
+      <End Role="tbl_survey" EntitySet="tbl_survey" />
+    </AssociationSet>
+    <AssociationSet Name="FK1_tbl_survey_bank_link" Association="Self.FK1_tbl_survey_bank_link">
+      <End Role="tbl_survey" EntitySet="tbl_survey" />
+      <End Role="tbl_survey_bank_link" EntitySet="tbl_survey_bank_link" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_survey_data" Association="Self.fk1_tbl_survey_data">
+      <End Role="tbl_survey" EntitySet="tbl_survey" />
+      <End Role="tbl_survey_data" EntitySet="tbl_survey_data" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_tbl_user_data" Association="Self.fk1_tbl_user_data">
+      <End Role="tbl_user" EntitySet="tbl_user" />
+      <End Role="tbl_user_data" EntitySet="tbl_user_data" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_tbl_content_type_link" Association="Self.fk2_tbl_content_type_link">
+      <End Role="tbl_content_type" EntitySet="tbl_content_type" />
+      <End Role="tbl_content_type_link" EntitySet="tbl_content_type_link" />
+    </AssociationSet>
+    <AssociationSet Name="FK2_tbl_feedback_bank_link" Association="Self.FK2_tbl_feedback_bank_link">
+      <End Role="tbl_feedback_bank" EntitySet="tbl_feedback_bank" />
+      <End Role="tbl_feedback_bank_link" EntitySet="tbl_feedback_bank_link" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_tbl_feedback_data" Association="Self.fk2_tbl_feedback_data">
+      <End Role="tbl_feedback_bank" EntitySet="tbl_feedback_bank" />
+      <End Role="tbl_feedback_data" EntitySet="tbl_feedback_data" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_tbl_organization" Association="Self.fk2_tbl_organization">
+      <End Role="tbl_business_type" EntitySet="tbl_business_type" />
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_tbl_subscriptions" Association="Self.fk2_tbl_subscriptions">
+      <End Role="tbl_content" EntitySet="tbl_content" />
+      <End Role="tbl_subscriptions" EntitySet="tbl_subscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_tbl_survey" Association="Self.fk2_tbl_survey">
+      <End Role="tbl_content_answer_steps" EntitySet="tbl_content_answer_steps" />
+      <End Role="tbl_survey" EntitySet="tbl_survey" />
+    </AssociationSet>
+    <AssociationSet Name="FK2_tbl_survey_bank_link" Association="Self.FK2_tbl_survey_bank_link">
+      <End Role="tbl_survey_bank" EntitySet="tbl_survey_bank" />
+      <End Role="tbl_survey_bank_link" EntitySet="tbl_survey_bank_link" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_tbl_survey_data" Association="Self.fk2_tbl_survey_data">
+      <End Role="tbl_survey_bank" EntitySet="tbl_survey_bank" />
+      <End Role="tbl_survey_data" EntitySet="tbl_survey_data" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_tbl_user_data" Association="Self.fk2_tbl_user_data">
+      <End Role="tbl_device_type" EntitySet="tbl_device_type" />
+      <End Role="tbl_user_data" EntitySet="tbl_user_data" />
+    </AssociationSet>
+    <AssociationSet Name="fk3_tbl_feedback_data" Association="Self.fk3_tbl_feedback_data">
+      <End Role="tbl_user" EntitySet="tbl_user" />
+      <End Role="tbl_feedback_data" EntitySet="tbl_feedback_data" />
+    </AssociationSet>
+    <AssociationSet Name="fk3_tbl_survey_data" Association="Self.fk3_tbl_survey_data">
+      <End Role="tbl_user" EntitySet="tbl_user" />
+      <End Role="tbl_survey_data" EntitySet="tbl_survey_data" />
+    </AssociationSet>
+    <AssociationSet Name="fk3_tbl_user_data" Association="Self.fk3_tbl_user_data">
+      <End Role="tbl_action" EntitySet="tbl_action" />
+      <End Role="tbl_user_data" EntitySet="tbl_user_data" />
+    </AssociationSet>
+    <AssociationSet Name="tbl_role1" Association="Self.tbl_role1">
+      <End Role="tbl_organization" EntitySet="tbl_organization" />
+      <End Role="tbl_role" EntitySet="tbl_role" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

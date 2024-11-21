@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Content Detail";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+}
+<script>
+    $(document).ready(function () {
+      
+    });
+
+</script>
+@{
+
+    m2ostnext.Models.UserSession Sessions = (m2ostnext.Models.UserSession)HttpContext.Current.Session["UserSession"];
+    db_m2ostEntities db = new db_m2ostEntities();
+    List<tbl_cms_role_action> action = new List<tbl_cms_role_action>();
+    foreach (tbl_cms_role_action_mapping item in Sessions.action)
+    {
+        tbl_cms_role_action temp = db.tbl_cms_role_action.Where(t => t.id_cms_role_action == item.id_cms_role_action).FirstOrDefault();
+        if (temp != null)
+        {
+            action.Add(temp);
+        }
+    }
+}
+
+
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                @*<h2>Forbidden Action </h2>*@
+            </div>
+            <div class="panel-body">
+                <div class="jumbotron">
+                    <h1>Forbidden Action</h1>
+                    <p class="lead"> @("'" + Sessions.Username + "'")  cannot Access this control because you don't have <strong>permission</strong> from system to Access this Action.</p>
+                    <p class="lead"><b>Please contact your Administrator.</b></p>
+                    <hr />
+                    <h3>Following are the Actions that are permited to You...</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group">
+                                @foreach (tbl_cms_role_action item in action)
+                                {
+                                    <li class="list-group-item">
+                                        <span class="label label-default pull-xs-right"><i class="glyphicon glyphicon-ok-circle"></i></span>
+                                        @(item.cms_role_action)
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

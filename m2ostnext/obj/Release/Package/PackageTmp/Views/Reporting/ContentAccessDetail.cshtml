@@ -1,0 +1,212 @@
+﻿@{
+    ViewBag.Title = "ContentAccessDetailIndex";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/buttons.dataTables.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" src="~/Content/datatable/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="~/Content/datatable/js/jszip.min.js"></script>
+@*<script type="text/javascript" src="~/Content/datatable/js/pdfmake.min.js"></script>*@
+<script type="text/javascript" src="~/Content/datatable/js/vfs_fonts.js"></script>
+<script type="text/javascript" src="~/Content/datatable/js/buttons.html5.min.js"></script>
+<script>
+    $(function () {
+        var month = new Date();
+        var minDate = new Date();
+        minDate.setMonth(month.getMonth() - 6);
+
+        $("#datetimepicker1").datepicker(
+       { dateFormat: "dd-mm-yy", maxDate: new Date(), minDate: minDate });
+
+        $("#datetimepicker2").datepicker(
+     { dateFormat: "dd-mm-yy", maxDate: new Date(), minDate: minDate });
+    });
+
+
+
+
+
+    function getContentAccessDetailReport() {
+        loading_on();
+        var rid = $("#user_role").val();
+        var fid = $("#user_function").val();
+        var sdate = $("#datetimepicker1").val();
+        var edate = $("#datetimepicker2").val();
+        var url = '@Url.Action("getContentAccessDetailReport", "Reporting")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { rid: rid, fid: fid, stdate: sdate, endate: edate },
+           
+            success: function (data) {
+                $("#display_table").empty().append(data);
+
+                $('#report-table').DataTable({
+                    "bSort": false,
+                    dom: 'Bfrtip',
+                    buttons: [
+                         'excelHtml5',
+                    ]
+                });
+            }
+        });
+        loading_off();
+    }
+    function getMonthWiseContentReport() {
+        loading_on();
+        var rid = $("#user_role").val();
+        var fid = $("#user_function").val();
+        var sdate = $("#datetimepicker1").val();
+        var edate = $("#datetimepicker2").val();
+        if(sdate!="" & edate!=null){
+
+            var url = '@Url.Action("getMonthWiseContentDetReport", "Reporting")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { rid: rid, fid: fid, stdate: sdate, endate: edate },
+              
+                success: function (data) {
+                    $("#display_table").empty().append(data);
+
+                    $('#report-table-month').DataTable({
+                        "bSort": false, "scrollX": true,
+                        dom: 'Bfrtip',
+                        buttons: [{
+                            extend: 'excelHtml5',
+                            title: 'Export'
+                        }
+                           
+                        ]
+                    });
+                }
+            });
+            setBlock();
+        }else{
+            $("#msg-txt").html("<p>Please select Start and End Date</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+        
+        loading_off();
+    }
+    function setBlock() {
+        $("#user_role").prop("disabled", true);
+        $("#user_function").prop("disabled", true);
+        $("#datetimepicker1").prop("disabled", true);
+        $("#datetimepicker2").prop("disabled", true);
+    }
+    function resetBlock() {
+        $("#user_role").prop("disabled", false);
+        $("#user_function").prop("disabled", false);
+        $("#datetimepicker1").prop("disabled", false);
+        $("#datetimepicker2").prop("disabled", false);
+    }
+
+
+
+</script>
+
+
+@{
+
+    List<string>
+    function = (List<string>
+        )ViewData["functions"];
+    List<tbl_csst_role>
+        roleList = (List<tbl_csst_role>
+            )ViewData["roleList"];
+}
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Content Access Detail Report</h4>
+            </div>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("", "", FormMethod.Post, new { id = "form-content-report" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+
+                            <div class="col-md-2 col-md-offset-1">
+                                <div class="form-group">
+                                    <label for="org">&nbsp;&nbsp;User Function</label>
+                                    <select class="form-control " id="user_function" name="user_function">
+
+                                        <option value="ALL">Select Function</option>
+                                        @foreach (string pro in function)
+                                        {
+                                            <option value="@pro">@pro</option>
+                                        }
+                                    </select>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="usr">&nbsp;&nbsp;Role</label>
+                                    <select class="form-control " id="user_role" name="user_role">
+                                        <option value="0">Select Role</option>
+                                        @foreach (tbl_csst_role pro in roleList)
+                                        {
+                                            <option value="@pro.id_csst_role">@pro.csst_role</option>
+                                        }
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="col-md-2">
+                                <label for="usr">&nbsp;&nbsp;Start Date</label>
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker1' name="start-date" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="usr">&nbsp;&nbsp;End Date</label>
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker2' name="end-date" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <input style="margin-top: 24px; margin-left: 15px; height: 28px;" type="button" value="Search" name="btn_submit" class="btn btn-primary" onclick="getContentAccessDetailReport()" />
+                                &nbsp;
+                                <input style="margin-top: 24px; margin-left: 15px; height: 28px;" type="button" value="Reset" name="btn_submit" class="btn btn-primary" onclick="resetBlock()" />
+
+                            </div>
+
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-md-12 pull-right">
+                        <input style="margin-top: 24px; margin-left: 15px; height: 28px;" type="button" value="Month wise Data" name="btn_submit" class="btn btn-primary" onclick="getMonthWiseContentDetReport()" />
+                    </div>
+                </div>
+                <hr />
+                <div id="display_table">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

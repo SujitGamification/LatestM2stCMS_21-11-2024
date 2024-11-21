@@ -1,0 +1,158 @@
+﻿@{
+    ViewBag.Title = "game";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<style>
+    .select-checkbox:before, .select-checkbox:after {
+        display: block;
+        position: absolute;
+        top: 1.2em;
+        left: 50%;
+        width: 12px;
+        height: 12px;
+        box-sizing: border-box;
+    }
+    .gpsdisplay .row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+    p {
+        padding-top: 12px;
+    }
+
+    .select-checkbox:after {
+        content: '\2714';
+        margin-top: -11px;
+        margin-left: -4px;
+        text-align: center;
+        text-shadow: 1px 1px #B0BED9, -1px -1px #B0BED9, 1px -1px #B0BED9, -1px 1px #B0BED9;
+    }
+    .dp-border{
+        border-bottom:1px solid rgba(0, 0, 0, 0.84)
+    }
+</style>
+
+<script>
+
+    function getGameReport() {
+        $("#div-loading-image").show();
+
+        var id = $("#game-select").val();
+        var url = '@Url.Action("getGameReport", "Scoring")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { gids: id },
+
+            success: function (data) {
+                $("#div-loading-image").hide();
+                $("#display_table").empty().append(data);
+                $("#report-table").dataTable({                  
+                    "pageLength": 50
+                });
+                $("#sub_display_table").empty();
+            }
+        });
+    }
+
+    function getDetailsReport(id,uid) {
+        $("#div-loading-image").show();
+        var url = '@Url.Action("getGameProgramReport", "Scoring")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { gid: id, uid: uid },
+
+            success: function (data) {
+                $("#div-loading-image").hide();
+                $("#sub_display_table").empty().append(data);
+                for (i = 1; i < 5; i++) {
+                    //$("#gpsdisplay"+i).dataTable({
+                    //    "pageLength": 50
+                    //});
+                }               
+            }
+        });
+    }
+
+    function getDetailsUserReport(id,uid) {
+        $("#div-loading-image").show();
+        var url = '@Url.Action("getGameProgramReport", "Scoring")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { gid: id ,uid:uid},
+
+            success: function (data) {
+                $("#div-loading-image").hide();
+                $("#sub_display_table").empty().append(data);
+                for (i = 1; i < 5; i++) {
+                    //$("#gpsdisplay" + i).dataTable({
+                    //    "pageLength": 50
+                    //});
+                }
+            }
+        });
+    }
+</script>
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+@{
+    List<tbl_game_creation> master = (List<tbl_game_creation>)ViewData["master"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Game Scoring Report</h4>
+            </div>
+            <div class="panel-body">
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h6 class="panel-title">Select Game</h6>
+                                <select class="form-control" id="game-select" name="game-select">
+                                    <option value="0">All Games</option>
+                                    @foreach (tbl_game_creation item in master)
+                                    {
+                                        <option value="@item.id_game">@item.game_title</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="col-md-2">
+                                <h6 class="panel-title">  . </h6>
+                                <input id="filter-to-all" type="button" class="btn btn-primary btn-sm" value="search" onclick="getGameReport()" />
+                            </div>                          
+                        </div>
+
+                        <hr />
+
+                        <div id="display_table">
+
+                        </div>
+                        <br />
+
+                        <hr />
+
+                        <div id="sub_display_table">
+                            <div align="center" id="div-loading-image" style="display:none;">
+                                <img src="~/Content/images/loading.gif" />
+                            </div>
+                        </div>
+                    </div>
+                
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

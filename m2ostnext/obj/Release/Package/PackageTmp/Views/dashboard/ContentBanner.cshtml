@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "M2OST";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    tbl_banner banner = (tbl_banner)ViewData["banner"];
+    string urls = (string)ViewData["urls"];
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+    function getContentBanner() {
+        loading_on();
+        var id = $("#category-select").val();
+        var url = '@Url.Action("getContentBanner", "dashboard")';
+        var pattern = $("#search-box").val().trim();
+        var bid = $("#hidden-val").val();
+        var count = $("#search-box").val().trim().length;
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: id, pattern: pattern,bid:bid },
+              
+                success: function (data) {
+                    $("#display_table").empty().append(data);
+                    $("#report-table").dataTable();
+
+                }
+            });
+
+        loading_off();
+    }
+</script>
+
+
+<script>
+    
+    function removeBannerToContent(cid) {
+        var id = $("#hidden-val").val();
+        var url = '@Url.Action("removeBannerToContent", "dashboard")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id, cid: cid },
+          
+            success: function (data) {
+                displayDeleteMessage();
+                getContentBanner();
+            }
+        });
+    }
+    function addBannerToContent(cid) {
+        var id = $("#hidden-val").val();
+        var url = '@Url.Action("addBannerToContent", "dashboard")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id, cid: cid },
+          
+            success: function (data) {
+                displayMessage();
+                getContentBanner();
+            }
+        });
+    }
+
+    function displayMessage() {
+
+        $("#success-message").show();
+        setTimeout(function () {
+            $("#success-message").hide();
+        }, 3000);
+    }
+    function displayDeleteMessage() {
+
+        $("#success-delete").show();
+        setTimeout(function () {
+            $("#success-delete").hide();
+        }, 3000);
+    }
+
+</script>
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div id="success-message" class="alert alert-success" role="alert" style="display:none;">
+            <strong>Success : </strong> Banner is attached to the Content...
+        </div>
+        <div id="success-delete" class="alert alert-success" role="alert" style="display:none;">
+            <strong>Success : </strong> Banner to content Association Deleted..
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Add Banner to Content</h6>
+            </div>
+            <div class="panel-body">
+                <div class="well">
+                    <input type="hidden" value="@banner.id_banner" id="hidden-val" />
+                    <h4><strong>Banner : </strong> @banner.banner_name</h4>
+                    <h4><strong>Action URL : </strong>@banner.banner_action_url</h4>
+                    @{
+                        urls = urls + @banner.banner_image;
+                    }
+                    <strong>Preview: </strong><a href="@urls" target="_blank"><i class="glyphicon glyphicon-text-background"></i></a>
+                </div>
+
+                @*<div class="alert alert-info" role="alert">
+                    <strong>Info : </strong> One content will have only one Banner .Assisgnent of Banner to a Content/Activity Will Override the existing Banner .if any present....
+                </div>*@
+                <hr />
+
+                <h6 class="panel-title">Select Category to filter</h6>
+                <select class="form-control" id="category-select">
+                    <option value="0" selected>Select Category</option>
+                    @foreach (tbl_category item in (List<tbl_category>)ViewData["CategoryList"])
+                    {
+                        <option value="@item.ID_CATEGORY">@item.CATEGORYNAME</option>
+                    }
+
+                </select>
+                <input type="text" class="form-control" placeholder="Search by Content Title (minimum 4 character)" id="search-box" />
+
+                <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentBanner()" />
+                <hr />
+                
+                <div id="display_table">
+
+                </div>
+                <hr />
+                <a href="@Url.Action("display_banner", "dashboard")" class="btn btn-primary btn-sm pull-right" >done</a>
+
+            </div>
+        </div>
+    </div>
+</div>

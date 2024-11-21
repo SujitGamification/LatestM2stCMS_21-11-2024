@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+@{
+    tbl_category item = (tbl_category)ViewData["category"];
+}
+
+<div id="pagecontent_dashboard" class="container">
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h4 class="panel-title">Are you realy want to delete this..?</h4>
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    Category Name
+                </dt>
+
+                <dd>
+                    @item.CATEGORYNAME
+                </dd>
+
+                <dt>
+                    Description
+                </dt>
+
+                <dd>
+                    @item.DESCRIPTION
+                </dd>
+
+                <dt>
+                    Image Name
+                </dt>
+
+                <dd>
+                    @item.IMAGE_PATH
+                </dd>
+
+                <dt>
+                    Updated Time
+                </dt>
+
+                <dd>
+                    @item.UPDATED_DATE_TIME
+                </dd>
+
+            </dl>
+            @using (Html.BeginForm("delete_cms_category", "cms_category", FormMethod.Post, new { id = "form_delete_category" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" name="ID_Category" value="@item.ID_CATEGORY" />
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-default" /> |
+                    @Html.ActionLink("Back To List", "display_category", "cms_category")
+                </div>
+            }
+        </div>
+    </div>
+</div>

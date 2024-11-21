@@ -1,0 +1,448 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    int menucnt; 
+}
+<link href="~/Content/ColorPicker/farbtastic.css" rel="stylesheet" />
+<script src="~/Content/ColorPicker/farbtastic.js"></script>
+<script>
+    var glb = 1;
+    $(function () {
+        $("#form-add-organisation").validationEngine();
+    });
+
+    function select_file(btn, imgf, ban) {
+
+        var file = $("#" + btn + "")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        } else {
+        }
+
+        $("#" + imgf + "").val(filename);
+    }
+    function getMenuList(val)
+    {
+         menucnt=glb;
+       var men= $("#menu").val();
+    
+       if (men == "1")
+        {
+          
+           $("#apnd").html("");
+		   $("#menu_type").html("");
+           $("#menu_type").append("<input type='hidden' value='1' name='menu_typ' />");
+        }
+       if (men == "2")
+       {
+          
+           var str = "<input type='hidden' name='menu_count' value='" + glb + "'/><input type='button' class='btn btn-default' value='+ Add Menu' onclick='add_more_menu()'  /><br/><br/><div id='div_" + glb + "' class='row'><div class='col-md-4'><label>Menu Name</label><input style='width:100%' type='text' id='menu_name' name='menu_name" + glb + "'/></div><div class='col-md-4'><label>Menu Url</label><input style='width:100%' type='text' id='menu_url' name='menu_url" + glb + "'/></div><div class='col-md-3'><label>Menu Icon</label><input type='file' value='Add Icon' id='menu_icon" + glb + "' name='menu_icon" + glb + "'/></div><div class='col-md-1'><label> </label></div></div><br/>"; //<a><p onclick='delete_menu(" + glb + ")' style='color:red'>X</p></a>
+           glb++;
+        
+           $("#apnd").append(str);
+		   $("#menu_type").html("");
+           $("#menu_type").append("<input type='hidden'  name='menu_typ' value='2' />");
+           $("#menu_count").html("");
+           $("#menu_count").append("<input type='hidden' value='"+(glb-1)+"' name='menu_coun' />");
+
+       }
+        if(men ==0)
+        {
+            $("#apnd").html("");
+
+        }
+
+    }
+    function add_more_menu()
+    {
+          menucnt=glb;
+          var str = "<div id='div_" + glb + "' class='row'><div class='col-md-4'><label>Menu Name</label><input style='width:100%' type='text' id='menu_name' name='menu_name" + glb + "'/></div><div class='col-md-4'><label>Menu Url</label><input style='width:100%' type='text' id='menu_url' name='menu_url" + glb + "'/></div><div class='col-md-3'><label>Menu Icon</label><input type='file' value='Add Icon' id='menu_url' name='menu_icon" + glb + "'/></div><div class='col-md-1'><label> </label></div></div><br/>"; //<a><p onclick='delete_menu(" + glb + ")' style='color:red'>X</p></a>
+        glb++;
+        $("#apnd").append(str);
+        $("#menu_count").html("");
+        $("#menu_count").append("<input type='hidden' value='" + (glb-1) + "' name='menu_coun' />");
+
+    }
+    function delete_menu(gd)
+    {
+     
+        $("#div_" + gd).html("")
+    }
+    $(document).ready(function () {
+
+        $('#colorpicker').farbtastic('#color');
+        $("#gif_div").hide();
+        $("#color_con_div").hide();
+
+    });
+
+    
+    $(document).ready(function () {
+
+        $('#colorpicker1').farbtastic('#color1');
+
+    });
+    $(document).ready(function () {
+
+        $('#colorpicker2').farbtastic('#color2');
+
+    });
+    $(document).ready(function () {
+
+        $('#colorpicker3').farbtastic('#color3');
+        $('#colorpicker4').farbtastic('#color4');
+        $('#colorpicker5').farbtastic('#color5');
+        $('#colorpicker6').farbtastic('#color6');
+        $('#colorpicker7').farbtastic('#color7');
+        $('#colorpicker8').farbtastic('#color8');
+        $('#colorpicker9').farbtastic('#color9');
+        $('#colorpicker10').farbtastic('#color10');
+        $('#colorpicker11').farbtastic('#color11');
+
+    });
+    function hide_main_div() {
+        $("#main_gif").hide();
+    }
+    function show_main_div() {
+        $("#main_gif").show();
+    }
+    function show_div()
+    {
+        $("#gif_div").show();
+    }
+    function hide_div() {
+        $("#gif_div").hide();
+    }
+    function show_color() {
+        $("#color_con_div").show();
+    }
+    function hide_color() {
+        $("#color_con_div").hide();
+    }
+    
+</script>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h4 class="panel-title">Add Organisation</h4>
+        </div>
+        <div class="panel-body">
+
+
+            @using (Html.BeginForm("createOrganizationAction", "Administrator", FormMethod.Post, new {  id = "form-add-organisation", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Industry Name</label></div>
+
+                        <div class="col-md-5">
+                            <select id="select-industry" name="select-industry" class="form-control">
+                                @foreach (var pro in (List<tbl_industry>)ViewData["select-industry"])
+                                    {
+                                    <option value="@pro.ID_INDUSTRY">@pro.INDUSTRYNAME</option>
+                                    }
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Business Type</label></div>
+
+                        <div class="col-md-5">
+                            <select id="select-businuss-type" name="select-businuss-type" class="form-control">
+                                @foreach (var pro in (List<tbl_business_type>)ViewData["select-business-type"])
+                                    {
+                                    <option value="@pro.ID_BUSINESS_TYPE">@pro.BUSINESS_TYPE_NAME</option>
+                                    }
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Organisation Name</label></div>
+
+                        <div class="col-md-10">
+                            <input type="text" class="form-control validate[required]" value="" placeholder="" id="organisation-name" name="organisation-name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Description</label></div>
+
+                        <div class="col-md-10">
+                            <input type="text" class="form-control validate[required]" value="" placeholder="" id="organisation-desc" name="organisation-desc" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Contact Name</label></div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control validate[required]" value="" placeholder="" id="organisation-contact" name="organisation-contact" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Contact No</label></div>
+
+                        <div class="col-md-10">
+                            <input type="text" class="form-control validate[required,custom[phone]]" value="" placeholder="" id="organisation-contact-no" name="organisation-contact-no" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Contact Email</label></div>
+
+                        <div class="col-md-10">
+                            <input type="text" class="form-control validate[required,custom[email]]" value="" placeholder="" id="organisation-email" name="organisation-email" />
+                        </div>
+                    </div>
+                    <hr />
+
+                    <!------------------------------------Add Menu Created on=02/06/18 By Prasanth-------------------------------------------->
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Menu Type</label></div>
+
+                        <div class="col-md-5">
+                            <select style="width:100%"  id="menu" name="menu_type" onchange="getMenuList(this)">
+                                
+                                <option value="1" selected="selected">Default</option>
+                                <option value="2">Custom</option>
+
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" style="padding:2%;" id="apnd">
+
+                    </div>
+                    <div class="row" style="padding:2%;" id="menu_type">
+                        <input type='hidden' value='1' name='menu_typ' />
+                    </div>
+                    <div class="row" style="padding:2%;" id="menu_count">
+                        
+                    </div>
+                  
+                        <!-------------------------------------------------------------------------------->
+                    <!-----------------For Gif Image------------------------------------>
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Welcome Gif Image Status</label></div>
+                        <div class="col-md-8">
+                            <input type="radio" name="gif_status" value="A" onclick="show_main_div()"  checked="checked"> Activate
+                            <input type="radio" name="gif_status" value="D"onclick="hide_main_div()" >Deactivate <br>
+                        </div>
+
+                        <div class="col-md-2">
+
+                        </div>
+                    </div>
+                    <div id="main_gif">
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Welcome Gif Image Type</label></div>
+                            <div class="col-md-8">
+                                <input type="radio" name="gif_type" value="0" onclick="hide_div()" checked="checked"> Default
+                                <input type="radio" name="gif_type" value="1" onclick="show_div()">Customize <br>
+                            </div>
+
+                            <div class="col-md-2">
+
+                            </div>
+                        </div>
+                        <div class="row" id="gif_div">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-2"><label class="control-label">Welcome Image</label></div>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" readonly value="" placeholder="Welcome Image" id="welcome-image" name="welcome-image" />
+                                        <div class="fileUpload btn btn-primary">
+                                            <span>Browse Image</span>
+                                            <input id="welcome-btn" name="welcome-btn" class="upload" type="file" accept="gif/*" onchange="select_file('welcome-btn', 'welcome-image', 'welcome-text')" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                   
+
+                    <hr />
+
+                    
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Color Configuration Type</label></div>
+                        <div class="col-md-8">
+                            <input type="radio" name="color_config_type" value="0" onclick="hide_color()" checked="checked"> Default
+                            <input type="radio" name="color_config_type" value="1" onclick="show_color()" >Customize <br>
+                        </div>
+
+                        <div class="col-md-2">
+
+                        </div>
+                    </div>
+                    <div id="color_con_div">
+                        <div class="form-group" style="margin-right:2%;margin-left:2%;padding:2%;border-style: solid;border-color: #1abc9c;">
+                            <div class="row" style="text-align:center"><label class="control-label">Color Configuration for Header</label></div>
+                            <div class="form-group" style="padding:4%;padding-left:20%;">                               
+                                <div class="col-md-6">
+                                  
+                                    <label>Background</label>
+                                    <input type="text" id="color8" name="1_grid1_bk_color" value="#e9ebec" />
+                                    <div id="colorpicker8"></div>
+                                    
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Text Color</label>
+                                    <input type="text" id="color9" name="1_grid1_text_color" value="#e9ebec" />
+                                    <div id="colorpicker9"></div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="form-group" style="margin-right:2%;margin-left:2%;padding:2%;border-style: solid;border-color: #1abc9c;">
+                            <div class="row" style="text-align:center"><label class="control-label">Color Configuration for Category Description</label></div>
+                            <div class="form-group" style="padding:4%;padding-left:20%;">
+                             
+                                <div class="col-md-6">
+                                 
+                                    <label>Background</label>
+                                    <input type="text" id="color10" name="2_grid1_bk_color" value="#e9ebec" />
+                                    <div id="colorpicker10"></div>
+                                   
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Text Color</label>
+                                    <input type="text" id="color11" name="2_grid1_text_color" value="#e9ebec" />
+                                    <div id="colorpicker11"></div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="form-group" style="margin-right:2%;margin-left:2%;padding:2%;border-style: solid;border-color: #1abc9c;">
+                            <div class="row" style="text-align:center"><label class="control-label">Color Configuration for Content Question, Linked queries, Related Queries</label></div>
+                            <div class="form-group" style="padding:4%;padding-left:20%;">
+                                <div class="col-md-6">
+                                    <label>First Row</label>
+                                    <br />
+                                    <label>Background</label>
+                                    <input type="text" id="color" name="3_grid1_bk_color" value="#e9ebec" />
+                                    <div id="colorpicker"></div>
+                                    <br />
+                                    <label>Text Color</label>
+                                    <input type="text" id="color1" name="3_grid1_text_color" value="#e9ebec" />
+                                    <div id="colorpicker1"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Second Row</label>
+                                    <br />
+                                    <label>Background</label>
+                                    <input type="text" id="color2" name="3_grid2_bk_color" value="#ffffff" />
+                                    <div id="colorpicker2"></div>
+                                    <br />
+                                    <label>Text Color</label>
+                                    <input type="text" id="color3" name="3_grid2_text_color" value="#e9ebec" />
+                                    <div id="colorpicker3"></div>
+                                </div>
+
+                                
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="form-group" style="margin-right:2%;margin-left:2%;padding:2%;border-style: solid;border-color: #1abc9c;">
+                            <div class="row" style="text-align:center"><label class="control-label">Color Configuration for Assessment List, Assessment Question</label></div>
+                            <div class="form-group" style="padding:4%;padding-left:20%;">
+                                <div class="col-md-6">
+                                    <label>First Row</label>
+                                    <br />
+                                    <label>Background</label>
+                                    <input type="text" id="color4" name="4_grid1_bk_color" value="#e9ebec" />
+                                    <div id="colorpicker4"></div>
+                                    <br />
+                                    <label>Text Color</label>
+                                    <input type="text" id="color5" name="4_grid1_text_color" value="#e9ebec" />
+                                    <div id="colorpicker5"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Second Row</label>
+                                    <br />
+                                    <label>Background</label>
+                                    <input type="text" id="color6" name="4_grid2_bk_color" value="#ffffff" />
+                                    <div id="colorpicker6"></div>
+                                    <br />
+                                    <label>Text Color</label>
+                                    <input type="text" id="color7" name="4_grid2_text_color" value="#e9ebec" />
+                                    <div id="colorpicker7"></div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                       
+                       
+                        
+                       
+
+
+                    </div>
+                 
+
+                    <hr />
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Default Email for Org</label></div>
+
+                            <div class="col-md-10">
+                                <input type="text" class="form-control validate[required,custom[email]]" value="" placeholder="" id="default-email" name="default-email" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-2"><label class="control-label">Logo Image</label></div>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control validate[required]" readonly value="" placeholder="Logo Image" id="logo-image" name="logo-image" />
+                                        <div class="fileUpload btn btn-primary">
+                                            <span>Browse Image</span>
+                                            <input id="logo-btn" name="logo-btn" class="upload" type="file" accept="image/*" onchange="select_file('logo-btn', 'logo-image', 'logo-text')" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-2"><label class="control-label">Banner Image</label></div>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" readonly value="" placeholder="Banner Image" id="banner-image" name="banner-image" />
+                                        <div class="fileUpload btn btn-primary">
+                                            <span>Browse Image</span>
+                                            <input id="banner-btn" name="banner-btn" class="upload" type="file" accept="image/*" onchange="select_file('banner-btn', 'banner-image', 'banner-text')" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+            }
+            </div>
+        </div>
+
+
+    </div>
+</div>

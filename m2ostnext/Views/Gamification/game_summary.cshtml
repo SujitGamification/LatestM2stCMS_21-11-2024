@@ -1,0 +1,252 @@
+﻿
+@{
+    ViewBag.Title = "Game Summary";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+
+
+    List<m2ostnext.Models.GameGroupSummary> group = (List<m2ostnext.Models.GameGroupSummary>)ViewData["group"];
+    List<m2ostnext.Models.GameUserSummary> users = (List<m2ostnext.Models.GameUserSummary>)ViewData["users"];
+    tbl_game_creation game = (tbl_game_creation)ViewData["game"];
+}
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+        $('a[title]').tooltip();
+    });
+
+</script>
+
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Game Associations</h4>
+            </div>
+            <div class="panel-body">
+
+                <section style="background:#efefe9;">
+                    <div class="board">
+                        <div class="board-inner">
+                            <ul class="nav nav-tabs" id="myTab">
+                                <div class="liner"></div>
+                                <li class="disabled">
+                                    <a href="@Url.Action("m2ost_add_game", "Gamification")"   title="Add Game ">
+                                        <span class="round-tabs one">
+                                            <i class="glyphicon glyphicon-play-circle"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("m2ost_game_elements", "Gamification", new { gids = game.gameid })"   title="Game Dashboard">
+                                        <span class="round-tabs two">
+                                            <i class="glyphicon glyphicon-cog"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("game_associations", "Gamification", new { gid = game.id_game })" title="Group/Solo Association">
+                                        <span class="round-tabs three">
+                                            <i class="glyphicon glyphicon-link"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <a href="@Url.Action("game_summary", "Gamification", new { gid = game.id_game })" title="Summary">
+                                        <span class="round-tabs four">
+                                            <i class="glyphicon glyphicon-list-alt"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("m2ost_game_publish", "Gamification", new { gids = game.id_game })" title="publish">
+                                        <span class="round-tabs five">
+                                            <i class="glyphicon glyphicon-flag"></i>
+                                        </span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </section>
+
+                @Html.AntiForgeryToken()
+                <div class="col-md-12">
+                    <center><h3><u><b> Game Details </b></u> </h3></center>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="hidden" id="id_game_creation" name="id_game_creation" value="@game.id_game" />
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label style="min-width:150px;">Game Title   </label>
+                                <strong>@game.game_title</strong>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label style="min-width:150px;">Game Mode  </label>
+                                @if (game.game_mode == "1")
+                                {
+                                    <strong>Open game</strong>
+                                }
+                                else
+                                {
+                                    <strong>Closed game</strong>
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label style="min-width:150px;">Game Type  </label>
+                                @if (game.game_mode == "1")
+                                {
+                                    <strong>Standalone game</strong>
+                                }
+                                else
+                                {
+                                    <strong>A Journey game</strong>
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label style="min-width:150px;">Player Type  </label>
+                                @if (game.player_type == "1")
+                                {
+                                    <strong>Solo Player</strong>
+                                }
+                                else
+                                {
+                                    <strong>Group Game</strong>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label style="min-width:150px;">Start Date   </label>
+                                <strong>@game.game_start_date.Value.ToString("dd-MM-yyyy HH:mm")</strong>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label style="min-width:150px;">Expiry Date   </label>
+                                <strong>@game.game_expiry_date.Value.ToString("dd-MM-yyyy HH:mm")</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+                
+                  <div class="col-md-12">
+                    <hr />
+                </div>
+                @if (game.player_type == "1")
+                {
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="color-box space">
+                                <div class="shadow">
+                                    <div class="info-tab tip-icon" title="Useful Tips">&nbsp;</div>
+                                    <div class="tip-box">
+                                        <p><strong>Note:</strong>Following list of Users are Assigned to Game w.r.t start and expiry day</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <br />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table  id="report-table"  class="table" style="height:80px;width: 100%;">
+                                <thead>
+                                    <tr style="background-color:#793079;color:white">
+                                        <th>User Name</th>
+                                        <th>User ID</th>
+                                        <th>Location</th>
+                                        <th>Designation</th>
+                                        <th>Start Date</th>
+                                        <th>Expiry Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="prog-table">
+                                    @foreach (m2ostnext.Models.GameUserSummary item in users)
+                                    {
+                                        <tr style="background-color:#cb84cb;color:white">
+                                            <td>@item.UNAME</td>
+                                            <td>@item.USERID</td>
+                                            <td>@item.LOCATION</td>
+                                            <td>@item.user_designation</td>
+                                            <td>@item.start_date</td>
+                                            <td>@item.expiry_date</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <hr />
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="color-box space">
+                                <div class="shadow">
+                                    <div class="info-tab tip-icon" title="Tips">&nbsp;</div>
+                                    <div class="tip-box">
+                                        <p><strong>Note:</strong> Following list of User Group's are Assigned to Game w.r.t start and expiry day </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <hr />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="report-table" class="table" style="height:80px;width: 100%;">
+                                <thead>
+                                    <tr style="background-color:#793079;color:white">
+                                        <th>Group Name</th>
+                                        <th>Start Date</th>
+                                        <th>Expiry Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="prog-table">
+                                    @foreach (m2ostnext.Models.GameGroupSummary item in group)
+                                    {
+                                        <tr style="background-color:#cb84cb;color:white">
+                                            <td>@item.group_name</td>
+                                            <td>@item.start_date</td>
+                                            <td>@item.expiry_date</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <hr />
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

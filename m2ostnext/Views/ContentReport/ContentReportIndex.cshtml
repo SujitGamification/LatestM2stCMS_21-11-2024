@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "ContentReportIndex";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<head>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <script src="../content/bower_components/morrisjs/morris.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js"></script>
+    <script src="../content/bower_components/morrisjs/examples/lib/example.js"></script>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.css">
+    <link rel="stylesheet" href="../content/bower_components/morrisjs/morris.css">
+
+</head>
+
+<script type="text/javascript">
+
+
+
+    function get_user(org) {
+        var url1 = '@Url.Action("get_user", "ContentReport")';
+        $.get(url1, { org_id: org }, function (data) {
+            $("#select-user").empty().append(data);
+        });
+    }
+
+
+    function getContentReport() {
+            var org_id = $("#Orginaztion").val()
+            var user_id = $("#select-user").val()
+            var url = '@Url.Action("ContentReportDetails", "ContentReport")';
+            var form = $("#form-content-report").serialize();
+            $.get(url, { org_id: org_id, user_id: user_id }, function (data) {
+                loading_on();
+                $("#tab-content-details").html(data);
+                loading_off();
+            });
+        }
+
+
+    function getContentReportchart() {
+
+        var url = '@Url.Action("ContentGraphReportIndex", "ContentReport")';
+        var form = $("#form-content-report").serialize();
+        $.get(url, { }, function (data) {
+            $("#tab-content-chart").html(data);
+        });
+    }
+
+
+
+</script>
+
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Content Report</h4>
+            </div>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("", "", FormMethod.Post, new { id = "form-content-report" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+
+                            <div class="col-md-2">
+                                <div class="dropdown">
+                                    <div class="form-group">
+                                        <label for="sel1"></label>
+                                        <select class="form-control  " id="Orginaztion" name="Orginaztion" onchange="get_user(this.value)">
+                                            
+                                            <option value="ALL">Select Orginaztion</option>
+                                            @foreach (var pro in (List<m2ostnext.tbl_organization>)ViewData["select-organization"])
+                                            {
+                                                <option value="@pro.ID_ORGANIZATION">@pro.ORGANIZATION_NAME</option>
+                                            }
+
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        
+
+
+                            <div class="col-md-offset-1 col-md-2">
+                                <div class="dropdown">
+                                    <div class="form-group">
+                                        <label for="sel1"></label>
+                                        <select class="form-control " id="select-user" name="select-user">
+                                            <option value="ALL">Select User</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                <input style="margin-top: 19px; margin-left: 15px; height: 28px;" type="button" value="Search" name="btn_submit" class="btn btn-primary" onclick="getContentReport()" />
+                            </div>
+
+                            <div class="col-md-2">
+                                <input style="margin-top: 19px; margin-left: 15px; height: 28px;" type="button" value="Chart" name="btn_chart" class="btn btn-danger" onclick="getContentReportchart()" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @*=-----------------------------------partial view for table------------------------------------------------------=*@
+                <div class="tab-content-details" id="tab-content-details">
+                    <div id="pageloaddiv" style="display:none">
+                    </div>
+                </div>
+                @*=-----------------------------------partial view for table------------------------------------------------------=*@
+
+
+
+                @*=-----------------------------------partial view for chart------------------------------------------------------=*@
+
+                <div class="tab-content-chart" id="tab-content-chart">
+                   
+                </div>
+
+                @*=-----------------------------------partial view for chart------------------------------------------------------=*@
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "display_category_tiles";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+    function deleteContentConfirm() {
+        var id = $("#hidden-val").val();
+        var url = '@Url.Action("delete_category_tile", "csst_category")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id },
+            
+            success: function (data) {
+                window.location.reload();
+            }
+        });
+    }
+
+    function deleteCancle() {
+        $("#hidden-val").val("");
+        $("#div-hidden-alert").hide();
+    }
+
+    function deleteContent(id) {
+        $("#hidden-val").val(id);
+        $("#div-hidden-alert").show();
+    }
+</script>
+@{
+    List<tbl_category_tiles> tiles = (List<tbl_category_tiles>)ViewData["category-tile"];
+    string pathVal = (string)ViewData["vpath"];
+    List<int> counter = (List<int>)ViewData["counter"];
+    bool flag = (bool)ViewData["accessflag"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="row" id="div-hidden-alert" style="display:none;">
+            <div class="col-md-12">
+                <input type="hidden" value="" id="hidden-val" />
+                <div class="alert alert-warning alert-dismissable">
+                    Do you really want to Delete This........?
+                    <input type="button" class="btn btn-primary btn-sm " value=" Yes " onclick="deleteContentConfirm()" />
+                    <input type="button" class="btn btn-primary btn-sm " value=" No " onclick="deleteCancle()" />
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Landing Page Tiles Details</h4>
+            </div>
+            <div class="panel-body">
+                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="50%">
+                                Landing Page Tiles
+                            </th>
+                            <th width="30%">
+                                Tiles Image
+                            </th>
+                            @if (flag)
+                            {
+                                <th width="20%">Action</th>
+                            }
+                        </tr>
+                    </thead>
+                    @{
+                        int i = 0;
+                    }
+                    <tbody>
+                        @foreach (tbl_category_tiles item in tiles)
+                        {
+                            <tr>
+                                <td>
+                                    @item.tile_heading
+                                </td>
+                                <td>
+                                    @{
+                            string temp = pathVal + "" + item.tile_image;
+                                    }
+                                    <a href="@temp" target="_blank"><i class="glyphicon glyphicon-text-background"></i>&nbsp;Tiles Image</a> &nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                @if (flag)
+                                {
+                                    <td>
+                                        &nbsp;<a href="@Url.Action("edit_category_tiles", "csst_category", new { id = item.id_category_tiles })"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;|
+                                        @if (counter[i] == 0)
+                                        {
+                                            <a href="#" onclick="deleteContent(@item.id_category_tiles)"><i class="glyphicon glyphicon-remove"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#" style="color:#ff0000;" title="Category Tiles Contains External References.Cannot Delete Category Tiles"><i class="glyphicon glyphicon-remove"></i></a>
+                                        }
+                                    </td>
+                                }
+                            </tr>
+                                i++;
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,234 @@
+﻿@{
+    ViewBag.Title = "content_links";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<script>
+
+    $(function () {
+        $("#div_web_link").hide();
+        $("#div_file_multy").show();
+        $("#form_answer_content").validationEngine();
+    });
+
+    function deleteContentConfirm() {
+        var id = $("#hidden-val").val();
+        var url = '@Url.Action("DeleteContentLinks", "dashboard")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id },
+            
+            success: function (data) {
+                window.location.reload();
+            }
+        });
+    }
+
+
+    function change_div_content() {
+        var id = $("#select_type").val();
+        if (id == 3) {
+            $("#div_file_multy").hide();
+            $("#div_web_link").show();
+        }
+        else {
+            $("#div_web_link").hide();
+            $("#div_file_multy").show();
+
+        }
+    }
+
+    function select_file() {
+        var file = $("#uploadBtn")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        }
+        $("#ImageFile").val(filename);
+    }
+
+    function addLinks() {
+        $("#add_new_link").show();
+    }
+    function closeDiv() {
+        $("#add_new_link").hide();
+    }
+    function deleteCancle() {
+        $("#hidden-val").val("");
+        $("#div-hidden-alert").hide();
+    }
+
+    function deleteContent(id) {
+        $("#hidden-val").val(id);
+        $("#div-hidden-alert").show();
+    }
+</script>
+@{
+
+    List<tbl_content_type> types = (List<tbl_content_type>)ViewData["content_type"];
+}
+
+<div class="row" id="div-hidden-alert" style="display:none;">
+    <div class="col-md-12">
+        <input type="hidden" value="" id="hidden-val" />
+        <div class="alert alert-warning alert-dismissable">
+            Do you really want to Delete This........?
+            <input type="button" class="btn btn-primary btn-sm " value=" Yes " onclick="deleteContentConfirm()" />
+            <input type="button" class="btn btn-primary btn-sm " value=" No " onclick="deleteCancle()" />
+        </div>
+    </div>
+</div>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Add/Delete Link</h6>
+            </div>
+            <div class="panel-body">
+                @{
+                    int count = 1;
+                    List<tbl_content_type_link> links = (List<tbl_content_type_link>)ViewData["content_links"];
+                    tbl_content ccontent = (tbl_content)ViewData["content_data"];
+                    tbl_content_answer canswer = (tbl_content_answer)ViewData["content_answer"];
+                }
+              
+                <div class="pull-right">
+                    <a class="btn btn-default" href="#" onclick="addLinks()">Add Links</a>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-11 col-md-offset-1">
+
+                        <div id="add_new_link" style="display:none;">
+                            @using (Html.BeginForm("link_answer_content", "dashboard", FormMethod.Post, new { id = "form_answer_content", enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" id="ID_CONTENT_ANSWER" name="ID_CONTENT_ANSWER" value="@canswer.ID_CONTENT_ANSWER" />
+
+                                <div class="row clearfix">
+                                    <div class="panel panel-default custom-panel">
+                                        <div class="panel-heading custom-panel-heading">
+                                            <div class="panel-title">Content/Activity  : </div>
+                                        </div>
+                                        <div class="panel-body ">
+                                            <div class="para_answer">
+                                                <pre>
+                                                    @ccontent.CONTENT_QUESTION
+                                                </pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default custom-panel">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-2"><strong>Type</strong></div>
+                                                <div class="col-md-10"><strong>Associate Content</strong></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <select class="form-control" id="select_type" name="select_type" onchange="change_div_content()">
+                                                        @foreach (var item in types)
+                                                        {
+                                                            <option value="@item.ID_CONTENT_TYPE">@item.TYPE_NAME</option>
+                                                        }
+                                                    </select>
+
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <div id="div_web_link">
+                                                        <input type="text" class="form-control validate[required]" value="" placeholder="Web Link Url" id="WebLink" name="WebLink" />
+                                                    </div>
+                                                    <div id="div_file_multy">
+                                                        <input type="text" class="form-control validate[required]" readonly value="" placeholder="Choose File" id="ImageFile" name="FileName" />
+                                                        <div class="fileUpload btn btn-primary">
+                                                            <span>Browse File</span>
+                                                            <input id="uploadBtn" name="uploadBtn" class="upload" type="file" onchange="select_file()" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2"><strong>Description</strong></div>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control validate[required]" value="" placeholder="Description for Link" id="description" name="description" />
+                                                </div>
+                                            </div>
+
+                                            <hr />
+                                            <div class="form-group">
+                                                <div class="col-md-offset-2 col-md-6">
+                                                    <input type="submit" name="btn_submit" value="Save" class="btn btn-default" />
+                                                </div>
+                                                <div class="col-md-4 pull-right">
+                                                    <a href="#" onclick="closeDiv()" class="btn btn-default">Cancel</a>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div>
+                    <table id="report-table" class="table table-striped table-bordered datatable small" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="70%">Link</th>
+                                <th width="20%">Type</th>
+                                <th width="10%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (links.Count > 0)
+                            {
+                                foreach (tbl_content_type_link item in links)
+                                {
+                                    <tr id="tr-@(item.ID_CONTENT_TYPE_LINK)">
+                                        <td width="70%">@(" " + count + " )  ")<a href="@item.LINK_VALUE">@item.DESCRIPTION</a></td>
+                                        <td width="30%">
+                                            @if (item.ID_CONTENT_TYPE == 1)
+                                            {
+                                                @("Video Link")
+                                            }
+                                            else if (item.ID_CONTENT_TYPE == 2)
+                                            {
+                                                @("Image Link")
+                                            }
+                                            else if (item.ID_CONTENT_TYPE == 3)
+                                            {
+                                                @("Text Content Link")
+                                            }
+                                            else if (item.ID_CONTENT_TYPE == 4)
+                                            {
+                                                @("PDF File Link")
+                                            }
+                                        </td>
+                                        <td>
+                                            <a href="#" onclick="deleteContent(@item.ID_CONTENT_TYPE_LINK)"><i class="glyphicon glyphicon-remove"></i></a>
+                                        </td>
+                                    </tr>
+                                            count++;
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="3">There are no Links Present for this Activity</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

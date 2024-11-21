@@ -1,0 +1,402 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<style>
+    .ui-datepicker-title select {
+        background-color: #333;
+    }
+</style>
+<script>
+    $(function () {
+        $("#form-add-cms-user").validationEngine();
+    });
+</script>
+@{
+    List<tbl_csst_role> role = (List<tbl_csst_role>)ViewData["roles"];
+    List<tbl_organization> orglist = (List<tbl_organization>)ViewData["orglist"];
+    string typer = (string)ViewData["type_flag"];
+    List<tbl_user> rmlist = (List<tbl_user>)ViewData["rmlist"];
+    //m2ostnext.Models.AppUser appUser = (m2ostnext.Models.AppUser)ViewData["appUser"];
+    m2ostnext.Models.AppUserList appUser = (m2ostnext.Models.AppUserList)ViewData["appUser"];
+
+    string role_option = (string)ViewData["role-option"];
+}
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["AlertMessage"]</div>
+}
+
+<script type="text/javascript">
+    $(function () {
+
+        $("#form-add-assessment").validationEngine();
+
+        $("#datetimepicker1").datepicker(
+            {
+                dateFormat: "dd-mm-yy",
+                changeYear: true,
+                yearRange: "-60:-18"
+            }
+        );
+        $("#datetimepicker2").datepicker(
+            {
+                dateFormat: "dd-mm-yy",
+                changeYear: true,
+                yearRange: "-60:+0"
+            }
+        );
+
+    });
+</script>
+<script>
+    function getRolesFromOrg(cid) {
+
+        var oid = $("#select-org").val();
+        var url = '@Url.Action("getAppRolesFromOrg", "Administrator")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: oid },
+
+            success: function (data) {
+                $("#select-role").empty().append(data);
+            }
+        });
+    }
+</script>
+<script>
+    function checkUserName() {
+
+        var uname = $("#user-name").val();
+        var cUname = $("#userid").val();
+        var url = '@Url.Action("check_user_name", "Administrator")';
+        if (uname.toLowerCase() != cUname.toLowerCase()) {
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { uname: uname },
+
+                success: function (data) {
+                    if (data == "0") {
+                        $("#inputusernameerror").show("slow");
+                        setTimeout(function () {
+                            $("#user-name").val("");
+                            $("#inputusernameerror").hide("slow");
+                        }, 3000);
+
+                    }
+                }
+            });
+        }
+    }
+
+
+    //$(document).ready(function () {
+    //    debugger;
+    //    var checkedBoxes = $('input[name="role_check"]:checked');
+
+       
+    //    if (checkedBoxes.length > 1) {
+           
+    //        checkedBoxes.not(this).first().prop('checked', false);
+          
+    //    }
+        
+        
+
+    //    $('input[name="role_check"]').on('change', function () {
+    //        if ($(this).is(':checked')) {
+    //            $('input[name="role_check"]').not(this).prop('disabled', true);
+    //        } else {
+    //            $('input[name="role_check"]').prop('disabled', false);
+    //        }
+    //    });
+    //});
+
+
+    $(document).ready(function () {
+        // Ensure that checkboxes are not disabled on page load
+        $('input[name="role_check"]').prop('disabled', true);
+
+        // Enable any checkbox that is already checked on page load
+        $('input[name="role_check"]:checked').prop('disabled', false);
+
+
+        // Add event listener for checkbox changes
+        $('input[name="role_check"]').on('change', function () {
+            if ($(this).is(':checked')) {
+                // Disable all other checkboxes when one is checked
+                $('input[name="role_check"]').not(this).prop('disabled', true);
+            } else {
+                // Re-enable all checkboxes when the checked box is unchecked
+                $('input[name="role_check"]').prop('disabled', false);
+            }
+        });
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the form element
+        const form = document.querySelector("form");
+
+        // Attach the submit event listener
+        form.addEventListener("submit", function (event) {
+            // Get all checkboxes with the name "role_check"
+            const checkboxes = document.querySelectorAll("input[name='role_check']");
+
+            // Check if at least one checkbox is checked
+            let isChecked = false;
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    isChecked = true;
+                    break;
+                }
+            }
+
+            // If no checkbox is checked, prevent form submission and show an alert
+            if (!isChecked) {
+                event.preventDefault(); // Prevent form submission
+                alert("Please check at least one role.");
+            }
+        });
+    });
+
+</script>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Edit Application User</h4>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("edit_app_user_action", "Administrator", FormMethod.Post, new { id = "form-add-cms-user" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Select User  Role</label></div>
+                            <div class="col-md-10">
+                                @Html.Raw(role_option)
+                            </div>
+                        </div>
+
+                        <hr />
+                        <input type="hidden" id="id_user" name="id_user" value="@appUser.User.ID_USER" />
+                        <input type="hidden" id="userid" name="userid" value="@appUser.User.USERID" />
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">First Name</label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="@appUser.Profile.FIRSTNAME" placeholder="" id="user-first-name" name="user-first-name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">last Name</label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="@appUser.Profile.LASTNAME" placeholder="" id="user-last-name" name="user-last-name" />
+                            </div>
+                        </div>
+                        @{
+                            string dob = "";
+                            if (appUser != null && appUser.Profile != null && appUser.Profile.DATE_OF_BIRTH != null && appUser.Profile.DATE_OF_BIRTH.Value != null)
+                            {
+                                dob = appUser.Profile.DATE_OF_BIRTH.Value.ToString("dd-MM-yyyy");
+                            }
+                        }
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Date of Birth</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" value="@dob" id='datetimepicker1' name="user-dob" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Age </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required,custom[number]]" value="@appUser.Profile.AGE" placeholder="" id="user-age" name="user-age" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Gender</label></div>
+                            <div class="col-md-5">
+                                <select id="select-gender" name="select-gender" class="form-control">
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">User Name</label></div>
+
+                            <div class="col-md-5">
+                                <input type="text" class="form-control validate[required]" value="@appUser.User.USERID" placeholder="" id="user-name" name="user-name" onchange="checkUserName()" />
+                                <label id="inputusernameerror" class="error" style="display: none">User Name already exist .Use some other User Name</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Password</label></div>
+
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" value="" placeholder="type here to update password (optionaal) " id="pass-word" name="pass-word" />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Mobile Number</label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control  validate[required,custom[phone]]" value="@appUser.Profile.MOBILE" placeholder="" id="user-mobile" name="user-mobile" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">E-Mail</label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control  validate[required,custom[email]]" value="@appUser.Profile.EMAIL" placeholder="" id="user-email" name="user-email" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Location</label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="@appUser.Profile.LOCATION" placeholder="" id="user-loc" name="user-loc" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Designation </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="@appUser.Profile.DESIGNATION" placeholder="" id="user-designation" name="user-designation" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Employee Id </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="@appUser.User.EMPLOYEEID" placeholder="" id="employee-id" name="employee-id" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Department </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="@appUser.User.user_department" placeholder="" id="user-department" name="user-department" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Function </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="@appUser.User.user_function" placeholder="" id="user-function" name="user-function" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Office Address </label></div>
+                            <div class="col-md-6">
+                                <textarea class="form-control validate[required]" name="office-address" id="office-address" placeholder="" rows="6">@appUser.Profile.OFFICE_ADDRESS</textarea>
+                            </div>
+                        </div>
+                        @{
+                            string doj = "";
+                            if (appUser != null && appUser.Profile != null && appUser.Profile.DATE_OF_JOINING != null && appUser.Profile.DATE_OF_JOINING.Value != null)
+                            {
+                                doj = appUser.Profile.DATE_OF_JOINING.Value.ToString("dd-MM-yyyy");
+                            }
+                        }
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Date of Joining</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id="datetimepicker2" name="user-doj" value="@doj" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Reporting Manager Status </label></div>
+                            <div class="col-md-6">
+                                <select id="user-is-rm" name="user-is-rm" class="form-control">
+                                    <option @if (appUser.User.is_reporting == 1) { @(" selected") } value="1">Is a Reporting Manager</option>
+                                    <option @if (appUser.User.is_reporting == 2) { @(" selected") } value="2">Not a Reporting Manager</option>
+                                </select>
+                                @*<input type="text" class="form-control validate[required]" value="" placeholder="" id="user-grade" name="user-grade" />*@
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label"> Reporting Manager </label></div>
+                            <div class="col-md-10">
+                                <select id="user-rm" name="user-rm" class="form-control  validate[required]">
+                                    <option @if (appUser.User.reporting_manager == 0) { @("selected") } value="0">Not Applicable</option>
+                                    @foreach (tbl_user item in rmlist)
+                                    {
+                                        if (appUser.User.reporting_manager == item.ID_USER)
+                                        {
+                                            <option selected value="@item.ID_USER">@item.USERID</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.ID_USER">@item.USERID</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">User Grade </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="@appUser.User.user_grade" placeholder="" id="user-grade" name="user-grade" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">L4 </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="@appUser.User.L4" placeholder="" id="user-L4" name="user-L4" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">L3 </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="@appUser.User.L3" placeholder="" id="user-L3" name="user-L3" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">L2 </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="@appUser.User.L2" placeholder="" id="user-L2" name="user-L2" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">L1 </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="@appUser.User.L1" placeholder="" id="user-L1" name="user-L1" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Spectator </label></div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control validate[required]" value="@appUser.User.Spectator" placeholder="" id="user-Spectator" name="user-Spectator" />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-6">
+                                <input type="submit" value="Submit" class="btn btn-default" />
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿
+@{
+    int step = (int)ViewData["step-count"];
+    tbl_content_answer_steps steps = null;
+    if (ViewData["stepinfo"] != null)
+    {
+        steps = (tbl_content_answer_steps)ViewData["stepinfo"];
+    }
+    else
+    {
+        steps = new tbl_content_answer_steps();
+    }
+}
+
+<input type="hidden" value="1" name="video_typestep" />
+<label for="FirstName" class="control-label col-md-6">Add Video in Answer Step</label>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <textarea class="form-control validate[required]" placeholder="Answer Step " name="step-@(step)-part1" id="step-@(step)-content" rows="6">@steps.ANSWER_STEPS_PART1</textarea>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="FirstName" class="control-label col-md-1">Video:</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control validate[required]" readonly value="@(steps.ANSWER_STEPS_IMG1)" placeholder="Choose Video" id="step-@(step)-image" name="step-@(step)-image" />
+                <div class="fileUpload btn btn-primary">
+                    <span>Browse Video</span>
+                    <input id="step-@(step)-btn" name="step-@(step)-btn" class="upload" type="file" accept="video/*" onchange="select_file('step-@(step)-btn', 'step-@(step)-image')" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

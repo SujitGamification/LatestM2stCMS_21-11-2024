@@ -1,0 +1,207 @@
+﻿@{
+    ViewBag.Title = "LoadContent";
+    Layout = "~/Views/Shared/_cms_approve.cshtml";
+}
+
+@{
+    tbl_content content = (tbl_content)ViewData["content"];
+    tbl_content_answer content_answer = (tbl_content_answer)ViewData["content_answer"];
+    List<tbl_content_answer_steps> answer_step = (List<tbl_content_answer_steps>)ViewData["answer_step"];
+    List<tbl_content_metadata> metadata = (List<tbl_content_metadata>)ViewData["metadata"];
+    m2ostnext.Models.UserSession userSes = (m2ostnext.Models.UserSession)ViewData["users"];
+}
+<style>
+    h3, h4, h5, h6 {
+        color: #000;
+    }
+    .img-frame {
+        background: transparent;
+        padding: 4px;
+        border: 1px solid #999999;
+    }
+</style>
+<div id="pagecontent_dashboard" class="container">
+    <div class="panel panel-default custom-panel">
+        <div class="panel-heading custom-panel-heading">
+            <div class="panel-title">Content Details </div>
+        </div>
+        <div class="panel-body custom-panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>Content Title</h5> <h4>@content.CONTENT_TITLE</h4>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>Content Header :</h5> <h5>@content.CONTENT_HEADER</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>Content Question</h5><p><h6>@content.CONTENT_QUESTION</h6></p>
+                </div>
+            </div>
+            @if (content.ID_THEME == 2 || content.ID_THEME == 4 || content.ID_THEME == 6)
+            {
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-6">
+                        @{
+                string imagefile = "~/Content/SKILLMUNI_DATA/" + userSes.id_ORGANIZATION + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG1;
+                        }
+                        <img class="img-frame" src="@(Url.Content(imagefile))" style="width:auto;height:auto">
+                    </div>
+                </div>
+            }
+
+            <hr />
+            @if (content.ID_THEME != 7)
+            {
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <p><h6>@content_answer.CONTENT_ANSWER1</h6></p>
+                    </div>
+                </div>
+                if (content.ID_THEME == 5)
+                {
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            @{
+                    string imagefile = "~/Content/SKILLMUNI_DATA/" + userSes.id_ORGANIZATION + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG2;
+                            }
+                            <img class="img-frame" src="@(Url.Content(imagefile))" style="width:auto;height:auto">
+                        </div>
+                    </div>
+                }
+                else if (content.ID_THEME == 6)
+                {
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            @{
+                    string imagefile = "~/Content/SKILLMUNI_DATA/" + userSes.id_ORGANIZATION + "/" + content.ID_CONTENT + "/" + content_answer.CONTENT_ANSWER_IMG2;
+                            }
+                            <img class="img-frame" src="@(Url.Content(imagefile))" style="width:auto;height:auto" />
+                        </div>
+                    </div>
+                }
+                <br />
+                if (content.ID_THEME == 3 || content.ID_THEME == 4 || content.ID_THEME == 5 || content.ID_THEME == 6)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><h6>@content_answer.CONTENT_ANSWER2</h6></p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label">Motive</label>
+                        <p><h6>@content_answer.CONTENT_ANSWER1</h6></p>
+                    </div>
+                    <div class="col-md-8">
+                        <label class="control-label">Purpose</label>
+                        <p><h6>@content_answer.CONTENT_ANSWER2</h6></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label">Subliminal Ignition</label>
+                        <p><h6>@content_answer.CONTENT_ANSWER3</h6></p>
+                    </div>
+                    <div class="col-md-8">
+                        <label class="control-label">Context</label>
+                        <p><h6>@content_answer.CONTENT_ANSWER4</h6></p>
+                    </div>
+                </div>
+            }
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>Asnwer Steps  </h5>
+                </div>
+            </div>
+            @{int i = 0;}
+            @foreach (tbl_content_answer_steps steps in answer_step)
+            {
+                i++;
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5>Step  @(i) :  </h5>
+                    </div>
+                </div>
+                if (steps.ID_THEME == 8)
+                {
+
+                }
+                else if (steps.ID_THEME == 9)
+                { }
+                else if (steps.ID_THEME == 10)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>@steps.ANSWER_STEPS_PART1  </h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>@steps.ANSWER_STEPS_PART2  </h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>@steps.ANSWER_STEPS_PART3  </h6>
+                        </div>
+                    </div>
+                }
+                else if (steps.ID_THEME == 11)
+                {
+                }
+            }
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>Asnwer Steps  </h5>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>Metadata : </h5> <p>
+                        <h6>
+                            @foreach (tbl_content_metadata met in metadata)
+                            { @met.CONTENT_METADATA  }@(", ")
+                        </h6>
+                    </p>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>Approver Comments : </h5><p><h6>@content.COMMENT</h6></p>
+                </div>
+            </div>       
+            <hr />
+            <div class="row">
+                @using (Html.BeginForm("approve_content", "dashboard", FormMethod.Post, new { id = "form_approve_content" }))
+                {
+                    <input type="hidden" name="id_content" value="@content.ID_CONTENT" />
+                    <input type="hidden" name="id_answer" value="@content_answer.ID_CONTENT_ANSWER" />
+                    <div class="col-md-8">
+                        <label>Content/Instruction</label>
+                        <textarea rows="4" class="form-control " placeholder="" id="Responce" name="Responce">@content.COMMENT</textarea>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="submit" value="Approve" name="btn_submit" class="btn  btn-success" />
+                        <input type="submit" value="Reject" name="btn_submit" class="btn  btn-danger" />
+                    </div>
+                }
+            </div>
+        
+         </div>
+    </div>
+</div>

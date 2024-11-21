@@ -1,0 +1,324 @@
+﻿
+@{
+    ViewBag.Title = "Group Dashboard";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+
+@{
+    tbl_category program = (tbl_category)ViewData["program"];
+    List<tbl_kpi_master> contentkpi = (List<tbl_kpi_master>)ViewData["contentkpi"];
+    List<tbl_kpi_master> assessmentkpi = (List<tbl_kpi_master>)ViewData["assessmentkpi"];
+    List<tbl_kpi_master> normalkpi = (List<tbl_kpi_master>)ViewData["normalkpi"];
+    List<tbl_assessment> assessments = (List<tbl_assessment>)ViewData["assessments"];
+    List<m2ostnext.Models.ProgramScoringClass> scoring = (List<m2ostnext.Models.ProgramScoringClass>)ViewData["scoring"];
+}
+
+<script>
+
+    $(function () {
+        //$("#form-add-kpi-program-scoring").validationEngine();
+
+    });
+
+    function eleminateDuplicate(select, index) {
+        var options = select.options;
+        var len = options.length;
+        while (len--) {
+            options[len].disabled = false;
+        }
+        select.options[index].disabled = true;
+        if (index === select.selectedIndex) {
+            alert('You\'ve already selected the item "'
+					+ select.options[index].text
+					+ '".\n\nPlease choose another plan.');
+            this.selectedIndex = 0;
+        }
+    }
+
+
+    function freezOption(val, k) {
+        ///$("#extra-kpi-"+i).prop('selectedIndex'));
+        var rows = $("#new-kpi-row").val();
+        for (i = 1; i <= rows; i++) {
+            if ($("#extra-kpi-" + i).val()) {
+                var tval = $("#extra-kpi-" + i).val();
+                if (i == k) {
+
+                } else {
+                    var iv = $("#extra-kpi-" + i).val();
+                    var jv = $("#extra-kpi-" + k).val();
+                    if (iv == jv) {
+                        $("#msg-txt").html("<p>KPI already selected</p>");
+                        $('#m2ost-dialog').modal('show');
+                        $("#extra-kpi-" + k).prop('selectedIndex', 0);
+                    }
+                }
+            }
+
+
+        }
+    }
+
+    function addKPIRow() {
+
+        var i = $("#new-kpi-row").val();
+        var option = '<tr id="trow-' + i + '" style="background-color:#cb84cb;color:white;"><td>KPI</td> <td><select id="extra-kpi-' + i + '" name="extra-kpi-' + i + '" class="form-control select-control validate[required]" onchange="freezOption(this.value,' + i + ')"  style="color:black;"><option value="" disabled selected>Select KPI</option>';
+        @foreach (tbl_kpi_master item in normalkpi)
+            {
+             <text>   option += '<option value="@item.id_kpi_master">@item.kpi_name</option>';</text>
+            }
+        option += ' </select></td><td>';
+        option += ' <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="extra-kpi-weightage-' + i + '" name="extra-kpi-weightage-' + i + '" /></td><td><a href="javascript:void(0)" onclick="removeRow(\'trow-' + i + '\')"><i style="font-size: 30px;color:#ffffff;" class="glyphicon glyphicon-remove-sign"</a></td></tr>';
+        i++;
+        $("#new-kpi-row").val(i);
+
+        $('#kpi-table tbody').append(option);
+    }
+    function removeRow(ids) {
+        $('#' + ids).remove();
+    }
+
+
+
+    function form_submit() {
+
+        var valid = $("#form-add-kpi-program-scoring").validationEngine('validate');
+        if (valid) {
+
+            var rows = $("#new-kpi-row").val();
+            var sum = 0.0;
+            var additional = "";
+
+
+            var cSum = $("#content-kpi-weightage").val();
+            sum = parseFloat(sum) + parseFloat(cSum);
+            var ai = $("#hid-assessment-count").val();
+            for (i = 1; i <= ai; i++) {
+                if ($("#assessement-kpi-weightage-" + i).val()) {
+                    var tval = $("#assessement-kpi-weightage-" + i).val();
+                    sum = parseFloat(sum) + parseFloat(tval);
+                }
+            }
+
+            for (i = 1; i <= rows; i++) {
+                if ($("#extra-kpi-weightage-" + i).val()) {
+                    var tval = $("#extra-kpi-weightage-" + i).val();
+                    sum = parseFloat(sum) + parseFloat(tval);
+                }
+
+                for (j = 1; j <= rows; j++) {
+
+                }
+            }
+            if (sum == 100) {
+
+            } else {
+
+                additional = "<p>The weightage sum must be 100</p>";
+            }
+
+            if (additional == "") {
+
+
+                var form_data = $("#form-add-kpi-program-scoring").serialize();
+                var url = '@Url.Action("program_scoring_action", "KPI")';
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: form_data,
+                    success: function (data) {
+                        location.reload();
+                    }
+                });
+
+            } else {
+
+                $("#div-alert-tip").show();
+                $("#tip-message").empty().append(additional);
+                setTimeout(function () {
+                    $("#div-alert-tip").hide();
+                    $("#tip-message").empty();
+                }, 2000);
+            }
+        }
+    }
+
+</script>
+<style>
+    p {
+        padding-top: 12px;
+    }
+</style>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Program - KPI Scoring Details</h4>
+            </div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm("program_scoring_action", "KPI", FormMethod.Post, new { id = "form-add-kpi-program-scoring" }))
+                {
+                    <input type="hidden" value="@program.ID_CATEGORY" name="id_category" id="id_category" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Program    </label>
+                                    <strong>@program.CATEGORYNAME</strong>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Description   </label>
+                                    <b>@program.DESCRIPTION</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-md-offset-9 col-md-2">
+
+                        </div>
+                    </div>
+
+                    <input type="hidden" value="1" name="new-kpi-row" id="new-kpi-row" />
+                    <input type="hidden" name="assessment-count" value="@assessments.Count()" />
+
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-8">
+
+                            @if (scoring.Count > 0)
+                            {
+                                <table class="table" id="kpi-table" style="height:80px;width: 100%;">
+                                    <thead>
+                                        <tr style="background-color:#793079;color:white">
+
+                                            <th width="15%">
+                                                KPI Type
+                                            </th>
+                                            <th width="60%">
+                                                KPI Name
+                                            </th>
+                                            <th width="15%">
+                                                Weightage
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (m2ostnext.Models.ProgramScoringClass item in scoring)
+                                        {
+                                            <tr style="background-color:#cb84cb;color:white;">
+                                                <td>@item.kpi_type_lable</td>
+                                                <td>@item.kpi_name</td>
+                                                <td>@item.ps_weightage</td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+
+                                <input type="button" value="Add new KPI" name="btn_submit" class="btn btn-default" onclick="addKPIRow()" />
+                                <div class="col-md-12">
+                                    <br />
+                                </div>
+                                <table class="table" id="kpi-table" style="height:80px;width: 100%;">
+                                    <thead>
+                                        <tr style="background-color:#793079;color:white">
+
+                                            <th width="15%">
+                                                Element
+                                            </th>
+                                            <th width="60%">
+                                                KPI
+                                            </th>
+                                            <th width="15%">
+                                                Weightage
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background-color:#cb84cb;color:white;">
+                                            <td>Content KPI</td>
+                                            <td>
+                                                <select id="content-kpi" name="content-kpi" class="form-control select-control validate[required]" style="color:black;">
+                                                    <option value="" disabled selected>Select KPI</option>
+                                                    @foreach (tbl_kpi_master item in contentkpi)
+                                                    {
+                                                        <option value="@item.id_kpi_master">@item.kpi_name</option>
+                                                    }
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="content-kpi-weightage" name="content-kpi-weightage" />
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        @{
+                                            int i = 1;
+                                        }
+
+                                        @foreach (tbl_assessment item in assessments)
+                                        {
+                                            <tr style="background-color:#cb84cb;color:white;">
+                                                <td><input type="hidden" value="@item.id_assessment" id="assessment-name-@i" name="assessment-name-@i" />@item.assessment_title</td>
+                                                <td>
+                                                    <select id="assessment-kpi-@i" name="assessment-kpi-@i" class="form-control select-control validate[required]" style="color:black;">
+                                                        <option value="" disabled selected>Select KPI</option>
+                                                        @foreach (tbl_kpi_master ass in assessmentkpi)
+                                                        {
+                                                            <option value="@ass.id_kpi_master">@ass.kpi_name</option>
+                                                        }
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="assessement-kpi-weightage-@i" name="assessement-kpi-weightage-@i" />
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            @(i++)
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <input type="hidden" name="hid-assessment-count" id="hid-assessment-count" value="@assessments.Count" />
+                                <br />
+                                <div id="div-alert-tip" style="display:none;">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="color-box space">
+                                                <div class="shadow">
+                                                    <div class="info-tab tip-icon" title="Useful Tips">&nbsp;</div>
+                                                    <div class="tip-box">
+                                                        <div id="tip-message">
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="col-md-offset-8 col-md-2 pull-right">
+                                    <input type="button" value="Save" onclick="form_submit()" name="" class="btn btn-default" />
+                                </div>
+                                            }
+                        </div>
+                    </div>
+                                            }
+            </div>
+        </div>
+    </div>
+</div>

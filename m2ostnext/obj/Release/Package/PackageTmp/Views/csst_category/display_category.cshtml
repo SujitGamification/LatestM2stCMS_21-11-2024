@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+
+</script>
+
+@{
+    List<tbl_category> category = (List<tbl_category>)ViewData["Category"];
+    bool flag = (bool)ViewData["accessflag"];
+    string catimg = (string)ViewData["CATIMG"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Category Detail</h6>
+            </div>
+            <div class="panel-body">
+                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="20%">
+                                Category Name
+                            </th>
+                            <th width="50%">
+                                Info
+                            </th>                           
+                            @if (flag)
+                            {
+                                <th width="10%">Action</th>
+                            }
+                        </tr>
+                    </thead>
+                    @{
+                        int i = 0;
+                    }
+                    <tbody>
+                        @foreach (tbl_category item in category)
+                        {
+                            <tr>
+                                <td>
+                                    @item.CATEGORYNAME
+                                </td>
+                                <td>
+                                    @if (item.CATEGORY_TYPE == 1)
+                                    {
+                                        @("Category")
+                                    }
+                                    else if (item.CATEGORY_TYPE == 0)
+                                    {
+                                        @("Program")
+                                    }
+                                    else if (item.CATEGORY_TYPE == 2)
+                                    {
+                                        @("Assessment Category")
+                                    }
+                                    else if (item.CATEGORY_TYPE == 3)
+                                    {
+                                        @("Link Category")
+                                    }
+                                    else if (item.CATEGORY_TYPE == 4)
+                                    {
+                                        @("Report")
+                                    }
+                                    else if (item.CATEGORY_TYPE == 5)
+                                    {
+                                        @("Team Report")
+                                    }
+                                    @{
+                                    string cImg = catimg + "" + item.IMAGE_PATH; ;
+                                    }
+                                    <a href="@cImg" target="_blank"><i class="glyphicon glyphicon-text-background"></i>&nbsp;</a> &nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+
+                                @if (flag)
+                                {
+                                    <td>
+
+                                        |&nbsp;<a href="@Url.Action("edit_category", "csst_category", new { id = item.ID_CATEGORY })"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;|
+
+                                        <a href="@Url.Action("delete_category", "csst_category", new { id = item.ID_CATEGORY })"><i class="glyphicon glyphicon-remove"></i></a>
+
+                                    </td>
+                                }
+                            </tr>
+                                i++;
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>

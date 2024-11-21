@@ -1,0 +1,133 @@
+﻿@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable({ "pageLength": 25 });
+    });
+
+    function updateOrder(id, val) {
+        var ctid = $('#' + id).val();
+        var url = '@Url.Action("updateCategoryOrder", "csst_category")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { ctid: val, ord: ctid },
+         
+            success: function (data) {
+                if (data == "1") {
+                }
+            }
+        });
+    }
+
+
+    function getCategoryHeading(val) {
+        loading_on();
+        var url = '@Url.Action("getCategoryHeadingSelect", "csst_category")';
+        if (val != "0") {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: val },
+               
+                success: function (data) {
+                    $("#heading-category").empty().append(data);
+
+                }
+            });
+        }
+        loading_off();
+    }
+
+
+    function getContentReport() {
+        loading_on();
+        var cid = $("#tile-category").val();
+        var hid = $("#heading-category").val();
+        var url = '@Url.Action("getCategoryList", "csst_category")';
+        if (cid != "0" && hid != "0") {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { cid: cid, hid: hid },
+               
+                success: function (data) {
+                    $("#display_table").empty().append(data);
+                    $("#report-table").dataTable({ "pageLength": 25 });
+
+                }
+            });
+        } else {
+            $("#msg-txt").html("<p>Select Category Tile and Heding</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+        loading_off();
+    }
+</script>
+
+@{
+    List<tbl_category_tiles> category = (List<tbl_category_tiles>)ViewData["category_tile"];
+    bool flag = (bool)ViewData["accessflag"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Category Heading Sort</h6>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-2 regLabel"> Category Tile :</label>
+                            <div class="col-md-9">
+                                <select class="form-control" id="tile-category" name="tile-category" onchange="getCategoryHeading(this.value)">
+                                    <option value="0" selected> Select Category Tile </option>
+                                    @foreach (tbl_category_tiles item in category)
+                                    {
+                                        <option value="@item.id_category_tiles">@item.tile_heading </option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-2 regLabel"> Category Heading :</label>
+                            <div class="col-md-9">
+                                <select class="form-control" id="heading-category" name="heading-category">
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="button" class="btn btn-primary btn-sm " value=" continue " onclick="getContentReport()" />
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div id="display_table">
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

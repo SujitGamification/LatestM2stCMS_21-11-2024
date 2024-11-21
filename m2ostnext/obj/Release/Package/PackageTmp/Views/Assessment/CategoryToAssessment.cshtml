@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "User Based Assessment";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+@{
+
+    List<tbl_category> catList = (List<tbl_category>)ViewData["category"];
+    List<m2ostnext.Models.AssessmentSheet> assessment = (List<m2ostnext.Models.AssessmentSheet>)ViewData["assessmentList"];
+}
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable({
+            "bSort": false,
+            "pageLength": 50
+        });
+
+    });
+
+    function getContentReport() {
+
+        var id = $("#select-category").val();
+        var url = '@Url.Action("getAssessmentForCategoryList", "Assessment")';
+        var pattern = "";
+
+
+        if (id > 0) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: id },
+               
+                success: function (data) {
+                    $("#display_table").empty().append(data);
+                    $("#report-table").dataTable({ "pageLength": 25 });                  
+                }
+            });
+        } else {
+            $("#msg-txt").html("<p>Please select Category  for the Assessment</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+
+    }
+
+
+    function addAssessmentCategory(value) {
+        var cid = $("#select-category").val();
+        if (cid > 0) {
+            var url = '@Url.Action("addAssessmentToCategory", "Assessment")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { cid: cid, aid: value },
+                success: function (data) {
+                    if (data == "1") {
+                        $("#msg-txt").html("<p>Assessment to Category Attached.</p>");
+                        $('#m2ost-dialog').modal('show');
+                        $("#add_" + value).hide();
+                        $("#link_" + value).show();
+                        $("#done_" + value).show();
+                    } else if (data == "2") {
+                        $("#msg-txt").html("<p>Assessment to Category attachment already Present.</p>");
+                        $('#m2ost-dialog').modal('show');
+                        $("#add_" + value).hide();
+                        $("#link_" + value).show();
+                        $("#done_" + value).show();
+                    }
+                }
+            });
+        } else {
+            $("#msg-txt").html("<p>Select Category for Association </p>");
+            $('#m2ost-dialog').modal('show');
+        }
+    }
+
+
+    function removeAssessmentCategory(value) {
+        var cid = $("#select-category").val();
+        if (cid > 0) {
+            var url = '@Url.Action("removeAssessmentToCategory", "Assessment")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { cid: cid, aid: value },
+                success: function (data) {
+                    if (data == "1") {
+                        $("#msg-txt").html("<p>Assessment From Category Removed.</p>");
+                        $('#m2ost-dialog').modal('show');
+
+                        $("#link_" + value).hide();
+                        $("#done_" + value).hide();
+                        $("#add_" + value).show();
+                    }
+                }
+            });
+        }
+    }
+
+
+</script>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title"> Assessment to Category Assigment</h6>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-2 regLabel">Select Category </label>
+                            <div class="col-md-9">
+                                <select class="form-control" id="select-category" name="select-category" onchange="getContentReport()">
+                                    <option value="0" disabled selected>Select Category </option>
+                                    @foreach (tbl_category items in catList)
+                                    {
+                                        <option value="@items.ID_CATEGORY"> @items.CATEGORYNAME</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-12" id="display_table">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+﻿@model m2ostcms.tbl_business_type
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbl_business_type</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BUSINESS_TYPE_NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BUSINESS_TYPE_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPTION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STATUS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STATUS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UPDATED_DATE_TIME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UPDATED_DATE_TIME)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_BUSINESS_TYPE }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

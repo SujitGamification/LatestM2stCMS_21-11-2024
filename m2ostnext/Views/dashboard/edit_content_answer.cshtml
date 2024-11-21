@@ -1,0 +1,70 @@
+﻿@model m2ostcms.Models.tbl_content_answer
+@{
+    ViewBag.Title = "Edit Content Answer";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+}
+<script>
+    $(function () {
+        $("#form_edit_content_answer").validationEngine();
+    });
+</script>
+<div id="pagecontent_dashboard" class="container">
+    <div class="row clearfix">
+        <div class="col-md-4"><a href="@Url.Action("display_content", "dashboard")" class="btn btn-default" style="width:100%;">Content</a>&nbsp;</div>
+        <div class="col-md-4"><a href="@Url.Action("display_content_answer", "dashboard")" class="btn btn-default" style="width:100%;">Answer</a>&nbsp;</div>
+        <div class="col-md-4"><a href="@Url.Action("display_content_metadata", "dashboard")" class="btn btn-default" style="width:100%;">Metadata</a>&nbsp;</div>
+    </div>
+    <div class="row clearfix">
+
+        <div id="cms_content_body" class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">Add Content Answer </div>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("edit_cms_content_answer", "dashboard", FormMethod.Post, new { id = "form_edit_content_answer" }))
+                    {
+    <input type="hidden" id="ID_CONTENT" name="ID_CONTENT" value="@Model.ID_CONTENT" />
+    <input type="hidden" id="ID_CONTENT_ANSWER" name="ID_CONTENT_ANSWER" value="@Model.ID_CONTENT_ANSWER" />
+    <input type="hidden" id="CONTENT_ANSWER_COUNTER" name="CONTENT_ANSWER_COUNTER" value="@Model.CONTENT_ANSWER_COUNTER" />
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="FirstName" class="control-label col-md-2 regLabel">Question :</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control validate[required]" value="@ViewBag.CONTENT_QUESTION" readonly placeholder="Question" id="CONTENT_QUESTION" name="CONTENT_QUESTION" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="FirstName" class="control-label col-md-2 regLabel">ANSWER :</label>
+                                        <div class="col-md-10">
+                                            <textarea rows="10" class="form-control validate[required]" placeholder="Answer" id="CONTENT_ANSWER" name="CONTENT_ANSWER">@Model.CONTENT_ANSWER1</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Update" class="btn btn-default" />
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

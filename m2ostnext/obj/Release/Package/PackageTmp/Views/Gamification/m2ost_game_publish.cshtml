@@ -1,0 +1,256 @@
+﻿@{
+    ViewBag.Title = "game";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        $('a[title]').tooltip();
+
+        $("#form-add-game").validationEngine();
+
+        $("#datetimepicker1").datetimepicker(
+           { dateFormat: "dd-mm-yy" }
+        );
+    });
+
+
+</script>
+<style>
+    .col-md-12 strong {
+        width: 200px;
+        display: inline-block;
+    }
+
+    p {
+        padding-top: 12px;
+    }
+</style>
+
+@{
+
+    List<m2ostnext.Models.GameElement> elements = (List<m2ostnext.Models.GameElement>)ViewData["elements"];
+    tbl_game_creation game = (tbl_game_creation)ViewData["game"];
+    List<tbl_game_group> group = (List<tbl_game_group>)ViewData["group"];
+    double wsum = (double)ViewData["sum"];
+}
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default m2ost_info">
+            <div class="panel-heading m2ost_info_hat">
+                <span>Game Details </span>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("m2ost_game_publish_action", "Gamification", FormMethod.Post, new { id = "form-add-game" }))
+                {
+                    <input type="hidden" id="game-id" name="game-id" value="@game.id_game" />
+
+
+
+
+                    <section style="background:#efefe9;">
+
+                        <div class="board">
+                            <div class="board-inner">
+                                <ul class="nav nav-tabs" id="myTab">
+                                    <div class="liner"></div>
+                                    <li class="disabled">
+                                        <a href="@Url.Action("m2ost_add_game", "Gamification")" title="Add Game ">
+                                            <span class="round-tabs one">
+                                                <i class="glyphicon glyphicon-play-circle"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("m2ost_game_elements", "Gamification", new { gids = game.gameid })" title="Game Dashboard">
+                                            <span class="round-tabs two">
+                                                <i class="glyphicon glyphicon-cog"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("game_associations", "Gamification", new { gid = game.id_game })" title="Group/Solo Association">
+                                            <span class="round-tabs three">
+                                                <i class="glyphicon glyphicon-link"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("game_summary", "Gamification", new { gid = game.id_game })" title="Summary">
+                                            <span class="round-tabs four">
+                                                <i class="glyphicon glyphicon-list-alt"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="@Url.Action("m2ost_game_publish", "Gamification", new { gids = game.id_game })" title="publish">
+                                            <span class="round-tabs five">
+                                                <i class="glyphicon glyphicon-flag"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </section>
+
+
+                    <div class="col-md-12">
+                        <center><h3><u><b> Game Details </b></u> </h3></center>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="hidden" id="id_game_creation" name="id_game_creation" value="@game.id_game" />
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Game Title   </label>
+                                    <strong>@game.game_title</strong>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Game Mode  </label>
+                                    @if (game.game_mode == "1")
+                                    {
+                                        <strong>Open game</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong>Closed game</strong>
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Game Type  </label>
+                                    @if (game.game_mode == "1")
+                                    {
+                                        <strong>Standalone game</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong>A Journey game</strong>
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Player Type  </label>
+                                    @if (game.player_type == "1")
+                                    {
+                                        <strong>Solo Player</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong>Group Game</strong>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Start Date   </label>
+                                    <strong>@game.game_start_date.Value.ToString("dd-MM-yyyy HH:mm")</strong>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Expiry Date   </label>
+                                    <strong>@game.game_expiry_date.Value.ToString("dd-MM-yyyy HH:mm")</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <hr />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table" style="height:80px;width: 100%;">
+                                <thead>
+                                    <tr style="background-color:#793079;color:white">
+                                        <th>Element Type</th>
+                                        <th>Name</th>
+                                        <th>Sequence Order</th>
+                                        <th>Mandatory</th>
+                                        <th>Individual Weightage(%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="prog-table">
+                                    @foreach (m2ostnext.Models.GameElement item in elements)
+                                    {
+                                        <tr style="background-color:#cb84cb;color:white">
+                                            <td>@item.element_type</td>
+                                            <td>@item.element_name</td>
+                                            <td>@item.sequence_number</td>
+                                            <td>@item.is_mandatory</td>
+                                            <td>@item.weightage</td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <hr />
+                    </div>
+                    if (game.status == "D")
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="color-box space">
+                                    <div class="shadow">
+                                        <div class="info-tab tip-icon" title="Useful Tips">&nbsp;</div>
+                                        <div class="tip-box">
+                                            <p>
+                                                <b>Note:</b><br />
+                                                Publishing will display the Game in the app under 'Gamification' option in the Menu.<br />
+                                                Game will be displayed to the User on lyif he/she is a part of the group or assigned as solo user.<br />
+                                                Once the game is published you can only change Title text and can increase the Expiry date .<br />
+                                                Removal of Group/Solo User is not possible after the publish.
+                                            </p>
+                                            @if (wsum != 100)
+                                            {<p>Weightage sum must be 100</p>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        if (wsum == 100)
+                        {
+                            <div class="form-group">
+                                <div class="col-md-offset-9 col-md-2">
+                                    <input type="submit" value="Publish" name="btn_submit" class="btn btn-success btn-lg" />
+                                </div>
+                            </div>
+
+                        }
+                        else
+                        {
+
+                        }
+
+                    }
+                    else
+                    {
+
+
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+</div>

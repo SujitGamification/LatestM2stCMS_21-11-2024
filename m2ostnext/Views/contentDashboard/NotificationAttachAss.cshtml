@@ -1,0 +1,289 @@
+﻿
+@{
+    ViewBag.Title = "NotificationAttachAss";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    tbl_notification notification = (tbl_notification)ViewData["not"];
+    List<string> location = (List<string>)ViewData["location"];
+    m2ostnext.Models.tbl_notification_pre_config conf = (m2ostnext.Models.tbl_notification_pre_config)ViewData["conf"];
+}
+
+
+<script>
+      function getContentReport(type) {
+        loading_on();
+        var url = '@Url.Action("getUserListForNotification", "Notification")';
+        var pattern = "";
+        var cid = 0;
+        if (type == "1") {
+            cid = $("#category-select").val();
+
+        }
+        if (type == "3") {
+            pattern = $("#search-box-user").val().trim();
+            $('#search-box-user').attr('readonly', true);
+            cid = 0;
+        } else {
+            pattern = $("#search-box").val().trim();
+        }
+
+          var id = $("#id_not").val();
+         
+
+        if (cid == "") {
+            cid = "0";
+        }
+        var count = pattern.trim().length;
+
+            if (count >= 4 || id > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: { id: id, pattern: pattern, cid: cid, type: type },
+
+                    success: function (data) {
+                        $("#display_table").empty().append(data);
+                        $("#report-table").dataTable();
+                    }
+                });
+            } else {
+                $("#msg-txt").html("<p>Please Select User Role</p>");
+                $('#m2ost-dialog').modal('show');
+            }
+
+        loading_off();
+    }
+    function RoleType(val) {
+        $("#role-type").val(val);
+        $("#display_table").empty();
+        if (val == 1) {
+            $("#div-row-role").show();
+            $("#div-row-user").hide();
+            $("#div-row-all").hide();
+            $("#div-row-location").hide();
+        } else if (val == 2) {
+            $("#div-row-role").hide();
+            $("#div-row-user").hide();
+            $("#div-row-all").hide();
+            $("#div-row-location").show();
+        } else if (val == 3) {
+            $("#div-row-role").hide();
+            $("#div-row-user").show();
+            $("#div-row-all").hide();
+            $("#div-row-location").hide();
+        } else if (val == 4) {
+            $("#div-row-role").hide();
+            $("#div-row-user").hide();
+            $("#div-row-all").show();
+            $("#div-row-location").hide();
+        }
+    }
+
+     function sensNotificationToUser(value) {
+         var nid = $("#id_not").val();
+
+        var url = '@Url.Action("sendNotificationToUserAss", "Notification")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { nid: nid, uid: value },
+            success: function (data) {
+                if (data == "1") {
+                    $("#link_" + value).hide();
+                    $("#done_" + value).show();
+                    $("#msg-txt").html("<p>Notification Sent to User</p>");
+                    $('#m2ost-dialog').modal('show');
+                }
+            }
+        });
+    }
+     function Multi_user() {
+
+
+
+         var nid = $("#id_not").val();
+
+            var url = '@Url.Action("setUserBasedAssessmentToMultiUser", "Notification")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { nid: nid,},
+                success: function (data) {
+                    if (data == "1") {
+                        $("#msg-txt").html("<p>Assessment to selected Users are Assigned.</p>");
+                        $('#m2ost-dialog').modal('show');
+                        setTimeout(function () {
+                            $("#div-remove").show();
+                            $("#div-alert").hide();
+                        }, 3000);
+                    }
+                }
+            });
+
+    }
+</script>
+
+<div class="row clearfix">
+    <div>
+        <input type="hidden" id="id_content" value="@conf.id_content" />
+        <input type="hidden" id="id_not" value="@conf.id_notification" />
+        <input type="hidden" id="id_cat" value="@conf.id_category" />
+
+
+    </div>
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Send Notification With Content Attached</h6>
+
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-5">Notification Key:</div>
+                    <div class="col-md-5">@notification.notification_key</div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-5">Notification Message:</div>
+                    <div class="col-md-5">@notification.notification_message</div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-5">Notification Start Date:</div>
+                    <div class="col-md-5">@notification.start_date</div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-5">Notification End Date:</div>
+                    <div class="col-md-5">@notification.end_date</div>
+
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <a class="btn btn-primary btn-block" onclick="RoleType(1)" href="javascript:void(0)">Role Based Search</a>
+                            </div>
+                            <div class="col-md-2">
+                                <a class="btn btn-primary btn-block" style="padding:0%;" onclick="" href="javascript:void(0)">Fucntion Based Search</a>
+                            </div>
+                            <div class="col-md-2">
+                                <a class="btn btn-primary btn-block" style="padding:0%;" onclick="RoleType(2)" href="javascript:void(0)">Location Based Search</a>
+                            </div>
+                            <div class="col-md-2">
+                                <a class="btn btn-primary btn-block" onclick="RoleType(3)" href="javascript:void(0)">User Based Search</a>
+                            </div>
+                            <div class="col-md-2">
+                                <a class="btn btn-primary btn-block" onclick="RoleType(4)" href="javascript:void(0)">All Users</a>
+                            </div>
+                            <input type="hidden" id="role-type" name="role-type" value="0" />
+                        </div>
+
+                        <hr />
+                        <div class="row" id="div-row-role" style="display:none;">
+                            <div class="col-md-12">
+                                <h6 class="panel-title">Select User Role to filter</h6>
+                                <select class="form-control" id="category-select">
+                                    <option value="0" disabled selected>Select Role</option>
+                                    @foreach (tbl_csst_role item in (List<tbl_csst_role>)ViewData["RoleList"])
+                                    {
+                                        <option value="@item.id_csst_role">@item.csst_role</option>
+                                    }
+                                </select>
+                                <input type="text" class="form-control" placeholder="Search by User Name (minimum 3 character)" id="search-box" />
+                                <br />
+                                <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentReport(1)" />
+                                <hr />
+                                <input id="program-assignment" type="button" class="btn btn-primary btn-sm" value="Add Content to Role" onclick="addProgramToRole(0)" />
+                                <input id="program-assignment" type="button" class="btn btn-primary btn-sm" value="Remove Content from Role" onclick="removeUserbasedContentToUser(0)" />
+                            </div>
+
+
+                            <div class="row" id="div-alert">
+                                <div class="col-md-12">
+
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row" id="div-remove">
+                                <div class="col-md-12">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="div-row-location" style="display:none;">
+                            <div class="col-md-12">
+                                <h6 class="panel-title">Select User Location to filter</h6>
+                                <select class="form-control" id="location-select">
+                                    <option value="0" disabled selected>Select Location</option>
+                                    @foreach (string item in location)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                </select>
+                                <input type="text" class="form-control" placeholder="Search by User Name (minimum 3 character)" id="search-lbox" />
+                                <br />
+                                <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentReport(2)" />
+                                <hr />
+                                @*<input id="program-assignment" type="button" class="btn btn-primary btn-sm" value="Add Assessment to Role" onclick="addProgramToLocation(0)" />
+                                    <input id="program-assignment" type="button" class="btn btn-primary btn-sm" value="Remove Assessment from Role" onclick="removeUserbasedContentToUser(0)" />*@
+                            </div>
+                        </div>
+                        <div class="row" id="div-row-user" style="display:none;">
+                            <div class="col-md-12">
+                                <h6 class="panel-title">Search by User </h6>
+                                <input type="text" class="form-control" placeholder="Search by User Name (minimum 3 character)" id="search-box-user" />
+                                <br />
+                                <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentReport(3)" />
+                                <input type="button" class="btn btn-primary btn-sm" value="Reset" onclick="reset_user()" />
+                                <hr />
+                                <input id="program-to-all" type="button" class="btn btn-primary btn-sm" value="Add Program to All User" onclick="addProgramToAllUser(0)" />
+                            </div>
+                        </div>
+                        <div class="row" id="div-row-all" style="display:none;">
+                            <div class="col-md-12">
+                                <div class="alert alert-info alert-dismissable">
+                                    <input id="program-to-all" type="button" class="btn btn-primary btn-sm" value="Add Program to All User" onclick="addProgramToAll(0)" /><strong>&nbsp;&nbsp; Click to Assign Content to Role </strong>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <!-------------------------------------------------------------->
+                        <form method="post" id="Assessment_form" action="/contentDashboard/setUserbasedContentToMultipleUser">
+                            <input type="hidden" value="" name="category" id="category" />
+                            <input type="hidden" value="1" name="notification_req" id="notification_req" />
+                            @*<input type="hidden" id="id_content" name="id_content" value="@program.ID_CONTENT" />*@
+                            <input type="hidden" value="" name="start_date" id="start_date" />
+                            <input type="hidden" value="" name="end_date" id="end_date" />
+                            <input type="hidden" value="" name="notification_id" id="notification_id" />
+                            <div id="display_table">
+
+
+                            </div>
+
+                            <script>
+
+                            </script>
+                            <!----------------------------------------------------------------------->
+                            <div class="row">
+                                <div class="col-md-10">
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="notification-to-all" type="button" class="btn btn-primary btn-sm pull-right" value="Apply Content " onclick="Multi_user()" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

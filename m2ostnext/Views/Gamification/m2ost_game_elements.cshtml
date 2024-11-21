@@ -1,0 +1,381 @@
+﻿@{
+    ViewBag.Title = "game";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+
+        $("#form-add-game").validationEngine();
+
+        $("#datetimepicker1").datetimepicker(
+           { dateFormat: "dd-mm-yy" }
+        );
+    });
+
+
+</script>
+<style>
+    .col-md-12 strong {
+        width: 200px;
+        display: inline-block;
+    }
+</style>
+
+@{
+
+    List<m2ostnext.Models.GameElement> elements = (List<m2ostnext.Models.GameElement>)ViewData["elements"];
+    tbl_game_creation game = (tbl_game_creation)ViewData["game"];
+    List<tbl_category> program = (List<tbl_category>)ViewData["program"];
+    List<tbl_assessment> assessment = (List<tbl_assessment>)ViewData["assessement"];
+    int steps = (int)ViewData["steps"];
+    int max_val = (int)ViewData["max_val"];
+    double wsum = (double)ViewData["sum"];
+    int divi = 1;
+}
+
+
+<style>
+    .select-control {
+        background-color: #FFFFFF;
+        background-image: none;
+        border: 1px solid #e5e6e7;
+        border-radius: 1px;
+        color: #000000;
+        display: block;
+        padding: 2px 4px;
+        height: 28px;
+        margin: 1px 1px;
+        transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+        width: 100%;
+        font-size: 14px;
+    }
+</style>
+
+<script>
+
+
+    $(function () {
+        $('a[title]').tooltip();
+
+        var valMax=@max_val;
+
+        $('#element-weightage').attr("placeholder", "Max value is "+valMax+" ");
+
+        //$('#element-weightage').on('change', function () {
+        //    var ids=$(this).val();
+        //    if (ids >valMax) {
+        //        $('#element-weightage').val("");
+                
+        //    }
+        //});
+    });
+
+
+    function checkWeightageValue(){
+        var valm= $('#element-weightage').val();
+        var valMax=@wsum;
+        var total=parseFloat(valm) + parseFloat(valMax);
+        if(total<=100){
+
+            var form_data = $("#form-add-game").serialize();
+            var url = '@Url.Action("add_m2ost_game_element", "Gamification")';
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: form_data,
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        }else{
+            $("#msg-txt").html("<p>Weighatge out of limit.weightage must addup to 100.</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+    }
+
+    function changeElementItem(ids) {
+        if (ids == 1) {
+            $("#div-ass-1").hide();
+            $("#div-pro-1").show();
+        } else if (ids == 2) {
+            $("#div-ass-1").show();
+            $("#div-pro-1").hide();
+        }
+    }
+
+    function getProgramGrid(ids) {
+
+        $("#div-element-program").show(); $("#div-element-assessment").hide();
+        var sVal = $("#element-program-data option:selected").text();
+        $("#program-name").text(sVal);
+    }
+
+    function getAssessmentGrid(ids) {
+        $("#div-element-program").hide(); $("#div-element-assessment").show();
+        var sVal = $("#element-assessment-data option:selected").text();
+        $("#assessment-name").text(sVal);
+    }
+
+
+
+</script>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default m2ost_info">
+            <div class="panel-heading m2ost_info_hat">
+                <span>Game Details </span>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("m2ost_game_publish", "Gamification", FormMethod.Post, new { id = "form-add-game-val" }))
+                {
+                    <input type="hidden" id="game-id" name="game-id" value="@game.id_game" />
+                    <input type="hidden" id="game-step" name="game-step" value="@steps" />
+
+                    <section style="background:#efefe9;">
+
+                        <div class="board">
+                            <div class="board-inner">
+                                <ul class="nav nav-tabs" id="myTab">
+                                    <div class="liner"></div>
+                                    <li class="disabled">
+                                        <a href="@Url.Action("m2ost_add_game", "Gamification")"  title="Add Game ">
+                                            <span class="round-tabs one">
+                                                <i class="glyphicon glyphicon-play-circle"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="@Url.Action("m2ost_game_elements", "Gamification", new { gids = game.gameid })" title="Game Dashboard">
+                                            <span class="round-tabs two">
+                                                <i class="glyphicon glyphicon-cog"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("game_associations", "Gamification", new { gid = game.id_game })"   title="Group/Solo Association">
+                                           
+                                             <span class="round-tabs three">
+                                                <i class="glyphicon glyphicon-link"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("game_summary", "Gamification", new { gid = game.id_game })" title="Summary">
+                                            <span class="round-tabs four">
+                                                <i class="glyphicon glyphicon-list-alt"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("m2ost_game_publish", "Gamification", new { gids = game.id_game })" title="publish">
+                                            <span class="round-tabs five">
+                                                <i class="glyphicon glyphicon-flag"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </section>
+                }
+                @using (Html.BeginForm("add_m2ost_game_element", "Gamification", FormMethod.Post, new { id = "form-add-game" }))
+                {
+
+
+
+                    <div class="col-md-12">
+                        <center><h3><u><b> Game Details </b></u> </h3></center>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="hidden" id="id_game_creation" name="id_game_creation" value="@game.id_game" />
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Game Title   </label>
+                                    <strong>@game.game_title</strong>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Game Mode  </label>
+                                    @if (game.game_mode == "1")
+                                    {
+                                        <strong>Open game</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong>Closed game</strong>
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Game Type  </label>
+                                    @if (game.game_mode == "1")
+                                    {
+                                        <strong>Standalone game</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong>A Journey game</strong>
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Player Type  </label>
+                                    @if (game.player_type == "1")
+                                    {
+                                        <strong>Solo Player</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong>Group Game</strong>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Start Date   </label>
+                                    <strong>@game.game_start_date.Value.ToString("dd-MM-yyyy HH:mm")</strong>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="min-width:150px;">Expiry Date   </label>
+                                    <strong>@game.game_expiry_date.Value.ToString("dd-MM-yyyy HH:mm")</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                      <div class="col-md-12">
+                        <hr />
+                    </div>
+
+                    <input type="hidden" id="game-id" name="game-id" value="@game.id_game" />
+                    <input type="hidden" id="game-step" name="game-step" value="@steps" />
+
+                    if (game.status == "D")
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="div-element-row">
+                                    <div class="form-group">
+                                        <table class="table" style="height:80px;width: 100%;">
+                                            <thead>
+                                                <tr style="background-color:#793079;color:white">
+                                                    <th>Sequence </th>
+                                                    <th>Element </th>
+                                                    <th>Name </th>
+                                                    <th>Mandatory</th>
+                                                    <th>Weightage(%)</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="prog-table">
+                                                <tr style="background-color:#cb84cb;color:white">
+                                                    <td>@(steps)</td>
+                                                    <td>
+                                                        <select style="color:black;" id="element-type" name="element-type" class="form-control" onchange="changeElementItem(this.value)">
+                                                            <option value="0" disabled selected>Select Element</option>
+                                                            <option value="1"> Program</option>
+                                                            <option value="2"> Assessment</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <div id="div-pro-1" style="display:none;color:black;">
+                                                            <select style="color:black;" id="element-program-data" name="element-program-data" class="form-control" onchange="getProgramGrid(this.value)">
+                                                                <option value="0" disabled selected>Select Program</option>
+                                                                @foreach (tbl_category item in program)
+                                                                {
+                                                                    <option value="@item.ID_CATEGORY">@item.CATEGORYNAME</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                        <div id="div-ass-1" style="display:none;">
+                                                            <select style="color:black;" id="element-assessment-data" name="element-assessment-data" class="form-control" onchange="getAssessmentGrid(this.value)">
+                                                                <option value="0" disabled selected>Select Assessment</option>
+                                                                @foreach (tbl_assessment item in assessment)
+                                                                {
+                                                                    <option value="@item.id_assessment">@item.assessment_title</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <select style="color:black;" id="element-mandatory" name="element-mandatory" class="form-control select-control">
+                                                            <option value="1">Yes</option>
+                                                            <option value="0">No</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="element-weightage" name="element-weightage" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="button" value="Save" name="btn_submit" class="btn btn-default" onclick="checkWeightageValue()" />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+                <div class="col-md-12">
+                    <hr />
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                        @if (elements.Count > 0)
+                        {
+                            <table class="table" style="height:80px;width: 100%;">
+                                <thead>
+                                    <tr style="background-color:#793079;color:white">
+                                        <th>Element Type</th>
+                                        <th>Name</th>
+                                        <th>Sequence Order</th>
+                                        <th>Mandatory</th>
+                                        <th>Individual Weightage(%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="prog-table">
+                                    @foreach (m2ostnext.Models.GameElement item in elements)
+                                    {
+                                        <tr style="background-color:#cb84cb;color:white">
+                                            <td>@item.element_type</td>
+                                            <td>@item.element_name</td>
+                                            <td>@item.sequence_number</td>
+                                            <td>@item.is_mandatory</td>
+                                            <td>@item.weightage</td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+
+                            </table>
+                        }
+                        else
+                        {
+
+                        }
+
+
+                        <hr />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

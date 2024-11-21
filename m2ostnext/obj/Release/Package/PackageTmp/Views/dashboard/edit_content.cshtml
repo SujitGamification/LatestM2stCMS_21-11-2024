@@ -1,0 +1,56 @@
+﻿@model m2ostcms.Models.tbl_content
+@{
+    ViewBag.Title = "Add Content";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+
+<div id="pagecontent_dashboard" class="container">
+
+    <div class="row clearfix">
+        <div class="col-md-4"><a href="@Url.Action("display_content", "dashboard")" class="btn btn-default" style="width:100%;">Content</a>&nbsp;</div>
+        <div class="col-md-4"><a href="@Url.Action("display_content_answer", "dashboard")" class="btn btn-default" style="width:100%;">Answer</a>&nbsp;</div>
+        <div class="col-md-4"><a href="@Url.Action("display_content_metadata", "dashboard")" class="btn btn-default" style="width:100%;">Metadata</a>&nbsp;</div>
+    </div>
+    <div class="row clearfix">
+        <div id="cms_content_body" class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">Edit Content </div>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("edit_cms_content", "dashboard", FormMethod.Post, new { id = "form_edit_content" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+
+                        <input type="hidden" id="ID_CONTENT" name="ID_CONTENT" value="@Model.ID_CONTENT" />
+                        <input type="hidden" id="CONTENT_COUNTER" name="CONTENT_COUNTER" value="@Model.CONTENT_COUNTER" />
+                        <input type="hidden" id="ID_USER" name="ID_USER" value="@Model.ID_USER" />
+
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="FirstName" class="control-label col-md-2 regLabel">Question :</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control validate[required]" value="@Model.CONTENT_QUESTION" placeholder="Question" id="CONTENT_QUESTION" name="CONTENT_QUESTION" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-default" /><a style="margin-left:5px;" href="@Url.Action("Index", "dashboard")" class="btn btn-default  pull-right">Close</a>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

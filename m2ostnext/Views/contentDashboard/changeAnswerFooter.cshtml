@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Add Category";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script>
+      function select_file() {
+        var file = $("#uploadBtn")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        }
+        $("#ImageFile").val(filename);
+    }
+</script>
+<div id="pagecontent_dashboard" class="container">
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h4 class="panel-title">Add Footer Image</h4>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("changeAnswerFooterAll", "contentDashboard", FormMethod.Post, new { id = "form_add_category", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    <hr />
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="theme-1-header" class="form-group">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="Content ID From" id="from-content" name="from-content" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="theme-1-header" class="form-group">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="Content ID To" id="to-content" name="to-content" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="FirstName" class="control-label col-md-2 regLabel">Image:</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control validate[required]" readonly value="" placeholder="Choose Image" id="ImageFile" name="ImageFile" />
+                                    <div class="fileUpload btn btn-primary">
+                                        <span>Browse Image</span>
+                                        <input id="uploadBtn" name="uploadBtn" class="upload" type="file" accept="image/*" onchange="select_file()" />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+

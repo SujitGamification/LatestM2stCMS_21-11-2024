@@ -1,0 +1,299 @@
+﻿@{
+    ViewBag.Title = "LoadAssessment";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+@{
+    db_m2ostEntities db = new db_m2ostEntities();
+    m2ostnext.Models.Assessment assessment = (m2ostnext.Models.Assessment)ViewData["assessment"];
+    m2ostnext.Models.UserSession Sessions = (m2ostnext.Models.UserSession)HttpContext.Current.Session["UserSession"];
+    bool access = false;
+    foreach (tbl_cms_role_action_mapping item in Sessions.action)
+    {
+        if (item.id_cms_role_action == 8)
+        {
+            access = true;
+        }
+    }
+
+    int i = 1;
+}
+
+<script>
+    function editQuestion(value) {
+        loading_on();
+
+        var url = '@Url.Action("edit_assessment_question", "Assessment")';
+        url += '/?id=' + value;
+        var project = $('#row_q_' + value);
+        $('.row_eq_class').hide();
+        $('.row_q_class').show();
+        $("#row_eq_" + value).show();
+        $("#row_eq_" + value).load(url);
+        project.hide()
+        $('html, body').animate({
+            scrollTop: $('#row_eq_' + value).offset().top
+        }, 'slow');
+        setTimeout(function () {
+            loading_off();
+        }, 2000);
+
+    }
+
+</script>
+
+<style>
+    hr {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border: 0;
+        margin-right: 10px;
+        margin-left: 10px;
+        border-top: 1px solid #1abc9c;
+    }
+</style>
+<div id="pagecontent_dashboard">
+    <div class="panel panel-default custom-panel">
+        <div class="panel-heading custom-panel-heading">
+            <div class="panel-title">
+                Assessment Details
+            </div>
+        </div>
+        <div class="panel-body custom-panel-body">
+            @if (assessment.tbl_assessment.status == "A" && access)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="@Url.Action("AssessmentToContent", "Assessment", new { id = @assessment.tbl_assessment.id_assessment })" class="btn btn-default  pull-right">Add Assessment To Content&nbsp;<i class="glyphicon glyphicon-edit"></i></a>
+                    </div>
+                </div>
+            }
+            <hr />
+            <div class="col-md-12 column">
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <strong class="pull-right">Assessment </strong>
+                        </div>
+                        <div class="col-md-8">
+                            <pre>@assessment.tbl_assessment.assessment_title</pre>
+                        </div>
+                        <div class="col-md-1">
+                            @if (access)
+                            {
+                                @*<a href="javascript:(0);" target="_blank" onclick="editAssessment('@assessment.tbl_assessment.id_assessment')"> <i class="glyphicon glyphicon-edit"></i></a>*@
+                                <a href="@Url.Action("editAssessment", "Assessment", new { id = @assessment.tbl_assessment.id_assessment })" class=""><i class="glyphicon glyphicon-edit"></i></a>
+                            }
+                        </div>
+
+                    </div>
+                    <div id="row_ase">
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <strong class="pull-right">Description </strong>
+                        </div>
+                        <div class="col-md-10">
+                            <pre>@assessment.tbl_assessment.assesment_description</pre>
+                        </div>
+                    </div>
+                    <!------------------------------->
+                    <div class="row">
+                        <div class="col-md-2">
+                            <strong class="pull-right">Assessment Created </strong>
+                        </div>
+                        <div class="col-md-10">
+                            <pre>@assessment.tbl_assessment.assess_created.Value.ToShortDateString()</pre>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <strong class="pull-right">Assessment Started </strong>
+                        </div>
+                        <div class="col-md-10">
+                            <pre>@assessment.tbl_assessment.assess_start.Value.ToShortDateString()</pre>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <strong class="pull-right">Assessment End Date </strong>
+                        </div>
+                        <div class="col-md-10">
+                            <pre>@assessment.tbl_assessment.assess_ended.Value.ToShortDateString()</pre>
+                        </div>
+                    </div>
+                    <!------------------------------->
+                    @if (assessment.tbl_assessment.assess_group == 3)
+                    {
+                        <div class="row">
+                            <div class="col-md-2">
+                                <strong class="pull-right">Value Range </strong>
+                            </div>
+                            <div class="col-md-10">
+                                <pre>(@(" " + assessment.tbl_assessment.lower_title + " : " + assessment.tbl_assessment.lower_value + "  " + assessment.tbl_assessment.high_title + " : " + assessment.tbl_assessment.high_value))</pre>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <strong class="pull-right">Assessment Type </strong>
+                    </div>
+                    <div class="col-md-10">
+                        <pre>
+                        @if (assessment.tbl_assessment.assess_group == 1)
+                        {
+                            @("Q & A")
+                        }
+                        else if (assessment.tbl_assessment.assess_group == 2)
+                        {
+                            @("Q & A (no right answer)")
+                        }
+                        else if (assessment.tbl_assessment.assess_group == 3)
+                        {
+                           @("Range")                        
+                        }
+                        else if (assessment.tbl_assessment.assess_group == 4)
+                        {
+                             @("Rank")
+                        }
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <strong class="pull-right">Display Type </strong>
+                    </div>
+                    <div class="col-md-10">
+                        <pre>
+                        @if (assessment.tbl_assessment.assess_type == "1")
+                        {
+                            @("Pre Assessment")
+                        }
+                        else if (assessment.tbl_assessment.assess_type == "2")
+                        {
+                            @("Post Assessment")
+                        }
+                        else
+                        {
+                            @("Pre and Post Assessment")
+                        }
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <strong class="pull-right">Maximum Attempts </strong>
+                    </div>
+                    <div class="col-md-4">
+                        <pre>
+            @(assessment.tbl_assessment.total_attempt)
+                        </pre>
+                    </div>
+                    <div class="col-md-2">
+                        <strong class="pull-right">Display Rignt Answer  </strong>
+                    </div>
+                    <div class="col-md-4">
+                        <pre>
+            @if (assessment.tbl_assessment.ans_requiered == 1)
+            {
+                @(" Yes")
+            }
+            else
+            {
+                @(" No")
+            }
+                        </pre>
+                    </div>
+                </div>
+                <hr />
+            </div>
+            @foreach (m2ostnext.Models.AssessmentQuestion item in assessment.assessment_question)
+            {
+                <div class="row_q_class" id="row_q_@item.tbl_assessment_question.id_assessment_question">
+                    <div class="row">
+                        <div class="col-md-1"><strong class="pull-right">@i</strong></div>
+                        @*<div class="col-md-1"><strong class="pull-right">Question  </strong></div>*@
+                        <div class="col-md-9">
+                            <pre>@item.tbl_assessment_question.assessment_question</pre>
+                            @if (item.tbl_assessment_question.id_assessment_scoring_key > 0)
+                            {
+                                tbl_assessment_scoring_key key = db.tbl_assessment_scoring_key.Where(t => t.id_assessment_scoring_key == item.tbl_assessment_question.id_assessment_scoring_key).FirstOrDefault();
+                                if (key != null)
+                                {
+                                    <h5>Scoring Key :  <strong>@key.header_name</strong></h5>
+                                }
+                            }
+                        </div>
+                        @*<div class="col-md-1">
+                                <a href="javascript:(0);" onclick="fancybody('Assessment', 'edit_assessment_question','@item.tbl_assessment_question.id_assessment_question')"> <i class="glyphicon glyphicon-edit"></i></a>
+                            </div>*@
+                        <div class="col-md-1">
+                            @if (access)
+                            {
+                                <a href="javascript:(0);" onclick="editQuestion('@item.tbl_assessment_question.id_assessment_question')"> <i class="glyphicon glyphicon-edit"></i></a>
+                            }
+                        </div>
+                    </div>
+                    @if (item.tbl_assessment_answer.Count > 0)
+                    {
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
+                                <strong class="pull-left">Answer  </strong>
+                            </div>
+                        </div>
+                    }
+                    @if (item.tbl_assessment_answer.Count > 0)
+                    {
+                        foreach (tbl_assessment_answer ansitem in item.tbl_assessment_answer)
+                        {
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-1"><strong class="pull-right">@ansitem.position  </strong></div>
+                                <div class="col-md-10">
+                                    @{
+                            bool flag = false;
+                                    }
+                                    @if (assessment.tbl_assessment.assess_group == 1)
+                                    {
+                                        if (ansitem.id_assessment_answer.ToString() == item.tbl_assessment_question.aq_answer)
+                                        {
+                                            flag = true;
+                                        }
+                                    }
+                                    <pre>
+                                    @ansitem.answer_description @if (flag)
+                                                         {
+                                                                    @(" (A)")
+                                    }
+                                                                   </pre>
+
+                                    @if (ansitem.id_assessment_scoring_key > 0)
+                                    {
+                                        tbl_assessment_scoring_key key = db.tbl_assessment_scoring_key.Where(t => t.id_assessment == ansitem.id_assessment && t.position == ansitem.position).FirstOrDefault();
+                                        if (key != null)
+                                        {
+                                            <h5>Scoring Key :  <strong>@key.header_name</strong></h5>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+
+                    }
+                </div>
+
+                <div class="row_eq_class" id="row_eq_@item.tbl_assessment_question.id_assessment_question">
+
+                </div>
+                <hr />
+                    i++;
+            }
+        </div>
+    </div>
+</div>

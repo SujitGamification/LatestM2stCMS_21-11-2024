@@ -1,0 +1,2464 @@
+﻿@{
+    ViewBag.Title = "assessmentQuestions";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+@{
+    tbl_assessment assessment = (tbl_assessment)ViewData["assessment"];
+    List<tbl_assessment_question>
+    listassessment_question = (List<tbl_assessment_question>)ViewData["assessment_question"];
+    List<tbl_assessment_scoring_key> scoring_key = (List<tbl_assessment_scoring_key>)ViewData["scoring_key"];
+    List<m2ostnext.Models.tbl_scoring_type_detailsTable> point_List = (List<m2ostnext.Models.tbl_scoring_type_detailsTable>)ViewData["pointList"];
+    List<m2ostnext.Models.tbl_coins_master> coinListdata = (List<m2ostnext.Models.tbl_coins_master>)ViewData["coinList"];
+    List<m2ostnext.Models.tbl_kpi_scoring_master_details_rightAns> pointRightAns = (List<m2ostnext.Models.tbl_kpi_scoring_master_details_rightAns>)ViewData["pointRightAns"];
+    List<m2ostnext.Models.tbl_content_asessment_completion_timeframe_details> ontime = (List<m2ostnext.Models.tbl_content_asessment_completion_timeframe_details>)ViewData["ontime"];
+
+
+    int scoring_key_count = 0;
+    if (scoring_key.Count > 0)
+    {
+        scoring_key_count = scoring_key.Count;
+    }
+    int flagmsg = (int)ViewData["flag"];
+}
+@{
+    var kpiList = ViewBag.KPIList as List<SelectListItem>;
+    var scoringList = ViewBag.scoringList as List<SelectListItem>;
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#table-feed').dataTable({
+            "bFilter": false,
+            "bLengthChange": false,
+            "bAutoWidth": false,
+            "aaSorting": []
+        });
+    });
+
+
+    $(function () {
+        $("#form-add-assessment").validationEngine();
+        $("#form-add-assessment-question").validationEngine();
+    });
+
+    function select_file(btn, imgf, ban) {
+        var file = $("#" + btn + "")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        } else {
+        }
+        $("#" + imgf + "").val(filename);
+    }
+
+    function show_question_div() {
+        $('#add-new-question').show();
+        $('html, body').animate({
+            scrollTop: $('#question-focus').offset().top
+        }, 'slow');
+        $('#q-title').focus();
+
+    }
+
+    function show_Configure_Scoring_div() {
+
+        $('#add-Configure-Scoring').show();
+        $('#KPI_Name').hide();
+        $('#Subtype_Name').hide();
+        $('#data-table-box-1').hide();
+        $('#CoinsTable').hide();
+        $('#SaveCoins').hide();
+        $('#SaveScoring').hide();
+        $('#OnTime').hide();
+        $('#OnTimeEnd').hide();
+        $('#GridBase').hide();
+        $('#data-table-box-2').hide();
+        $('html, body').animate({
+            scrollTop: $('#scoring-focus').offset().top
+        }, 'slow');
+
+    }
+    function delete_question(val) {
+        var url1 = '@Url.Action("DeleteQuestion", "Assessment")';
+        $.ajax({
+            type: 'POST',
+            url: url1,
+            data: { id: val },
+            success: function (data) {
+                if (data == 1) {
+                    delete_row(val);
+                }
+            }
+        });
+    }
+
+    function edit_question(val) {
+
+    }
+
+    function delete_row(id) {
+        $("#row_" + id + "").hide();
+    }
+
+
+
+
+</script>
+<script type="text/javascript">
+    $(window).load(function () {
+
+        if (@flagmsg == 1) {
+            $('#content-dialog').modal('show');
+        }
+    });
+</script>
+
+<style>
+    .data-table-box {
+        border-radius: 8px;
+        background: #FFF;
+        box-shadow: 4px 4px 20px 0px rgba(192, 192, 192, 0.25), 0px 4px 20px 0px rgba(227, 227, 227, 0.25);
+    }
+
+    .odd-row {
+        background-color: #F5F6FA;
+    }
+
+    .even-row {
+        background-color: #fff;
+    }
+</style>
+<div class="row clearfix">
+
+    <div class="col-md-12 column">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Assessment</h4>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+
+                    <div class="row">
+                        <div class="col-md-2"><h4>Assessment : </h4></div>
+                        <div class="col-md-10">
+                            <strong>@assessment.assessment_title</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-2"><h5>Description : </h5></div>
+                        <div class="col-md-10">
+                            <strong>@assessment.assesment_description</strong>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-2"><h5>Created : </h5></div>
+                                <div class="col-md-8">
+                                    <strong>@assessment.assess_created.Value.ToShortDateString()</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-2"><h5>Start : </h5></div>
+                                <div class="col-md-8">
+                                    <strong>@assessment.assess_start.Value.ToShortDateString()</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-2"><h5>End : </h5></div>
+                                <div class="col-md-8">
+                                    <strong>@assessment.assess_ended.Value.ToShortDateString()</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><h5>Assessment Template : </h5></div>
+                        <div class="col-md-10">
+                            @if (assessment.assess_group == 1)
+                            {
+                                <strong>Question & Answer</strong>
+                            }
+                            else if (assessment.assess_group == 2)
+                            {
+                                <strong>VAK</strong>
+                            }
+                            else if (assessment.assess_group == 3)
+                            {
+                                <strong>Range(@(" " + assessment.lower_title + " : " + assessment.lower_value + "  " + assessment.high_title + " : " + assessment.high_value))</strong>
+                            }
+                            else if (assessment.assess_group == 4)
+                            {
+                                <strong>Rank</strong>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"><h5>Type : </h5></div>
+                        <div class="col-md-10">
+                            @if (assessment.assess_type == "3")
+                            {
+                                <strong>Both</strong>
+                            }
+                            else if (assessment.assess_type == "1")
+                            {
+                                <strong>Post</strong>
+                            }
+                            else if (assessment.assess_type == "2")
+                            {
+                                <strong>Pre</strong>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 column">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Questions</h4>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="div-table-class">
+                                <table id="table-feed" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Question</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (tbl_assessment_question obassessment_question in listassessment_question)
+                                        {
+                                            <tr>
+                                                <td style="width:90%;">@obassessment_question.assessment_question</td>
+                                                <td style="width:10%;">
+                                                    <a href="javascript:(0);" onclick="fancybody('Assessment', 'edit_assessment_question','@obassessment_question.id_assessment_question')"> <i class="glyphicon glyphicon-edit"></i></a>
+                                                    &nbsp;|&nbsp; <a class="glyphicon glyphicon-remove-circle" href="#" alt="delete" width="15" height="15" onclick="delete_question(@obassessment_question.id_assessment_question)"></a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 ">
+                            @using (Html.BeginForm("publish_assessment", "Assessment", FormMethod.Post, new { id = "form-add-assessment", enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" id="asses-id" name="asses-id" value="@assessment.id_assessment" />
+
+                                <input type="button" value="add question" name="btn_submit" class="btn btn-default" onclick="show_question_div()" />
+                                <input type="submit" value="publish assessment" name="btn_submit" class="btn btn-default" />
+                                <input type="button" value=" Configure Scoring" name="btn_submit" class="btn btn-default" id="ConfigureScoring" onclick="show_Configure_Scoring_div()" />
+                                <a href="@Url.Action("Index", "Assessment" )" class="btn btn-default">Close</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*//table*@
+    <div class="col-md-12 column">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Scroing</h4>
+            </div>
+            <div class="panel-body" style="overflow-x: scroll;">
+                <div class="form-horizontal">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="div-table-class">
+
+                                @if ((point_List != null && point_List.Any()) ||
+(coinListdata != null && coinListdata.Any()) ||
+(pointRightAns != null && pointRightAns.Any()) ||
+(ontime != null && ontime.Any()))
+                                {
+                                    <table id="table-feed" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>ID_Scoring_Matrix</th>
+                                                <th>ID_KPI</th>
+                                                <th>AttemptNo</th>
+                                                <th>KPI_Name</th>
+                                                <th>Content_Assessment_ID</th>
+
+
+                                                <th>Score</th>
+                                                <th>Points</th>
+                                                <th>Delete</th>
+                                                <th style="display:none">Edit</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in point_List)
+                                            {
+                                                <tr>
+                                                    <td>@item.ID</td>
+                                                    <td>@item.Id_scoring_matrix</td>
+                                                    <td>@item.Id_kpi</td>
+                                                    <td>@item.AttemptNo</td>
+                                                    <td>@item.KPI_Name</td>
+                                                    <td>@item.Content_Assessment_ID</td>
+
+                                                    <td>@item.Score</td>
+                                                    <td>@item.Points</td>
+                                                    <td><button class="btn btn-default handAttemptnoDelete">Delete</button></td>
+                                                    <td style="display:none">
+                                                        @if (@item.Id_kpi == 4)
+                                                        {
+                                                            <input type="hidden" id="subTypeNameId1" value="@item.Id_kpi" />
+                                                            @*<button class="" onclick="handleGrid()" onclick="handAttemptnoDelete(@item.ID)">EditG</button>*@
+
+                                                        }
+                                                        else if (@item.Id_kpi == 3)
+                                                        {
+                                                            @*<input type="hidden" id="subTypeNameId" value="@item.Id_kpi" />*@
+                                                            <button class="btn btn-default" onclick="handAttemptNo()">Edit2</button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <button class="btn btn-default">Edit</button>
+                                                        }
+                                                    </td>
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <button class="btn btn-default" id="handAttemptNoId" onclick="handAttemptNo()">Add / Edit Mastery Score</button>
+
+                                    <table id="report-table-RightAns" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+
+                                                <th>ID_Scoring_Matrix</th>
+                                                <th>ID_KPI</th>
+                                                <th>AttemptNo</th>
+                                                <th>KPI_Name</th>
+                                                <th>Content_Assessment_ID</th>
+                                                <th>Points</th>
+                                                <th>Delete </th>
+                                                <th style="display:none">Edit </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (m2ostnext.Models.tbl_kpi_scoring_master_details_rightAns item in pointRightAns)
+                                            {
+                                                <tr>
+                                                    <td>@(item.ID)</td>
+                                                    <td>@(item.ID_Scoring_Matrix)</td>
+                                                    <td>@(item.ID_KPI)</td>
+                                                    <td>@(item.AttemptNo)</td>
+                                                    <td>@(item.KPI_Name)</td>
+                                                    <td>@(item.Content_Assessment_ID)</td>
+                                                    <td>@(item.Points)</td>
+                                                    <td><button class="btn btn-default RightAnswerDelete">Delete</button></td>
+
+                                                    @*@
+                            <td><a onclick="EditCoins(item.Id_assessment)"><i class="glyphicon glyphicon-edit"></i></a></td>
+                            @*@
+                                                    <td style="display:none"> </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                    <button class="btn btn-default edit-button2" id="RightAns" onclick="rightans()">Add / Edit Right Answers</button>
+
+
+                                    <table id="report-table-ontime" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+
+
+                                                <th>ID_Scoring_Matrix</th>
+                                                <th>ID_KPI</th>
+                                                <th>Category</th>
+                                                <th>KPI_Name</th>
+                                                <th>Content_Assessment_ID</th>
+                                                <th>TimePeriod</th>
+                                                <th>Points </th>
+                                                <th>Delete </th>
+
+                                                <th style="display:none">Edit </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (m2ostnext.Models.tbl_content_asessment_completion_timeframe_details item in ontime)
+                                            {
+                                                <tr>
+
+                                                    <td>@(item.ID_Scoring_Matrix)</td>
+                                                    <td>@(item.ID_KPI)</td>
+                                                    <td>@(item.Category)</td>
+                                                    <td>@(item.KPI_Name)</td>
+                                                    <td>@(item.Content_Assessment_ID)</td>
+                                                    <td>@(item.TimePeriod)</td>
+                                                    <td>@(item.Points)</td>
+                                                    <td><button class="btn btn-default OnTimeDelete">Delete</button></td>
+
+                                                    @*@
+                            <td><a onclick="EditCoins(item.Id_assessment)"><i class="glyphicon glyphicon-edit"></i></a></td>
+                            @*@
+                                                    <td style="display:none"> </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                    <button class="btn btn-default edit-button2" id="ontime" onclick="ontime()">Add / Edit Ontime Completion</button>
+
+
+                                    <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Attempt No</th>
+                                                <th>Set Percentage %</th>
+                                                <th>Set Score </th>
+                                                <th style="display:none">Edit </th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (m2ostnext.Models.tbl_coins_master item in coinListdata)
+                                            {
+                                                <tr>
+                                                    <td>@(item.Id_Coins)</td>
+                                                    <td>@(item.Attempt_no)</td>
+                                                    <td>@(item.Set_percentage)</td>
+                                                    <td>@(item.Set_Score)</td>
+                                                    @*<td><a onclick="EditCoins(item.Id_assessment)"><i class="glyphicon glyphicon-edit"></i></a></td>*@
+                                                    <td style="display:none"><input type="hidden" id="subTypeAttemptno" value="@item.Attempt_no" /></td>
+                                                    <td><button class="btn btn-default CoinsDelete">Delete</button></td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                    <button class="btn btn-default edit-button1" id="handelCoin" onclick="handelCoin()">Add / Edit Coins</button>
+
+
+
+
+                                }
+                                else
+                                {
+                                    <div style="text-align:center">No Data Available</div>
+                                }
+
+                                @*<button class="btn btn-default" id="handleGrid" onclick="handleGrid()">Edit</button>*@
+                                @*<button class="btn btn-default" id="handAttemptNo" onclick="handAttemptNo()">Edit</button>*@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="add-new-question" style="display:none;">
+        <div class="col-md-12 column">
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Add Assessment Question</h4>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("add_assessment_question", "Assessment", FormMethod.Post, new { id = "form-add-assessment-question", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="theme-1-header" class="form-group">
+                                    <input type="text" class="form-control validate[required]" value="" placeholder="Question" id="q-title" name="q-title" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-1">Image:</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control " readonly value="" placeholder="Question Image[optional]" id="question-image" name="question-image" />
+                                <div class="fileUpload btn btn-primary">
+                                    <span>Browse Image</span>
+                                    <input id="question-btn" name="question-image" class="upload" type="file" accept="image/*" onchange="select_file('question-btn', 'question-image', 'question-text')" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        if (assessment.assess_group == 1)
+                        {
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="FirstName" class="control-label col-md-12">Select options </label>
+                                    <div class="form-group">
+                                        <select id="select-options-type" name="select-options-type" class="form-control validate[required]" onchange="generate_option(this.value)">
+                                            <option value="2">2 options</option>
+                                            <option value="3">3 options</option>
+                                            <option value="4">4 options</option>
+                                            <option value="5">5 options</option>
+                                            <option value="6">6 options</option>
+                                            <option value="7">7 options</option>
+                                            <option value="8">8 options</option>
+                                            <option value="9">9 options</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                        }
+                        if (assessment.assess_group == 3)
+                        {
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="FirstName" class="control-label col-md-12">Select Scoring Key </label>
+                                    <div class="form-group">
+                                        <select id="select-scoring-key" name="select-scoring-key" class="form-control validate[required]">
+                                            @foreach (tbl_assessment_scoring_key item in scoring_key)
+                                            {
+                                                <option value="@item.id_assessment_scoring_key">@item.header_name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                        }
+                        <hr />
+                        <div id="options">
+                            @if (assessment.assess_group == 1)
+                            {
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <textarea class="form-control validate[required]" name="t-content-1" id="t-content-1" placeholder="Option 1" rows="2"></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <textarea class="form-control validate[required]" name="t-content-2" id="t-content-2" placeholder="Option 2" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else if (assessment.assess_group == 2)
+                            {
+                                for (int i = 1; i <= scoring_key_count; i++)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <textarea class="form-control validate[required]" name="t-content-@i" id="t-content-@i" placeholder="Option @i" rows="2"></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                }
+                            }
+                            else if (assessment.assess_group == 4)
+                            {
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="FirstName" class="control-label col-md-12"> Scoring Key </label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label for="FirstName" class="control-label col-md-12"> Option </label>
+                                    </div>
+                                </div>
+
+                                for (int i = 1; i <= scoring_key_count; i++)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <select id="t-scoring-key-@i" name="t-scoring-key-@i" class="form-control validate[required]">
+                                                @foreach (tbl_assessment_scoring_key item in scoring_key)
+                                                {
+                                                    <option value="@item.id_assessment_scoring_key">@item.header_name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <textarea class="form-control validate[required]" name="t-content-@i" id="t-content-@i" placeholder="Option @i" rows="2"></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+
+                            }
+                        </div>
+                        <hr />
+                        if (assessment.assess_group == 1)
+                        {
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="FirstName" class="control-label col-md-12">Select Answer </label>
+                                    <div class="form-group">
+                                        <select id="select-answer" name="select-answer" class="form-control validate[required]">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <hr />
+                        }
+                        else if (assessment.assess_group == 2)
+                        {
+                            @*<div class="row">
+                                    <div class="col-md-6">
+                                        <label for="FirstName" class="control-label col-md-12">Select Answer </label>
+                                        <div class="form-group">
+                                            <select id="select-answer" name="select-answer" class="form-control validate[required]">
+                                                @for (int i = 1; i <= scoring_key_count; i++)
+                                                {
+                                                    <option value="@i">Option @i</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                    </div>
+                                </div>
+                                <hr />*@
+                        }
+                        else if (assessment.assess_group == 3)
+                        {
+
+                        }
+                        else if (assessment.assess_group == 4)
+                        {
+
+                        }
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="hidden" id="id-assessment" name="id-assessment" value="@assessment.id_assessment" />
+                                <input type="submit" value="Save and continue" name="btn_submit" class="btn btn-default" />
+                                <a href="@Url.Action("Index", "Assessment" )" class="btn btn-default">Close</a>
+                            </div>
+                        </div>
+                    }
+                    <div id="question-focus"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="add-Configure-Scoring" style="display:none;">
+        <div class="col-md-12 column">
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h4 class="panel-title">KPI Scoring</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <input type="hidden" id="hiddenValue" name="hiddenValue" value="">
+                                        <div class=""><label class="control-label">Select Point or Coins </label></div>
+
+                                        <select id="pointcoinstype-dropdown" name="assessment-div" class="form-control">
+                                            <option value="0">Select Point or Coins</option>
+                                            <option value="1" id="Point">Point</option>
+                                            <option value="2" id="Coins">Coins</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6" id="KPI_Name">
+                                        <div class=""><label class="control-label">Name of the KPI </label></div>
+                                        @*<select id="assessment-div" name="assessment-div" class="form-control">
+                                            </select>*@
+                                        @Html.DropDownList("SelectedKPI", kpiList, "Select KPI", new { @class = "form-control kip1", id = "kpiDropdown" })
+
+                                    </div>
+                                    @*  <div class="col-md-6" id="Subtype_Name">*@
+                                    @*<div class=""><label class="control-label">Subtype </label></div>*@
+                                    @*@Html.DropDownList("SelectedSubtype", new SelectList(new List<SelectListItem>(), "Value", "Text"), "Select Subtype", new { @class = "form-control", id = "subtypeDropdown" })*@
+                                    @*@Html.DropDownList("SelectedScoring", scoringList, "Select Scoring", new { @class = "form-control", id = "subtypeDropdown1" })*@
+
+                                    @*<select id="subtype-dropdown" name="assessment-div" class="form-control">
+                                            <option value="1">Mastery Score</option>
+                                            <option value="2">Ontime Completion </option>
+                                            <option value="3">Ontime Completion</option>
+                                            <option value="4">Grid based</option>
+                                        </select>*@
+                                    @*</div>*@
+
+                                    <div class="col-md-6" id="category-dropdown-box">
+                                        <div class=""><label class="control-label">Category</label></div>
+                                        <select id="category-dropdown" name="assessment-div" class="form-control">
+                                            <option>Select category</option>
+                                            <option value="0">Based On Start Date To End Date</option>
+                                            <option value="1">Based On Within Hrs </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6" id="attempt-dropdown-box">
+                                        <div class=""><label class="control-label">Attempt No</label></div>
+                                        <select id="attempt-dropdown" name="attempt-div" class="form-control attempt-drop">
+
+                                            <option value="" selected disabled hidden>Select Attempt No</option>
+                                            <option value="1">Attempt 1</option>
+                                            <option value="2">Attempt 2</option>
+                                            <option value="3">Attempt 3</option>
+                                            <option value="4">Attempt 4</option>
+                                            <option value="5">Attempt 5</option>
+                                            <option value="6">Attempt 6</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6" id="data-table-box-rightAns">
+                                        <div class=""><label class="control-label">Attempt No right</label></div>
+                                        <select id="attempt-dropdown-rightAns" name="attempt-div" class="form-control">
+
+                                            <option value="" selected disabled hidden>Select Attempt No</option>
+                                            <option value="1">Attempt 1</option>
+                                            <option value="2">Attempt 2</option>
+                                            <option value="3">Attempt 3</option>
+                                            <option value="4">Attempt 4</option>
+                                            <option value="5">Attempt 5</option>
+                                            <option value="6">Attempt 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6" id="data-table-box-coins">
+                                        <div class=""><label class="control-label">Attempt No</label></div>
+                                        <select id="attempt-dropdown-coins" name="attempt-div" class="form-control">
+
+                                            <option value="" selected disabled hidden>Select Attempt No</option>
+                                            <option value="1">Attempt 1</option>
+                                            <option value="2">Attempt 2</option>
+                                            <option value="3">Attempt 3</option>
+                                            <option value="4">Attempt 4</option>
+                                            <option value="5">Attempt 5</option>
+                                            <option value="6">Attempt 6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div id="data-table-box-1" class="data-table-box" style=" margin: 0px 15px;">
+                                        <div class="row" style="margin: 0px; padding: 20px 0px;">
+                                            <div class="col-md-2 text-center">
+                                                <label class="control-label">Attempt No </label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label class="control-label">Mastery % </label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label class="control-label">Points </label>
+                                            </div>
+                                        </div>
+
+                                        @*<div id="container">
+                                                <div class="row" style="background: #F5F6FA; margin: 0px; padding: 10px 0px;">
+                                                    <div class="col-md-2 text-center">
+                                                        <div>1 </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <input type="text" name="input1" id="" style="width:80%">
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <input type="text" name="input2" id="" style="width:80%">
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="background: #F5F6FA; margin: 0px; padding: 10px 0px;">
+                                                    <div class="col-md-2 text-center">
+                                                        <div>2 </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <input type="text" name="input1" id="" style="width:80%">
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <input type="text" name="input2" id="" style="width:80%">
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                        <div id="dynamic-input-fields-container"></div>
+                                    </div>
+                                </div>
+
+
+                                <div id="data-table-box-2" class="data-table-box" style="margin: 0px 15px;">
+                                    <!-- Content for Subtype 2 -->
+                                    <div class="row" style="margin: 0px; padding: 20px 0px;">
+                                        <div class="col-md-2 text-center">
+                                            <label class="control-label">Serial No </label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label class="control-label">Duration</label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label class="control-label">Points </label>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="background: #F5F6FA; margin: 0px; padding: 10px 0px;">
+                                        <div class="col-md-2 text-center">
+                                            <div>1 </div>
+                                        </div>
+                                        <div class="col-md-5" style="display:flex;justify-content:flex-end;">
+                                            <select id="Duration-dropdown" name="Duration-div" class="form-control">
+                                                <option value="0">Duration</option>
+                                                <option value="24">24 Hrs</option>
+                                                <option value="48">48 Hrs</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text" name="" id="PointDuration" style="width:80%;margin:3px 0px">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="data-table-box-3" class="data-table-box" style="margin: 0px 15px;">
+                                    <!-- Content for Subtype 3 -->
+                                    <div class="row" style="margin: 0px; padding: 20px 0px;">
+                                        <div class="col-md-2 text-center">
+                                            <label class="control-label">Serial No </label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label class="control-label"> </label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label class="control-label">Points </label>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="ontimehiddenValue" name="ontimehiddenValue" value="">
+                                    <div class="row" style="background: #F5F6FA; margin: 0px; padding: 10px 0px;">
+                                        <div class="col-md-2 text-center">
+                                            <div>1 </div>
+                                        </div>
+                                        <div class="col-md-5" style="display:flex;justify-content:flex-end;">
+                                            <label class="control-label"> Ontime completion points are </label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text" name="" id="EndTime" style="width:80%">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*<div id="data-table-box-4" class="data-table-box" style="margin: 0px 15px;">
+                                        <div class="row" style="margin: 0px; padding: 20px 0px;">
+                                            <div class="col-md-2 text-center">
+                                                <label class="control-label">Serial No </label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="control-label">Start Range </label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="control-label">End Range </label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="control-label">Points </label>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="background: #F5F6FA; margin: 0px; padding: 10px 0px;">
+                                            <div class="col-md-2 text-center">
+                                                <div>1 </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="hidden" id="hiddenValue1" name="hiddenValue1" value="">
+
+                                                <input type="text" name="input1_Grid" id="input1_Grid" placeholder="0000" style="width:80%">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" name="input2_Grid" id="input2_Grid" placeholder="0000" style="width:80%">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" name="input3_Grid" id="input3_Grid" placeholder="0000" style="width:80%">
+                                            </div>
+                                        </div>
+                                        <div class="row" style="background:#FFFFFF; margin: 0px; padding: 10px 0px;">
+                                            <div class="col-md-2 text-center">
+                                                <div>2</div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="hidden" id="hiddenValue2" name="hiddenValue1" value="">
+
+                                                <input type="text" name="input1_Grid" id="input4_Grid" placeholder="0000" style="width:80%">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" name="input2_Grid" id="input5_Grid" placeholder="0000" style="width:80%">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" name="input3_Grid" id="input6_Grid" placeholder="0000" style="width:80%">
+                                            </div>
+                                        </div>
+                                        <div class="row" style="background:#F5F6FA; margin: 0px; padding: 10px 0px;">
+                                            <div class="col-md-2 text-center">
+                                                <div>3</div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="hidden" id="hiddenValue3" name="hiddenValue1" value="">
+
+                                                <input type="text" name="input1_Grid" id="input7_Grid" placeholder="0000" style="width:80%">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" name="input2_Grid" id="input8_Grid" placeholder="0000" style="width:80%">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" name="input3_Grid" id="input9_Grid" placeholder="0000" style="width:80%">
+                                            </div>
+                                        </div>
+                                        <div class="row" style="background:#FFFFFF; margin: 0px; padding: 10px 0px;">
+                                            <div class="col-md-2 text-center">
+                                                <div>4 </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="hidden" id="hiddenValue4" name="hiddenValue1" value="">
+
+                                                <input type="text" name="input1_Grid" id="input10_Grid" placeholder="0000" style="width:80%">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" name="input2_Grid" id="input11_Grid" placeholder="0000" style="width:80%">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" name="input3_Grid" id="input12_Grid" placeholder="0000" style="width:80%">
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+                                <div id="data-table-box-5" class="data-table-box" style="margin: 0px 15px;">
+                                    <!-- Content for Subtype 4 -->
+                                    <div class="row" style="margin: 0px; padding: 20px 0px;">
+                                        <div class="col-md-2 text-center">
+                                            <label class="control-label">Attempt No </label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <label class="control-label">Points </label>
+                                        </div>
+                                    </div>
+                                    <div id="dynamic-input-fields-container-rightAns"></div>
+
+                                </div>
+                            </div>
+
+                            @*/ Coins /*@
+
+                            <div class="form-group" id="CoinsTable">
+                                <div id="data-table-box-2" class="data-table-box" style=" margin: 0px 15px;">
+                                    <div class="row" style="margin: 0px; padding: 20px 0px;">
+                                        <div class="col-md-2 text-center">
+                                            <label class="control-label">Attempt No </label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label class="control-label">Set Percentage % </label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label class="control-label">Set Score </label>
+                                        </div>
+                                    </div>
+                                    @*<div id="container_Coins">
+                                            <div class="row" style="background: #F5F6FA; margin: 0px; padding: 10px 0px;">
+                                                <div class="col-md-2 text-center">
+                                                    <div id="attempt_no1">1 </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="input1_coins" id="" style="width:80%">
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="input2_coins" id="" style="width:80%">
+                                                </div>
+                                            </div>
+                                            <div class="row" style="background: #F5F6FA; margin: 0px; padding: 10px 0px;">
+                                                <div class="col-md-2 text-center">
+                                                    <div id="attempt_no2">2 </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="input1_coins" id="" style="width:80%">
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="input2_coins" id="" style="width:80%">
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                    <div id="dynamic-input-fields-container-coins"></div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="" style="display:flex;justify-content:end;align-items:end;margin-top:20px;">
+                        <a class="btn btn-default" style="padding:2px 10px;margin-right:5px" id="SaveCoins" onclick="SaveCoins()">Save</a>
+                        <a class="btn btn-default" style="padding:2px 10px;margin-right:5px" id="SaveScoring" onclick="SaveScoring()">Save</a>
+                        <a class="btn btn-default" style="padding:2px 10px;margin-right:5px" id="OnTime" onclick="OnTime()">Save</a>
+                        <a class="btn btn-default" style="padding:2px 10px;margin-right:5px" id="OnTimeEnd" onclick="OnTimeEnd()">Save</a>
+                        <a class="btn btn-default" style="padding:2px 10px;margin-right:5px" id="GridBase" onclick="GridBase()">Save</a>
+                        <a class="btn btn-default" style="padding:2px 10px;margin-right:5px" id="RightAnsKPI" onclick="RightAnsKPI()">Save</a>
+                        <a href="@Url.Action("Index", "Assessment" )" class="btn btn-default">Close</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div id="scoring-focus"></div>
+    </div>
+</div>
+    </div>
+
+
+<div class="modal fade" id="content-dialog" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Assessment  Status</h3>
+            </div>
+            <div class="modal-body" id="msg-txt">
+                <p style="text-align:center">Assessment  Added successfully</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</div>
+
+
+<script type="text/javascript">
+    function generate_option(val) {
+        var options = '';
+        var no_answers = '';
+
+        for (var i = 1; i <= val; i++) {
+            options += '  <div class="row"> ';
+            options += '         <div class="col-md-8">';
+            options += '             <div class="form-group">';
+            options += '                 <textarea class="form-control validate[required]" name="t-content-' + i + '" id="t-content-' + i + '" placeholder="Option ' + i + '" rows="2"></textarea>';
+            options += '             </div>';
+            options += '          </div>';
+            options += '     </div>';
+
+            no_answers += ' <option value="' + i + '">Option ' + i + '</option>';
+        }
+
+        $("#options").empty().append(options);
+        $("#select-answer").empty().append(no_answers);
+
+    }
+
+    $(document).ready(function () {
+        // Initially hide the Category dropdown
+        $("#category-dropdown-box").hide();
+        $("#category-dropdown-box").hide();
+        $("#data-table-box-2").hide();
+        $("#data-table-box-3").hide();
+        $("#data-table-box-4").hide();
+        $('#attempt-dropdown-box').hide();
+        $('#data-table-box-rightAns').hide();
+
+        // Attach a change event listener to the Subtype dropdown
+        $("#subtype-dropdown1").change(function () {
+            debugger;
+            // Check if the selected value is "Ontime Completion(Start Date)"
+            var selectedValue = $(this).val();
+
+            if (selectedValue == 1) {
+                $("#data-table-box-1").show();
+                $("#data-table-box-2").hide();
+                $("#data-table-box-3").hide();
+                $("#data-table-box-4").hide();
+                $("#category-dropdown-box").hide();
+                $("#attempt-dropdown-box").show();
+
+            } else if (selectedValue == 2) {
+                // Show the Category dropdown
+                $("#data-table-box-2").show();
+                $("#data-table-box-1").hide();
+                $("#data-table-box-3").hide();
+                $("#data-table-box-4").hide();
+                $("#category-dropdown-box").show();
+                $("#attempt-dropdown-box").hide();
+            } else if (selectedValue == 3) {
+                $("#data-table-box-3").show();
+                $("#data-table-box-1").hide();
+                $("#data-table-box-2").hide();
+                $("#data-table-box-4").hide();
+                $("#category-dropdown-box").hide();
+                $("#attempt-dropdown-box").hide();
+
+            } else if (selectedValue == 4) {
+                $("#data-table-box-4").show();
+                $("#data-table-box-1").hide();
+                $("#data-table-box-2").hide();
+                $("#data-table-box-3").hide();
+                $("#category-dropdown-box").hide();
+                $("#attempt-dropdown-box").show();
+
+            }
+        });
+        $('#attempt-dropdown').change(function () {
+
+                var numberOfInputs = $(this).val();
+                $("#data-table-box-1").show();
+
+                var existingValues = {};
+                var existingValues2 = {};
+            var existingValues3 = {};
+            var existingValues4 = {};
+
+                // Store existing values
+                $('input[name="input1_points"]').each(function (index) {
+                    existingValues[index] = $(this).val();
+                });
+                $('input[name="input2_points"]').each(function (index) {
+                    existingValues2[index] = $(this).val();
+                });
+
+                $('input[name="hiddenValueM"]').each(function (index) {
+                    existingValues3[index] = $(this).val();
+                });
+            $('input[name="ID_Scoring_Matrix"]').each(function (index) {
+                existingValues4[index] = $(this).val();
+            });
+                var inputFields = '';
+                for (var i = 1; i <= numberOfInputs; i++) { // Start from 2 as the first input is already there
+                    var rowClass = i % 2 === 0 ? 'even-row' : 'odd-row';
+                    inputFields += '<div class="row ' + rowClass + '" style="margin: 0px; padding: 10px 0px;">';
+                    inputFields += '<div><input type="hidden" id="hiddenValueM1" name="hiddenValueM" value="' + (existingValues3[i - 1] || "") + '"></div>';
+                    inputFields += '<div><input type="hidden" id="ID_Scoring_Matrix" name="ID_Scoring_Matrix" value="' + (existingValues4[i - 1] || "") + '"></div>';
+
+                    inputFields += '<div class="col-md-2 text-center" name="Attempt1_points" id="Attempt_' + i + '"><div class="text-center-points">' + i + '</div></div>';
+                  //  inputFields += '<div class="col-md-5"><input type="text" name="input3_points" id="Attemptpoints_' + i + '" name="points_' + i + '" style="width:80%" class="form-control " value="' + (existingValues[i - 1] || "") + '"></div>';
+                    inputFields += '<div class="col-md-5"><input type="text" name="input1_points" id="Attemptmastery_' + i + '" name="mastery_' + i + '" style="width:80%" class="form-control " value="' + (existingValues[i - 1] || "") + '"></div>';
+                    inputFields += '<div class="col-md-5"><input type="text" name="input2_points" id="Attemptpoints_' + i + '" name="points_' + i + '" style="width:80%" class="form-control"  value="' + (existingValues2[i - 1] || "") + '"></div>';
+                    inputFields += '</div>';
+                }
+
+                // Replace the existing input fields with the new ones
+                $('#dynamic-input-fields-container').html(inputFields);
+
+        });
+
+        $('#attempt-dropdown-coins').change(function () {
+            debugger;
+            var numberOfInputs = $(this).val();
+            $("#data-table-box-coins").show();
+
+            var existingValuescoins = {};
+            var existingValues2coins = {};
+            var existingValues3coins = {};
+
+            // Store existing values
+            $('input[name="input1_coins"]').each(function (index) {
+                existingValuescoins[index] = $(this).val();
+            });
+            $('input[name="input2_coins"]').each(function (index) {
+                existingValues2coins[index] = $(this).val();
+            });
+            $('input[name="hiddenValuecoins"]').each(function (index) {
+                existingValues3coins[index] = $(this).val();
+            });
+
+            var inputFields = '';
+            for (var i = 1; i <= numberOfInputs; i++) { // Start from 2 as the first input is already there
+                var rowClass = i % 2 === 0 ? 'even-row' : 'odd-row';
+                inputFields += '<div class="row ' + rowClass + '" style="margin: 0px; padding: 10px 0px;">';
+                inputFields += '<div><input type="hidden" id="hiddenValuecoins" name="hiddenValuecoins" value="' + (existingValues3coins[i - 1] || "") + '"></div>';
+
+                inputFields += '<div class="col-md-2 text-center" name="Attempt1_coins" id="Attempt_' + i + '"><div class="text-center-coins">' + i + '</div></div>';
+                inputFields += '<div class="col-md-5"><input type="text" name="input1_coins" id="Attemptmastery_' + i + '" name="mastery_' + i + '" style="width:80%" class="form-control" value="' + (existingValuescoins[i - 1] || "") + '"></div>';
+                inputFields += '<div class="col-md-5"><input type="text" name="input2_coins" id="Attemptpoints_' + i + '" name="points_' + i + '" style="width:80%" class="form-control" value="' + (existingValues2coins[i - 1] || "") + '"></div>';
+                inputFields += '</div>';
+            }
+            // Replace the existing input fields with the new ones
+            $('#dynamic-input-fields-container-coins').html(inputFields);
+        });
+
+
+        $('#attempt-dropdown-rightAns').change(function () {
+            debugger;
+            var numberOfInputs = $(this).val();
+            $("#data-table-box-5").show();
+
+
+           /* var existingValuesrightAns = {};*/
+            var existingValues2rightAns = {};
+            var existingValues3rightAns = {};
+            var existingValues4rightAns = {};
+
+            // Store existing values
+            //$('input[name="input1_rightAns"]').each(function (index) {
+            //    existingValuesrightAns[index] = $(this).val();
+            //});
+            $('input[name="input2_rightAns"]').each(function (index) {
+                existingValues2rightAns[index] = $(this).val();
+            });
+            $('input[name="hiddenValuerightAns"]').each(function (index) {
+                existingValues3rightAns[index] = $(this).val();
+            });
+            $('input[name="ID_Scoring_Matrix1"]').each(function (index) {
+                existingValues4rightAns[index] = $(this).val();
+            });
+
+            var inputFields = '';
+            for (var i = 1; i <= numberOfInputs; i++) { // Start from 2 as the first input is already there
+                var rowClass = i % 2 === 0 ? 'even-row' : 'odd-row';
+                inputFields += '<div class="row ' + rowClass + '" style="margin: 0px; padding: 10px 0px;">';
+                inputFields += '<div><input type="hidden" id="hiddenValuerightAns" name="hiddenValuerightAns" value="' + (existingValues3rightAns[i - 1] || "") + '"></div>';
+                inputFields += '<div><input type="hidden" id="ID_Scoring_Matrix1" name="ID_Scoring_Matrix1" value="' + (existingValues4rightAns[i - 1] || "") + '"></div>';
+
+                inputFields += '<div class="col-md-2 text-center" name="Attempt1_rightAns" id="Attempt_' + i + '"><div class="text-center-rightAns">' + i + '</div></div>';
+                //inputFields += '<div class="col-md-8"><input type="text" name="input1_coins" id="Attemptmastery_' + i + '" name="mastery_' + i + '" style="width:80%" class="form-control" value="' + (existingValuescoins[i - 1] || "") + '"></div>';
+                inputFields += '<div class="col-md-10"><input type="text" name="input2_rightAns" id="Attemptpoints_' + i + '" name="points_' + i + '" style="width:80%" class="form-control" value="' + (existingValues2rightAns[i - 1] || "") + '"></div>';
+                inputFields += '</div>';
+            }
+            // Replace the existing input fields with the new ones
+            $('#dynamic-input-fields-container-rightAns').html(inputFields);
+        });
+
+        //$("#assessment-div").change(function () {
+        //    // Hide all data-table-box divs
+        //    // Check the selected value and show the corresponding data-table-box div
+        //    var selectedValue = $(this).val();
+        //    if (selectedValue == 1) {
+        //        $("#data-table-box-1").show();
+        //    } else if (selectedValue == 2) {
+        //        $("#data-table-box-2").show();
+        //    } else if (selectedValue == 3) {
+        //        $("#data-table-box-3").show();
+        //    } else if (selectedValue == 4) {
+        //        $("#data-table-box-4").show();
+        //    }
+        //});
+    });
+
+
+
+
+
+    //$(document).ready(function () {
+    //    debugger
+
+    //        // Check if the table has any rows
+    //    if ($('#table-feed tbody tr').length > 1) {
+    //        // show_Configure_Scoring_div();
+    //        $('.panel panel-default ').hide();
+    //        $('#ConfigureScoring').hide();
+
+
+    //        // 'You can perform any actions here if the table has data
+    //    }
+    //    else {
+    //        $('#ConfigureScoring').show();
+    //        $("#handAttemptNo").hide();
+    //        $("#handleGrid").hide();
+    //    }
+
+    //});
+
+    $(document).ready(function () {
+        debugger;
+       // var tableLength4 = $('#report-table tbody tr').length;
+
+        var tableLength1 = $('#report-table tbody tr').length;
+        var tableLength12 = $('#report-table-RightAns tbody tr').length;
+        var tableLength13 = $('#report-table-ontime tbody tr').length;
+        var tableLength14 = $('#table-feed tbody tr').length;
+      
+
+        debugger
+        if (tableLength14 == 2) {
+            $('.panel panel-default ').hide();
+            $('#ConfigureScoring').show();
+            $('#handAttemptNoId').prop('disabled', false);
+            $('#RightAns').prop('disabled', true);
+            $('#ontime').prop('disabled', true);
+        }
+        else {
+            $('#ConfigureScoring').show();
+            $("#handAttemptNo").hide();
+            $("#handleGrid").hide();
+            $('#handAttemptNoId').prop('disabled', true);
+        }
+        if (tableLength12 >= 1) {
+            $('.panel panel-default ').hide();
+            $('#ConfigureScoring').show();          
+            $('#RightAns').prop('disabled', false);
+            $('#ontime').prop('disabled', true);
+        }
+        else {
+            $('#ConfigureScoring').show();
+            $("#handAttemptNo").hide();
+            $("#handleGrid").hide();     
+            $('#RightAns').prop('disabled', true);
+            $('#ontime').prop('disabled', true);
+        }
+        if (tableLength13 >= 1) {
+            $('.panel panel-default ').hide();
+            $('#ConfigureScoring').show();
+            $('#ontime').prop('disabled', false);
+        }
+        else {
+            $('#ConfigureScoring').show();
+            $("#handAttemptNo").hide();
+            $("#handleGrid").hide();
+          
+            $('#ontime').prop('disabled', true);
+        }
+        if (tableLength1 >= 1) {
+            $('.panel panel-default ').hide();
+            $('#ConfigureScoring').hide();
+            $('#handAttemptNoId').prop('disabled', true);
+            $('#RightAns').prop('disabled', true);
+            $('#ontime').prop('disabled', true);
+        }
+        else {
+            $('#ConfigureScoring').show();
+            $("#handAttemptNo").hide();
+            $("#handleGrid").hide();
+         
+        }
+        //if (tableLength12 >= 1) {
+        //    $('.panel panel-default ').hide();
+        //    $('#ConfigureScoring').hide();
+        //}
+        //else {
+        //    $('#ConfigureScoring').show();
+        //    $("#handAttemptNo").hide();
+        //    $("#handleGrid").hide();
+        //}
+
+        //if (tableLength13 >= 1) {
+        //    $('.panel panel-default ').hide();
+        //    $('#ConfigureScoring').hide();
+        //}
+        //else {
+        //    $('#ConfigureScoring').show();
+        //    $("#handAttemptNo").hide();
+        //    $("#handleGrid").hide();
+        //}
+
+    })
+
+
+    $(document).ready(function () {
+        debugger;
+        var subTypeNameId = $("#subTypeNameId").val();
+        var subTypeNameId1 = $("#subTypeNameId1").val();
+        var coins = $('#subTypeAttemptno').val();
+        if (subTypeNameId == 1) {
+            $("#handAttemptNo").show();
+            $("#handleGrid").hide();
+        }
+        else if (subTypeNameId1 == 4) {
+            $("#handleGrid").show();
+            $("#handAttemptNo").hide();
+        }
+        else if (coins<=6)
+        {
+            $('#handelCoin').show();
+            $("#handleGrid").hide();
+            $("#handAttemptNo").hide();
+        }
+        else {
+            $('#handelCoin').hide();
+            $("#handleGrid").hide();
+            $("#handAttemptNo").hide();
+        }
+    });
+
+    $(document).ready(function () {
+
+        $("#kpiDropdown").change(function () {
+            debugger
+            var selectedValue = $(this).val();
+            var selectedText = $("#kpiDropdown option:selected").text(); 
+            if (selectedValue == 3 || selectedValue == 7 || selectedText =="Mastery Score" ) {
+                $("#data-table-box-1").show();
+                $("#data-table-box-2").hide();
+                $("#data-table-box-3").hide();
+                $("#data-table-box-4").hide();
+                $("#data-table-box-5").hide();
+                $('#data-table-box-rightAns').hide();
+
+                $("#category-dropdown-box").hide();
+                $("#attempt-dropdown-box").show();
+                $('#SaveScoring').show();
+                $('#OnTime').hide();
+                $('#OnTimeEnd').hide();
+                $('#GridBase').hide();
+                $('#RightAns').hide();
+                $('#RightAnsKPI').hide();
+
+
+            }
+            if (selectedValue == 2) {
+                $('#attempt-dropdown-box').hide();
+                $("#category-dropdown-box").hide();
+                $("#data-table-box-2").show();
+                $("#data-table-box-1").hide();
+                $("#data-table-box-3").hide();
+                $("#data-table-box-4").hide();
+                $("#data-table-box-5").hide();
+
+                $('#SaveScoring').hide();
+                $('#OnTime').show();
+                $('#OnTimeEnd').hide();
+                $('#GridBase').hide();
+                $('#RightAns').hide();
+                $('#data-table-box-2').show();
+
+            }
+            if (selectedValue == 4 || selectedValue == 8 || selectedText =="Right Answers") {
+                debugger
+
+                $("#data-table-box-1").hide();
+                $("#data-table-box-2").hide();
+                $("#data-table-box-3").hide();
+                $('#attempt-dropdown-box').hide();
+                $("#category-dropdown-box").hide();
+                $('#SaveScoring').hide();
+                $('#OnTime').hide();
+                $('#OnTimeEnd').hide();
+                $('#GridBase').hide();
+                $('#RightAns').show();
+                $("#data-table-box-5").show();
+                $('#data-table-box-rightAns').show();
+            }
+            if (selectedValue == 6 || selectedValue == 9 || selectedText =="On Time Completion") {
+
+                $("#category-dropdown-box").show();
+                $("#data-table-box-3").show();
+                $("#data-table-box-1").hide();
+                $("#data-table-box-2").hide();
+                $("#data-table-box-4").hide();
+                $("#data-table-box-5").hide();
+                $('#data-table-box-rightAns').hide();
+                $('#attempt-dropdown-box').hide();
+                $('#SaveScoring').hide();
+                $('#OnTime').hide();
+                $('#OnTimeEnd').show();
+                $('#GridBase').hide();
+                $('#RightAns').hide();
+                $('#RightAnsKPI').hide();
+
+
+
+
+            }
+
+        })
+
+        $("#category-dropdown").change(function () {
+            var selectedCategory = $(this).val();
+            if (selectedCategory == 0) {
+                $("#data-table-box-2").hide();
+                $("#data-table-box-3").show();
+                var dropdown = document.getElementById("Duration-dropdown");
+
+                // Set the selectedIndex to 0 to reset it to the default option
+                dropdown.selectedIndex = 0;
+
+            }
+            if (selectedCategory == 1) {
+                $("#data-table-box-3").hide();
+                $("#data-table-box-2").show();
+                $("#EndTime").val("");
+
+            }
+        })
+
+    });
+
+
+    $(document).ready(function () {
+
+        $('#pointcoinstype-dropdown').change(function () {
+            var selectedValue = $(this).val();
+            if (selectedValue === '2') {
+                $('#KPI_Name').hide();
+                $('#Subtype_Name').hide();
+                $('#data-table-box-1').hide();
+                $('#data-table-box-2').hide();
+                $('#SaveScoring').hide();
+                $('#SaveCoins').show();
+                $('#CoinsTable').show();
+                $('#attempt-dropdown-box').hide();
+                $('#attempt-dropdown-box1').show();
+                $('#SaveScoring').hide();
+                $('#data-table-box-coins').show();
+                $('#data-table-box-5').hide();
+                $('#RightAns').hide();
+                $('#RightAnsKPI').hide();
+            } else {
+                $('#CoinsTable').hide();
+                $('#KPI_Name').show();
+                $('#Subtype_Name').show();
+                $('#data-table-box-1').show();
+                $('#SaveCoins').hide();
+                $('#SaveScoring').hide();
+                $('#attempt-dropdown-box').show();
+                $('#data-table-box-coins').hide();
+
+
+
+            }
+        });
+
+
+
+
+    });
+
+    @*function SaveCoins() {
+    event.preventDefault();
+    debugger;
+    var data1 = [];
+    var Id_assessment = $('#id-assessment').val();
+        $('#dynamic-input-fields-container-coins .row').each(function () {
+        var attempt_no = $(this).find('.text-center-coins').text().trim();
+        var set_percentage = $(this).find('input[name="input1_coins"]').val();
+        var Set_score = $(this).find('input[name="input2_coins"]').val();
+
+        data1.push({ set_percentage: set_percentage, Set_score: Set_score, Id_assessment: Id_assessment, attempt_no: attempt_no });
+    });
+
+    $.ajax({
+        url: '@Url.Action("SaveCoins", "Assessment")',
+        type: 'POST',
+        data: JSON.stringify({ data1: data1 }),
+        contentType: 'application/json',
+        success: function (response) {
+            $("#msg-txt").html("<p>Data inserted successfully</p>");
+            $('#m2ost-dialog').modal('show');
+            var dropdown1 = document.getElementById("pointcoinstype-dropdown");
+            dropdown1.disabled = true;
+            var dropdown2 = document.getElementById("attempt-dropdown-coins");
+            dropdown2.disabled = true;
+
+        },
+        error: function (xhr, status, error) {
+            $("#msg-txt").html("<p>Data is not inserted successfully</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+    });
+    }*@
+
+
+    function SaveCoins() {
+    event.preventDefault();
+    debugger;
+    var data1 = [];
+    var Id_assessment = $('#id-assessment').val();
+    var isValid = true; // Flag to track validation status
+
+       $('#dynamic-input-fields-container-coins .row').each(function () {
+         var Id_Coins = $(this).find('input[name="hiddenValuecoins"]').val();
+        var attempt_no = $(this).find('.text-center-coins').text().trim();
+        var set_percentage = $(this).find('input[name="input1_coins"]').val();
+        var Set_score = $(this).find('input[name="input2_coins"]').val();
+
+
+        // Validation check
+        if (set_percentage.trim() === '' || Set_score.trim() === '') {
+            isValid = false;
+            return false; // Exit loop early if validation fails
+        }
+
+                data1.push({ Id_Coins: Id_Coins, set_percentage: set_percentage, Set_score: Set_score, Id_assessment: Id_assessment, attempt_no: attempt_no });
+    });
+
+    // Check if validation passed before proceeding with AJAX call
+    if (!isValid) {
+        // Display error message or handle validation failure
+        alert('Please fill out all input fields.');
+        return; // Exit function if validation fails
+    }
+    if (!isValid || data1.length === 0) {
+        // Display error message or handle validation failure
+        alert('Please select Attempt no fields.');
+        return; // Exit function if validation fails or no data is collected
+    }
+
+    $.ajax({
+        url: '@Url.Action("SaveCoins", "Assessment")',
+        type: 'POST',
+        data: JSON.stringify({ data1: data1 }),
+        contentType: 'application/json',
+        success: function (response) {
+            $("#msg-txt").html("<p>Data inserted successfully</p>");
+            $('#m2ost-dialog').modal('show');
+            var dropdown1 = document.getElementById("pointcoinstype-dropdown");
+            dropdown1.disabled = true;
+
+            setTimeout(function () {
+                location.reload();
+            }, 3000);
+
+
+        },
+        error: function (xhr, status, error) {
+            $("#msg-txt").html("<p>Data is not inserted successfully</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+    });
+        }
+
+       // for test
+        function SaveScoring() {
+            event.preventDefault();
+            debugger;
+            var data = [];
+            var Content_Assessment_ID = $('#id-assessment').val();
+            var ID_KPI = $('#kpiDropdown').val();
+            var Sub_type_name_Id = $('#subtypeDropdown1').val();
+
+
+            var isValid = true;
+
+            $('#dynamic-input-fields-container .row').each(function () {
+                var ID = $(this).find('input[name="hiddenValueM"]').val();
+                var ID_Scoring_Matrix = $(this).find('input[name="ID_Scoring_Matrix"]').val();
+
+                var AttemptNo = $(this).find('.text-center-points').text().trim();
+
+                var Score = $(this).find('input[name="input1_points"]').val();
+
+                var Points = $(this).find('input[name="input2_points"]').val();
+
+                if (Score.trim() === '' || Points.trim() === '') {
+                    isValid = false;
+                    return false; // Exit loop early if validation fails
+                }
+
+                data.push({ ID: ID, ID_Scoring_Matrix: ID_Scoring_Matrix, Score: Score, Points: Points, Content_Assessment_ID: Content_Assessment_ID, AttemptNo: AttemptNo, ID_KPI: ID_KPI });
+            });
+            console.log(data);
+            if (!isValid) {
+                // Display error message or handle validation failure
+                alert('Please fill out all input fields.');
+                return; // Exit function if validation fails
+            }
+            $.ajax({
+                url: '@Url.Action("SaveKPIandScroingMaster", "Assessment")',
+                type: 'POST',
+                data: JSON.stringify({ data: data }),
+                contentType: 'application/json',
+                success: function (response) {
+                    debugger;
+                    $("#msg-txt").html("<p>Data inserted successfully</p>");
+                    $('#m2ost-dialog').modal('show');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+
+
+                },
+                error: function (xhr, status, error) {
+                    $("#msg-txt").html("<p>Data is not inserted successfully</p>");
+                    $('#m2ost-dialog').modal('show');
+                }
+            });
+        }
+
+
+
+
+
+        function validateKPISelection() {
+                var selectedKPI = $('#kpiDropdown').val();
+                if (selectedKPI == "") {
+                    return false;
+                }
+                return true;
+            }
+
+
+        function OnTime() {
+                event.preventDefault();
+                    debugger;
+                    if (validateKPISelection()) {
+                        var data2 = []; // Define data2 as an array
+                        var Id_scoring_type_details = $('#hiddenValue').val();
+                        var Id_assessment = $('#id-assessment').val();
+                        var Name_kpi_id = $('#kpiDropdown').val();
+                        var Sub_type_name_Id = $('#subtypeDropdown1').val();
+                        var Duration = $('#Duration-dropdown').val();
+                        var Points = $('#PointDuration').val();
+
+                        // Create an object representing tbl_scoring_type_details
+                        var scoringDetails = {
+                            Id_scoring_type_details: Id_scoring_type_details,
+                            Id_assessment: Id_assessment,
+                            Name_kpi_id: Name_kpi_id,
+                            Sub_type_name_Id: Sub_type_name_Id,
+                            Duration: Duration,
+                            Points: Points
+                        };
+
+                        data2.push(scoringDetails); // Push the object into the array
+
+                        if (!Points) {
+                            // Display error message or handle validation failure
+                            alert('Please fill out all input fields.');
+                            return; // Exit function if validation fails
+                        }
+
+                        $.ajax({
+                            url: '@Url.Action("OnTime", "Assessment")',
+                            type: 'POST',
+                            data: JSON.stringify(data2), // Send the array directly
+                            contentType: 'application/json',
+                            success: function (response) {
+
+                                debugger;
+                                $("#msg-txt").html("<p>Data inserted successfully</p>");
+                                $('#m2ost-dialog').modal('show');
+
+                                var dropdown1 = document.getElementById("subtypeDropdown1");
+                                dropdown1.disabled = true;
+                                var dropdown2 = document.getElementById("kpiDropdown");
+                                dropdown2.disabled = true;
+                                var dropdown3 = document.getElementById("pointcoinstype-dropdown");
+                                dropdown3.disabled = true;
+
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 3000);
+
+                            },
+                            error: function (xhr, status, error) {
+                                $("#msg-txt").html("<p>Data is not inserted successfully</p>");
+                                $('#m2ost-dialog').modal('show');
+                            }
+                        });
+                    }
+                    else {
+                        alert("Please select a KPI.");
+                    }
+                }
+
+        function OnTimeEnd() {
+            event.preventDefault();
+            debugger;
+            var endTimeValue = $('#EndTime').val();
+
+            // Check if the value of EndTime is null or empty
+            if (!endTimeValue) {
+                var PointDuration = $('#PointDuration').val();
+                // If EndTime is null or empty, set its value to PointDuration
+                $('#EndTime').val(PointDuration);
+            }
+            if (validateKPISelection()) {
+
+                var data2 = []; // Define data2 as an array
+                var ID_Scoring_Matrix = $('#ontimehiddenValue').val();
+                var Id_scoring_type_details = $('#pointcoinstype-dropdown').val();
+                var Content_Assessment_ID = $('#id-assessment').val();
+                var ID_KPI = $('#kpiDropdown').val();
+
+                var Sub_type_name_Id = $('#category-dropdown').val();
+
+                var Durationdropdown = $('#Duration-dropdown').val();
+
+                var Points = $('#EndTime').val();
+
+                // Create an object representing tbl_scoring_type_details
+                var scoringDetails = {
+                    ID_Scoring_Matrix:ID_Scoring_Matrix,
+                    Id_scoring_type_details: Id_scoring_type_details,
+                    Content_Assessment_ID: Content_Assessment_ID,
+                    ID_KPI: ID_KPI,
+                    Category: Sub_type_name_Id,
+                    TimePeriod: Durationdropdown,
+                    Points: Points
+                };
+
+                data2.push(scoringDetails); // Push the object into the array
+
+                if (!Points) {
+                    // Display error message or handle validation failure
+                    alert('Please fill out all input fields.');
+                    return; // Exit function if validation fails
+                }
+
+                $.ajax({
+                    url: '@Url.Action("OnTimeEnd", "Assessment")',
+                    type: 'POST',
+                    data: JSON.stringify({ data2: data2 }), // Send the array directly
+                    contentType: 'application/json',
+                    success: function (response) {
+                        debugger;
+                        $("#msg-txt").html("<p>Data inserted successfully</p>");
+                        $('#m2ost-dialog').modal('show');
+
+
+
+                        //var dropdown1 = document.getElementById("subtypeDropdown1");
+                        //dropdown1.disabled = true;
+                        //var dropdown2 = document.getElementById("kpiDropdown");
+                        //dropdown2.disabled = true;
+                        //var dropdown3 = document.getElementById("pointcoinstype-dropdown");
+                        //dropdown3.disabled = true;
+
+                        setTimeout(function () {
+                            location.reload();
+                        }, 3000);
+
+
+                    },
+                    error: function (xhr, status, error) {
+                        $("#msg-txt").html("<p>Data is not inserted successfully</p>");
+                        $('#m2ost-dialog').modal('show');
+                    }
+                });
+            }
+            else {
+                alert("Please select a KPI.");
+            }
+
+                }
+
+        function GridBase() {
+        debugger
+            var data1 = [];
+
+        var Id_assessment = $('#id-assessment').val();
+        var Name_kpi_id = $('#kpiDropdown').val();
+        var Sub_type_name_Id = $('#subtypeDropdown1').val();
+
+                $('#data-table-box-4 .row').each(function () {
+                    var Id_scoring_type_details  = $(this).find('input[name="hiddenValue1"]').val();
+
+                    var Start_range = $(this).find('input[name="input1_Grid"]').val();
+                    var End_range = $(this).find('input[name="input2_Grid"]').val();
+                    var Points = $(this).find('input[name="input3_Grid"]').val();
+
+                    data1.push({ Name_kpi_id: Name_kpi_id, Sub_type_name_Id: Sub_type_name_Id, Id_assessment: Id_assessment, Id_scoring_type_details: Id_scoring_type_details, Start_range: Start_range, End_range: End_range, Points: Points });
+                });
+                if (data1.length > 0) {
+                    data1.shift();
+                }
+        // Make AJAX request to send data to controller
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GridBase", "Assessment")',
+                data: JSON.stringify({ data1: data1 }),
+                contentType: "application/json",
+                success: function (response) {
+
+                    // Handle success response from the server
+                    $("#msg-txt").html("<p>Data inserted successfully</p>");
+                    $('#m2ost-dialog').modal('show');
+
+                    var dropdown1 = document.getElementById("subtypeDropdown1");
+                    dropdown1.disabled = true;
+                    var dropdown2 = document.getElementById("kpiDropdown");
+                    dropdown2.disabled = true;
+                    var dropdown3 = document.getElementById("pointcoinstype-dropdown");
+                    dropdown3.disabled = true;
+
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response from the server
+                    console.error("Error occurred while saving data:", error);
+                }
+            });
+    }
+
+    function RightAnsKPI() {
+              event.preventDefault();
+             debugger;
+        var datarightans = [];
+
+             var Content_Assessment_ID = $('#id-assessment').val();
+             var ID_KPI = $('#kpiDropdown').val();
+
+
+
+             var isValid = true;
+
+                 $('#dynamic-input-fields-container-rightAns .row').each(function () {
+                 var ID = $(this).find('input[name="hiddenValuerightAns"]').val();
+                     var ID_Scoring_Matrix = $(this).find('input[name="ID_Scoring_Matrix1"]').val();
+                 var AttemptNo = $(this).find('.text-center-rightAns').text().trim();
+
+                 var Points = $(this).find('input[name="input2_rightAns"]').val();
+
+
+                 // Validation check
+                 if (Points.trim() === '') {
+                     isValid = false;
+                     return false; // Exit loop early if validation fails
+                 }
+
+                     datarightans.push({ ID: ID, ID_Scoring_Matrix: ID_Scoring_Matrix, Points: Points, Content_Assessment_ID: Content_Assessment_ID, AttemptNo: AttemptNo, ID_KPI: ID_KPI });
+             });
+        console.log(datarightans);
+             if (!isValid) {
+                 // Display error message or handle validation failure
+                 alert('Please fill out all input fields.');
+                 return; // Exit function if validation fails
+             }
+
+             $.ajax({
+                 url: '@Url.Action("SaveRightAns", "Assessment")',
+                 type: 'POST',
+                 data: JSON.stringify({ datarightans: datarightans }),
+                 contentType: 'application/json',
+                 success: function (response) {
+                     debugger;
+                     $("#msg-txt").html("<p>Data inserted successfully</p>");
+                     $('#m2ost-dialog').modal('show');
+                     //var dropdown1 = document.getElementById("pointcoinstype-dropdown");
+                     //dropdown1.disabled = true;
+                     //var dropdown2 = document.getElementById("subtypeDropdown1");
+                     //dropdown2.disabled = true;
+                     //var dropdown2 = document.getElementById("attempt-dropdown");
+                     //dropdown2.disabled = true;
+                     setTimeout(function () {
+                         location.reload();
+                     }, 3000);
+
+
+                 },
+                 error: function (xhr, status, error) {
+                     $("#msg-txt").html("<p>Data is not inserted successfully</p>");
+                     $('#m2ost-dialog').modal('show');
+                 }
+             });
+    }
+
+
+    //$('.attempt-drop').change(function () {
+    //    var numberOfInputs = $(this).val();
+    //    $("#data-table-box-1").show();
+
+    //    var existingValues = {};
+    //    var existingValues2 = {};
+    //    // Store existing values
+    //    $('input[name="input1_points"]').each(function (index) {
+    //        existingValues[index] = $(this).val();
+    //    });
+    //    $('input[name="input2_points"]').each(function (index) {
+    //        existingValues2[index] = $(this).val();
+    //    });
+
+    //    var inputFields = '';
+    //    for (var i = 1; i <= numberOfInputs; i++) {
+    //        var rowClass = i % 2 === 0 ? 'even-row' : 'odd-row';
+    //        inputFields += '<div class="row ' + rowClass + '" style="margin: 0px; padding: 10px 0px;">';
+    //        //inputFields += '<div class="col-md-2 text-center" name="Attempt1_points" id="Attempt_' + i + '"><div class="text-center-points">' + i + '</div></div>';
+    //        inputFields += '<div class="col-md-2 text-center" name="Attempt1_points" id="Attempt_' + i + '"><div class="text-center-points">' + i + '</div></div>';
+    //        inputFields += '<div class="col-md-5"><input type="text" name="input1_points" id="Attemptmastery_' + i + '" name="mastery_' + i + '" style="width:80%" class="form-control" value="' + (existingValues[i - 1] || "") + '"></div>';
+    //        inputFields += '<div class="col-md-5"><input type="text" name="input2_points" id="Attemptpoints_' + i + '" name="points_' + i + '" style="width:80%" class="form-control" value="' + (existingValues2[i - 1] || "") + '"></div>';
+    //        inputFields += '</div>';
+    //    }
+
+    //    $('#data-table-box-1').html(inputFields);
+    //});
+
+
+        $(document).ready(function () {
+            $('.edit-button').click(function () {
+                $('.panel panel-default').show();
+                show_Configure_Scoring_div();
+                debugger;
+                var row = $(this).closest('tr');
+                var point = row.find('td:nth-child(12)').text();
+                if (point = !null) {
+                    $('#pointcoinstype-dropdown').val(1).prop('disabled', true);
+                    $('#pointcoinstype-dropdown').trigger('change');
+                    var id = row.find('td:nth-child(1)').text()
+                    var kpiId = row.find('td:nth-child(6)').text();
+                    var subTypeNameId = row.find('td:nth-child(3)').text();
+                    if (subTypeNameId == 3) {
+                        var point = row.find('td:nth-child(12)').text();// Get the Name_kpi_id value from the row
+                        // Get the Name_kpi_id value from the row
+                        $('#hiddenValue').val(id);
+                        $('.kip1').val(kpiId);
+                        $('#subtypeDropdown1').val(subTypeNameId).prop('disabled', true);
+                        $('#EndTime').val(point);
+                        $('#subtypeDropdown1').trigger('change');
+                    }
+                    else if (subTypeNameId == 2) {
+                        var point = row.find('td:nth-child(12)').text();// Get the Name_kpi_id value from the row
+                        var Duration = row.find('td:nth-child(9)').text();// Get the Name_kpi_id value from the row
+                        // Get the Name_kpi_id value from the row
+                        $('#hiddenValue').val(id);
+                        $('.kip1').val(kpiId);
+                        $('#subtypeDropdown1').val(subTypeNameId).prop('disabled', true);
+                        $('#Duration-dropdown').val(Duration);
+                        $('#PointDuration').val(point);
+                        $('#subtypeDropdown1').trigger('change');
+                    }
+                    //else if (subTypeNameId == 1) {
+                    //    var id = row.find('td:nth-child(1)').text();
+                    //    var attemno = row.find('td:nth-child(7)').text();
+                    //    var Mastery = row.find('td:nth-child(8)').text();
+                    //    var point = row.find('td:nth-child(12)').text();
+
+                    //    $('.kip1').val(kpiId);
+                    //    $('#attempt-dropdown').val(attemno);
+                    //    $('#attempt-dropdown').trigger('change');
+
+                    //    $('#subtypeDropdown1').val(subTypeNameId).prop('disabled', true);
+                    //    $('#subtypeDropdown1').trigger('change');
+
+                    //    $('input[name="hiddenValueM"]').val(id);
+                    //    $('input[name="input1_points"]').val(Mastery);
+                    //    $('input[name="input2_points"]').val(point);
+                    //}
+
+                }
+               // Set the dropdown value to the extracted kpiId
+            });
+        });
+
+    function handelCoin() {
+        $('.panel panel-default').show();
+        show_Configure_Scoring_div();
+        debugger;
+        var dataRows1 = [];
+        $('#pointcoinstype-dropdown').val(2).prop('disabled', true);
+        $('#pointcoinstype-dropdown').trigger('change');
+
+
+        $('#report-table tbody tr').each(function () {
+            var row = $(this);
+            var id = row.find('td:nth-child(1)').text();
+            var attemptno = row.find('td:nth-child(2)').text(); // Get the text from the 2nd column of the row
+            var setpercentage = row.find('td:nth-child(3)').text(); // Get the text from the 3rd column of the row
+            var setscore = row.find('td:nth-child(4)').text(); // Get the text from the 4th column of the row
+
+            // Add values to respective arrays
+            dataRows1.push({
+                id: id,
+                attemptno: attemptno,
+                setpercentage: setpercentage,
+                setscore: setscore
+            });
+        });
+
+        for (var i = 0; i < dataRows1.length; i++) {
+            var rowData2 = dataRows1[i];
+            $('#attempt-dropdown-coins').val(rowData2.attemptno);
+            $('#attempt-dropdown-coins').trigger('change');
+        }
+
+        for (var i = 0; i < dataRows1.length; i++) {
+            var rowData3 = dataRows1[i]; // Accessing the current row data
+
+            $('input[name="hiddenValuecoins"]').eq(i).val(rowData3.id);
+            $('input[name="input1_coins"]').eq(i).val(rowData3.setpercentage);
+            $('input[name="input2_coins"]').eq(i).val(rowData3.setscore);
+        }
+
+    }
+
+
+    function handleGrid() {
+        debugger;
+        $('.panel panel-default').show();
+        show_Configure_Scoring_div();
+        var ids = [];
+        var startRanges = [];
+        var endRanges = [];
+        var points = [];
+        var subtypes = [];
+        var nkips = [];// Renamed from sbt
+
+        // Loop through each row in the table
+        $('#table-feed tbody tr').each(function () {
+            var $row = $(this);
+            var Id = $row.find("td:nth-child(1)").text();
+            var subtype = $row.find("td:nth-child(3)").text();
+            var nkip = $row.find("td:nth-child(6)").text();
+            var startRange = $row.find("td:nth-child(10)").text(); // Get the text from the 10th column of the row
+            var endRange = $row.find("td:nth-child(11)").text(); // Get the text from the 11th column of the row
+            var point = $row.find("td:nth-child(12)").text(); // Get the text from the 12th column of the row
+
+            // Add values to respective arrays
+            ids.push(Id);
+            subtypes.push(subtype);
+            nkips.push(nkip);// Push the subtype value to the subtypes array
+            startRanges.push(startRange);
+            endRanges.push(endRange);
+            points.push(point);
+        });
+
+        // Set values to input boxes
+        $('#hiddenValue1').val(ids[1]);
+        $('#hiddenValue2').val(ids[2]);
+        $('#hiddenValue3').val(ids[3]);
+        $('#hiddenValue4').val(ids[4]);
+
+        $('#pointcoinstype-dropdown').val(1).prop('disabled', true);
+        $('#pointcoinstype-dropdown').trigger('change');
+        $('#kpiDropdown').val(nkips[1]);
+        $('#subtypeDropdown1').val(subtypes[1]).prop('disabled', true); // Assuming you want to set the dropdown to the first subtype
+        $('#subtypeDropdown1').trigger('change');
+        $('#input1_Grid').val(startRanges[1]);
+        $('#input2_Grid').val(endRanges[1]);
+        $('#input3_Grid').val(points[1]);
+        $('#input4_Grid').val(startRanges[2]);
+        $('#input5_Grid').val(endRanges[2]);
+        $('#input6_Grid').val(points[2]);
+        $('#input7_Grid').val(startRanges[3]);
+        $('#input8_Grid').val(endRanges[3]);
+        $('#input9_Grid').val(points[3]);
+        $('#input10_Grid').val(startRanges[4]);
+        $('#input11_Grid').val(endRanges[4]);
+        $('#input12_Grid').val(points[4]);
+    }
+
+
+    function handAttemptNo() {
+        debugger;
+        $('.panel.panel-default').show(); // Corrected selector syntax
+        show_Configure_Scoring_div();
+        var dataRows = [];
+        console.log(dataRows); // Array to hold data from each row
+
+        $('#table-feed tbody tr').each(function () {
+            var row = $(this);
+            var id = row.find('td:nth-child(1)').text();
+            var ID_Scoring_Matrix = row.find('td:nth-child(2)').text();
+            var kpiId = row.find('td:nth-child(3)').text();
+            var attemno = row.find('td:nth-child(4)').text();
+            var Score = row.find('td:nth-child(7)').text();
+            var point = row.find('td:nth-child(8)').text(); // Get the text from the 12th column of the row
+
+            // Add values to respective arrays
+            dataRows.push({
+                id: id,
+                ID_Scoring_Matrix: ID_Scoring_Matrix,
+                kpiId: kpiId,
+                attemno: attemno,
+                Score: Score,
+                point: point
+            });
+
+        });
+        debugger
+        $('#pointcoinstype-dropdown').val(1).prop('disabled', true);
+        $('#pointcoinstype-dropdown').trigger('change');
+        $('.kip1').val(dataRows[1].kpiId);
+        $('#kpiDropdown').val(dataRows[1].kpiId).prop('disabled', true);
+        $('#kpiDropdown').trigger('change');
+
+        for (var i = 1; i < dataRows.length; i++) {
+            var rowData = dataRows[i];
+            $('.kip1').val(rowData.kpiId);
+            $('#attempt-dropdown').val(rowData.attemno);
+            $('#attempt-dropdown').trigger('change');
+
+        }
+
+        // Iterate over the dataRows array and populate input fields one by one
+
+        for (var i = 1; i < dataRows.length; i++) {
+            var rowData = dataRows[i]; // Accessing the current row data
+
+            // Setting values based on the current row data
+            $('input[name="hiddenValueM"]').eq(i - 1).val(rowData.id);
+            $('input[name="ID_Scoring_Matrix"]').eq(i - 1).val(rowData.ID_Scoring_Matrix);
+            $('input[name="input1_points"]').eq(i - 1).val(rowData.Score);
+            $('input[name="input2_points"]').eq(i - 1).val(rowData.point);
+          //  $('input[name="input3_points"]').eq(i - 1).val(rowData.ID_Scoring_Matrix);
+
+        }
+
+
+
+    }
+
+    $(document).ready(function () {
+        $('.handAttemptnoDelete').click(function () {
+            debugger
+            var row = $(this).closest('tr');
+
+                var id = row.find('td:nth-child(1)').text()
+                               $.ajax({
+                     url: '@Url.Action("DeleteMastery", "Assessment")',
+                     method: 'POST',
+                     data: { id: id }, // Send the id parameter
+                     success: function (response) {
+                         if (response.success) {
+                             // If deletion was successful, remove the row from the table
+                             row.remove();
+                             location.reload();
+                         } else {
+                             console.error('Failed to delete row with ID: ' + id);
+                         }
+                     },
+                     error: function (xhr, status, error) {
+                         console.error('Error deleting row with ID: ' + id + ', Status: ' + status + ', Error: ' + error);
+                     }
+                 });
+
+
+        });
+
+        $('.RightAnswerDelete').click(function () {
+     debugger
+     var row = $(this).closest('tr');
+
+         var id = row.find('td:nth-child(1)').text()
+                        $.ajax({
+              url: '@Url.Action("DeleteRightAnswer", "Assessment")',
+              method: 'POST',
+              data: { id: id }, // Send the id parameter
+              success: function (response) {
+                  if (response.success) {
+                      // If deletion was successful, remove the row from the table
+                      row.remove();
+                      location.reload();
+                  } else {
+                      console.error('Failed to delete row with ID: ' + id);
+                  }
+              },
+              error: function (xhr, status, error) {
+                  console.error('Error deleting row with ID: ' + id + ', Status: ' + status + ', Error: ' + error);
+              }
+          });
+
+
+        });
+
+        $('.OnTimeDelete').click(function () {
+debugger
+var row = $(this).closest('tr');
+
+    var id = row.find('td:nth-child(1)').text()
+                   $.ajax({
+         url: '@Url.Action("OnTimeDelete", "Assessment")',
+         method: 'POST',
+         data: { id: id }, // Send the id parameter
+         success: function (response) {
+             if (response.success) {
+                 // If deletion was successful, remove the row from the table
+                 row.remove();
+                 location.reload();
+             } else {
+                 console.error('Failed to delete row with ID: ' + id);
+             }
+         },
+         error: function (xhr, status, error) {
+             console.error('Error deleting row with ID: ' + id + ', Status: ' + status + ', Error: ' + error);
+         }
+     });
+
+
+        });
+
+        $('.CoinsDelete').click(function () {
+        debugger
+        var row = $(this).closest('tr');
+
+            var id = row.find('td:nth-child(1)').text()
+                           $.ajax({
+                 url: '@Url.Action("CoinsDelete", "Assessment")',
+                 method: 'POST',
+                 data: { id: id }, // Send the id parameter
+                 success: function (response) {
+                     if (response.success) {
+                         // If deletion was successful, remove the row from the table
+                         row.remove();
+                         location.reload();
+                     } else {
+                         console.error('Failed to delete row with ID: ' + id);
+                     }
+                 },
+                 error: function (xhr, status, error) {
+                     console.error('Error deleting row with ID: ' + id + ', Status: ' + status + ', Error: ' + error);
+                 }
+             });
+
+
+                });
+
+    });
+
+
+   function handAttemptnoDelete(id) {
+    debugger;
+       var row = $(this).closest('tr');
+    $.ajax({
+        url: '@Url.Action("DeleteMastery", "Assessment")',
+        method: 'POST',
+        data: { id: id }, // Send the id parameter
+        success: function (response) {
+            if (response.success) {
+                // If deletion was successful, remove the row from the table
+                row.remove();
+            } else {
+                console.error('Failed to delete row with ID: ' + id);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error deleting row with ID: ' + id + ', Status: ' + status + ', Error: ' + error);
+        }
+    });
+}
+
+
+
+    function rightans() {
+        $('.panel panel-default').show();
+        show_Configure_Scoring_div();
+        debugger;
+        var dataRows3 = [];
+        $('#pointcoinstype-dropdown').val(1).prop('disabled', true);
+        $('#pointcoinstype-dropdown').trigger('change');
+
+
+
+        $('#report-table-RightAns tbody tr').each(function () {
+            var row = $(this);
+            var id = row.find('td:nth-child(1)').text();
+            var ID_Scoring_Matrix = row.find('td:nth-child(2)').text();
+            var Id_KPI = row.find('td:nth-child(3)').text(); // Get the text from the 3rd column of the row
+            var attemptno = row.find('td:nth-child(4)').text(); // Get the text from the 2nd column of the row
+            var Point = row.find('td:nth-child(7)').text(); // Get the text from the 2nd column of the row
+
+            // Add values to respective arrays
+            dataRows3.push({
+                id: id,
+                ID_Scoring_Matrix: ID_Scoring_Matrix,
+                attemptno: attemptno,
+                Id_KPI: Id_KPI,
+                Point: Point
+            });
+        });
+
+        console.log(dataRows3);
+        for (var i = 0; i < dataRows3.length; i++) {
+            var rowData2 = dataRows3[i];
+            $('#kpiDropdown').val(rowData2.Id_KPI).prop('disabled', true);
+            $('#kpiDropdown').trigger('change');
+        }
+
+        for (var i = 0; i < dataRows3.length; i++) {
+            var rowData2 = dataRows3[i];
+            $('#attempt-dropdown-rightAns').val(rowData2.attemptno);
+            $('#attempt-dropdown-rightAns').trigger('change');
+        }
+
+        for (var i = 0; i < dataRows3.length; i++) {
+            var rowData3 = dataRows3[i]; // Accessing the current row data
+
+            $('input[name="hiddenValuerightAns"]').eq(i).val(rowData3.id);
+
+            $('input[name="ID_Scoring_Matrix1"]').eq(i).val(rowData3.ID_Scoring_Matrix);
+
+            $('input[name="input2_rightAns"]').eq(i).val(rowData3.Point);
+            ///* $('input[name="input2_coins"]').eq(i).val(rowData3.setscore);*/
+        }
+
+
+    }
+
+    function ontime() {
+        debugger
+        $('.panel panel-default').show();
+        show_Configure_Scoring_div();
+        var dataRows4 = [];
+        $('#pointcoinstype-dropdown').val(1).prop('disabled', true);
+        $('#pointcoinstype-dropdown').trigger('change');
+
+
+
+        $('#report-table-ontime tbody tr').each(function () {
+            var row = $(this);
+            var ID_Scoring_Matrix = row.find('td:nth-child(1)').text();
+            var Id_KPI = row.find('td:nth-child(2)').text(); // Get the text from the 3rd column of the row
+            var Category = row.find('td:nth-child(3)').text(); // Get the text from the 2nd column of the row
+            var KPI_Name = row.find('td:nth-child(4)').text(); // Get the text from the 2nd column of the row
+            var TimePeriod = row.find('td:nth-child(6)').text(); // Get the text from the 2nd column of the row
+            var Points = row.find('td:nth-child(7)').text(); // Get the text from the 2nd column of the row
+
+            // Add values to respective arrays
+            dataRows4.push({
+                ID_Scoring_Matrix: ID_Scoring_Matrix,
+                Id_KPI: Id_KPI,
+                Category: Category,
+                KPI_Name: KPI_Name,
+                TimePeriod: TimePeriod,
+                Points: Points
+            });
+        });
+
+        for (var i = 0; i < dataRows4.length; i++) {
+            var rowData2 = dataRows4[i];
+            $('#kpiDropdown').val(rowData2.Id_KPI).prop('disabled', true);
+            $('#kpiDropdown').trigger('change');
+        }
+
+        for (var i = 0; i < dataRows4.length; i++) {
+            var rowData2 = dataRows4[i];
+            $('#category-dropdown').val(rowData2.Category);
+            $('#category-dropdown').trigger('change');
+        }
+        debugger
+        $('#ontimehiddenValue').val(dataRows4[0].ID_Scoring_Matrix);
+
+        $('#EndTime').val(dataRows4[0].Points);
+
+        $('#PointDuration').val(dataRows4[0].Points)
+
+        $('#Duration-dropdown').val(dataRows4[0].TimePeriod);
+
+
+    }
+
+
+</script>

@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "setRoleAccess";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable({
+		 "scrollX": true,
+            "bSort": false,
+            "pageLength": 50
+        });
+    });
+    function getContentReport() {
+        loading_on();
+        var id = $("#category-select").val();
+        var url = '@Url.Action("getContentRoleReport", "dashboard")';
+        var pattern = $("#search-box").val().trim();
+
+        var count = $("#search-box").val().trim().length;
+        if (count > 4 || id > 0) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: id, pattern: pattern },
+              
+                success: function (data) {
+                    $("#display_table").empty().append(data);
+                    $("#report-table").dataTable({  "scrollX": true,"bSort": false, "pageLength": 50 });
+
+                }
+            });
+        } else {
+
+        }
+        loading_off();
+    }
+
+    function setCsstRole(value) {
+
+        var opt = "";
+        if ($('#' + value + '').is(':checked')) {
+            opt = "1";
+        } else {
+            opt = "0";
+        }
+
+        var url = '@Url.Action("setContentRole", "dashboard")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { str: value, opt: opt },
+            success: function (data) {
+            }
+        });
+    }
+
+
+</script>
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Content Detail</h6>
+            </div>
+            <div class="panel-body">
+                <h6 class="panel-title">Select Category to filter</h6>
+                <select class="form-control" id="category-select">
+                    <option value="0" selected>Select Category</option>
+                    @foreach (tbl_category item in (List<tbl_category>)ViewData["CategoryList"])
+                    {
+                        <option value="@item.ID_CATEGORY">@item.CATEGORYNAME</option>
+                    }
+
+                </select>
+                <input type="text" class="form-control" placeholder="Search by Content Title (minimum 4 character)" id="search-box" />
+
+                <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentReport()" />
+                <hr />
+                <div id="display_table">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,355 @@
+﻿@{
+    ViewBag.Title = "assessmentQuestions";
+    Layout = "~/Views/Shared/_clean_layout.cshtml";
+}
+@{
+    tbl_assessment assessment = (tbl_assessment)ViewData["assessment"];
+    tbl_assessment_question question = (tbl_assessment_question)ViewData["question"];
+    List<tbl_assessment_answer> answer = (List<tbl_assessment_answer>)ViewData["answers"];
+    List<tbl_assessment_scoring_key> scoringkey = (List<tbl_assessment_scoring_key>)ViewData["scoringkey"];
+    int scoringkey_count = 0;
+    if (scoringkey.Count > 0)
+    {
+        scoringkey_count = scoringkey.Count;
+    }
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#table-feed').dataTable({
+            "bFilter": false,
+            "bLengthChange": false,
+            "bAutoWidth": false,
+            "aaSorting": []
+        });
+    });
+
+
+    $(function () {
+        $("#form-add-assessment").validationEngine();
+        $("#form-add-assessment-question").validationEngine();
+    });
+
+    function select_file(btn, imgf, ban) {
+        var file = $("#" + btn + "")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        } else {
+        }
+        $("#" + imgf + "").val(filename);
+    }
+
+    function show_question_div() {
+        $('#add-new-question').show();
+        $('html, body').animate({
+            scrollTop: $('#question-focus').offset().top
+        }, 'slow');
+        $('#q-title').focus();
+
+    }
+
+    function delete_question(val) {
+        var url1 = '@Url.Action("DeleteQuestion", "Assessment")';
+        $.ajax({
+            type: 'POST',
+            url: url1,
+            data: { id: val },
+            success: function (data) {
+                if (data == 1) {
+                    delete_row(val);
+                }
+            }
+        });
+    }
+
+
+    function form_submit() {
+     
+        var valid = $("#form-edit-assessment-question").validationEngine('validate');
+
+        if (valid) {
+
+            var form = $("#form-edit-assessment-question").serialize();
+            var url = '@Url.Action("edit_assessment_question_action", "Assessment")';
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: form,
+                success: function (data) {
+
+                    if (data == "1") {
+                        var value = $("#id_hid_question").val();
+                        $("#msg-txt").html("<p>Assessment Question updated.</p>");
+                        $('#m2ost-dialog').modal('show');
+                        $("#row_eq_" + value).empty();
+                        $("#row_eq_" + value).hide();
+                        $("#row_q_" + value).show();
+                        setTimeout(function () {
+                            parent.location.reload();
+                        }, 2000);
+                    }
+                }
+            });
+        }
+       
+    }
+
+
+    function edit_question(val) {
+
+    }
+
+    function form_close() {
+        var value = $("#id_hid_question").val();
+        $("#row_eq_" + value).empty();
+        $("#row_q_" + value).show();
+    }
+
+
+    function delete_row(id) {
+        $("#row_" + id + "").hide();
+    }
+
+
+</script>
+<div class="row clearfix">
+
+    <div class="col-md-12 column">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Edit Assessment Question</h4>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+
+                    <div class="panel-body">
+
+
+                        @using (Html.BeginForm("edit_assessment_question_action", "Assessment", FormMethod.Post, new { id = "form-edit-assessment-question", enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="theme-1-header" class="form-group">
+                                        <input type="hidden" name="id_hid_question" id="id_hid_question" value="@question.id_assessment_question" />
+                                        <input type="text" class="form-control validate[required]" value="@question.assessment_question" placeholder="Question" id="q-title" name="q-title" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="FirstName" class="control-label col-md-1">Image:</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control " readonly value="@question.question_image" placeholder="Question Image[optional]" id="question-image" name="question-image" />
+                                    <div class="fileUpload btn btn-primary">
+                                        <span>Browse Image</span>
+                                        <input id="question-btn" name="question-image" class="upload" type="file" accept="image/*" onchange="select_file('question-btn', 'question-image', 'question-text')" />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+
+                            if (assessment.assess_group == 3)
+                            {
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="FirstName" class="control-label col-md-12">Select Scoring Key </label>
+                                        <div class="form-group">
+                                            <select id="select-scoring-key" name="select-scoring-key" class="form-control validate[required]">
+                                                @foreach (tbl_assessment_scoring_key item in scoringkey)
+                                                {
+                                                    if (question.id_assessment_scoring_key == item.id_assessment_scoring_key)
+                                                    {
+                                                        <option selected value="@item.id_assessment_scoring_key">@item.header_name</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@item.id_assessment_scoring_key">@item.header_name</option>
+                                                    }
+
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                    </div>
+                                </div>
+                                <hr />
+                            }
+
+                            <div id="options">
+                                @if (assessment.assess_group == 1)
+                                {
+                                    int k = 0;
+                                    foreach (tbl_assessment_answer item in answer)
+                                    {
+                                        k++;
+                                        <input type="hidden" name="hid_answer_id_@(k)" id="hid_answer_id_@(k)" value="@item.id_assessment_answer" />
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <textarea class="form-control validate[required]" name="t-content-@(k)" id="t-content-@(k)" placeholder="Option 1" rows="2">@item.answer_description</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else if (assessment.assess_group == 2)
+                                {
+                                    int k = 0;
+                                    foreach (tbl_assessment_answer item in answer)
+                                    {
+                                        k++;
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <input type="hidden" name="hid_answer_id_@(k)" id="hid_answer_id_@(k)" value="@item.id_assessment_answer" />
+                                                    <textarea class="form-control validate[required]" name="t-content-@k" id="t-content-@k" placeholder="Option @k" rows="2">@item.answer_description</textarea>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    }
+                                }
+                                else if (assessment.assess_group == 4)
+                                {
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="FirstName" class="control-label col-md-12"> Scoring Key </label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <label for="FirstName" class="control-label col-md-12"> Option </label>
+                                        </div>
+                                    </div>
+
+                                    int k = 0;
+                                    foreach (tbl_assessment_answer aItem in answer)
+                                    {
+                                        k++;
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <select id="t-scoring-key-@k" name="t-scoring-key-@k" class="form-control validate[required]">
+                                                    @foreach (tbl_assessment_scoring_key item in scoringkey)
+                                                    {
+                                                        if (item.id_assessment_scoring_key == aItem.id_assessment_scoring_key)
+                                                        {
+                                                            <option selected value="@item.id_assessment_scoring_key">@item.header_name</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@item.id_assessment_scoring_key">@item.header_name</option>
+                                                        }
+
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <textarea class="form-control validate[required]" name="t-content-@k" id="t-content-@k" placeholder="Option @k" rows="2">@aItem.answer_description</textarea>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+
+                                }
+                            </div>
+                            <hr />
+                            if (assessment.assess_group == 1)
+                            {
+                                tbl_assessment_answer atemp = null;
+                                answer = answer.OrderBy(t => t.position).ToList();
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="FirstName" class="control-label col-md-12">Select Answer </label>
+                                        <div class="form-group">
+                                            <select id="select-answer" name="select-answer" class="form-control validate[required]">
+                                                @foreach (tbl_assessment_answer item in answer)
+                                                {
+                                                    if (question.aq_answer == item.id_assessment_answer.ToString())
+                                                    {
+                                                        <option selected value="@item.position">Option @(item.position)</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@item.position">Option @(item.position)</option>
+                                                    }
+                                                }
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                    </div>
+                                </div>
+                                <hr />
+                            }
+                            else if (assessment.assess_group == 2)
+                            {
+                            }
+                            else if (assessment.assess_group == 3)
+                            {
+
+                            }
+                            else if (assessment.assess_group == 4)
+                            {
+
+                            }
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="hidden" id="id-assessment" name="id-assessment" value="@assessment.id_assessment" />
+                                        <input type="button" value="Cancel" name="" class="btn btn-default pull-right" style="margin-right:20px;" onclick="form_close()" />
+
+                                        <input type="button" value="Save" name="btn_submit" class="btn btn-default pull-right" style="margin-right:20px;" onclick="form_submit()" />
+
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+    function generate_option(val) {
+        var options = '';
+        var no_answers = '';
+
+        for (var i = 1 ; i <= val ; i++) {
+            options += '  <div class="row"> ';
+            options += '         <div class="col-md-8">';
+            options += '             <div class="form-group">';
+            options += '                 <textarea class="form-control validate[required]" name="t-content-' + i + '" id="t-content-' + i + '" placeholder="Option ' + i + '" rows="2"></textarea>';
+            options += '             </div>';
+            options += '          </div>';
+            options += '     </div>';
+
+            no_answers += ' <option value="' + i + '">Option ' + i + '</option>';
+        }
+
+        $("#options").empty().append(options);
+        $("#select-answer").empty().append(no_answers);
+
+    }
+</script>

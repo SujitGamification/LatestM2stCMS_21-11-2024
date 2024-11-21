@@ -1,0 +1,247 @@
+﻿@{
+    ViewBag.Title = "Utility_report";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+@{
+    List<m2ostnext.Models.UserUploadClass> acceptList = (List<m2ostnext.Models.UserUploadClass>)ViewData["acceptList"];
+    List<m2ostnext.Models.UserUploadClass> rejectList = (List<m2ostnext.Models.UserUploadClass>)ViewData["rejectList"];
+
+
+}
+<script>
+    $(document).ready(function () {
+
+        $("#report-table-accept").dataTable({
+            "pageLength": 25, "scrollX": true, "autoWidth": false
+        });
+
+        $("#report-table-reject").dataTable({
+            "pageLength": 25, "scrollX": true, "autoWidth": false
+        });
+    });
+</script>
+<style>
+    .small {
+        font-size: 11px;
+    }
+
+    div.dataTables_wrapper {
+        width: 100%;
+        margin: 0 auto;
+    }
+</style>
+
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+
+<div class="row clearfix">
+
+    <div class="col-md-12 column">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">User Upload Utility</h4>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    @if (acceptList.Count > 0)
+                    {
+                        <div class="row">
+                            <div id="display_table" class="col-md-12 small">
+                                <div id="default-rem-setup">
+                                    <div class="m2ost_info" align="center">
+                                        <div class="m2ost_info_hat">
+                                            <p>
+                                                <span>Accepted User List</span>
+                                            </p>
+                                        </div>
+                                        <span>
+                                            Following list of user are Ready to be uploaded in the System.
+                                        </span>
+                                        <br /><span>
+                                            Click "Upload User" to Finish Upload.
+                                        </span>
+                                    </div>
+                                </div>
+                                <hr />
+                                <table id="report-table-accept" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Role</th>
+                                            <th>User ID </th>
+                                            <th>Password </th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Age</th>
+                                            <th>Email</th>
+                                            <th>Mobile</th>
+                                            <th>Gender</th>
+                                            <th>City</th>
+                                            <th>Office Address</th>
+                                            <th>Date OF Birth</th>
+                                            <th>Date OF Joining</th>
+                                            <th>Department</th>
+                                            <th>Designation</th>
+                                            <th>Function</th>
+                                            <th>Grade</th>
+                                            <th>Status</th>
+                                            <th>Reporting Manager</th>
+                                            <th>Location</th>
+                                            <th>L4</th>
+                                            <th>L3</th>
+                                            <th>L2</th>
+                                            <th>L1</th>
+                                            <th>Spectator</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (m2ostnext.Models.UserUploadClass item in acceptList)
+                                        {
+                                            <tr>
+                                                <td>@item.EMPLOYEEID</td>
+                                                <td>@item.ROLE</td>
+                                                <td>@item.USERID </td>
+                                                <td>@item.PASSWORD </td>
+                                                <td>@item.FIRSTNAME</td>
+                                                <td>@item.LASTNAME</td>
+                                                <td>@item.AGE</td>
+                                                <td>@item.EMAIL</td>
+                                                <td>@item.MOBILE</td>
+                                                <td>@item.GENDER</td>
+                                                <td>@item.CITY</td>
+                                                <td>@item.OFFICE_ADDRESS</td>
+                                                <td>@item.DATE_OF_BIRTH</td>
+                                                <td>@item.DATE_OF_JOINING</td>
+                                                <td>@item.user_department</td>
+                                                <td>@item.user_designation</td>
+                                                <td>@item.user_function</td>
+                                                <td>@item.user_grade</td>
+                                                <td>@item.user_status</td>
+                                                <td>@item.reporting_manager</td>
+                                                <td>@item.Location</td>
+                                                <td>@item.L4</td>
+                                                <td>@item.L3</td>
+                                                <td>@item.L2</td>
+                                                <td>@item.L1</td>
+                                                <td>@item.Spectator</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <div id="loader" style="display: none;">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="">
+                                                <div class="col-md-4"></div>
+                                                <div class="col-md-4" id="loading-gif1" style="">
+                                                    <img src="~/Content/images/loading.gif" />
+                                                </div>
+                                                <div class="col-md-4"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+
+                                @*<form action="@Url.Action("UpdateUserData","UploadUtility")">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-6" style="padding-left: 172px;left: 672px;">
+                                                    <input type="submit" id="btnUploadAdd" value="Upload User" class="btn btn-default" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>*@
+                                <form id="uploadForm" action="@Url.Action("UpdateUserData", "UploadUtility")" method="post">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-6" style="padding-left: 172px;left: 672px;">
+                                                <input type="submit" id="btnUploadAdd" value="Upload User" class="btn btn-default" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <hr />}
+                    @if (rejectList.Count > 0)
+                    {
+
+                        <div class="row">
+                            <div id="display_table_reject" class=" col-md-12 small">
+                                <div id="default-rem-setup">
+                                    <div class="m2ost_info" align="center">
+                                        <div class="m2ost_info_hat">
+                                            <p>
+                                                <span>Rejected User List</span>
+                                            </p>
+                                        </div>
+                                        <span>
+                                            Following list of user are Rejected for upload .Reason is mentioned in the 'Reason' column.
+                                        </span>
+                                        <br /><span>
+
+                                        </span>
+                                    </div>
+                                </div>
+                                <hr />
+                                <table id="report-table-reject" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Role</th>
+                                            <th>User ID </th>
+                                            <th>Password </th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Reporting Manager</th>
+                                            <th>Reason</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (m2ostnext.Models.UserUploadClass item in rejectList)
+                                        {
+                                            <tr>
+                                                <td>@item.EMPLOYEEID</td>
+                                                <td>@item.ROLE</td>
+                                                <td>@item.USERID </td>
+                                                <td>@item.PASSWORD </td>
+                                                <td>@item.FIRSTNAME</td>
+                                                <td>@item.LASTNAME</td>
+                                                <td>@item.reporting_manager</td>
+                                                <td>@item.Message</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+
+    $('#report-table').DataTable({
+        "scrollX": true
+    });
+
+
+    $(document).ready(function () {
+        $('#uploadForm').submit(function () {
+            // Show loader
+            $('#loader').show();
+        });
+    });
+
+
+</script>

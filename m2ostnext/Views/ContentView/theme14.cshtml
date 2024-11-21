@@ -1,0 +1,74 @@
+﻿@{
+    tbl_content content = null;
+    tbl_content_answer answer = null;
+    if (ViewData["content"] != null)
+    {
+        content = (tbl_content)ViewData["content"];
+    }
+    else
+    {
+        content = new tbl_content();
+    }
+    if (ViewData["answer"] != null)
+    {
+        answer = (tbl_content_answer)ViewData["answer"];
+    }
+    else
+    {
+        answer = new tbl_content_answer();
+    }
+
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="theme-1-header" class="form-group">
+            <input type="text" class="form-control validate[required]" value="@content.CONTENT_TITLE" placeholder="Content Title" id="t-title" name="t-title" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="theme-1-header" class="form-group">
+            <input type="text" class="form-control validate[required]" value="@content.CONTENT_HEADER" placeholder="Content Header" id="t-header" name="t-header" />
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <textarea class="form-control validate[required]" name="t-quetion" id="t-quetion" placeholder="Content Question" rows="6">@content.CONTENT_QUESTION</textarea>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group">
+            <textarea class="form-control validate[required]" name="t-content-1" id="t-content-1" placeholder="Activity Type" rows="6">@answer.CONTENT_ANSWER1</textarea>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="form-group">
+            <textarea class="form-control validate[required]" name="t-content-2" id="t-content-2" placeholder="Objective" rows="6">@answer.CONTENT_ANSWER2</textarea>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group">
+            <textarea class="form-control validate[required]" name="t-content-3" id="t-content-3" placeholder="Duration" rows="6">@answer.CONTENT_ANSWER3</textarea>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="form-group">
+            <textarea class="form-control validate[required]" name="t-content-4" id="t-content-4" placeholder="Learning Outcome" rows="6">@answer.CONTENT_ANSWER4</textarea>
+        </div>
+    </div>
+</div>
+<hr/>
+
+
+
+

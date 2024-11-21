@@ -1,0 +1,324 @@
+﻿@{
+    ViewBag.Title = "setRoleAccess";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<style>
+    .select-checkbox:before, .select-checkbox:after {
+        display: block;
+        position: absolute;
+        top: 1.2em;
+        left: 50%;
+        width: 12px;
+        height: 12px;
+        box-sizing: border-box;
+    }
+
+    .select-checkbox:after {
+        content: '\2714';
+        margin-top: -11px;
+        margin-left: -4px;
+        text-align: center;
+        text-shadow: 1px 1px #B0BED9, -1px -1px #B0BED9, 1px -1px #B0BED9, -1px 1px #B0BED9;
+    }
+</style>
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+@{
+    tbl_notification notification = (tbl_notification)ViewData["notification"];
+    tbl_notification reminder = (tbl_notification)ViewData["reminder"];
+}
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable({
+            "bSort": false,
+            "pageLength": 50
+        });
+
+        $("#report-table-temp").dataTable({
+            "pageLength": 10
+        });
+
+        $("#datetimepicker1").datepicker(
+           { dateFormat: "dd-mm-yy" }
+        );
+        $("#datetimepicker2").datepicker(
+           { dateFormat: "dd-mm-yy" }
+        );
+    });
+
+    function reset_user() {
+        $('#search-box-user').attr('readonly', false);
+    }
+
+    function getContentReport(type) {
+        loading_on();
+        var url = '@Url.Action("getUserListForNotification", "Notification")';
+        var pattern = "";
+        var cid = 0;
+        if (type == "1") {
+            cid = $("#category-select").val();
+        }
+        if (type == "3") {
+            pattern = $("#search-box-user").val().trim();
+            $('#search-box-user').attr('readonly', true);
+            cid = 0;
+        } else {
+            pattern = $("#search-box").val().trim();
+        }
+
+        var id = $("#id_content").val();
+      
+        if (cid == "") {
+            cid = "0";
+        }
+        var count = pattern.trim().length;
+
+            if (count >= 4 || id > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: { id: id, pattern: pattern, cid: cid, type: type },
+                  
+                    success: function (data) {
+                        $("#display_table").empty().append(data);
+                        $("#report-table").dataTable();
+                    }
+                });
+            } else {
+                $("#msg-txt").html("<p>Please Select User Role</p>");
+                $('#m2ost-dialog').modal('show');
+            }
+
+        loading_off();
+    }
+
+
+
+    function sensNotificationToUser(value) {
+        var nid = $("#id_content").val();
+
+        var url = '@Url.Action("sendNotificationToUser", "Notification")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { nid: nid, uid: value },
+            success: function (data) {
+                if (data == "1") {
+                    $("#link_" + value).hide();
+                    $("#done_" + value).show();
+                    $("#msg-txt").html("<p>Notification Sent to User</p>");
+                    $('#m2ost-dialog').modal('show');
+                }
+            }
+        });
+    }
+    function sendNotificationToRole(value) {
+        var nid = $("#id_content").val();
+        var cid = $("#category-select").val();
+        var url = '@Url.Action("sendNotificationToRole", "Notification")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { nid: nid, uid: cid },
+            success: function (data) {
+                if (data == "1") {
+                    $("#msg-txt").html("<p>Notification Sent to User's in the Role</p>");
+                    $('#m2ost-dialog').modal('show');
+                    getContentReport(1);
+                }
+            }
+        });
+    }
+
+    function sendNotificationToUserString(value) {
+
+        value = $("#search-box-user").val().trim();
+        var count = value.trim().length;
+        if(count>3){
+            var cid = $("#id_content").val();
+            var url = '@Url.Action("sendNotificationToUserString", "Notification")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { nid: cid, value: value, type: "1" },
+                success: function (data) {
+                    if (data == "1") {
+                        $("#msg-txt").html("<p>Notification Sent to All User Assigned.</p>");
+                        $('#m2ost-dialog').modal('show');
+                        setTimeout(function () {
+                            $("#div-remove").show();
+                            $("#div-alert").hide();
+                            getContentReport(3);
+                        }, 3000);
+                    }
+                }
+            });
+        } else {
+            $("#msg-txt").html("<p>Please type User Search string in Search box</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+    }
+
+    function sendNotificationToAllUser() {
+
+        var cid = $("#id_content").val();
+        var url = '@Url.Action("sendNotificationToAllUser", "Notification")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { nid: cid, value: "", type: "1" },
+            success: function (data) {
+                if (data == "1") {
+                    $("#msg-txt").html("<p>Notification Sent to All User.</p>");
+                    $('#m2ost-dialog').modal('show');
+                    setTimeout(function () {
+                        $("#div-remove").show();
+                        $("#div-alert").hide();
+                        getContentReport(3);
+                    }, 3000);
+                }
+            }
+        });
+    }
+        function RoleType(val) {
+            $("#role-type").val(val);
+            $("#display_table").empty();
+            if (val == 1) {
+                $("#div-row-role").show();
+                $("#div-row-user").hide();
+                $("#div-row-all").hide();
+            } else if (val == 2) {
+
+            } else if (val == 3) {
+                $("#div-row-role").hide();
+                $("#div-row-user").show();
+                $("#div-row-all").hide();
+            } else if (val == 4) {
+                $("#div-row-role").hide();
+                $("#div-row-user").hide();
+                $("#div-row-all").show();
+            }
+        }     
+
+        function setNotification(val) {
+            if (val == "1") {
+                $("#notification-div").show();
+
+            } else {
+                $("#notification-div").hide();
+            }
+
+        }
+</script>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Send Notification </h6>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-2"><h5>Notification: </h5></div>
+                    <div class="col-md-10">
+                        <input type="hidden" id="id_content" value="@notification.id_notification" />
+                        <pre>@notification.notification_name</pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"><h5>Message: </h5></div>
+                    <div class="col-md-10">
+                        <pre>@notification.notification_message</pre>
+                    </div>
+                </div>
+                @if (reminder != null)
+                {
+                    <div class="row">
+                        <div class="col-md-2"><h5>Reminder: </h5></div>
+                        <div class="col-md-10">
+                            <pre>@reminder.notification_name</pre>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-md-12"><h4>No Reminder Present</h4></div>
+                    </div>
+                }
+                <hr />
+
+                <h5 class="panel-title">Select Role/User filter</h5>
+                <br />
+                <div class="row">
+                    <div class="col-md-3">
+                        <a class="btn btn-primary btn-block" onclick="RoleType(1)" href="javascript:void(0)">Role Based Search</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-primary btn-block" onclick="RoleType(2)" href="javascript:void(0)">Function Based Search</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-primary btn-block" onclick="RoleType(3)" href="javascript:void(0)">User Based Search</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-primary btn-block" onclick="RoleType(4)" href="javascript:void(0)">All Users</a>
+                    </div>
+                    <input type="hidden" id="role-type" name="role-type" value="0" />
+                </div>
+
+                <hr />
+                <div class="row" id="div-row-role" style="display:none;">
+                    <div class="col-md-12">
+                        <h6 class="panel-title">Select User Role to filter</h6>
+                        <select class="form-control" id="category-select">
+                            <option value="0" disabled selected>Select Role</option>
+                            @foreach (tbl_csst_role item in (List<tbl_csst_role>)ViewData["RoleList"])
+                            {
+                                <option value="@item.id_csst_role">@item.csst_role</option>
+                            }
+                        </select>
+                        <input type="text" class="form-control" placeholder="Search by User Name (minimum 4 character)" id="search-box" />
+                        <br />
+                        <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentReport(1)" />
+                        <hr />
+                    </div>
+
+
+                    <div class="row" id="div-alert">
+                        <div class="col-md-11 col-md-offset-1">
+                            <input id="program-assignment" type="button" class="btn btn-primary btn-sm" value="Send Notification to Role" onclick="sendNotificationToRole(0)" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="div-row-user" style="display:none;">
+                    <div class="col-md-12">
+                        <h6 class="panel-title">Search by User </h6>
+                        <input type="text" class="form-control" placeholder="Search by User Name (minimum 4 character)" id="search-box-user" />
+                        <br />
+                        <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentReport(3)" />
+                        <input type="button" class="btn btn-primary btn-sm" value="Reset" onclick="reset_user()" />
+                        <hr />
+                        <input id="program-to-all" type="button" class="btn btn-primary btn-sm" value="Send Notification to All User" onclick="sendNotificationToUserString(0)" />
+                    </div>
+                </div>
+                <div class="row" id="div-row-all" style="display:none;">
+                    <div class="col-md-12">
+                        <div class="alert alert-info alert-dismissable">
+                            <input id="program-to-all" type="button" class="btn btn-primary btn-sm" value="Send Notification to All User" onclick="sendNotificationToAllUser(0)" /><strong>&nbsp;&nbsp; Click to Notification to All </strong>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div id="display_table">
+
+                </div>
+                <hr />
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "Pending Dashborad";
+    Layout = "~/Views/Shared/_cms_approve.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+    function generate_association() {
+
+        var Content = "";
+        $("input:checkbox[name=pending_check]:checked").each(function () {
+
+            var cid = this.id;
+            Content = Content + "," + cid;
+        });
+
+        var url = '@Url.Action("pendingApproval", "dashboard")';
+        $.getJSON(url, { id: Content }, function (data) {
+        });
+
+        location.reload();
+
+    }
+
+    function skillmuniSearch() {
+
+
+        var cat = $("#searchbar").val();
+
+
+        var url = '@Url.Action("getPendingSearch", "dashboard")';
+        var jsonassociation = JSON.stringify({ "str": cat });
+
+        $.get(url, { str: cat }, function (data) {
+            $("#pendingBody").html(data);
+
+        });
+
+    }
+</script>
+
+
+@{
+    List<tbl_content> content = (List<tbl_content>)ViewData["content"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Pending Content Dashboard</h6>
+            </div>
+            <div class="panel-body">
+                @*<div class="row clearfix">
+                    <div class="col-md-4"><a href="@Url.Action("ApprovalDashboard", "dashboard")" class="btn btn-default" style="width:100%;">Approved Content</a>&nbsp;</div>
+                    <div class="col-md-4"><a href="@Url.Action("PendingDashboard", "dashboard")" class="btn btn-default" style="width:100%;">Pending Content</a>&nbsp;</div>
+                    <div class="col-sm-3 col-md-3 pull-right">
+                        <form class="navbar-form" role="search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" name="" id="searchbar" onkeyup="skillmuniSearch()">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="button" onclick="skillmuniSearch()"><i class="glyphicon glyphicon-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>*@
+                <div id="display_table">
+                    @if (content.Count() > 0)
+                    {
+                        <input type="button" class="btn  btn-success pull-right" onclick="generate_association()" value="Approve" />
+                    }
+                    @using (Html.BeginForm("pendingApproval", "dashboard", FormMethod.Post, new { id = "form_add_content" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th width="70%">
+                                        <label class="control-label">Question</label>
+                                    </th>
+                                    <th></th>
+                                    <th width="20%">                                       
+                                    </th>
+
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (tbl_content item in content)
+                                {
+                                    <tr id="@item.ID_CONTENT">
+                                        <td>
+                                            <a href="@Url.Action("contentApproval", "dashboard", new { id = item.ID_CONTENT })" class="control-label">@item.CONTENT_QUESTION</a>
+                                        </td>
+                                        <td>
+                                            @if (item.IS_PRIMARY == 1)
+                                            {
+                                                <label class="control-label approved_lable">Parent</label>
+                                            }
+
+                                        </td>
+                                        <td>
+
+                                            <div class="checkbox pending_lable">
+                                                <label><input type="checkbox" id="@item.ID_CONTENT" value="@item.ID_CONTENT" name="pending_check">Approve</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                }
+                            </tbody>
+                            </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

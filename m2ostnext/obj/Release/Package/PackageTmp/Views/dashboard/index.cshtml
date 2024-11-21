@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script>
+    function setOrganisation() {
+        var id = $("#current_organisation").val();
+        var url = '@Url.Action("setOrganisarion", "dashboard")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id },
+          
+            success: function (data) {
+                window.location.reload();
+            }
+        });
+
+    }
+
+    function changeOrganisation() {
+        $("#organization-select").show();
+        $("#change-organization").hide();
+
+    }
+</script>
+
+
+@{
+    List<tbl_organization> organisation = (List<tbl_organization>)ViewData["organisation"];
+    m2ostnext.Models.UserSession Sessions = (m2ostnext.Models.UserSession)HttpContext.Current.Session["UserSession"];
+    db_m2ostEntities db = new db_m2ostEntities();
+    tbl_organization org = new tbl_organization();
+    if (Sessions.id_ORGANIZATION != "")
+    {
+        int ids = Convert.ToInt32(Sessions.id_ORGANIZATION);
+        org = db.tbl_organization.Find(ids);
+    }
+}
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="dashboard-middle row clearfix">
+
+            <div class="dashboard-mid-1 col-md-12 column">
+                <div class="panel panel-default dashboard_panel">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Select Organisation</h6>
+                    </div>
+                    <div class="panel-body">
+                        @if (Sessions.id_ORGANIZATION != "")
+                        { 
+                            <div id="organization-display" @if (Sessions.id_ORGANIZATION == "") { @("style=display:none;")   }>
+                            <p>Selected Organisation</p>
+                            <label class="inline">Organisation Name : @org.ORGANIZATION_NAME</label>
+
+                        </div>
+                        }
+                        @if (Sessions.Roleid == "100000")
+                        {
+                            <div id="organization-select" @if (Sessions.id_ORGANIZATION != "") { @("style=display:none;")   }>
+                                <p>Select Organisation to Proceed.</p>
+                                <select class="form-control" id="current_organisation">
+                                    @foreach (tbl_organization item in organisation)
+                                    {
+                                        <option value="@item.ID_ORGANIZATION">@item.ORGANIZATION_NAME</option>
+                                    }
+                                </select>
+                                <br />
+                                <div class="pull-right">
+                                    <a class="btn btn-default" href="#" onclick="setOrganisation()">Proceed</a>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="pull-right">
+                                <a class="btn btn-default" href="#" id="change-organization" onclick="changeOrganisation()">Change Organisation</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+    </div>
+</div>

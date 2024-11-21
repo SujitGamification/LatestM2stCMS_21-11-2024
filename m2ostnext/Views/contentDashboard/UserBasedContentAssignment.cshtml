@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "Content Detail";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+    function getContentReport() {
+        loading_on();
+       
+        var url = '@Url.Action("getUserBasedContent", "contentDashboard")';
+        var pattern = $("#search-box").val().trim();
+
+        var count = $("#search-box").val().trim().length;
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: 0, pattern: pattern },
+           
+            success: function (data) {
+                $("#display_table").empty().append(data);
+                $("#report-table").dataTable();
+
+            }
+        });      
+        loading_off();
+    }
+</script>
+
+
+<script>
+
+
+    function deleteContentConfirm() {
+        var id = $("#hidden-val").val();
+
+        var url = '@Url.Action("DeleteContentAll", "contentDashboard")';
+        loading_on();
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id },
+           
+            success: function (data) {
+
+                getContentReport();
+
+            }
+        });
+        $("#div-hidden-alert").hide();
+        loading_off();
+    }
+
+    function deleteCancle() {
+        $("#hidden-val").val("");
+        $("#content_value").val("");
+        $("#div-hidden-alert").hide();
+    }
+
+    function deleteContent(id, val) {
+
+        $("#content_value").text(val);
+        $('html, body').animate({
+            scrollTop: $('#div-hidden-alert').offset().bottom
+        }, 'slow');
+        $('#content_value').focus();
+        $("#hidden-val").val(id);
+        $("#div-hidden-alert").show();
+    }
+</script>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Content Detail</h6>
+            </div>
+            <div class="panel-body">
+                <h6 class="panel-title">Search by Content Title (leave empty for generic result )</h6>              
+                <input type="text" class="form-control" placeholder="Search by Content Title (minimum 4 character)" id="search-box" />
+
+                <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentReport()" />
+                <hr />
+                <div id="display_table">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

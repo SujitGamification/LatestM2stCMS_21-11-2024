@@ -1,0 +1,74 @@
+﻿@model skillmuniAlpha.Models.tbl_organization
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbl_organization</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ORGANIZATION_NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ORGANIZATION_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTACT_NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTACT_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTACTNUMBER)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTACTNUMBER)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTACTEMAIL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTACTEMAIL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STATUS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STATUS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UPDATED_DATE_TIME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UPDATED_DATE_TIME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbl_industry.INDUSTRYNAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbl_industry.INDUSTRYNAME)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_ORGANIZATION }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

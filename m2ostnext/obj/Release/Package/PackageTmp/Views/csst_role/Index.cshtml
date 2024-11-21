@@ -1,0 +1,192 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+
+    function deleteContentConfirm() {
+        var id = $("#hidden-val").val();
+        var url = '@Url.Action("deleteCsstRole", "csst_role")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id },
+          
+            success: function (data) {
+                window.location.reload();
+            }
+        });
+    }
+
+    function deleteCancle() {
+        $("#hidden-val").val("");
+        $("#div-hidden-alert").hide();
+    }
+
+    function deleteContent(id) {
+        $("#hidden-val").val(id);
+        $("#div-hidden-alert").show();
+    }
+
+    function edit_csst_role(ids,role)
+    {
+        $("#div-hidden-edit").show();
+        $("#hidden-edit").val(ids);
+        $("#edit-value").val(role);
+
+    }
+
+    function FunAddCsccRole()
+    {
+        $("#div-hidden-add").show();
+
+    }
+    function addEditCancle() {
+       
+        $("#add-value").val();
+        $("#div-hidden-add").hide();
+
+    }
+    function deleteEditCancle()
+    {
+        $("#hidden-edit").val();
+        $("#edit-value").val();
+        $("#div-hidden-edit").hide();
+
+    }
+
+    function editCsccRole()
+    {
+        var id = $("#hidden-edit").val();
+        var role = $("#edit-value").val();
+        var url = '@Url.Action("editCsstRole", "csst_role")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id,role:role },
+           
+            success: function (data) {
+                window.location.reload();
+            }
+        });
+    }
+
+    function addCsccRole() {
+       
+        var role = $("#add-value").val();
+        var url = '@Url.Action("insertCsstRole", "csst_role")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {  role: role },
+           
+            success: function (data) {
+                window.location.reload();
+            }
+        });
+    }
+</script>
+@{
+    List<tbl_csst_role> roles = (List<tbl_csst_role>)ViewData["csst_role"];
+}
+
+<div class="row" id="div-hidden-alert" style="display:none;">
+    <div class="col-md-12">
+        <input type="hidden" value="" id="hidden-val" />
+        <div class="alert alert-warning alert-dismissable">
+            Do you really want to Delete This........?
+            <input type="button" class="btn btn-primary btn-sm " value=" Yes " onclick="deleteContentConfirm()" />
+            <input type="button" class="btn btn-primary btn-sm " value=" No " onclick="deleteCancle()" />
+        </div>
+    </div>
+</div>
+
+<div class="row" id="div-hidden-edit" style="display:none;">
+    <div class="col-md-12">
+        <input type="hidden" value="" id="hidden-edit" />
+        <div class="well">      
+            <h4>Edit Role</h4>      
+            <input type="text" class="form-control" value="" id="edit-value"/>
+            <br/>
+            <input type="button" class="btn btn-primary btn-sm " value=" update " onclick="editCsccRole()" />
+            <input type="button" class="btn btn-primary btn-sm " value=" cancel " onclick="deleteEditCancle()" />
+
+        </div>
+    </div>
+</div>
+<div class="row" id="div-hidden-add" style="display:none;">
+    <div class="col-md-12">     
+        <div class="well">
+            <h4>Add New Role</h4>
+            <input type="text" class="form-control" value="" placeholder="CSST Role" id="add-value" />
+            <br />
+            <input type="button" class="btn btn-primary btn-sm " value=" save " onclick="addCsccRole()" />
+            <input type="button" class="btn btn-primary btn-sm " value=" cancel " onclick="addEditCancle()" />
+
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <input type="button" class="btn btn-primary" value=" Add New Role " onclick="FunAddCsccRole()" />
+        <hr />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Role Detail</h6>
+            </div>
+            <div class="panel-body">
+               
+                <div id="display_table">
+                    @{
+                        tbl_organization org = (tbl_organization)ViewData["cscc_org"];
+                    }
+                    <h4>Organization : @org.ORGANIZATION_NAME</h4><hr />
+                    <table id="report-table" class="table table-striped table-bordered datatable small" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>CSST Organization Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (roles.Count > 0)
+                            {
+                                foreach (tbl_csst_role item in roles)
+                                {
+                                    <tr>
+                                        <td>@item.csst_role</td>
+                                        <td>
+                                            |<a href="#" onclick="edit_csst_role('@item.id_csst_role','@item.csst_role')"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;
+                                            |<a href="#" onclick="deleteContent('@item.id_csst_role')"><i class="glyphicon glyphicon-remove"></i></a>&nbsp;|
+
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="2">The are No Roles created for '@org.ORGANIZATION_NAME'...</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

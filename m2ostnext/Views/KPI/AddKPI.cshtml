@@ -1,0 +1,231 @@
+﻿@{
+    ViewBag.Title = "KPI";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+
+        $("#form-add-kpi").validationEngine();
+
+        $("#datetimepicker1").datetimepicker(
+           { dateFormat: "dd-mm-yy", minDate: new Date() }
+        );
+        $("#datetimepicker2").datetimepicker(
+           { dateFormat: "dd-mm-yy", minDate: new Date() }
+        );
+    });
+
+
+</script>
+<style>
+    .col-md-12 strong {
+        width: 200px;
+        display: inline-block;
+    }
+
+    .select-control {
+        background-color: #FFFFFF;
+        background-image: none;
+        border: 1px solid #e5e6e7;
+        border-radius: 1px;
+        color: #000000;
+        display: block;
+        padding: 2px 4px;
+        height: 28px;
+        margin: 1px 1px;
+        transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+        width: 100%;
+        font-size: 14px;
+    }
+</style>
+
+<script>
+
+
+    $(function () {
+        $('a[title]').tooltip();
+
+        function changeElementItem(ids) {
+            if (ids == 1) {
+                $("#div-ass-1").hide();
+                $("#div-pro-1").show();
+            } else if (ids == 2) {
+                $("#div-ass-1").show();
+                $("#div-pro-1").hide();
+            }
+        }
+    });
+
+    function getProgramGrid(ids) {
+
+        $("#div-element-program").show(); $("#div-element-assessment").hide();
+        var sVal = $("#element-program-data option:selected").text();
+        $("#program-name").text(sVal);
+    }
+
+    function getAssessmentGrid(ids) {
+        $("#div-element-program").hide(); $("#div-element-assessment").show();
+        var sVal = $("#element-assessment-data option:selected").text();
+        $("#assessment-name").text(sVal);
+    }
+
+    function changeKpiGrid(id) {
+        if (id >= 1) { $('.drg1').show(); } else { $('.drg1').hide(); }
+        if (id >= 2) { $('.drg2').show(); } else { $('.drg2').hide(); }
+        if (id >= 3) { $('.drg3').show(); } else { $('.drg3').hide(); }
+        if (id >= 4) { $('.drg4').show(); } else { $('.drg4').hide(); }
+        if (id >= 5) { $('.drg5').show(); } else { $('.drg5').hide(); }
+        if (id >= 6) { $('.drg6').show(); } else { $('.drg6').hide(); }
+        if (id >= 7) { $('.drg7').show(); } else { $('.drg7').hide(); }
+        if (id >= 8) { $('.drg8').show(); } else { $('.drg8').hide(); }
+        if (id >= 9) { $('.drg9').show(); } else { $('.drg9').hide(); }
+        if (id == 10) { $('.drg10').show(); } else { $('.drg10').hide(); }
+        
+    }
+
+</script>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default m2ost_info">
+            <div class="panel-heading m2ost_info_hat">
+                <span>KPI - Add New KPI </span>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("kpi_add_action", "KPI", FormMethod.Post, new { id = "form-add-kpi" }))
+                {
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">KPI Title</label></div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control validate[required]" value="" placeholder="" id="kpi-title" name="kpi-title" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">KPI Description</label></div>
+                            <div class="col-md-9">
+                                <textarea name="kpi-desc" class="form-control validate[required]" placeholder="KPI Description" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">KPI Start Date</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker1' name="kpi-start-date" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">KPI Expiry Date</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker2' name="kpi-expiry-date" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Select KPI Type</label></div>
+                            <div class="col-md-5">
+                                <select id="KPI-mode" name="kpi-type" class="form-control">
+                                    <option value="3" selected>KPI</option>
+                                    <option value="1">Content KPI</option>
+                                    <option value="2">Assessment KPI</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <hr />
+                        </div>
+
+                        <div id="kpi-grid">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="col-md-3"><label class="control-label">Select No of Grid</label></div>
+                                                <div class="col-md-5">
+                                                    <select id="grid-value" name="grid-value" class="form-control" onchange="changeKpiGrid(this.value)">
+                                                        <option value="0">Select No. of Grid</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="div-kpi-data-grid">
+                            <table class="table" style="height:80px;width: 100%;">
+                                <thead>
+                                    <tr style="background-color:#793079;color:white">
+                                        <th>KPI Value </th>
+                                        <th>KPI Text </th>
+                                        <th>Start Range</th>
+                                        <th>End Range</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="prog-table">
+                                    <tr class="drg1" style="background-color:#cb84cb;color:white;display:none;"><td> <input type="hidden" value="1" id="kpi-value-1" name="kpi-value-1" />1 </td> <td> <input style="color:black;" type="text" class="form-control select-control " value="" placeholder="(optional)" id="kpi-text-1" name="kpi-text-1" />  </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-start-1" name="kpi-start-1" /> </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-end-1" name="kpi-end-1" /> </td>  </tr>
+                                    <tr class="drg2" style="background-color:#cb84cb;color:white;display:none;"><td> <input type="hidden" value="2" id="kpi-value-2" name="kpi-value-2" /> 2</td> <td> <input style="color:black;" type="text" class="form-control select-control " value="" placeholder="(optional)" id="kpi-text-2" name="kpi-text-2" />  </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-start-2" name="kpi-start-2" /> </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-end-2" name="kpi-end-2" /> </td>  </tr>
+                                    <tr class="drg3" style="background-color:#cb84cb;color:white;display:none;"><td> <input type="hidden" value="3" id="kpi-value-3" name="kpi-value-3" />3 </td> <td> <input style="color:black;" type="text" class="form-control select-control " value="" placeholder="(optional)" id="kpi-text-3" name="kpi-text-3" />  </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-start-3" name="kpi-start-3" /> </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-end-3" name="kpi-end-3" /> </td>  </tr>
+                                    <tr class="drg4" style="background-color:#cb84cb;color:white;display:none;"><td> <input type="hidden" value="4" id="kpi-value-4" name="kpi-value-4" /> 4</td> <td> <input style="color:black;" type="text" class="form-control select-control " value="" placeholder="(optional)" id="kpi-text-4" name="kpi-text-4" />  </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-start-4" name="kpi-start-4" /> </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-end-4" name="kpi-end-4" /> </td>  </tr>
+                                    <tr class="drg5" style="background-color:#cb84cb;color:white;display:none;"><td> <input type="hidden" value="5" id="kpi-value-5" name="kpi-value-5" /> 5</td> <td> <input style="color:black;" type="text" class="form-control select-control " value="" placeholder="(optional)" id="kpi-text-5" name="kpi-text-5" />  </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-start-5" name="kpi-start-5" /> </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-end-5" name="kpi-end-5" /> </td>  </tr>
+                                    <tr class="drg6" style="background-color:#cb84cb;color:white;display:none;"><td> <input type="hidden" value="6" id="kpi-value-6" name="kpi-value-6" /> 6</td> <td> <input style="color:black;" type="text" class="form-control select-control " value="" placeholder="(optional)" id="kpi-text-6" name="kpi-text-6" />  </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-start-6" name="kpi-start-6" /> </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-end-6" name="kpi-end-6" /> </td>  </tr>
+                                    <tr class="drg7" style="background-color:#cb84cb;color:white;display:none;"><td> <input type="hidden" value="7" id="kpi-value-7" name="kpi-value-7" /> 7</td> <td> <input style="color:black;" type="text" class="form-control select-control " value="" placeholder="(optional)" id="kpi-text-7" name="kpi-text-7" />  </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-start-7" name="kpi-start-7" /> </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-end-7" name="kpi-end-7" /> </td>  </tr>
+                                    <tr class="drg8" style="background-color:#cb84cb;color:white;display:none;"><td> <input type="hidden" value="8" id="kpi-value-8" name="kpi-value-8" /> 8</td> <td> <input style="color:black;" type="text" class="form-control select-control " value="" placeholder="(optional)" id="kpi-text-8" name="kpi-text-8" />  </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-start-8" name="kpi-start-8" /> </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-end-8" name="kpi-end-8" /> </td>  </tr>
+                                    <tr class="drg9" style="background-color:#cb84cb;color:white;display:none;"><td> <input type="hidden" value="9" id="kpi-value-9" name="kpi-value-9" /> 9</td> <td> <input style="color:black;" type="text" class="form-control select-control " value="" placeholder="(optional)" id="kpi-text-9" name="kpi-text-9" />  </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-start-9" name="kpi-start-9" /> </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-end-9" name="kpi-end-9" /> </td>  </tr>
+                                    <tr class="drg10" style="background-color:#cb84cb;color:white;display:none;"><td> <input type="hidden" value="10" id="kpi-value-10" name="kpi-value-10" />10 </td> <td> <input style="color:black;" type="text" class="form-control select-control " value="" placeholder="(optional)" id="kpi-text-10" name="kpi-text-10" />  </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-start-10" name="kpi-start-10" /> </td> <td> <input style="color:black;" type="text" class="form-control select-control validate[required,custom[number]]" value="" placeholder="" id="kpi-end-10" name="kpi-end-10" /> </td>  </tr>
+                                </tbody>
+                            </table>
+
+
+
+
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-9 col-md-2">
+                                <input type="submit" value="Save" name="btn_submit" class="btn btn-default btn-lg" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                }
+
+                <div class="col-md-12">
+                    <hr />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

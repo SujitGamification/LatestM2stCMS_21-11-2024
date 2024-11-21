@@ -1,0 +1,258 @@
+﻿
+@{
+    ViewBag.Title = "ListVendorDetails";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<script>
+    $(function () {
+        $("#form_add_vendor").validationEngine();
+    });
+</script>
+@{
+    tbl_vendor_registration vendetls = (tbl_vendor_registration)ViewData["vendor"];
+    tbl_cms_users venlist = (tbl_cms_users)ViewData["select-vendorusername"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Vendor Details</h4>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Mobile Number &nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.mobile_number</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Email ID &nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.email_id</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>First Name &nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.first_name</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Last Name&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.last_name</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Address 1&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.address1</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Address 2&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.address2</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Company Name&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.company_name</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Status&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <strong>
+
+                                    @if (vendetls.status == "A")
+                                    {
+                                        @("Approved ")
+                                    }
+                                </strong>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Status Reason&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.status_reason</b>
+                            </div>
+                        </div>
+                    </div>*@
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Pan Number&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.pan_no</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Tax Number&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@vendetls.service_tax_no</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Country Name&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                @foreach (var pro in (List<tbl_country>)ViewData["select-country"])
+                                {
+                                    if (vendetls.id_country == pro.id_country)
+                                    {
+                                        <b>@pro.country_name</b>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>State Name&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                @foreach (var pro in (List<tbl_state>)ViewData["select-state"])
+                                {
+                                    if (vendetls.id_state == pro.id_state)
+                                    {
+                                        <b>
+                                            @pro.state_name
+                                        </b>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>City Name&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+
+                                @foreach (var pro in (List<tbl_city>)ViewData["select-city"])
+                                {
+                                    if (vendetls.id_city == pro.id_city)
+                                    {
+                                        <b>
+                                            @pro.city_name
+                                        </b>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Profile Image&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b><img src="@vendetls.profile_image" style="width: 248px;" /></b>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>User Name&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@venlist.USERNAME</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <h5>Password&nbsp;&nbsp;:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <b>@venlist.PASSWORD</b>
+                            </div>
+                        </div>
+                    </div>                    
+                   
+                    <hr />
+                    @using (Html.BeginForm("DisplayVendorDetails", "Registration", FormMethod.Post, new { id = "form_add_vendor" }))
+                    {
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" id="btn_close" name="btn_close" value="Close" class="btn btn-default" />
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

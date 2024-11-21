@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "add_banner";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script>
+
+    $(function () {
+        $("#form-add-banner").validationEngine();
+    });
+
+    function select_file(btn, imgf, ban) {
+        var file = $("#" + btn + "")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        } else {
+        }
+        $("#" + imgf + "").val(filename);
+    }
+</script>
+@{
+    tbl_banner banner = (tbl_banner)ViewData["banner"];
+}
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Edit Banner</h4>
+            </div>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("edit_banner_action", "dashboard", FormMethod.Post, new { id = "form-add-banner", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="banner_id" value="@banner.id_banner" />
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Banner Name</label></div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control validate[required]" value="@banner.banner_name" placeholder="" id="banner-name" name="banner-name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Banner Url</label></div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control validate[required]" value="@banner.banner_action_url" placeholder="" id="banner-url" name="banner-url" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <label for="FirstName" class="control-label col-md-1">Image:</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control validate[required]" readonly value="@banner.banner_image" placeholder="banner image" id="banner-image" name="banner-image" />
+                                <div class="fileUpload btn btn-primary">
+                                    <span>Browse Image</span>
+                                    <input id="banner-btn" name="banner-image" class="upload" type="file" accept="image/*" onchange="select_file('banner-btn', 'banner-image', 'banner-text')" />
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" name="btn_submit" class="btn btn-default" />
+                                <a style="margin-left:5px;" href="@Url.Action("Index", "dashboard")" class="btn btn-default  pull-right">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+

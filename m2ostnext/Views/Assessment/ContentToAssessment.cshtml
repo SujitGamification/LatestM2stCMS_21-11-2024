@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "M2OST";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+    List<tbl_assessment> assessData = (List<tbl_assessment>)ViewData["assessment"];
+    tbl_content contents = (tbl_content)ViewData["content"];
+
+    List<tbl_assessment> assessment = (List<tbl_assessment>)ViewData["assessData"];
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+    function getAssessmentContent() {
+        loading_on();
+        var aid = $("#hidden-val").val();
+        var id = $("#category-select").val();
+        var url = '@Url.Action("getAssessmentContent", "Assessment")';
+        var pattern = $("#search-box").val().trim();
+
+        var count = $("#search-box").val().trim().length;
+        if (count > 4 || id > 0) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: id, pattern: pattern, aid: aid },                
+                success: function (data) {
+                    $("#display_table").empty().append(data);
+                    $("#report-table").dataTable();
+
+                }
+            });
+        } else {
+
+        }
+        loading_off();
+    }
+</script>
+
+
+<script>
+
+
+    function addAssessmentToContent(cid) {
+        var id = $("#hidden-val").val();
+        var url = '@Url.Action("addAssessmentToContent", "Assessment")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: cid, cid: id },
+           
+            success: function (data) {
+                window.location.reload();
+            }
+        });
+    }
+
+
+    function removeContenFromAssessment(cid) {
+        var id = $("#hidden-val").val();
+        var url = '@Url.Action("removeContenFromAssessment", "Assessment")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: cid, cid: id },          
+            success: function (data) {
+               window.location.reload();
+            }
+        });
+    }
+</script>
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Link Content to Assessment</h6>
+            </div>
+            <div class="panel-body">
+                <div class="well">
+                    <input type="hidden" value="@contents.ID_CONTENT" id="hidden-val" />
+                    <div class="col-md-12 column">
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-md-2"><h5>Content : </h5></div>
+                                <div class="col-md-10">
+                                    <pre>@contents.CONTENT_QUESTION</pre>
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><h5><strong>Content View: </strong> </h5></div>
+                        <div class="col-md-10">
+                            <a href="@Url.Action("LoadContent", "contentDashboard", new { id = contents.ID_CONTENT })" target="_blank"><i class="glyphicon glyphicon-text-background"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+                <hr />
+                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="90%">Assessment </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (tbl_assessment item in assessment)
+                        {
+                            <tr>
+                                <td>
+                                    @item.assessment_title
+                                </td>
+                                <td>
+                                    <a href="#" onclick="removeContenFromAssessment('@item.id_assessment')"><i class="glyphicon glyphicon-remove"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <hr />
+                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="90%">Assessment </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (tbl_assessment item in assessData)
+                        {
+                            <tr>
+                                <td>
+                                    @item.assessment_title
+                                </td>
+                                <td>
+                                    <a href="#" onclick="addAssessmentToContent('@item.id_assessment')"><i class="glyphicon glyphicon-plus"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+        
+                <hr />
+                <a href="@Url.Action("Index", "Assessment")" class="btn btn-default">Done</a>
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>

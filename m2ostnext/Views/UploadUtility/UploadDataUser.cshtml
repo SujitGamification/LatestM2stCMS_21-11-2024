@@ -1,0 +1,469 @@
+﻿@{
+    ViewBag.Title = "UplodeDataUser";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+
+<style>
+    table {
+        width: 100%;
+        background: #ffffff;
+        border-collapse: collapse;
+    }
+
+    thead {
+        background: #793079;
+        color: #ffffff;
+        display: table;
+        width: 100%; /* Adjust for scrollbar width */
+    }
+
+    tbody {
+        display: block;
+        max-height: 280px; /* Set the height you want */
+        overflow-y: auto;
+        width: 100%;
+    }
+
+    tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed; /* Ensure columns have the same width */
+        border: 1px solid gray;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border: 1px solid gray;
+    }
+</style>
+
+<div style="display:flex;justify-content:space-between;margin-bottom:5vh;">
+
+    <div>
+        <label class="csv">
+            Please upload a Excel file (.xlsx) <br />
+            Update the Userid,user_grade,user_function,city,location,office_address and hierarchy
+        </label>
+    </div>
+    <div>
+        @*<a style=" background: DodgerBlue; color: white; border: none; padding: 5px; border-radius: 5px;" href="https://www.m2ost.in/m2ostbeta/Content/AppUserTemplate/StoreTransfer.xlsx"> <i class="fa fa-download"></i> Download Template </a>
+            <a style=" background: DodgerBlue; color: white; border: none; padding: 5px; border-radius: 5px;" src="~/Content/AppUserTemplate/StoreTransfer.xlsx"> <i class="fa fa-download"></i> Download Template </a>*@
+        <a style="background: DodgerBlue; color: white; border: none; padding: 5px; border-radius: 5px;" href="~/Content/AppUserTemplate/StoreTransfer.xlsx" download>
+            <i class="fa fa-download"></i> Download Template
+        </a>
+    </div>
+
+</div>
+<div style="display:flex;justify-content:space-between">
+    <div>
+        <input type="file" id="csvFileInput">
+        <label id="csvFile" style="color: maroon; margin: 0px; display: none;">Required Excel Field</label>
+    </div>
+    <button id="activateButton" style="background: #04AA6D;color:#fff;border:none;border-radius:5px;width:159px;height:28px;padding:5px;">Upload</button>
+</div>
+
+<hr />
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col" class="UsertoDisplayA">User ID not Present</th>
+                @*<th scope="col" class="UsertoDisplayA1">User ID Status Deactive</th>*@
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="nonExistentUserIdsListA" class="UsertoDisplayA"></td>
+                @*<td id="activeUserIds" class="UsertoDisplayA1"></td>*@
+            </tr>
+
+        </tbody>
+    </table>
+    @*<table>
+            <thead>
+                <tr>
+                    <th scope="col" class="UsertoDisplayB">User ID not Present</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="nonExistentUserIdsListB" class="UsertoDisplayA"></td>
+                </tr>
+            </tbody>
+        </table>*@
+</div>
+
+<script>
+    $(document).ready(function () {
+        var invalidRows = [
+            {
+                row: 1,
+                missingFields: { 'UserID': true, 'Email': false, 'Name': true }
+            },
+            {
+                row: 3,
+                missingFields: { 'UserID': false, 'Email': true, 'Name': false }
+            }
+        ];
+
+        // Get the table cell by its ID
+      var userIdCell = document.getElementById("nonExistentUserIdsListB");
+
+    $('.UsertoDisplayA').hide();
+    $('.UsertoDisplayA1').hide();
+
+    // Activate button click event
+        @*$('#activateButton').click(function () {
+            debugger;
+        $('#csvFileInput1').val('');
+
+        var file = $('#csvFileInput').prop('files')[0];
+        if (!file) {
+            $('#csvFile').show().text('Please select an xlsx file.');
+            return;
+        }
+
+        var fileName = file.name;
+        var fileExtension = fileName.split('.').pop().toLowerCase();
+
+        // Check if the file extension is XLSX
+        if (fileExtension !== 'xlsx') {
+            $('#csvFile').show().text('Please select an xlsx file.');
+            $('#csvFileInput').val(''); // Clear the file input
+            return;
+        }
+
+        $('#csvFile').hide(); // Hide error message if shown
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var data = new Uint8Array(e.target.result);
+            var workbook = XLSX.read(data, { type: 'array' });
+            var sheetName = workbook.SheetNames[0];
+            var worksheet = workbook.Sheets[sheetName];
+            var jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+            var invalidRows = [];
+            var userIdStatusArray = jsonData.map(function (row, index) {
+                var userId = row['Userid'];
+                var userGrade = row['New_Store_Code'];
+                var userFunction = row['Store_Type'];
+                var city = row['CITY'];
+                var location = row['LOCATION'];
+                var officeAddress = row['Region'];
+                var L4 = row['SM'];
+                var L3 = row['DM'];
+                var L2 = row['RM'];
+                var L1 = row['GM'];
+                var Spectator = row['Spectator'];
+
+                // Validation for blank columns
+                if (!userId) {
+                    invalidRows.push({
+                        row: index + 1, // Row number (1-based index)
+                        missingFields: {
+                            userId: !userId
+
+                        }
+                    });
+                }
+
+                return {
+                    userId: userId,
+                    userGrade: userGrade,
+                    userFunction: userFunction,
+                    city: city,
+                    location: location,
+                    officeAddress: officeAddress,
+                    L4: L4,
+                    L3: L3,
+                    L2: L2,
+                    L1: L1,
+                    Spectator: Spectator
+                };
+            });
+
+            // Check if any invalid rows were found
+            //if (invalidRows.length > 0) {
+            //    // Display a message to the user
+            //    var message = "The following rows have missing fields:\n";
+            //    invalidRows.forEach(function (row) {
+            //        message += "Row " + row.row + ": ";
+            //        for (var field in row.missingFields) {
+            //            if (row.missingFields[field]) {
+            //                message += field + " is missing.\n ";
+            //            }
+            //        }
+            //        message += "\n";
+            //    });
+            //    alert(message); // Show validation message
+            //    return;
+            //}
+            /////
+
+            if (invalidRows.length > 0) {
+                var message = "The following rows have missing fields:\n";
+                var tableContent = "<ul>"; // Start an unordered list for the table
+
+                // Loop through each invalid row
+                invalidRows.forEach(function (row) {
+                    message += "Row " + row.row + ": ";
+                    tableContent += "<li>Row " + row.row + ": <ul>";
+
+                    // Loop through missing fields
+                    for (var field in row.missingFields) {
+                        if (row.missingFields[field]) {
+                            message += field + " is missing.\n";
+                            tableContent += "<li>" + field + " is missing.</li>";
+                        }
+                    }
+
+                    message += "\n";
+                    tableContent += "</ul></li>";
+                });
+
+                tableContent += "</ul>";
+
+                // Display the alert message
+                alert(message);
+
+                // Insert the constructed HTML into the table cell
+                userIdCell.innerHTML = tableContent;
+                return;
+            }
+
+            // Proceed with the AJAX request if validation passes
+            $.ajax({
+                url: '@Url.Action("uplodeDataUser", "UploadUtility")',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ userIdStatusArray: userIdStatusArray }),
+                success: function (result) {
+                    if (result.success) {
+                        alert(result.message); // Show success message
+                        $('.UsertoDisplayA').show();
+                       // $('.UsertoDisplayA1').show();
+
+                        // Display non-existent and active user IDs
+                        displayUserIds(result.nonExistentUserIds, '#nonExistentUserIdsListA', 'User ID not Present');
+                        //displayUserIds(result.activeUserIds, '#activeUserIds', 'User ID Status Not Match');
+                    } else {
+                        alert("Error: " + result.message);
+                        displayUserIds(result.nonExistentUserIds, '#nonExistentUserIdsListA', 'User ID not Present');
+                        ///displayUserIds(result.activeUserIds, '#activeUserIds', 'User ID Status Not Match');
+                    }
+                },
+                error: function (error) {
+                    alert("Error occurred while processing the request.");
+                    console.error(error);
+                }
+            });
+        };
+        reader.readAsArrayBuffer(file);
+    });*@
+
+    $('#activateButton').click(function () {
+            loading_on();
+  
+    $('#csvFileInput1').val('');
+
+    var file = $('#csvFileInput').prop('files')[0];
+    if (!file) {
+        $('#csvFile').show().text('Please select an xlsx file.');
+        return;
+    }
+
+    var fileName = file.name;
+    var fileExtension = fileName.split('.').pop().toLowerCase();
+
+    // Check if the file extension is XLSX
+    if (fileExtension !== 'xlsx') {
+        $('#csvFile').show().text('Please select an xlsx file.');
+        $('#csvFileInput').val(''); // Clear the file input
+        return;
+    }
+
+    $('#csvFile').hide(); // Hide error message if shown
+
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        var data = new Uint8Array(e.target.result);
+        var workbook = XLSX.read(data, { type: 'array' });
+        var sheetName = workbook.SheetNames[0];
+        var worksheet = workbook.Sheets[sheetName];
+        var jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+        var invalidRows = [];
+        var userIdStatusArray = jsonData.map(function (row, index) {
+            var userId = row['Userid'];
+            var userGrade = row['New_Store_Code'];
+            var userFunction = row['Store_Type'];
+            var city = row['CITY'];
+            var location = row['LOCATION'];
+            var officeAddress = row['Region'];
+            var L4 = row['SM'];
+            var L3 = row['DM'];
+            var L2 = row['RM'];
+            var L1 = row['GM'];
+            var Spectator = row['Spectator'];
+
+            // Validation for blank columns
+            if (!userId) {
+                invalidRows.push({
+                    row: index + 1, // Row number (1-based index)
+                    missingFields: {
+                        userId: !userId
+                    }
+                });
+            }
+
+            return {
+                userId: userId,
+                userGrade: userGrade,
+                userFunction: userFunction,
+                city: city,
+                location: location,
+                officeAddress: officeAddress,
+                L4: L4,
+                L3: L3,
+                L2: L2,
+                L1: L1,
+                Spectator: Spectator
+            };
+        });
+
+        if (invalidRows.length > 0) {
+            var message = "The following rows have missing fields:\n";
+            var tableContent = "<ul>"; // Start an unordered list for the table
+
+            // Loop through each invalid row
+            invalidRows.forEach(function (row) {
+                message += "Row " + row.row + ": ";
+                tableContent += "<li>Row " + row.row + ": <ul>";
+
+                // Loop through missing fields
+                for (var field in row.missingFields) {
+                    if (row.missingFields[field]) {
+                        message += field + " is missing.\n";
+                        tableContent += "<li>" + field + " is missing.</li>";
+                    }
+                }
+
+                message += "\n";
+                tableContent += "</ul></li>";
+            });
+
+            tableContent += "</ul>";
+
+            // Display the alert message
+            alert(message);
+
+            // Insert the constructed HTML into the table cell
+            userIdCell.innerHTML = tableContent;
+            return;
+        }
+
+        // Function to send data in chunks
+        function sendDataInChunks(dataArray, chunkSize) {
+            let totalChunks = Math.ceil(dataArray.length / chunkSize);
+            console.log(`Total chunks: ${totalChunks}`);
+
+            for (let i = 0; i < totalChunks; i++) {
+                let chunk = dataArray.slice(i * chunkSize, (i + 1) * chunkSize);
+                let isLastChunk = (i === totalChunks - 1); // Flag for the last chunk
+
+                console.log(`Sending chunk ${i + 1}/${totalChunks} with size: ${chunk.length}`);
+
+
+                // Send each chunk via AJAX
+                $.ajax({
+                    url: '@Url.Action("uplodeDataUser", "UploadUtility")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ userIdStatusArray: chunk, isLastChunk: isLastChunk }),
+                    success: function (result) {
+                        if (isLastChunk) {
+                            if (result.success) {
+                                loading_off();
+                                alert(result.message);
+
+                                fetchNonExistentUserIds();
+                               // displayUserIds(result.nonExistentUserIdsnewvalue, '#nonExistentUserIdsListA', 'User ID not Present');
+                            } else {
+                                alert("Error: " + result.message);
+                                fetchNonExistentUserIds();
+                                //displayUserIds(result.nonExistentUserIdsnewvalue, '#nonExistentUserIdsListA', 'User ID not Present');
+                            }
+                        }
+                    },
+                    error: function (error) {
+                        console.error("Error occurred while processing the request for a chunk.", error);
+                    }
+                });
+            }
+        }
+
+        // Send data in chunks of 100 rows
+        sendDataInChunks(userIdStatusArray, 50);
+    };
+
+          reader.readAsArrayBuffer(file);
+    });
+
+    function fetchNonExistentUserIds() {
+    $.ajax({
+        url: '@Url.Action("GetNonExistentUserIds", "UploadUtility")',
+        type: 'GET',
+        success: function (result) {
+            if (result.success) {
+                $('.UsertoDisplayA').show();
+                displayUserIds(result.nonExistentUserIds, '#nonExistentUserIdsListA', 'User ID not Present');
+            } else {
+                alert("Error: Could not retrieve non-existent user IDs.");
+            }
+        },
+        error: function (error) {
+            alert("Error occurred while fetching non-existent user IDs.");
+            console.error(error);
+        }
+    });
+}
+
+
+    // Display user IDs in the appropriate table
+    function displayUserIds(userIds, elementId, headerText) {
+        var element = $(elementId);
+        element.empty(); // Clear any existing items
+
+        if (userIds && userIds.length > 0) {
+            userIds.forEach(function (userId) {
+                var row = $('<tr>');
+                var cell = $('<td>').text(userId);
+                row.append(cell);
+                element.append(row);
+            });
+
+             if (elementId === '#nonExistentUserIdsListA') {
+                $('.UsertoDisplayA').show();
+            }
+        } else {
+            var row = $('<tr>');
+            var cell = $('<td>').text(headerText);
+            row.append(cell);
+            element.append(row);
+
+           if (elementId === '#nonExistentUserIdsListA') {
+                $('.UsertoDisplayA').hide();
+            }
+        }
+    }
+    });
+
+
+
+
+</script>

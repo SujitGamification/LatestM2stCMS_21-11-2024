@@ -1,0 +1,433 @@
+﻿@{
+    ViewBag.Title = "Utility_report";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+    table {
+            width: 100%;
+            background: #ffffff;
+            border-collapse: collapse;
+        }
+        thead {
+            background: #793079;
+            color: #ffffff;
+            display: table;
+            width:100%; /* Adjust for scrollbar width */
+        }
+        tbody {
+            display: block;
+            max-height: 280px; /* Set the height you want */
+            overflow-y: auto;
+            width: 100%;
+        }
+        tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed; /* Ensure columns have the same width */
+            border:1px solid gray;
+        }
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border: 1px solid gray;
+    }
+    </style>
+
+<div style="display:flex;justify-content:space-between;margin-bottom:5vh;">
+
+    <div><label class="csv">Please upload a Excel file (.xlsx) to Active the User Id</label></div>
+    <div>
+        <a style=" background: DodgerBlue; color: white; border: none; padding: 5px; border-radius: 5px;" href="https://www.m2ost.in/m2ostbeta/Content/AppUserTemplate/Uplodeuser.xlsx"> <i class="fa fa-download"></i> Download Template </a>
+    </div>
+
+</div>
+<div style="display:flex;justify-content:space-between">
+    <div>
+        <input type="file" id="csvFileInput">
+        <label id="csvFile" style="color: maroon; margin: 0px; display: none;">Required Excel Field</label>
+    </div>
+    <button id="activateButton" style="background: #04AA6D;color:#fff;border:none;border-radius:5px;width:159px;height:28px;padding:5px;">Activate</button>
+</div>
+
+<hr />
+<label class="csv">Please upload a Excel file (.xlsx) to Deactive the User Id</label>
+
+<div style="display:flex;justify-content:space-between">
+    <div>
+        <input type="file" id="csvFileInput1">
+        <label id="csvFile1" style="color: maroon; margin: 0px; display: none;">Required Excel Field</label>
+    </div>
+    <button id="deactivateButton" style="background: #f44336; color: #fff; border: none; border-radius: 5px; width:159px; height: 28px;padding:5px;">Deactivate</button>
+</div>
+<div>
+    @*<h3 id="DeactiveUsertoDisplay">User ID not Present</h3>
+    <ul id="nonExistentUserIdsList"></ul>
+    <div>
+        <h3 id="DeactiveUsertoDisplay1">User ID Status Active</h3>
+        <ul id="nonExistentUserIdsListActive"></ul>
+    </div>*@
+
+    @*<h3 id="ActiveUsertoDisplayA">User ID not Present</h3>
+        <ul id="nonExistentUserIdsListA"></ul>
+        <div>
+            <h3 id="ActiveUsertoDisplayA1">User ID Status Deactive</h3>
+            <ul id="nonExistentUserIdsListA1"></ul>
+        </div>*@
+    <br />
+   
+    <div>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col" class="ActiveUsertoDisplayA">User ID not Present</th>
+                <th scope="col" class="ActiveUsertoDisplayA1">User ID Status Deactive</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="nonExistentUserIdsListA" class="ActiveUsertoDisplayA"></td>
+                <td id="activeUserIds" class="ActiveUsertoDisplayA1"></td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col" class="DeactiveUsertoDisplay">User ID not Present</th>
+                <th scope="col" class="DeactiveUsertoDisplay1">User ID Status Active</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="nonExistentUserIdsList" class="DeactiveUsertoDisplay"></td>
+                <td id="nonExistentUserIdsListActive" class="DeactiveUsertoDisplay"></td>
+            </tr>
+
+        </tbody>
+    </table>
+        </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.DeactiveUsertoDisplay').hide();
+        $('.DeactiveUsertoDisplay1').hide();
+        $('.ActiveUsertoDisplayA').hide();
+        $('.ActiveUsertoDisplayA1').hide();
+        // Activate button click event
+        $('#activateButton').click(function () {
+            $('#csvFileInput1').val(''); 
+
+            var file = $('#csvFileInput').prop('files')[0];
+            if (!file) {
+                $('#csvFile').show().text('Please select an xlsx file.');
+                return;
+            }
+
+            var fileName = file.name;
+            var fileExtension = fileName.split('.').pop().toLowerCase();
+
+            // Check if the file extension is XLSX
+            if (fileExtension !== 'xlsx') {
+                $('#csvFile').show().text('Please select an xlsx file.');
+                $('#csvFileInput').val(''); // Clear the file input
+                return;
+            }
+
+            $('#csvFile').hide(); // Hide error message if shown
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var data = new Uint8Array(e.target.result);
+                var workbook = XLSX.read(data, { type: 'array' });
+                var sheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[sheetName];
+                var jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+                var userIdStatusArray = jsonData.map(function (row) {
+                    var newStatus = row['Status']; // Adjust column name if necessary
+                    if (newStatus.toLowerCase() === 'active' || newStatus.toLowerCase() === 'A' || newStatus.toLowerCase() === 'ACTIVE') {
+                        newStatus = 'A';
+                    }
+                    return {
+                        UserId: row['User ID'], // Adjust column name if necessary
+                        NewStatus: newStatus
+                    };
+                });
+
+                $.ajax({
+                    url: '@Url.Action("app_ChangeStatusfileActive", "Administrator")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ userIdStatusArray: userIdStatusArray }),
+                    success: function (result) {
+                        debugger
+                        if (result.success) {
+                            alert(result.message); // Show success message
+                            $('.ActiveUsertoDisplayA').show();
+                            $('.ActiveUsertoDisplayA1').show();
+                            
+                            
+                            // Display non-existent user IDs
+                            // Display non-existent user IDs
+                            displayUserIds(result.nonExistentUserIds, '#nonExistentUserIdsListA', 'User ID not Present');
+                            // Display active user IDs
+                            displayUserIds(result.activeUserIds, '#activeUserIds', 'User ID Status Not Match');
+
+                        } else {
+                            alert("Error: " + result.message);
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error occurred while processing the request.");
+                        console.error(error);
+                    }
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        @*$('#activateButton').click(function () {
+            var file = $('#csvFileInput').prop('files')[0];
+            if (file) {
+                var fileName = file.name;
+                var fileExtension = fileName.split('.').pop().toLowerCase();
+
+                // Check if the file extension is CSV
+                if (fileExtension !== 'xlsx') {
+                    $('#csvFile').show().text('Please select a xlsx file.');
+                    $('#csvFileInput').val(''); // Clear the file input
+                    return;
+                }
+
+                $('#csvFile').hide(); // Hide error message if shown
+
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var userId = e.target.result;
+
+                    $.ajax({
+                        url: '@Url.Action("app_ChangeStatusfile", "Administrator")',
+                        type: 'POST',
+                        data: { userId: userId, newStatus: "A" },
+                        success: function (result) {
+                            //location.reload(); // Reload the page after successful activation
+                            alert(result.message); // Show success message
+                        },
+                        error: function (error) {
+                            console.error(error);
+                        }
+                    });
+                };
+                reader.readAsText(file);
+            } else {
+                $('#csvFile').show().text('Please select a xlsx file.');
+            }
+        });*@
+
+
+        // Deactivate button click event
+    @*$('#deactivateButton').click(function () {
+    debugger;
+    var file = $('#csvFileInput1').prop('files')[0];
+    if (file) {
+        var fileName = file.name;
+        var fileExtension = fileName.split('.').pop().toLowerCase();
+
+        // Check if the file extension is CSV
+        if (fileExtension !== 'xlsx') {
+            $('#csvFile1').show().text('Please select a xlsx file.');
+            $('#csvFileInput1').val(''); // Clear the file input
+            return;
+        }
+
+        $('#csvFile1').hide(); // Hide error message if shown
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var userId = e.target.result;
+
+            $.ajax({
+                url: '@Url.Action("app_ChangeStatusfile", "Administrator")',
+                type: 'POST',
+                data: { userId: userId, newStatus: "D" }, // Sending userIds instead of userId
+                success: function (result) {
+                    if (result.success) { // Use 'result' instead of 'response'
+                        alert(result.message);  // Show success message
+                        $('#UsertoDisplay').show();
+                        // Check if there are any non-existent user IDs
+                        if (result.nonExistentUserIds && result.nonExistentUserIds.length > 0) {
+                            // Display non-existent user IDs
+                            console.log("Non-existent user IDs:", result.nonExistentUserIds);
+
+                            // You can display them in the DOM as well, for example:
+                            var nonExistentUserIdsList = $("#nonExistentUserIdsList");
+                            nonExistentUserIdsList.empty();  // Clear any existing items
+                            result.nonExistentUserIds.forEach(function (userId) {
+                                nonExistentUserIdsList.append("<li>" + userId + "</li>");
+                            });
+                        }
+                        else {
+                            // Hide the message and clear the list if no non-existent user IDs
+                            $('#UsertoDisplay').hide();
+                            $('#nonExistentUserIdsList').empty();
+                        }
+                    } else {
+                        alert("Error: " + result.message); // Use 'result' instead of 'response'
+                    }
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        };
+        reader.readAsText(file);
+    } else {
+        $('#csvFile1').show().text('Please select a xlsx file.');
+    }
+});*@
+
+   $('#deactivateButton').click(function () {
+   $('#csvFileInput').val(''); 
+    var file = $('#csvFileInput1').prop('files')[0];
+    if (!file) {
+        $('#csvFile1').show().text('Please select an xlsx file.');
+        return;
+    }
+
+    var fileName = file.name;
+    var fileExtension = fileName.split('.').pop().toLowerCase();
+
+    // Check if the file extension is XLSX
+    if (fileExtension !== 'xlsx') {
+        $('#csvFile1').show().text('Please select an xlsx file.');
+        $('#csvFileInput1').val(''); // Clear the file input
+        return;
+    }
+
+    $('#csvFile1').hide(); // Hide error message if shown
+
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        var data = new Uint8Array(e.target.result);
+        var workbook = XLSX.read(data, { type: 'array' });
+        var sheetName = workbook.SheetNames[0];
+        var worksheet = workbook.Sheets[sheetName];
+        var jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+        var userIdStatusArray = jsonData.map(function (row) {
+            var newStatus = row['Status']; // Adjust column name if necessary
+            if (newStatus.toLowerCase() === 'deactive' || newStatus.toLowerCase() === 'D' || newStatus.toLowerCase() === 'DEACTIVE') {
+                newStatus = 'D';
+            }
+            return {
+                UserId: row['User ID'], // Adjust column name if necessary
+                NewStatus: newStatus
+            };
+        });
+
+        $.ajax({
+            url: '@Url.Action("app_ChangeStatusfile", "Administrator")',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ userIdStatusArray: userIdStatusArray }),
+            success: function (result) {
+                debugger
+                if (result.success) {
+                    alert(result.message); // Show success message
+                    $('.DeactiveUsertoDisplay').show();
+                    $('.DeactiveUsertoDisplay1').show();
+                  
+                   
+                   
+                    // Display non-existent user IDs
+                    displayUserIdsD(result.nonExistentUserIds, '#nonExistentUserIdsList', 'User ID not Present');
+                    displayUserIdsD(result.activeUserIds, '#nonExistentUserIdsListActive', 'User ID Status Not Match');
+                } else {
+                    alert("Error: " + result.message);
+                }
+            },
+            error: function (error) {
+                alert("Error occurred while processing the request.");
+                console.error(error);
+            }
+        });
+    };
+    reader.readAsArrayBuffer(file);
+});
+
+        function displayUserIds(userIds, elementId, headerText) {
+            var element = $(elementId);
+            element.empty(); // Clear any existing items
+
+            if (userIds && userIds.length > 0) {
+                // Create a table row for each user ID
+                userIds.forEach(function (userId) {
+                    var row = $('<tr>');
+                    var cell = $('<td>').text(userId);
+                    row.append(cell);
+                    element.append(row);
+                });
+
+                // Display the appropriate section based on the elementId
+                if (elementId === '#activeUserIds') {
+                    $('.ActiveUsertoDisplayA1').show();
+                } else if (elementId === '#nonExistentUserIdsListA') {
+                    $('.ActiveUsertoDisplayA').show();
+                }
+            } else {
+                var row = $('<tr>');
+                var cell = $('<td>').text( headerText );
+                row.append(cell);
+                element.append(row);
+
+                // Hide the appropriate section based on the elementId
+                if (elementId === '#activeUserIds') {
+                    $('.ActiveUsertoDisplayA1').hide();
+                } else if (elementId === '#nonExistentUserIdsListA') {
+                    $('.ActiveUsertoDisplayA').hide();
+                }
+            }
+        }
+
+        function displayUserIdsD(userIds, elementId, headerText) {
+            var element = $(elementId);
+            element.empty(); // Clear any existing items
+
+            if (userIds && userIds.length > 0) {
+                // Create a table row for each user ID
+                userIds.forEach(function (userId) {
+                    var row = $('<tr>');
+                    var cell = $('<td>').text(userId);
+                    row.append(cell);
+                    element.append(row);
+                });
+
+                // Display the appropriate section based on the elementId
+                if (elementId === '#activeUserIds') {
+                    $('.DeactiveUsertoDisplay').show();
+                } else if (elementId === '#nonExistentUserIdsListA') {
+                    $('.DeactiveUsertoDisplay').show();
+                }
+            } else {
+                var row = $('<tr>');
+                var cell = $('<td>').text( headerText );
+                row.append(cell);
+                element.append(row);
+
+                // Hide the appropriate section based on the elementId
+                if (elementId === '#activeUserIds') {
+                    $('.DeactiveUsertoDisplay1').hide();
+                } else if (elementId === '#nonExistentUserIdsListA') {
+                    $('.DeactiveUsertoDisplay1').hide();
+                }
+            }
+        }
+
+  
+
+    });
+
+</script>

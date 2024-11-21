@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    string error = (string)ViewData["error"];
+
+}
+
+<style>
+    .small {
+        font-size: 10px;
+    }
+</style>
+
+@{
+    m2ostnext.Models.UserSession userSession = (m2ostnext.Models.UserSession)ViewData["sessionUser"];
+}
+<script>
+    $("#form-add-cms-user").submit(function (event) {
+        loading_on();
+    });
+    function select_file(btn) {
+
+        $("#txt-select-file").val("" + $("#uploadBtn").val().replace(/C:\\fakepath\\/i, '') + "");
+    }
+</script>
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["AlertMessage"]</div>
+}
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Upload Utility</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row" style="padding-right: 12%;">
+                    <a style="float: right;" href="https://www.m2ost.in/m2ostbeta/Content/AppUserTemplate/UserCreationTemplate.xlsx" download="UploadTemplate">  <input id="" value="Download Template" style=" background: #1ab394; color: white; border: none; padding: 8%;" class="" type="button" /></a>
+                </div>
+                <div class="form-horizontal">
+                    @using (Html.BeginForm("UserUploadDisplay", "UploadUtility", FormMethod.Post, new { id = "form-add-cms-user", enctype = "multipart/form-data" }))
+                    {
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <label for="FirstName" class="control-label ">Select User Upload Excel File   :</label>
+                                        <input type="text" class="form-control validate[required]" readonly placeholder="Select File" id="txt-select-file" name="txt-select-file" />
+                                        <div class="fileUpload btn btn-primary">
+                                            <span>browse excel file </span>
+                                            <input id="uploadBtn" name="uploadBtn" class="upload" type="file" accept=".xls,.xlsx" onchange="select_file()" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <input type="submit" value="Submit" class="btn btn-default" />
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @if (error != "null")
+    {
+        <script>
+            alert("Uploaded Sheet is not in correct format . Please refer template for clarification")
+        </script>
+    }
+</div>
+
+<script type="text/javascript">
+
+
+    //........excel file valdation.........
+    //function select_file() {
+    //var file = $("#uploadBtn")[0].files[0];
+    //var filename = "";
+    // if (file) {
+    // filename = file.name;
+    //var ext = filename.split('.').pop();
+    // if (ext == "xls" || ext == "xlsx") {
+    //     $("#txt-select-file").val(filename);
+    // }
+    //else {
+    // file = null;
+    //$("#txt-select-file").val("");
+    // $("#msg-txt").html("<p>Please select Only Excel File (.xls,.xlsx)</p>");
+    //  $('#m2ost-dialog').modal('show');
+    // }
+    //}
+    // }
+
+
+
+
+
+</script>

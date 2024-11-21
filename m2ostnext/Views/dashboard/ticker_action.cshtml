@@ -1,0 +1,168 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "ticker_action";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    m2ostnext.Models.ticker ticker = (m2ostnext.Models.ticker)ViewData["ticker"];
+
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+<link href="~/Content/ColorPicker/farbtastic.css" rel="stylesheet" />
+<script src="~/Content/ColorPicker/farbtastic.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#tick_add_div").hide();
+        $("#tick_edit_div").hide();
+
+        $(document).ready(function () {
+
+            $('#colorpicker1').farbtastic('#color1');
+
+        });
+        $(document).ready(function () {
+
+            $('#colorpicker2').farbtastic('#color2');
+
+        });
+
+
+
+    });
+    function add_tic() {
+        $("#tick_add_div").show();
+        $("#add_ticker").hide();
+
+
+    }
+    function edit_tic() {
+        $("#tick_edit_div").show();
+        $("#edit_but").hide();
+
+    }
+</script>
+<style>
+    #scroll {
+
+        background:@ticker.background_color;
+        color: @ticker.font_color;;
+    }
+</style>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Content Detail</h6>
+            </div>
+            <div class="panel-body">
+                @if (ticker.ticker_news == null)
+    {
+
+            <br />
+            <h3>No Ticker Data Found</h3>
+            <input type="button" onclick="add_tic()" id="add_ticker" value="Add Ticker" name="btn_submit" class="btn  btn-success" />
+using (Html.BeginForm("add_ticker", "dashboard", FormMethod.Post, new { id = "form_approve_content" }))
+{
+            <div class="row" id="tick_add_div">
+                <div class="row">
+                    <div class="col-md-10">
+                        <label style="padding-left:2%">Enter Ticker</label>
+                        <textarea style="width:100%;padding:2%;margin-left:2%" name="ticker_news" id="ticker_news"></textarea>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+
+                </div>
+                <div class="form-group" style="padding:4%;padding-left:20%;">
+                    <div class="col-md-6">
+
+                        <label>Background</label>
+                        <input type="text" id="color1" name="back_new" value="#e9ebec" />
+                        <div id="colorpicker1"></div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label>Text Color</label>
+                        <input type="text" id="color2" name="font_new" value="#e9ebec" />
+                        <div id="colorpicker2"></div>
+                    </div>
+
+
+                </div>
+                <input style="float:right;margin-right:2%" type="submit" id="add_ticker" value="Submit" name="btn_submit" class="btn  btn-success" />
+
+            </div>
+
+}
+}
+else
+{
+            <marquee behavior="scroll" id="scroll" style=" width: 100%;font-size: 18px;" direction="left">@ticker.ticker_news</marquee>
+
+
+            <br />
+            <br />
+            <input type="button" onclick="edit_tic()" id="edit_but" value="Edit Ticker" style="width:9.25%;" name="btn_submit" class="btn  btn-success" />
+            <br />
+            <br />
+using (Html.BeginForm("delete_ticker", "dashboard", FormMethod.Post, new { id = "form_approve_content" }))
+{
+            <input type="submit" id="" value="Delete Ticker" name="btn_submit" class="btn  btn-success" />
+
+            <input type="hidden" value="@ticker.Id_ticker" name="id" />
+            <br />
+            <br />
+
+}
+using (Html.BeginForm("edit_ticker", "dashboard", FormMethod.Post, new { id = "form_approve_content" }))
+{
+            <div class="row" id="tick_edit_div">
+                <div class="row" id="">
+                    <div class="col-md-10">
+                        <label style="padding: 2%;">Enter Ticker</label>
+                        <textarea name="ticker_news_edit" style="width: 100%;padding: 2%;margin-left: 2%;" id="ticker_news">@ticker.ticker_news</textarea>
+                        <input type="hidden" value="@ticker.Id_ticker" name="id_ticker" />
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+
+                </div>
+                <div class="form-group" style="padding:4%;padding-left:20%;">
+                    <div class="col-md-6">
+
+                        <label>Background</label>
+                        <input type="text" id="color1" name="back" value="@ticker.background_color" />
+                        <div id="colorpicker1"></div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label>Text Color</label>
+                        <input type="text" id="color2" name="font" value="@ticker.font_color" />
+                        <div id="colorpicker2"></div>
+                    </div>
+
+
+                </div>
+                <input style="margin-right: 5%;float:right" type="submit" id="add_ticker" value="Submit" name="btn_submit" class="btn  btn-success" />
+
+            </div>
+
+
+}
+
+}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

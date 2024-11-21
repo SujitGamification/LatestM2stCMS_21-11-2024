@@ -1,0 +1,332 @@
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\m2ostnext.dll.config
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\m2ostnext.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\m2ostnext.pdb
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\csc.exe
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\csc.exe.config
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\csc.rsp
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\csi.exe
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\csi.exe.config
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\csi.rsp
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.AppContext.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Collections.Immutable.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Console.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.Compression.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.FileSystem.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.Pipes.AccessControl.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.Pipes.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Reflection.Metadata.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.AccessControl.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Claims.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Principal.Windows.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.ValueTuple.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Xml.XPath.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\vbc.exe
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\vbc.exe.config
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\vbc.rsp
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\VBCSCompiler.exe
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\roslyn\VBCSCompiler.exe.config
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\Antlr3.Runtime.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\BouncyCastle.Crypto.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\EntityFramework.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\EntityFramework.SqlServer.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\Google.Protobuf.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\K4os.Compression.LZ4.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\K4os.Compression.LZ4.Streams.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\K4os.Hash.xxHash.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\Microsoft.Web.Infrastructure.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\MySql.Data.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\MySql.Data.EntityFramework.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\MySqlConnector.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\Newtonsoft.Json.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\Owin.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Buffers.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Diagnostics.DiagnosticSource.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Memory.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Numerics.Vectors.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Runtime.CompilerServices.Unsafe.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Threading.Tasks.Extensions.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Web.Helpers.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Web.Mvc.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Web.Optimization.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Web.Razor.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.Deployment.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.Razor.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\WebGrease.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\BouncyCastle.Crypto.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\EntityFramework.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\EntityFramework.SqlServer.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\Google.Protobuf.pdb
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\Google.Protobuf.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\K4os.Compression.LZ4.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\K4os.Compression.LZ4.Streams.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\K4os.Hash.xxHash.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\MySql.Data.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\MySql.Data.EntityFramework.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\MySqlConnector.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Buffers.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Diagnostics.DiagnosticSource.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Memory.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Numerics.Vectors.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Runtime.CompilerServices.Unsafe.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Threading.Tasks.Extensions.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Web.Helpers.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Web.Mvc.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Web.Optimization.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Web.Razor.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.Deployment.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.Razor.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\Newtonsoft.Json.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\Antlr3.Runtime.pdb
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\obj\Debug\SkillMuniApp.csproj.CoreCompileInputs.cache
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\obj\Debug\SkillMuniApp.csproj.CopyComplete
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\obj\Debug\m2ostnext.dll
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\obj\Debug\m2ostnext.pdb
+E:\Vidit\Personal\Carl Ambrose\SkillMuniApp\SkillMuniApp\obj\Debug\SkillMuniApp.csprojAssemblyReference.cache
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\obj\Debug\SkillMuniApp.csprojAssemblyReference.cache
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\obj\Debug\SkillMuniApp.csproj.CoreCompileInputs.cache
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\obj\Debug\m2ostnext.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\obj\Debug\m2ostnext.pdb
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\m2ostnext.dll.config
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\m2ostnext.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\m2ostnext.pdb
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\csc.exe
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\csc.exe.config
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\csc.rsp
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\csi.exe
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\csi.exe.config
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\csi.rsp
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.AppContext.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Collections.Immutable.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Console.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.Compression.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.FileSystem.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.Pipes.AccessControl.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.Pipes.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Reflection.Metadata.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.AccessControl.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Claims.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Principal.Windows.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.ValueTuple.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Xml.XPath.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\vbc.exe
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\vbc.exe.config
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\vbc.rsp
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\VBCSCompiler.exe
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\roslyn\VBCSCompiler.exe.config
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\Antlr3.Runtime.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\BouncyCastle.Crypto.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\EntityFramework.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\EntityFramework.SqlServer.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\Google.Protobuf.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\K4os.Compression.LZ4.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\K4os.Compression.LZ4.Streams.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\K4os.Hash.xxHash.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\Microsoft.Web.Infrastructure.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\MySql.Data.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\MySql.Data.EntityFramework.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\MySqlConnector.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\Newtonsoft.Json.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\Owin.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Buffers.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Diagnostics.DiagnosticSource.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Memory.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Numerics.Vectors.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Runtime.CompilerServices.Unsafe.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Threading.Tasks.Extensions.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Web.Helpers.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Web.Mvc.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Web.Optimization.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Web.Razor.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.Deployment.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.Razor.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\WebGrease.dll
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\BouncyCastle.Crypto.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\EntityFramework.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\EntityFramework.SqlServer.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\Google.Protobuf.pdb
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\Google.Protobuf.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\K4os.Compression.LZ4.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\K4os.Compression.LZ4.Streams.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\K4os.Hash.xxHash.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\MySql.Data.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\MySql.Data.EntityFramework.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\MySqlConnector.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Buffers.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Diagnostics.DiagnosticSource.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Memory.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Numerics.Vectors.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Runtime.CompilerServices.Unsafe.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Threading.Tasks.Extensions.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Web.Helpers.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Web.Mvc.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Web.Optimization.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Web.Razor.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.Deployment.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.Razor.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\Newtonsoft.Json.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\Antlr3.Runtime.pdb
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Vidit\Personal\Carl Ambrose\Working Projects\SkillMuniApp\SkillMuniApp\obj\Debug\SkillMuniApp.csproj.CopyComplete
+D:\POC\SkillMuniApp\SkillMuniApp\obj\Debug\SkillMuniApp.csprojAssemblyReference.cache
+D:\POC\SkillMuniApp\SkillMuniApp\obj\Debug\SkillMuniApp.csproj.CoreCompileInputs.cache
+D:\POC\SkillMuniApp\SkillMuniApp\bin\m2ostnext.dll.config
+D:\POC\SkillMuniApp\SkillMuniApp\bin\m2ostnext.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\m2ostnext.pdb
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\csc.exe
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\csc.exe.config
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\csc.rsp
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\csi.exe
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\csi.exe.config
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\csi.rsp
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.Managed.Core.targets
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.AppContext.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Collections.Immutable.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Console.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.Compression.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.FileSystem.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.IO.Pipes.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Reflection.Metadata.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.AccessControl.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Claims.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Security.Principal.Windows.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.ValueTuple.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Xml.XmlDocument.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Xml.XPath.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\vbc.exe
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\vbc.exe.config
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\vbc.rsp
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\VBCSCompiler.exe
+D:\POC\SkillMuniApp\SkillMuniApp\bin\roslyn\VBCSCompiler.exe.config
+D:\POC\SkillMuniApp\SkillMuniApp\bin\Antlr3.Runtime.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\BouncyCastle.Crypto.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\EntityFramework.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\EntityFramework.SqlServer.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\Google.Protobuf.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\K4os.Compression.LZ4.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\K4os.Compression.LZ4.Streams.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\K4os.Hash.xxHash.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\Microsoft.Web.Infrastructure.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\MySql.Data.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\MySql.Data.EntityFramework.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\MySqlConnector.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\Newtonsoft.Json.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\Owin.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Buffers.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Diagnostics.DiagnosticSource.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Memory.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Numerics.Vectors.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Threading.Tasks.Extensions.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Web.Helpers.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Web.Mvc.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Web.Optimization.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Web.Razor.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.Deployment.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.Razor.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\WebGrease.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\BouncyCastle.Crypto.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\EntityFramework.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\EntityFramework.SqlServer.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\Google.Protobuf.pdb
+D:\POC\SkillMuniApp\SkillMuniApp\bin\Google.Protobuf.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\K4os.Compression.LZ4.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\K4os.Compression.LZ4.Streams.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\K4os.Hash.xxHash.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\MySql.Data.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\MySql.Data.EntityFramework.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\MySqlConnector.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Buffers.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Diagnostics.DiagnosticSource.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Memory.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Numerics.Vectors.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Threading.Tasks.Extensions.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Web.Helpers.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Web.Mvc.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Web.Optimization.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Web.Razor.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.Deployment.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\System.Web.WebPages.Razor.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\Newtonsoft.Json.xml
+D:\POC\SkillMuniApp\SkillMuniApp\bin\Antlr3.Runtime.pdb
+D:\POC\SkillMuniApp\SkillMuniApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\POC\SkillMuniApp\SkillMuniApp\obj\Debug\SkillMuniApp.csproj.CopyComplete
+D:\POC\SkillMuniApp\SkillMuniApp\obj\Debug\m2ostnext.dll
+D:\POC\SkillMuniApp\SkillMuniApp\obj\Debug\m2ostnext.pdb
+D:\POC\SkillMuniApp\SkillMuniApp\bin\Microsoft.Owin.dll
+D:\POC\SkillMuniApp\SkillMuniApp\bin\Microsoft.Owin.xml

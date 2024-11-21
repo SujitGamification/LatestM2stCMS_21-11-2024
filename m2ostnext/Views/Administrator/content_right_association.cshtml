@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Content Detail";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+    function getContentReport() {
+        loading_on();
+        var id = $("#category-select").val();
+        var oid = $("#orgs-select").val();
+        var url = '@Url.Action("getContentOrgReport", "Administrator")';
+        var pattern = $("#search-box").val().trim();
+
+        var count = $("#search-box").val().trim().length;
+        if (count > 4 || id > 0) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: id, oid: oid, pattern: pattern },
+              
+                success: function (data) {
+                    $("#display_table").empty().append(data);
+                    $("#report-table").dataTable();
+                    $('html, body').animate({
+                        scrollTop: $('#report-table').offset().top
+                    }, 'slow');
+                    $('#report-table').focus();
+                }
+            });
+        } else {
+
+        }
+        loading_off();
+    }
+
+    function addContentToOrganization(cid)
+    {
+
+        var oid = $("#orgs-select").val();
+        var url = '@Url.Action("TransferContentToOrganization", "Administrator")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { oid: oid,cid:cid },
+          
+            success: function (data) {
+                getContentReport();
+            }
+        });
+    }
+
+
+    function getCategory() {
+        loading_on();
+        var oid = $("#orgs-select").val();
+        var url = '@Url.Action("getCategoryFromOrganization", "Administrator")';
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: oid },
+              
+                success: function (data) {
+                    $("#category-select").empty().append(data);
+                }
+            });
+
+        loading_off();
+    }
+</script>
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Organisation Content Mapping</h6>
+            </div>
+            <div class="panel-body">
+                <h6 class="panel-title">Select Organization Category to filter</h6>
+                <select class="form-control" id="orgs-select" onchange="getCategory()">
+                    @foreach (tbl_organization item in (List<tbl_organization>)ViewData["orgs"])
+                    {
+                        <option value="@item.ID_ORGANIZATION">@item.ORGANIZATION_NAME</option>
+                    }
+                </select>
+                <hr />
+                <h6 class="panel-title">Select Category to filter</h6>
+                <select class="form-control" id="category-select">
+                    <option value="0" selected>Select Category</option>
+                    @foreach (tbl_category item in (List<tbl_category>)ViewData["CategoryList"])
+                    {
+                        <option value="@item.ID_CATEGORY">@item.CATEGORYNAME</option>
+                    }
+
+                </select>
+                <input type="text" class="form-control" placeholder="Search by Content Title (minimum 4 character)" id="search-box" />
+
+                <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentReport()" />
+                <hr />
+                <h5 class="panel-title"> Organization to Transfer</h5>
+                <select class="form-control" id="trnf-orgs-select">
+                    @foreach (tbl_organization item in (List<tbl_organization>)ViewData["orgs"])
+                    {
+                        <option value="@item.ID_ORGANIZATION">@item.ORGANIZATION_NAME</option>
+                    }
+                </select>
+                <hr />
+                <div id="display_table">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

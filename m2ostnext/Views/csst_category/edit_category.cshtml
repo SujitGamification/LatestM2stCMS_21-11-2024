@@ -1,0 +1,342 @@
+﻿@model m2ostnext.tbl_category
+
+@{
+    ViewBag.Title = "Edit Category";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+@{
+    List<tbl_category_tiles>
+    cat_list = (List<tbl_category_tiles>
+        )ViewData["category-list"];
+    tbl_category_tiles tiles = (tbl_category_tiles)ViewData["category-tile"];
+    List<tbl_category_heading>
+        headings = (List<tbl_category_heading>
+            )ViewData["category-heading"];
+}
+
+<script>
+    $(function () {
+        $("#form_edit_category").validationEngine();
+      
+    });
+    function fun_parent_check(val,cat) {
+        if (val == "0") {
+            $("#sub_header").hide();
+            //$("#div-new-header").hide();
+
+        } else {
+            $("#sub_header").show();
+            var url = '@Url.Action("getSubHeaderCheck", "csst_category")';
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: val,cat:cat },
+                
+                success: function (data) {
+                    if (data == 0) {
+                        data = '<span>There are NO Heading Present at this time.</span>';
+                        $("#div-heading-check").empty().append(data);
+                        // $("#div-new-header").show();
+                    }
+                    else {
+                        $("#div-heading-check").empty().append(data);
+                        // $("#div-new-header").show();
+                    }
+
+                }
+            });
+        }
+    }
+
+    function fun_parent_check_edit(val,cat) {
+        if (val == "0") {
+            $("#sub_header").hide();
+            @if (Model.CATEGORY_TYPE == 0)
+            {
+               <text>fun_type_check(0);</text>
+            }
+            else if(Model.CATEGORY_TYPE==3)
+            {
+               <text>fun_type_check(3);</text>
+            }
+            else
+            {
+               <text>fun_type_check(1);</text>
+            }
+            //$("#div-new-header").hide();
+
+        } else {
+            $("#sub_header").show();
+            var url = '@Url.Action("getSelectedSubHeader", "csst_category")';
+            
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: val ,cat:cat},
+               
+                success: function (data) {
+                    var varDef="";
+                    if (data == 0) {
+
+                        data = '<span>There are NO Heading Present at this time.</span>';
+                        $("#div-heading-check-edit").empty().append(data);
+                        // $("#div-new-header").show();
+                    }
+                    else {
+                        $("#div-heading-check-edit").empty().append(data);
+                        // $("#div-new-header").show();
+                    }
+                }
+            });
+        }
+
+    }
+    function select_file() {
+        var file = $("#uploadBtn")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        }
+        $("#ImageFile").val(filename);
+    }
+    function fun_add_heading() {
+        var val = $("#save-heading").val();
+        if (val != "") {
+            var data = '<div class="checkbox"><label><input type="checkbox" class="checkbox checkbox-inline" name="heading-check" value="' + val + ' "/>' + val + '</label></div>';
+            $("#div-heading-check").append(data);
+            $("#save-heading").val("");
+            $("#new-check-heading").hide();
+
+        }
+    }
+
+    function fun_show_heading() {
+        $("#new-check-heading").show();
+    }
+
+    function fun_type_check(value) {
+        if (value == "0") {
+            $("#body-program").show();
+            $("#body-category").hide();
+        } else {
+            $("#body-program").hide();
+            $("#body-category").show();
+        }
+
+        if (value == "3") {
+            $("#link-url-category").show();
+
+        } else {
+            $("#link-url-category").hide();
+        }
+    }
+
+</script>
+
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Edit  Category</h4>
+            </div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm("edit_cms_category", "csst_category", FormMethod.Post, new { id = "form_edit_category", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" name="ID_Category" id="ID_Category" value="@Model.ID_CATEGORY" />
+                    <div class="form-horizontal">
+
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Category Name :</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control validate[required]" value="@Model.CATEGORYNAME" placeholder="Category Name" id="Category" name="Category" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Description:</label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control validate[required]" placeholder="Description" id="Description" name="Description" rows="6">@Model.DESCRIPTION</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="FirstName" class="control-label col-md-2 regLabel">Order No:</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control validate[required]" value="@Model.ORDERID" placeholder="Order No" id="OrderId" name="OrderId" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                        @{
+                    bool flag = true;
+                        }
+                        <input type="hidden" value="0" placeholder="Order No" id="OrderId" name="OrderId" />
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel"> Category Type :</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="type-category" name="type-category" onchange="fun_type_check(this.value)">
+                                            <option value="1" @if (Model.CATEGORY_TYPE == 1) { @(" selected")   }> Is A Category </option>
+                                            <option value="0" @if (Model.CATEGORY_TYPE == 0) { @(" selected")   }> Is A Program </option>
+                                            <option value="2" @if (Model.CATEGORY_TYPE == 2) { @(" selected")   }> Assessment Category</option>
+                                            <option value="3" @if (Model.CATEGORY_TYPE == 3) { @(" selected")   }> External Category Link</option>
+                                            <option value="4" @if (Model.CATEGORY_TYPE == 4) { @(" selected")   }> My Report </option>
+                                            <option value="5" @if (Model.CATEGORY_TYPE == 5) { @(" selected")   }> Team Report </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Is 5-click Required:</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="click-category" name="click-category">
+                                            <option value="0" @if(Model.COUNT_REQUIRED == 0) { @(" selected")  }> Not Required</option>
+                                            <option value="1" @if(Model.COUNT_REQUIRED == 1) { @(" selected")  }> 5-Click Required</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Max Content display :</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="count-category" name="count-category">
+                                            <option value="15" @if (Model.SEARCH_MAX_COUNT == 15) { @( " selected")   }> 15</option>
+                                            <option value="25" @if (Model.SEARCH_MAX_COUNT == 25) { @( " selected")    }> 20</option>
+                                            <option value="30" @if (Model.SEARCH_MAX_COUNT == 30) { @( " selected")    }> 30</option>
+                                            <option value="50" @if (Model.SEARCH_MAX_COUNT == 50) { @( " selected")    }> 50</option>
+                                            <option value="75" @if (Model.SEARCH_MAX_COUNT == 75) { @( " selected")    }> 75</option>
+                                            <option value="100" @if (Model.SEARCH_MAX_COUNT == 100) { @( " selected")    }> 100</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="body-program">
+                            <input type="hidden" name="parent-category-h" value="0" />
+                        </div>
+
+                        <div id="body-category">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="FirstName" class="control-label col-md-2 regLabel"> Selected  Headings:</label>
+                                        <div class="col-md-6" id="div-heading-check-edit">
+                                            @if (headings.Count > 0)
+                                            {
+                                                foreach (tbl_category_heading item in headings)
+                                                {
+                                                    <div class="checkbox"><label><input class="checkbox checkbox-inline" checked type="checkbox" name="heading-check-edit" value="@item.id_category_heading" /> @item.Heading_title </label></div>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span>There are No Heading Present at this time.</span>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="FirstName" class="control-label col-md-2 regLabel">Category Tile:</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" id="parent-category" name="parent-category" onchange="fun_parent_check(this.value,@Model.ID_CATEGORY)">
+                                                <option value="0"> Not Applicable</option>
+
+                                                @foreach (tbl_category_tiles items in cat_list)
+                                                {
+                                                    <option value="@items.id_category_tiles" @if (tiles.id_category_tiles == items.id_category_tiles)
+                                                    { @(" selected")  flag = false;
+                                                    }> @items.tile_heading</option>
+                                                }
+                                                @if (flag)
+                                                {
+                                                    <option value="0"> Category is a Parent</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="sub_header" style="display:none;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="FirstName" class="control-label col-md-2 regLabel"> Select  Headings:</label>
+                                            <div class="col-md-6" id="div-heading-check">
+
+                                            </div>
+
+                                            <div class="col-md-3">                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Image:</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control " readonly value="@Model.IMAGE_PATH" placeholder="Choose Image" id="ImageFile" name="ImageFile" />
+                                        <div class="fileUpload btn btn-primary">
+                                            <span>Browse Image</span>
+                                            <input id="uploadBtn" name="uploadBtn" class="upload" type="file" accept="image/*" onchange="select_file()" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="link-url-category" style="@if (Model.CATEGORY_TYPE != 3) { @(" display:none") };">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Redirection URL : </label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control validate[required,custom[url]]" value="@Model.IMAGE_URL" placeholder="" id="red_url" name="red_url" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Update" class="btn btn-default" />
+                                <a style="margin-left:5px;" href="@Url.Action("Index", "dashboard" )" class="btn btn-default  pull-right">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>

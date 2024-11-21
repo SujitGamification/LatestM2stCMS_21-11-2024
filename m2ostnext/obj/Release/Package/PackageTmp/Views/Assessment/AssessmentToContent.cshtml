@@ -1,0 +1,243 @@
+﻿@{
+    ViewBag.Title = "M2OST";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    tbl_assessment assessment = (tbl_assessment)ViewData["assessment"];
+    tbl_assessment_sheet assessment_sheet = (tbl_assessment_sheet)ViewData["assessment_sheet"];
+    List<tbl_content> contents = (List<tbl_content>)ViewData["contentlist"];
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+    function getAssessmentContent() {
+        loading_on();
+        var aid = $("#hidden-val").val();
+        var id = $("#category-select").val();
+        var url = '@Url.Action("getAssessmentContent", "Assessment")';
+        var pattern = $("#search-box").val().trim();
+
+        var count = $("#search-box").val().trim().length;
+        if (count > 4 || id > 0) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: id, pattern: pattern, aid: aid },
+
+                success: function (data) {
+                    $("#display_table").empty().append(data);
+                    $("#report-table").dataTable();
+
+                }
+            });
+        } else {
+
+        }
+        loading_off();
+    }
+</script>
+
+
+<script>
+
+
+    function addAssessmentToContent(cid) {
+        var id = $("#hidden-val").val();
+        var url = '@Url.Action("addAssessmentToContent", "Assessment")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id, cid: cid },
+
+            success: function (data) {
+                getAssessmentContent();
+            }
+        });
+    }
+
+
+    function removeContenFromAssessment(cid) {
+        var id = $("#hidden-val").val();
+        var url = '@Url.Action("removeContenFromAssessment", "Assessment")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id, cid: cid },
+
+            success: function (data) {
+                getAssessmentContent();
+                $("#row_" + cid).remove();
+            }
+        });
+    }
+</script>
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Link Assessment to Content</h6>
+            </div>
+            <div class="panel-body custom-panel-body">
+                <input type="hidden" value="@assessment_sheet.id_assessment_sheet" id="hidden-val" />
+                <div class="col-md-12 column">
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <strong class="pull-right">Assessment </strong>
+                            </div>
+                            <div class="col-md-10">
+                                <pre>@assessment.assessment_title</pre>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <strong class="pull-right">Assessment Created </strong>
+                            </div>
+                            <div class="col-md-10">
+                                <pre>@assessment.assess_created.Value.ToShortDateString()</pre>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <strong class="pull-right">Assessment Started </strong>
+                            </div>
+                            <div class="col-md-10">
+                                <pre>@assessment.assess_start.Value.ToShortDateString()</pre>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <strong class="pull-right">Assessment End Date </strong>
+                            </div>
+                            <div class="col-md-10">
+                                <pre>@assessment.assess_ended.Value.ToShortDateString()</pre>
+                            </div>
+                        </div>
+
+                        @if (assessment.assess_group == 3)
+                        {
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <strong class="pull-right">Value Range </strong>
+                                </div>
+                                <div class="col-md-10">
+                                    <pre>(@(" " + assessment.lower_title + " : " + assessment.lower_value + "  " + assessment.high_title + " : " + assessment.high_value))</pre>
+                                </div>
+                            </div>
+                        }
+
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <strong class="pull-right">Assessment Type </strong>
+                            </div>
+                            <div class="col-md-10">
+                                <pre>
+                        @if (assessment.assess_group == 1)
+                        {
+                            @("Q & A")
+                        }
+                        else if (assessment.assess_group == 2)
+                        {
+                            @("Q & A (no right answer)")
+                        }
+                        else if (assessment.assess_group == 3)
+                        {
+                           @("Range")                        
+                        }
+                        else if (assessment.assess_group == 4)
+                        {
+                             @("Rank")
+                        }
+                        </pre>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <strong class="pull-right">Display Type </strong>
+                            </div>
+                            <div class="col-md-10">
+                                <pre>
+                        @if (assessment.assess_type == "1")
+                        {
+                            @("Pre Assessment")
+                        }
+                        else if (assessment.assess_type == "2")
+                        {
+                            @("Post Assessment")
+                        }
+                        else
+                        {
+                            @("Pre and Post Assessment")
+                        }
+                        </pre>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <strong class="pull-right">View Assessment </strong>
+                            </div>
+                            <div class="col-md-10">
+                                <pre>
+                                <a href="@Url.Action("LoadAssessment", "Assessment", new { id = assessment.id_assessment })" target="_blank"><i class="glyphicon glyphicon-text-background"></i></a>
+                        </pre>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+
+
+                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="90%">Content/Activity</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (tbl_content item in contents)
+                        {
+                            <tr id="row_@item.ID_CONTENT">
+                                <td>
+                                    @item.CONTENT_QUESTION
+                                </td>
+                                <td>
+                                    <a href="#" onclick="removeContenFromAssessment('@item.ID_CONTENT')"><i class="glyphicon glyphicon-remove"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <hr />
+
+                <h6 class="panel-title">Select Category to filter</h6>
+                <select class="form-control" id="category-select">
+                    <option value="0" selected>Select Category</option>
+                    @foreach (tbl_category item in (List<tbl_category>)ViewData["CategoryList"])
+                    {
+                        <option value="@item.ID_CATEGORY">@item.CATEGORYNAME</option>
+                    }
+
+                </select>
+                <input type="text" class="form-control" placeholder="Search by Content Title (minimum 4 character)" id="search-box" />
+
+                <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getAssessmentContent()" />
+                <div id="display_table">
+
+                </div>
+                <hr />
+                <a href="@Url.Action("Index", "Assessment")" class="btn btn-default">Done</a>
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>

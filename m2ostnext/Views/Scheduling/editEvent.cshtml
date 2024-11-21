@@ -1,0 +1,699 @@
+﻿@{
+    ViewBag.Title = "Scheduling Event";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+
+        $("#form-add-scheduling").validationEngine();
+
+        $("#datetimepicker1").datetimepicker({
+            minDate: 0,
+            dateFormat: "dd-mm-yy",
+            onSelect: function (selected) {
+                var date = $(this).datetimepicker('getDate');
+                date.setDate(date.getDate());
+                $("#datetimepicker2").datetimepicker("option", "minDate", date);
+                $('#datetimepicker2').val('');
+            }
+        });
+
+        $("#datetimepicker2").datetimepicker({
+            dateFormat: "dd-mm-yy",
+            onSelect: function (selected) {
+                var date = $(this).datepicker('getDate');
+                date.setDate(date.getDate());
+                $("#datetimepicker3").datetimepicker("option", "minDate", date);
+                $('#datetimepicker3').val('');
+            }
+        });
+
+
+        $("#datetimepicker3").datetimepicker({
+            dateFormat: "dd-mm-yy",
+            onSelect: function (selected) {
+                //var date = $(this).datepicker('getDate');
+                //date.setDate(date.getDate());
+                //$("#datetimepicker4").datetimepicker("option", "minDate", date);
+                //$('#datetimepicker4').val('');
+            }
+        });
+        // $("#datetimepicker4").datetimepicker(
+        //   { dateFormat: "dd-mm-yy" }
+        //);
+
+    });
+
+
+
+    function fun_event_group_type(val) {
+        if (val == "1") {
+            $("#div-event-group-f2f").show();
+            $("#div-event-group-online").hide();
+            $("#div-event-group-m2ost").hide();
+        } else if (val == "2") {
+            $("#div-event-group-f2f").hide();
+            $("#div-event-group-online").show();
+            $("#div-event-group-m2ost").hide();
+        } else if (val == "3") {
+            $("#div-event-group-f2f").hide();
+            $("#div-event-group-online").hide();
+            $("#div-event-group-m2ost").show();
+        }
+    }
+
+    function fun_event_attachment_type(val) {
+
+        if (val == "1") {
+            $("#div-program").show();
+            $("#div-assessment").hide();
+            $("#div-program-image").hide();
+
+        } else if (val == "2") {
+            $("#div-program").hide();
+            $("#div-assessment").show();
+            $("#div-program-image").show();
+        }
+    }
+
+    function fun_event_type(val) {
+        if (val == "1") {
+            $("#div-close-event").show();
+        } else if (val == "2") {
+            $("#div-close-event").hide();
+        }
+    }
+    function fun_program_duration_type(val) {
+        if (val == "1") {
+            $("#div-program-duration-fixed").hide();
+        } else if (val == "2") {
+            $("#div-program-duration-fixed").show();
+        }
+    }
+
+
+    function select_file() {
+        var file = $("#uploadBtn")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        }
+        $("#ImageFile").val(filename);
+    }
+
+
+    function fun_parent_check(val) {
+        $("#sub_header").show();
+        var url = '@Url.Action("getSubHeader", "contentDashboard")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: val },
+            success: function (data) {
+                $("#heading-category").empty().append(data);
+            }
+        });
+    }
+
+    function fun_event_response_type(val) {
+        if (val == 1) {
+            $("#div-event-approval").show();
+        } else {
+            $("#div-event-approval").hide();
+        }
+    }
+
+</script>
+@{
+    tbl_scheduled_event sEvent = (tbl_scheduled_event)ViewData["event"];
+    List<tbl_category> program = (List<tbl_category>)ViewData["program"];
+    List<tbl_category> category = (List<tbl_category>)ViewData["category-list"];
+    List<tbl_assessment> assessment = (List<tbl_assessment>)ViewData["assessment"];
+    List<string> designation = (List<string>)ViewData["designation"];
+    List<tbl_category_tiles> catList = (List<tbl_category_tiles>)ViewData["categorytile-list"];
+    tbl_category_heading heading = (tbl_category_heading)ViewData["cHeading"];
+}
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Edit Event</h4>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("editEventAction", "Scheduling", FormMethod.Post, new { id = "form-add-scheduling" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        <div class="row">
+                            <div class="col-md-9"></div>
+                                <div class="col-md-3">
+                                    <a style="margin-left:5px;" href="@Url.Action("Index", "Scheduling")" class="btn btn-default  pull-right">Close&nbsp;<i class="glyphicon glyphicon-log-out"></i></a>
+                                </div>
+                            </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <strong>Duration Title   </strong>
+                            </div>
+                            <div class="col-md-9">
+                                <strong>
+                                    @if (sEvent.program_duration_type == 1)
+                                    { @(" Open ")}
+                                    else if (sEvent.program_duration_type == 2)
+                                    { @("Closed")}
+                                </strong>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <strong>Program Type   </strong>
+                            </div>
+                            <div class="col-md-9">
+                                <strong>
+                                    @if (sEvent.event_group_type == 1)
+                                    { @(" Face to Face ")}
+                                    else if (sEvent.event_group_type == 2)
+                                    { @(" Online ")}
+                                    else if (sEvent.event_group_type == 3)
+                                    { @("M2OST")}
+                                </strong>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <strong>Event Type  </strong>
+                            </div>
+                            <div class="col-md-9">
+                                <strong>
+                                    @if (sEvent.event_type == 1)
+                                    { @(" Open Event ")}
+                                    else if (sEvent.event_type == 2)
+                                    { @(" Closed Event ")}
+
+                                </strong>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <strong>User Response Required   </strong>
+                            </div>
+                            <div class="col-md-9">
+                                <strong>
+                                    @if (sEvent.is_response == "1")
+                                    { @(" Yes ")  }
+                                    else if (sEvent.is_response == "2")
+                                    { @(" No ")  }
+
+                                </strong>
+                            </div>
+                        </div>
+                        @if (sEvent.is_response == "1")
+                        {
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <strong>RM Approval Required   </strong>
+                                </div>
+                                <div class="col-md-9">
+                                    <strong>
+                                        @if (sEvent.is_approval == "1")
+                                        { @(" Yes ")}
+                                        else if (sEvent.is_approval == "2")
+                                        { @(" No ")}
+
+                                    </strong>
+                                </div>
+                            </div>
+                        }
+                        <div class="row">
+                            <div class="col-md-3">
+                                <strong>Can User Unsubscribe  </strong>
+                            </div>
+                            <div class="col-md-9">
+                                <strong>
+                                    @if (sEvent.is_unsubscribe == "1")
+                                    { @(" Yes ")  }
+                                    else if (sEvent.is_unsubscribe == "2")
+                                    { @(" No ")  }
+
+                                </strong>
+                            </div>
+                        </div>
+
+
+                        <input type="hidden" value="@sEvent.event_group_type" name="event-group-type" id="event-group-type" />
+                        <input type="hidden" value="@sEvent.program_duration_type" name="event-duration-flag" id="event-duration-flag" />
+                        <input type="hidden" value="@sEvent.attachment_type" name="event-attachment-type" id="event-attachment-type" />
+                        <input type="hidden" value="@sEvent.event_type" name="event-type-flag" id="event-type-flag" />
+
+                        <input type="hidden" value="@sEvent.is_approval" name="event-approval-flag" id="event-approval-flag" />
+                        <input type="hidden" value="@sEvent.is_response" name="event-response-flag" id="event-response-flag" />
+                        <input type="hidden" value="@sEvent.is_unsubscribe" name="event-unsubscribe-flag" id="event-unsubscribe-flag" />
+                        <hr />
+                        <input type="hidden" value="@sEvent.id_scheduled_event" name="id_scheduled_event" id="id_scheduled_event" />
+
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Event Title</label></div>
+                            <div class="col-md-9">
+                                <input type="text" maxlength="500" class="form-control validate[required]" value="@sEvent.event_title" placeholder="" id="event-title" name="event-title" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Event Description</label></div>
+                            <div class="col-md-9">
+                                <textarea name="event-desc" maxlength="1000" class="form-control validate[required]" placeholder="Event Description" rows="4">@sEvent.event_description</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Event Objective</label></div>
+                            <div class="col-md-9">
+                                <textarea name="event-objective" maxlength="1000" class="form-control validate[required]" placeholder="" rows="4">@sEvent.program_objective</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Registration Start Date</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker1' name="event-reg-start" value="@sEvent.registration_start_date.Value.ToString("dd-MM-yyyy HH:mm")" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Registration End Date</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker2' name="event-reg-end" value="@sEvent.registration_end_date.Value.ToString("dd-MM-yyyy hh:mm")" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Event Time</label></div>
+                            <div class="col-md-5">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker3' name="event-time" value="@sEvent.event_start_datetime.Value.ToString("dd-MM-yyyy HH:mm")" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<div class="form-group" id="type-select-div">
+                                <div class="col-md-3"><label class="control-label">Duration Type </label></div>
+                                <div class="col-md-5">
+                                    <select id="event-duration-flag" name="event-duration-flag" class="form-control " onchange="fun_program_duration_type(this.value)">
+                                        <option @if (sEvent.program_duration_type == 1) { @(" selected")           } value="1">Open</option>
+                                        <option @if (sEvent.program_duration_type == 2) { @(" selected")           } value="2">Close</option>
+                                    </select>
+                                </div>
+                            </div>*@
+
+                        @{
+                                    string pDtype = "display:none;";
+                                    string pdUnit = "";
+                                    if (sEvent.program_duration_type == 1)
+                                    {
+                                    }
+                                    else
+                                    {
+                                        pDtype = "";
+                                        pdUnit = sEvent.program_duration_unit;
+                                    }
+                        }
+                        <div class="form-group" id="div-program-duration-fixed" style="@pDtype">
+                            <div class="col-md-3"><label class="control-label">Event Duration </label></div>
+                            <div class="col-md-1">
+                                <input type="text" maxlength="3" class="form-control validate[required,custom[number]] " value="@sEvent.program_duration" placeholder="" id="program-duration" name="program-duration" />
+                            </div>
+                            <div class="col-md-3">
+                                <select id="program-duration-unit" name="program-duration-unit" class="form-control ">
+                                    <option @if (pdUnit == "H") { @(" selected")                    } value="H">Hour</option>
+                                    <option @if (pdUnit == "D") { @(" selected")                    } value="D">Day</option>
+                                    <option @if (pdUnit == "W") { @(" selected")                    } value="W">Week</option>
+                                    <option @if (pdUnit == "M") { @(" selected")                    } value="M">Month</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <br />
+                            </div>
+                        </div>
+
+                        @{
+string evType1 = "display:none;";
+string evType2 = "display:none;";
+string evType3 = "display:none;";
+if (sEvent.event_group_type == 1)
+{
+    evType1 = "";
+}
+else if (sEvent.event_group_type == 2)
+{
+    evType2 = "";
+}
+else if (sEvent.event_group_type == 3)
+{
+    evType3 = "";
+}
+                        }
+
+                        <div id="div-event-group-f2f" style="@evType1">
+
+                            <div class="form-group">
+                                <div class="col-md-3"><label class="control-label">Event Venue</label></div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control validate[required]" value="@sEvent.program_venue" placeholder="" id="event-venue" name="event-venue" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3"><label class="control-label">Event Location</label></div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control validate[required]" value="@sEvent.program_location" placeholder="" id="event-location" name="event-location" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-3"><label class="control-label">F2F Additional Info</label></div>
+                                <div class="col-md-9">
+                                    <textarea name="f2f-aditional" class="form-control " placeholder="Optional" rows="4">@sEvent.event_additional_info</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="div-event-group-online" style="@evType2">
+
+                            <div class="form-group">
+                                <div class="col-md-3"><label class="control-label">Online Event Description</label></div>
+                                <div class="col-md-9">
+                                    <textarea name="online-aditional" class="form-control validate[required]" placeholder="Optional" rows="4">@sEvent.event_additional_info</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3"><label class="control-label">Online Link</label></div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control validate[required,custom[url]]" value="http://" placeholder="@sEvent.event_online_url" id="event-url" name="event-url" />
+                                </div>
+                            </div>
+                        </div>
+                        <div id="div-event-group-m2ost" style="@evType3">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <strong>Program Attachment   </strong>
+                                </div>
+                                <div class="col-md-9">
+                                    <strong>Program Attachment    </strong><strong>
+                                        @if (sEvent.attachment_type == 1)
+                                        { @(" Program is Attached ")}
+                                        else if (sEvent.attachment_type == 2)
+                                        { @(" Assessment is Attached ")}
+                                    </strong>
+                                </div>
+                            </div>
+
+                            @*<div class="form-group">
+                                    <div class="col-md-3"><label class="control-label">Program Attachment</label></div>
+                                    <div class="col-md-5">
+                                        <select id="event-attachment-type" name="event-attachment-type" class="form-control " onchange="fun_event_attachment_type(this.value)">
+                                            <option value="" disabled selected>Select Attachment Type</option>
+                                            <option @if (sEvent.attachment_type == 1) { @(" selected")           } value="1">Program</option>
+                                            <option @if (sEvent.attachment_type == 2) { @(" selected")           } value="2">Assessment</option>
+                                        </select>
+                                    </div>
+                                </div>*@
+                            @{
+
+                                        string ppType = "display:none;";
+                                        string paType = "display:none;";
+                                        if (sEvent.attachment_type == 1)
+                                        {
+                                            ppType = "";
+                                        }
+                                        else if (sEvent.attachment_type == 2)
+                                        {
+                                            paType = "";
+                                        }
+                            }
+
+                            <div id="div-program" style="@ppType">
+                                <div class="form-group">
+                                    <div class="col-md-3"><label class="control-label">Select Program</label></div>
+                                    <div class="col-md-5">
+                                        <select id="event-category-program" name="event-category-program" class="form-control ">
+                                            @if (program != null)
+                                            {
+                                                foreach (tbl_category item in program)
+                                                {
+                                                    if (sEvent.id_category == item.ID_CATEGORY)
+                                                    {
+                                                        <option selected value="@item.ID_CATEGORY">@item.CATEGORYNAME</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@item.ID_CATEGORY">@item.CATEGORYNAME</option>
+                                                    }
+
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4"><br /></div>
+                                </div>
+                                <hr />
+                                <div class="form-group">
+                                    <div class="col-md-3"><label class="control-label">Category Tile </label></div>
+                                    <div class="col-md-5">
+                                        <select class="form-control" id="tile-category" name="tile-category" onchange="fun_parent_check(this.value)">
+                                            <option value="" disabled selected>Select Category Tile</option>
+                                            @if (catList != null)
+                                            {
+                                                foreach (tbl_category_tiles items in catList)
+                                                {
+                                                    if (sEvent.id_category_tile == items.id_category_tiles)
+                                                    {
+                                                        <option selected value="@items.id_category_tiles"> @items.tile_heading</option>}
+                                                    else
+                                                    {
+                                                        <option value="@items.id_category_tiles"> @items.tile_heading</option>
+
+                                                    }
+
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4"><br /></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3"><label class="control-label">Category Heading</label></div>
+                                    <div class="col-md-5">
+                                        <select class="form-control" id="heading-category" name="heading-category">
+                                            @if (heading != null)
+                                            {
+                                                <option value="@heading.id_category_heading" selected>@heading.Heading_title</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="" disabled selected>Select Category Heading</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4"><br /></div>
+
+                                </div>
+                            </div>
+                            <div id="div-assessment" style="@paType">
+                                <div class="form-group">
+                                    <div class="col-md-3"><label class="control-label">Select Assessment</label></div>
+                                    <div class="col-md-5">
+                                        <select id="event-category-assessment" name="event-category-assessment" class="form-control ">
+                                            @if (assessment != null)
+                                            {
+                                                foreach (tbl_assessment item in assessment)
+                                                {
+                                                    <option value="@item.id_assessment">@item.assessment_title</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4"><br /></div>
+                                </div>
+                                <hr />
+                                <div class="form-group">
+                                    <div class="col-md-3"><label class="control-label">Select Category</label></div>
+                                    <div class="col-md-5">
+                                        <select id="event-assessment-category" name="event-assessment-category" class="form-control ">
+                                            @if (category != null)
+                                            {
+                                                foreach (tbl_category item in category)
+                                                {
+                                                    <option value="@item.ID_CATEGORY">@item.CATEGORYNAME</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4"><br /></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Facilitator name</label></div>
+                            <div class="col-md-9">
+                                <input type="text" maxlength="250" class="form-control validate[required]" value="@sEvent.facilitator_name" placeholder="" id="event-program-facilitator" name="event-program-facilitator" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3"><label class="control-label">Facilitator Organization</label></div>
+                            <div class="col-md-9">
+                                <input type="text" maxlength="500" class="form-control validate[required]" value="@sEvent.facilitator_organization" placeholder="" id="event-program-f-org" name="event-program-f-org" />
+                            </div>
+                        </div>
+
+                        @{
+                                            string pImage = "";
+                                            if (sEvent.event_group_type == 3 && sEvent.attachment_type == 1)
+                                            {
+                                                pImage = "display:none;";
+                                            }
+                        }
+                        <div class="form-group" id="div-program-image" style="@pImage">
+                            <div class="col-md-3"><label class="control-label">Program Image</label></div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-8" style="padding-right:1px;">
+                                        <input type="text" class="form-control" readonly value="@sEvent.program_image" placeholder="Choose Image" id="ImageFile" name="ImageFile" />
+                                    </div>
+                                    <div class="col-md-2" style="padding-left:1px;">
+                                        <div class="fileUpload btn btn-primary">
+                                            <span>Browse </span>
+                                            <input id="uploadBtn" name="uploadBtn" class="upload" type="file" accept="image/*" onchange="select_file()" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+
+
+                        @*<div class="form-group" id="type-select-div">
+                                <div class="col-md-3"><label class="control-label">Event Type </label></div>
+                                <div class="col-md-5">
+                                    <select id="event-type-flag" name="event-type-flag" class="form-control " onchange="fun_event_type(this.value)">
+                                        <option value="1">Open</option>
+                                        <option value="2">Close</option>
+                                    </select>
+                                </div>
+                            </div>*@
+
+                        @{
+                                            string eoType = "display:none;";
+                                            string ecType = "display:none;";
+                                            if (sEvent.event_type == 1)
+                                            {
+                                                eoType = "";
+                                            }
+                                            else if (sEvent.event_type == 2)
+                                            {
+                                                ecType = "";
+                                            }
+                        }
+
+                        <div id="div-close-event" style="@eoType">
+                            <div class="form-group">
+                                <div class="col-md-3"><label class="control-label">No of Participants</label></div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control validate[required,custom[number]]" value="@sEvent.no_of_participants" placeholder="" id="event-participant" name="event-participant" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <label class="control-label">Select Participant Level</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="row">
+                                        @if (designation != null)
+                                        {
+                                            string deLst = sEvent.participant_level;
+                                            string[] pList = deLst.Split(',');
+
+                                            foreach (string item in designation)
+                                            {
+                                                string chFlag = "";
+                                                foreach (string str in pList)
+                                                {
+                                                    if (str.Trim().ToUpper() == item.Trim().ToUpper())
+                                                    {
+                                                        chFlag = " checked ";
+                                                    }
+                                                }
+
+                                                <div class="col-md-2">
+                                                    <label><input class="checkbox checkbox-inline" @chFlag type="checkbox" name="event-participant-level" value="@item.ToLower()" /> @item </label>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        @*<div class="form-group">
+                                <div class="col-md-3"><label class="control-label">User Response Required </label></div>
+                                <div class="col-md-5">
+                                    <select id="event-response-flag" name="event-response-flag" class="form-control " onchange="fun_event_response_type(this.value)">
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div-event-approval">
+                                <div class="col-md-3"><label class="control-label">RM Approval Required </label></div>
+                                <div class="col-md-5">
+                                    <select id="event-approval-flag" name="event-approval-flag" class="form-control ">
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div-event-approval">
+                                <div class="col-md-3"><label class="control-label">Can User Unsubscribe  </label></div>
+                                <div class="col-md-5">
+                                    <select id="event-unsubscribe-flag" name="event-unsubscribe-flag" class="form-control ">
+                                        <option value="2">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                </div>
+                            </div>*@
+
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-9">
+                                <input type="submit" value="Update" name="btn_submit" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

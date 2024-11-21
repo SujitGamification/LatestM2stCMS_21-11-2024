@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "Add Category";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script>
+    $(function () {
+        $("#form_add_cms_role").validationEngine();
+    });
+
+    function checkRoleName() {
+
+        var uname = $("#cms_role").val();
+        var url = '@Url.Action("check_cms_role_name", "Administrator")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { uname: uname },
+          
+            success: function (data) {
+                if (data == "0") {
+                    $("#inputusernameerror").show("slow");
+                    setTimeout(function () {
+                        $("#cms_role").val("");
+                        $("#inputusernameerror").hide("slow");
+                    }, 3000);
+
+                }
+            }
+        });
+    }
+</script>
+
+@{
+    List<tbl_cms_role_action> action = (List<tbl_cms_role_action>)ViewData["cms_roles"];
+    List<tbl_organization> orgl = (List<tbl_organization>)ViewData["orglist"];
+    m2ostnext.Models.UserSession userSession = (m2ostnext.Models.UserSession)ViewData["sessionUser"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Add CMS Role</h4>
+            </div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm("add_cms_role_action", "Administrator", FormMethod.Post, new { id = "form_add_cms_role" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (userSession.USER.cmd_user_type == 0)
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="FirstName" class="control-label col-md-2 regLabel">Organization :</label>
+
+                                        <div class="col-md-5">
+                                            <select id="select-org" name="select-org" class="form-control">
+                                                @foreach (tbl_organization item in orgl)
+                                                {
+                                                    <option value="@item.ID_ORGANIZATION">@item.ORGANIZATION_NAME</option>
+                                                }
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <input type="hidden" value="@userSession.id_ORGANIZATION" id="select-org" name="select-org" />
+                        }
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">CMS Role Name :</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control validate[required]" value="" placeholder="Role Name" id="cms_role" name="cms_role" onchange="checkRoleName()" />
+                                        <label id="inputusernameerror" class="error" style="display: none">Role Name already exist .Use some other Role Name</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Description:</label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control validate[required]" placeholder="Description" id="Description" name="description" rows="6"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-2">
+                                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Functiom</th>
+                                            <th>Description</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (tbl_cms_role_action item in action)
+                                        {
+                                            <tr>
+                                                <td>@item.cms_role_action</td>
+                                                <td>@item.description</td>
+                                                <td>
+                                                    @*<div class="checkbox pending_lable">*@
+                                                    <div class="">
+                                                        <label><input type="checkbox" id="@item.id_cms_role_action" value="@item.id_cms_role_action" name="role_check">&nbsp;</label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+                <hr />
+
+
+            </div>
+        </div>
+    </div>
+</div>

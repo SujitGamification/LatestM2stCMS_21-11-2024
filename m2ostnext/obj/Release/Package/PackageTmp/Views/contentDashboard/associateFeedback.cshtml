@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "associateFeedback";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+
+@{
+
+    List<m2ostcms.Models.FeddbackAssosiation> result = (List<m2ostcms.Models.FeddbackAssosiation>)ViewData["feedback"];
+    tbl_feedback_bank feedback = (tbl_feedback_bank)ViewData["parent"];
+}
+
+<script>
+    function generate_association() {
+
+        var rowcount = $("#rowCount").val();
+        var atarray = [];
+        for (var i = 1; i <= rowcount; i++) {
+            var rowids = 0;
+            var strpids = "";
+            var rowid = $("#ans-" + i).is(':checked');
+            if (rowid) {
+                rowids = $("#ans-" + i).val();
+            }
+            var colcount = $("#hid-" + i).val();
+            for (var j = 1; j <= colcount; j++) {
+                var colid = $("#stp-" + i + "-" + j).is(':checked');
+                if (colid) {
+                    coids = $("#stp-" + i + "-" + j).val();
+                    strpids += coids + ",";
+                }
+            }
+            atarray.push({
+                'rows': rowids,
+                'colids': strpids
+            });
+        }
+
+        var feedid=$("#id-feedback").val();
+        var jsonpass = JSON.stringify({ contents: atarray,feedid:feedid });
+
+        var url = '@Url.Action("attachFeedback", "contentDashboard")';
+       
+        $.ajax({
+            type: 'POST',
+            url: url,                 
+            data: jsonpass,
+            dataType: 'json',
+            contentType: "application/json",
+            success: function (data) {
+
+            }
+        });
+
+        location.reload();
+
+    }
+</script>
+<div id="pagecontent_dashboard" class="container">
+    <div class="row clearfix">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Feedback Detail</h6>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4"><a href="@Url.Action("feedbackCreation", "contentDashboard")" class="btn btn-default">Add Feedback</a>&nbsp;<br /></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <a href="#" class="btn btn-default pull-right" onclick="generate_association()">Attach Feedback</a>&nbsp;<br />
+                     
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" value="@feedback.ID_FEEDBACK_BANK" id="id-feedback"/>
+                        <table class="table table-striped">
+                            <tr><td>Selected FEEDBACK : @feedback.FEEDBACK_NAME : @feedback.FEEDBACK_QUESTION</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="display_table">
+                    <table id="feedback-table" class="table table-striped">
+                        @{ int rowcount = 0;}
+                        @foreach (m2ostcms.Models.FeddbackAssosiation feeds in result)
+                        {
+                            rowcount++;
+                            <tr id="ans-@rowcount-">
+                                <td width="5%">
+                                    <div class="checkbox-inline">
+                                        <input type="checkbox" class="" id="ans-@rowcount" value="@feeds.Answers.ID_CONTENT_ANSWER" name="check_answer">
+                                    </div>
+                                </td>
+                                <td width="85%" colspan="2">
+                                    <span> @feeds.Answers.CONTENT_ANSWER1 ....</span>
+                                </td>
+                            </tr>
+
+
+
+                            int colcount = 0;
+
+                            foreach (tbl_content_answer_steps items in feeds.AnswerStep)
+                            {
+                                colcount++;
+                                <tr id="stp-@items.ID_ANSWER_STEP">
+                                    <td width="5%">&nbsp;</td>
+                                    <td width="5%">
+                                        <div class="checkbox-inline">
+                                            <input type="checkbox" class="" id="stp-@rowcount-@colcount" value="@items.ID_ANSWER_STEP" name="check_step">
+                                        </div>
+                                    </td>
+                                    <td width="85%">
+                                        <span> @items.ANSWER_STEPS_PART1</span>
+                                    </td>
+                                </tr>
+                            }
+                            <input type="hidden" id="hid-@rowcount" value="@colcount" />
+                        }
+
+                        <input type="hidden" id="rowCount" value="@rowcount" />
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

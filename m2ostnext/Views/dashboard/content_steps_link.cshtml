@@ -1,0 +1,320 @@
+﻿@{
+    ViewBag.Title = "Content Link Steps";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<script>
+    $(function () {
+        $("#div_web_link").hide();
+        $("#div_file_multy").show();
+        $("#form_answer_content").validationEngine();
+    });
+
+    function deleteContentConfirm() {
+        var id = $("#hidden-val").val();
+        var url = '@Url.Action("DeleteContentSteps", "dashboard")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id },
+           
+            success: function (data) {
+                window.location.reload();
+            }
+        });
+    }
+
+    function setFrame(val) {
+        if (val == 8) {
+
+            $("#div-theme-9").hide();
+            $("#div-theme-10").hide();
+            $("#div-theme-11").hide();
+            $("#div-theme-8").show();
+
+        } else if (val == 9) {
+
+            $("#div-theme-8").hide();
+            $("#div-theme-10").hide();
+            $("#div-theme-11").hide();
+            $("#div-theme-9").show();
+
+        } else if (val == 10) {
+            $("#div-theme-8").hide();
+            $("#div-theme-9").hide();
+            $("#div-theme-11").hide();
+            $("#div-theme-10").show();
+
+        } else if (val == 11) {
+            $("#div-theme-8").hide();
+            $("#div-theme-9").hide();
+            $("#div-theme-10").hide();
+            $("#div-theme-11").show();
+        }
+
+    }
+
+
+
+    function change_div_content() {
+        var id = $("#select_type").val();
+        var url = '@Url.Action("AddStepsContent", "dashboard")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id },
+            
+            success: function (data) {
+                //                $("#tr-" + id).remove();
+                window.location.reload();
+            }
+        });
+    }
+
+    function select_file(val, txt) {
+        var file = $("#" + val + "")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        }
+        $("#" + txt).val(filename);
+    }
+
+    function addLinks() {
+        $("#add_new_link").show();
+    }
+    function closeDiv() {
+        $("#add_new_link").hide();
+    }
+
+    function deleteCancle() {
+        $("#hidden-val").val("");
+        $("#div-hidden-alert").hide();
+    }
+
+    function deleteContent(id) {
+        $("#hidden-val").val(id);
+        $("#div-hidden-alert").show();
+    }
+
+</script>
+
+<div class="row" id="div-hidden-alert" style="display:none;">
+    <div class="col-md-12">
+        <input type="hidden" value="" id="hidden-val" />
+        <div class="alert alert-warning alert-dismissable">
+            Do you really want to Delete This........?
+            <input type="button" class="btn btn-primary btn-sm " value=" Yes " onclick="deleteContentConfirm()" />
+            <input type="button" class="btn btn-primary btn-sm " value=" No " onclick="deleteCancle()" />
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Add/Delete Link </h6>
+            </div>
+            <div class="panel-body">
+
+
+                @{
+                    int count = 1;
+                    List<tbl_content_answer_steps> links = (List<tbl_content_answer_steps>)ViewData["content_links"];
+                    tbl_content ccontent = (tbl_content)ViewData["content_data"];
+                    tbl_content_answer canswer = (tbl_content_answer)ViewData["content_answer"];
+                }
+                <p class="text-primary"><strong>Content/ Activity : </strong> @ccontent.CONTENT_QUESTION</p>
+                <br />
+                <div class="pull-right">
+                    <a class="btn btn-default" href="#" onclick="addLinks()">Add Steps</a>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+
+
+                        <div id="add_new_link" style="display:none;">
+                            @using (Html.BeginForm("step_answer_content", "dashboard", FormMethod.Post, new { id = "form_answer_content", enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" id="ID_CONTENT_ANSWER" name="ID_CONTENT_ANSWER" value="@canswer.ID_CONTENT_ANSWER" />
+
+                                <div class="row clearfix">
+                                    <div class="panel panel-default custom-panel">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-10"><strong>Content Step Theme</strong></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <select class="form-control" id="select_type" name="select_type" onchange="setFrame(this.value)">
+                                                        <option value="" selected disabled>Select Step Theme</option>
+                                                        <option value="8">THEME 8</option>
+                                                        <option value="9">THEME 9</option>
+                                                        <option value="10">THEME 10</option>
+                                                        <option value="11">THEME 11</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <!-- -------------------------------------------------------------------------------------------------- -->
+                                            <!--THEME 10-->
+                                            <div class="row" id="div-theme-10" style="display:none;">
+                                                <div class="col-md-12">
+                                                    <p>Activity Steps in 3 Part</p>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <textarea class="form-control validate[required]" name="step-10-part1" id="step-0-part1" placeholder="Answer Step Part 1" rows="4"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <textarea class="form-control validate[required]" name="step-10-part2" id="step-0-part2" placeholder="Answer Step Part 2" rows="10"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <textarea class="form-control validate[required]" name="step-10-part3" id="step-0-part3" placeholder="Answer Step Part 3" rows="6"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--THEME 11-->
+                                            <div id="div-theme-11" style="display:none;">
+                                                <p>Only Image In Step</p>
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="FirstName" class="control-label col-md-1">Image:</label>
+                                                            <div class="col-md-10">
+                                                                <input type="text" class="form-control validate[required]" readonly value="" placeholder="Choose Image" id="step-11-image" name="step-11-image" />
+                                                                <div class="fileUpload btn btn-primary">
+                                                                    <span>Browse Image</span>
+                                                                    <input id="step-11-btn" name="step-11-btn" class="upload" type="file" accept="image/*" onchange="select_file('step-11-btn', 'step-11-image')" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!--THEME 9-->
+                                            <div id="div-theme-9" style="display:none;">
+                                                <p>Image and Content in Steps</p>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="FirstName" class="control-label col-md-1">Image:</label>
+                                                            <div class="col-md-10">
+                                                                <input type="text" class="form-control validate[required]" readonly value="" placeholder="Choose Image" id="step-9-image" name="step-9-image" />
+                                                                <div class="fileUpload btn btn-primary">
+                                                                    <span>Browse Image</span>
+                                                                    <input id="step-9-btn" name="step-9-btn" class="upload" type="file" accept="image/*" onchange="select_file('step-9-btn', 'step-9-image')" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <textarea class="form-control validate[required]" placeholder="Answer" name="step-9-part1" id="step-0-content" rows="6"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--THEME 8-->
+                                            <div id="div-theme-8" style="display:none;">
+                                                <p>Activity Steps in 2 Part</p>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <textarea class="form-control validate[required]" name="step-8-part1" id="step-8-part1" placeholder="Answer Step " rows="4"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <textarea class="form-control" name="step-8-part2" id="step-8-part2" placeholder="" rows="10"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <!-- -------------------------------------------------------------------------------------------------- -->
+                                            <hr />
+                                            <div class="form-group">
+                                                <div class="col-md-offset-2 col-md-6">
+                                                    <input type="submit" name="btn_submit" value="Save" class="btn btn-default" />
+                                                </div>
+                                                <div class="col-md-4 pull-right">
+                                                    <a href="#" onclick="closeDiv()" class="btn btn-default">Cancel</a>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div>
+                    <table id="report-table" class="table table-striped table-bordered datatable small" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="70%">Link</th>
+                                <th width="20%">Type</th>
+                                <th width="10%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (links.Count > 0)
+                            {
+                                foreach (tbl_content_answer_steps item in links)
+                                {
+                                    <tr id="tr-@(item.ID_ANSWER_STEP)">
+                                        @if (item.ID_THEME == 11)
+                                        {
+                                            <td width="70%">Image Only Step  </td>
+                                        }
+                                        else
+                                        {
+
+                                            <td width="70%"><pre>@item.ANSWER_STEPS_PART1</pre></td>
+                                        }
+                                        <td width="30%">
+                                            @item.STEPNO
+                                        </td>
+                                        <td>
+                                            <a href="#" onclick="deleteContent(@item.ID_ANSWER_STEP)"><i class="glyphicon glyphicon-remove"></i></a>
+                                        </td>
+                                    </tr>
+                                        count++;
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="3">There are no Links Present for this Activity</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

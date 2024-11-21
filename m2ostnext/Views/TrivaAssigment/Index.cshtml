@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "TrivaAssigment";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    //List<tbl_category> catList = (List<tbl_category>)ViewData["CategoryList"];
+    List<m2ostnext.Models.tbl_learning_category> CategoryList = (List<m2ostnext.Models.tbl_learning_category>)ViewData["CategoryList"];
+
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#report-table').DataTable({
+            "paging": true,
+            "searching": true, // enables the search functionality
+            "ordering": false,  // enables column sorting
+            "info": true,      // shows additional info like total records
+            "lengthMenu": [10, 25, 50, 100], // pagination options
+            "pageLength": 10
+           // default number of rows per page
+        });
+    });
+
+
+</script>
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Category List</h6>
+            </div>
+            <div class="panel-body">
+                <hr />
+                <div id="display_table">
+                    <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="80%">Category </th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in CategoryList)
+                            {
+                                <tr>
+                                    <td>@item.CategoryName</td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" href="@Url.Action("SubCategoryList", "TrivaAssigment" , new { id=item.IdLearningCategory })">continue</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

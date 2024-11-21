@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Edit Category Heading";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+@{
+    List<tbl_category_tiles> cat_list = (List<tbl_category_tiles>)ViewData["select-tile"];
+    tbl_category_heading heading = (tbl_category_heading)ViewData["heading"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Edit Category Heading</h4>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("update_cms_category_headers", "csst_category", FormMethod.Post, new { id = "form_add_category", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id_category_heading" value="@heading.id_category_heading" />
+                    <div class="form-horizontal">
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Select Category Tile  :</label>
+                                    <div class="col-md-9">
+                                        <select name="select-category-tile" class="form-control  validate[required]">
+                                            <option value="" selected disabled>Select Category Tile</option>
+                                            @foreach (tbl_category_tiles item in cat_list)
+                                            {
+                                                <option value="@item.id_category_tiles" @if (item.id_category_tiles == heading.id_category_tiles) { @(" selected")    }>@item.tile_heading</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Category Heading Name :</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control validate[required]" value="@heading.Heading_title" placeholder="Category Heading Name" id="category-heading" name="category-heading" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Heading Order No:</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control validate[required]" value="@heading.heading_order" placeholder="Order" id="category-order" name="category-order" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-default" />
+                                <a style="margin-left:5px;" href="@Url.Action("Index", "dashboard")" class="btn btn-default  pull-right">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <hr />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

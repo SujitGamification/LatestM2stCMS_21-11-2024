@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "Add Category Tiles";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<script>
+    $(function () {
+        $("#form_add_category").validationEngine();
+    });
+
+    function select_file() {
+        var file = $("#uploadBtn")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        }
+        $("#ImageFile").val(filename);
+    }
+
+    function fun_check_type(value) {
+        if (value == "7") {
+            $("#link-url-category").show();
+
+        } else {
+            $("#link-url-category").hide();
+        }
+    }
+
+</script>
+
+@{
+    List<tbl_category_tiles> cat_list = (List<tbl_category_tiles>)ViewData["category-list"];
+
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Add Category Tiles</h4>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("add_cms_category_tiles", "csst_category", FormMethod.Post, new { id = "form_add_category", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Category Tile Name :</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control validate[required]" value="" placeholder="Category Tile Name" id="category-tile" name="category-tile" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Category Tile Type :</label>
+                                    <div class="col-md-9">
+
+                                        <select class="form-control" id="select-tile-type" name="select-tile-type" onchange="fun_check_type(this.value)">
+                                            <option value="1">With Sub Category</option>
+                                            <option value="2">Sub Category 2</option>
+                                            <option value="5">Assessment Tile</option>
+                                            <option value="6">Psychometric Assessment</option>
+                                            <option value="4">Report</option>
+                                            <option value="7">External Reference Link</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="link-url-category" style="display:none;">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Redirection URL : </label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control validate[required,custom[url]]" value="http://" placeholder="" id="red_url" name="red_url" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Image:</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control validate[required]" readonly value="" placeholder="Choose Image" id="ImageFile" name="ImageFile" />
+                                        <div class="fileUpload btn btn-primary">
+                                            <span>Browse Image</span>
+                                            <input id="uploadBtn" name="uploadBtn" class="upload" type="file" accept="image/*" onchange="select_file()" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-2 regLabel">Tile Order No:</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control validate[required]" value="" placeholder="Order" id="category-order" name="category-order" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+                <hr />
+
+            </div>
+        </div>
+    </div>
+</div>

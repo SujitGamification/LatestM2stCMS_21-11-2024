@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "createAssessmentSheets";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#report-table-question").dataTable();
+        getAssessmentSheetQuestions();
+    });
+    function addAssessmentQuestion(aid, ids) {
+
+        var url = '@Url.Action("addContentForAssessment", "Assessment")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { aid: aid, ids: ids },
+            
+            success: function (data) {
+                getAssessmentSheetQuestions();
+            }
+        });
+    }
+    function getAssessmentSheetQuestions() {
+        var id = $("#assessment-id").val();
+        var url = '@Url.Action("getAssessmentSheetQuestions", "Assessment")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: id },
+            
+            success: function (data) {
+                $("#display_table_assessment").empty().append(data);
+                $("#report-table").dataTable();
+            }
+        });
+    }
+</script>
+
+@{
+    tbl_assesment assessment = (tbl_assesment)ViewData["assessment"];
+    List<tbl_assessment_question> itemList = (List<tbl_assessment_question>)ViewData["questionList"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Add Content to Assessment : </h6>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" id="assessment-id" value="@assessment.id_assesment" />
+                        <h5>Assessment Title : </h5> <h4>@assessment.assessment_title</h4>
+                        <h5>Assessment Description : </h5> <h6>@assessment.assesment_description</h6>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-6 well">
+                        <h4 class="panel-title">Click + to Add question to the Sheet  </h4><hr />
+                        <div id="display_table">
+                            <table id="report-table-question" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Question
+                                        </th>
+                                        <th>
+                                            Click to Add
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (tbl_assessment_question item in itemList)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @(item.assessment_question + " (" + item.id_assessment_question + ")")
+                                            </td>
+                                            <td>
+                                                <a href="" onclick="addAssessmentQuestion('@assessment.id_assesment',@item.id_assessment_question)"><i class="glyphicon glyphicon-plus-sign"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6 well">
+                        <h4 class="panel-title">Questions in the Sheet  </h4><hr/>
+                        <div id="display_table_assessment">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

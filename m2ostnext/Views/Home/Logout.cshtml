@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_cms_layout_home.cshtml";
+}
+
+<style>
+    .Absolute-Center {
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+
+        .Absolute-Center.is-Responsive {
+            width: 50%;
+            height: 50%;
+            min-width: 200px;
+            max-width: 400px;
+            padding: 40px;
+        }
+</style>
+@{
+    string session = (string)ViewData["type"];
+    string seMsg = "";
+    if (session == "0")
+    {
+        seMsg = "Sessoin Timed out Please Login Again...";
+    }
+    else
+    {
+        seMsg = "Logout Successfull.";
+    }
+}
+<script>
+    $(function () {
+         $.removeCookie("username");
+         $.removeCookie("password");
+        setTimeout(function () {
+            var url = '@Url.Action("Index", "Home")';
+            window.location.href = url;
+        }, 4000);
+    });
+</script>
+
+<div id="pagecontent_dashboard" class="container">
+    <div class="row">
+        <div class="Absolute-Center is-Responsive">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-body"> @(seMsg)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

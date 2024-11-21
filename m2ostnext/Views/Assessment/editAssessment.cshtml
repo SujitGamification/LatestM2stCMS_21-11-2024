@@ -1,0 +1,360 @@
+﻿@{
+    ViewBag.Title = "Edit Assessment";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+@{
+
+    tbl_assessment item = (tbl_assessment)ViewData["assessment"];
+    List<tbl_assessment_scoring_key> keys = (List<tbl_assessment_scoring_key>)ViewData["scoringkey"];
+}
+
+
+<script type="text/javascript">
+    $(function () {
+
+        $("#form-edit-assessment").validationEngine();
+
+        $("#datetimepicker1").datepicker(
+           {
+               minDate: 0,
+               dateFormat: "dd-mm-yy"
+           }
+        );
+        $("#datetimepicker2").datepicker(
+           {
+               minDate: 0,
+               dateFormat: "dd-mm-yy"
+           }
+        );
+        $("#datetimepicker3").datepicker(
+           {
+               minDate: 0,
+               dateFormat: "dd-mm-yy"
+           }
+        );
+    });
+</script>
+<style>
+    .no-background {
+        background: none !important; /* !important overrides any other styles */
+    }
+</style>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Edit Assessment</h4>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+
+                    <div class="panel-body">
+
+
+                        @using (Html.BeginForm("edit_assessment_action", "Assessment", FormMethod.Post, new { id = "form-edit-assessment", enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <input type="hidden" id="id_assessment" name="id_assessment" value="@item.id_assessment" />
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-2"><label class="control-label">Assessment Name</label></div>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control validate[required]" value="@item.assessment_title" placeholder="" id="assessment-name" name="assessment-name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-2"><label class="control-label">Description</label></div>
+
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control validate[required]" value="@item.assesment_description" placeholder="" id="assessment-desc" name="assessment-desc" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-2"><label class="control-label">Assessment Created</label></div>
+                                    <div class="col-md-5">
+                                        <div class='input-group date'>
+                                            <input type='text' class="form-control  no-background" id='datetimepicker1' readonly name="assessment-created" value="@item.assess_created.Value.ToString(" dd-MM-yyyy")" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-2"><label class="control-label">Assessment Started</label></div>
+                                    <div class="col-md-5">
+                                        <div class='input-group date'>
+                                            <input type='text' class="form-control  no-background" id='datetimepicker2' readonly name="assessment-started" value="@item.assess_start.Value.ToString(" dd-MM-yyyy")" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-2"><label class="control-label">Assessment End Date</label></div>
+
+                                    <div class="col-md-5">
+                                        <div class='input-group date'>
+                                            <input type='text' class="form-control  no-background" id='datetimepicker3' readonly name="assessment-ended" value="@item.assess_ended.Value.ToString(" dd-MM-yyyy")" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-2"><strong>Assessment Type</strong></div>
+                                    <div class="col-md-5">
+                                        @*<strong>
+            @if (item.assessment_type == 1)
+            {
+                @(" Learning Assessment")
+            }
+            else if (item.assessment_type == 2)
+            {
+                @(" Psycometric Assessment")
+            }
+            else if (item.assessment_type == 3)
+            {
+                @(" Psycometric Assessment")
+            }
+
+            else
+            {
+                @(" -- ")
+            }
+        </strong>*@
+                                        <select id="assessment-type" name="assessment-type" class="form-control">
+                                            <option value="1" id="option1">Learning Assessment</option>
+                                            <option value="2" id="option2">Psycometric Assessment</option>
+                                            <option value="3" id="option3">Gamified Assessment</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-2"><strong>Display Type</strong></div>
+                                    <div class="col-md-5">
+                                        <strong>
+                                            @if (item.assess_type == "1")
+                                            {
+                                                @(" Post Assessment")
+                                            }
+                                            else if (item.assess_type == "2")
+                                            {
+                                                @(" Pre Assessment")
+                                            }
+                                            else if (item.assess_type == "3")
+                                            {
+                                                @(" Pre and Post Assessment")
+                                            }
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-2"><strong>Assessment Template</strong></div>
+                                    <div class="col-md-5">
+                                        <strong>
+                                            @if (item.assess_group == 1)
+                                            {
+                                                @(" Question & Answer")
+                                            }
+                                            else if (item.assess_group == 2)
+                                            {
+                                                @(" Question & Answer (no right answer)")
+                                            }
+                                            else if (item.assess_group == 3)
+                                            {
+                                                @(" Range ")
+                                            }
+                                            else if (item.assess_group == 4)
+                                            {
+                                                @(" Rank")
+                                            }
+                                        </strong>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div id="ass-temp">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-2"><label class="control-label">Max Attempt</label></div>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control validate[required,custom[onlyNumberSp]]" value="@item.total_attempt" placeholder="maximum number of attempt for assessment, 0 for unlimited" id="max-attempt" name="max-attempt" />
+                                    </div>
+                                    <div class="col-md-5">
+                                    </div>
+                                </div>
+                                <!---------------------------------------------------------------------------------------------------->
+                                @if (item.assess_group == 1)
+                                {
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-2"><label class="control-label">Right Answer Display required </label></div>
+                                        <div class="col-md-5">
+                                            <select id="answer-display" name="answer-display" class="form-control">
+                                                @if (item.ans_requiered == 1)
+                                                {
+                                                    <option value="1" selected>Yes</option>
+                                                    <option value="0">No</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="1">Yes</option>
+                                                    <option value="0" selected>No</option>
+                                                }
+
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                }
+                                else if (item.assess_group == 2)
+                                {
+                                    <hr />
+                                    <input type="hidden" name="no-of-key-vak" id="no-of-key-vak" />
+                                    <div class="form-group">
+                                        <div class="col-md-2"><strong>No of Scoring Key</strong></div>
+                                        <div class="col-md-10">
+                                            <strong> @(keys.Count())</strong>
+                                        </div>
+                                    </div>
+                                    foreach (tbl_assessment_scoring_key key in keys)
+                                    {
+                                        <div class="form-group">
+                                            <div class="col-md-2"><label class="control-label">Soring key @key.position</label></div>
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control validate[required]" value="@key.header_name" placeholder="" id="t-scoring-key-@key.id_assessment_scoring_key" name="t-scoring-key-@key.id_assessment_scoring_key" />
+                                            </div>
+                                        </div>
+                                    }
+
+                                }
+                                else if (item.assess_group == 3)
+                                {
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <h6>Low Value</h6>
+                                            <input type="text" class="form-control validate[required,custom[onlyNumberSp]]" name="low-value" id="low-value" value="@item.lower_value" placeholder="Lower Range Value" />
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <h6>Low Range Title</h6>
+                                                 <input type="text" class="form-control validate[required]" name="low-value-title" id="low-value-title" value="@item.lower_title" placeholder="Lower Range Title" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <h6>High Value</h6>
+                                            <input type="text" class="form-control validate[required,custom[onlyNumberSp]]" name="high-value" value="@item.high_value" id="high-value" placeholder="High Range Value" />
+
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <h6>High Range Title</h6>
+                                                <input type="text" class="form-control validate[required]" name="high-value-title" id="high-value-title" value="@item.high_title" placeholder="High Range Title" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" name="no-of-key-vak" id="no-of-key-vak" />
+                                    <div class="form-group">
+                                        <div class="col-md-2"><label class="control-label">No of Scoring Key</label></div>
+                                        <div class="col-md-10">
+                                            @(keys.Count())
+                                        </div>
+                                    </div>
+                                    foreach (tbl_assessment_scoring_key key in keys)
+                                    {
+                                        <div class="form-group">
+                                            <div class="col-md-2"><strong>Scoring key @key.position</strong></div>
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control validate[required]" readonly value="@key.header_name" placeholder="" id="t-scoring-key-@key.id_assessment_scoring_key" name="t-scoring-key-@key.id_assessment_scoring_key" />
+                                            </div>
+                                        </div>
+                                    }
+
+
+                                }
+                                else if (item.assess_group == 4)
+                                {
+                                    <input type="hidden" name="no-of-key-vak" id="no-of-key-vak" />
+                                    <div class="form-group">
+                                        <div class="col-md-2"><strong>No of Scoring Key</strong></div>
+                                        <div class="col-md-10">
+                                            @(keys.Count())
+                                        </div>
+                                    </div>
+                                    foreach (tbl_assessment_scoring_key key in keys)
+                                    {
+                                        <div class="form-group">
+                                            <div class="col-md-3"><strong>Scoring key @key.position</strong></div>
+                                            <div class="col-md-5">
+                                                <input type="text" readonly class="form-control validate[required]" value="@key.header_name" placeholder="" id="t-scoring-key-@key.id_assessment_scoring_key" name="t-scoring-key-@key.id_assessment_scoring_key" />
+                                            </div>
+                                        </div>
+                                    }
+
+
+                                }
+
+
+
+
+                                      <div class="form-group">
+                                    <div class="col-md-2"><label class="control-label">Answer Description</label></div>
+                                    <div class="col-md-10">
+                                        <textarea name="answer-description" class="form-control" placeholder="Answer Description" rows="6" readonly>@item.answer_description</textarea>
+                                    </div>
+                                </div>
+                                <!---------------------------------------------------------------------------------------------------->
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Save" name="btn_submit" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Assuming item.assessment_type contains the desired value (e.g., 3)
+    var assessmentType = @item.assessment_type;
+
+    // Get the dropdown element
+    var dropdown = document.getElementById("assessment-type");
+    debugger;
+    // Set the selected attribute of the option based on the assessmentType
+    switch (assessmentType) {
+        case 1:
+            document.getElementById("option1").selected = true;
+            break;
+        case 2:
+            document.getElementById("option2").selected = true;
+            break;
+        case 3:
+            document.getElementById("option3").selected = true;
+            break;
+        default:
+            // If assessmentType is not 1, 2, or 3, do nothing or handle accordingly
+            break;
+    }
+</script>

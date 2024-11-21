@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "viewAssessment";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+@{
+    tbl_assessment assessment = (tbl_assessment)ViewData["assessment"];
+}
+<script>
+
+    $(function () {
+        $("#form-add-assessment").validationEngine();
+    });
+
+    function select_file(btn, imgf, ban) {
+        var file = $("#" + btn + "")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+        } else {
+        }
+        $("#" + imgf + "").val(filename);
+    }
+</script>
+<div class="row clearfix">
+
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Assessment</h4>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Assessment</label></div>
+                        <div class="col-md-10">
+                            <input readonly type="text" class="form-control validate[required]" value="@assessment.assessment_title" placeholder="" id="assessment-name" name="assessment-name" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Description</label></div>
+
+                        <div class="col-md-10">
+                            <input readonly type="text" class="form-control validate[required]" value="@assessment.assesment_description" placeholder="" id="assessment-desc" name="assessment-desc" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Assessment Created</label></div>
+                        <div class="col-md-5">
+                            <div class='input-group date'>
+                                <input readonly type='text' class="form-control validate[required]" id='datetimepicker1' value="@assessment.assess_created" name="assessment-created" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Assessment Start Date</label></div>
+                        <div class="col-md-5">
+                            <div class='input-group date'>
+                                <input readonly type='text' class="form-control validate[required]" id='datetimepicker2' value="@assessment.assess_start" name="assessment-started" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Assessment End Date</label></div>
+
+                        <div class="col-md-5">
+                            <div class='input-group date'>
+                                <input readonly type='text' class="form-control validate[required]" id='datetimepicker3' value="@assessment.assess_ended" name="assessment-ended" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Assessment Type</label></div>
+                        <div class="col-md-5">
+                            <select disabled id="assessment-type" name="assessment-type" class="form-control">
+                                <option value="3">Both</option>
+                                <option value="1">Post</option>
+                                <option value="2">Pre</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+

@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "EditNonDisclosureContent";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    m2ostnext.Models.tbl_non_disclousure_clause_content content = (m2ostnext.Models.tbl_non_disclousure_clause_content)ViewData["content"];
+
+}
+
+@*<link href="~/Content/dist/summernote.css" rel="stylesheet" />*@
+<link href="~/Content/RichText/dist/summernote.css" rel="stylesheet" />
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<!----------------------------------CSS/Script------------------------------------------>
+@*<script src="~/Content/dist/summernote.js"></script>*@
+<script src="~/Content/RichText/dist/summernote.js"></script>
+
+
+
+
+<link rel="stylesheet" href="~/Content/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<link rel="stylesheet" href="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+<script>
+
+    $(document).ready(function () {
+        $('.summernote').summernote();
+    });
+     function InsertContent() {
+
+        var t_title = $("#t-title").val();
+
+
+
+         var content_answer = $('.summernote').summernote('code');
+      
+
+         var valid = $("#form-add-content").validationEngine('validate');
+
+
+        if (valid) {
+
+            var url = '@Url.Action("EditNonDisclosureContentAction", "Dashboard")';
+
+            var idata = {
+                t_title: t_title,
+          
+                content_answer: content_answer,
+               
+            };
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: idata,
+
+                success: function (msg) {
+      top.location.href = '@Url.Action("NonDisclosureContent", "Dashboard")';
+                }
+            });
+
+          
+        }
+    }
+    $(function () {
+        $(".fancybox").fancybox();
+
+        $("#form-add-content").validationEngine();
+        //changetheme(0);
+        $("#datetimepicker2").datepicker(
+            { dateFormat: "dd-mm-yy", minDate: new Date() });
+        $("#preview-anchor").hover(function () {
+            $(this).click();
+        });
+
+    });
+</script>
+@using (Html.BeginForm("EditNonDisclosureContentAction", "Dashboard", FormMethod.Post, new { id = "form-add-content", enctype = "multipart/form-data" }))
+{
+    <div class="panel panel-default custom-panel">
+        <div class="panel-heading custom-panel-heading clearfix">
+            <div class="panel-title">Non Disclosure Clause</div>
+        </div>
+        <div class="panel-body custom-panel-body">
+           
+            <div class="form-group">
+                <label style="margin-left: 1.5%;">Title: </label>
+                <input type="text" id="t-title" name="t-title" class="form-control validate[required]" style="width: 97%; margin-left: 1.5%;" value="@content.content_title" placeholder="Enter Title Here" />
+
+            </div>
+
+            <div class="col-md-12" style="background:white">
+                <label>Content: </label>
+                <textarea name="content_rt" class="summernote form-control validate[required]">
+                    @content.content
+            </textarea>
+
+
+
+            </div>
+            <div class="row">
+                <input id="submitrich" type="button" class="btn btn-default btn-info" name="submitrich" value="Save" style="float:right;margin-right:2%;width:10%" onclick="InsertContent()" />
+
+                @*<a type="button" href="" style="    margin-right: 4%;" onclick="InsertContent()" class="btn btn-default  pull-right">Save&nbsp;<i class="glyphicon glyphicon-file"></i></a>*@
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+}
+
+
+
+

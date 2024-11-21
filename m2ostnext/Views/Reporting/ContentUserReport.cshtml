@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "ContentUser Data";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/buttons.dataTables.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" src="~/Content/datatable/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="~/Content/datatable/js/jszip.min.js"></script>
+
+<script type="text/javascript" src="~/Content/datatable/js/vfs_fonts.js"></script>
+<script type="text/javascript" src="~/Content/datatable/js/buttons.html5.min.js"></script>
+
+<script>
+
+    function getContentUserReport() {
+        loading_on();
+        $('#loadingImg').show();
+        var url = '@Url.Action("getContentUserReport", "Reporting")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            //data: { rid: rid, fid: fid, lid: lid, stdate: sdate, endate: edate },
+            async: false,
+            success: function (data) {
+                $("#display_table").empty().append(data);
+
+                $('#report-table').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [
+                         'excelHtml5',
+                    ]
+                });
+            }
+        });
+        $('#loadingImg').hide();
+        loading_off();
+        
+    }
+
+</script>
+
+@*@{
+    List<string>function = (List<string>)ViewData["functions"];
+    List<tbl_csst_role>roleList = (List<tbl_csst_role>)ViewData["roleList"];
+    List<string> location = (List<string>)ViewData["location"];
+}*@
+
+<div class="row clearfix">
+    
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Content Access By Gender Report</h4>
+            </div>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("", "", FormMethod.Post, new { id = "form-content-report" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <img src="~/Content/load.gif" id="loadingImg" style="display: none;" height="120" width="240" />
+                                <input style="margin-top: 24px; margin-left: 15px; height: 28px;" type="button" value="Search Content Assign User Data" name="btn_submit" class="btn btn-primary" onclick="getContentUserReport()" />
+                                &nbsp;
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                }
+                @*<div class="row">
+                        <div class="col-md-12 pull-right">
+                            <input style="margin-top: 24px; margin-left: 15px; height: 28px;" type="button" value="Month wise Data" name="btn_submit" class="btn btn-primary" onclick="getMonthWiseContentReport()" />
+                        </div>
+                    </div>*@
+                <hr />
+                <div id="display_table">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

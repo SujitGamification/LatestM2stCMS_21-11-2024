@@ -1,0 +1,367 @@
+﻿@model m2ostcms.Models.addCms_AssociationModel
+
+@{
+    ViewBag.Title = "Content Association";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    var ContentDy = Model.tb_content;
+}
+
+<script type="text/javascript">
+
+    $(function () {
+        getDynamicContent();
+    });
+
+    function generate_association() {
+
+        var Content=[]
+        $("input:checkbox[name=content_check]:checked").each(function () {
+            // add $(this).val() to your array
+            var cid = this.id;
+            var conid = cid.substring(4);
+
+            Content.push({
+                ID:conid,
+                Con_Text:$("#con_"+conid+"_name").text()
+            });
+        });
+        $.each(Content, function (key, val) {
+            add_row(val.ID, val.Con_Text);
+        });
+        $('input:checkbox').removeAttr('checked');
+    }
+
+
+    function add_row(id, convalue) {
+        if ($("#chk_" + id + "").is(':checked')) {
+            var count = $("#table_association_add tbody tr").length;
+            var org = $("#ID_ORGANIZATION option:selected").text();
+            var category = $("#ID_CATEGORY option:selected").text();
+            var level = $("#ID_CONTENT_LEVEL option:selected").text();
+            var content = convalue;
+            var orgid = $("#ID_ORGANIZATION option:selected").val();
+            var categoryid = $("#ID_CATEGORY option:selected").val();
+            var levelid = $("#ID_CONTENT_LEVEL option:selected").val();
+            var contentid = id;
+
+
+
+            var h_org = "<input type='hidden' id='org_id_" + count + "' value='" + orgid + "' />";
+            var h_cat = "<input type='hidden' id='cat_id_" + count + "' value='" + categoryid + "' />";
+            var h_lev = "<input type='hidden' id='lev_id_" + count + "' value='" + levelid + "' />";
+            var h_con = "<input type='hidden' id='con_id_" + count + "' value='" + contentid + "' />";
+            var row = "<tr><td>" + (count + 1) + h_org + " " + h_cat + " " + h_lev + " " + h_con + "</td><td>" + org + "</td><td>" + category + "</td><td>" + level + "</td><td>" + content + "</td>";
+            row += "<td><input type='hidden' id='flag_" + count + "' value='T'/><i id='asrow_" + count + "' class='glyphicon glyphicon-remove' onclick='delete_row(" + count + ")'></i></td></tr>";
+            $("#table_association_add tbody").first().append(row);
+            // setTimeout(function () { $('input:checkbox').removeAttr('checked'); }, 500);
+        }
+        else
+        {
+
+        }
+    }
+
+    function delete_row(id) {
+        $("#flag_" + id + "").val("F");
+        $("#asrow_" + id + "").parent().parent().hide();
+    }
+
+    function dynamData(datady)
+    {
+        var count = 0;
+        var rowDy = "";
+        @foreach (var con in ContentDy)
+        {
+            <text>
+        var flag=true;
+        for (var i = 0; i < datady.length; i++)
+        {
+            if(datady[i]=="@(con.ID_CONTENT)")
+            {
+                flag=false;
+            }
+        }
+
+        if(flag)
+        {
+            count++;
+            rowDy += "<div id='border_div' class='row border_div'><div class='col-md-1'><div class='pull-right'>";
+            rowDy += "<input type='checkbox' name='content_check' id='@("chk_"+con.ID_CONTENT)' /></div></div><div class='col-md-11'><div class='form-group'>";
+            rowDy += "<div id='@("con_"+con.ID_CONTENT)' class='col-md-12 '><input type='hidden' id='conid' value='@("hid_cat_"+con.ID_CONTENT)' />";
+            rowDy += "<span id='@("con_"+con.ID_CONTENT+"_name")' class='col-lg-8 control-label'>@(con.CONTENT_QUESTION)</span></div></div></div></div>";
+        }
+        </text>
+        }
+
+        $("#div_table_content").html(rowDy);
+     //   alert(count);
+    }
+
+    function getDynamicContent() {
+        var cat = $("#ID_CATEGORY").val();
+        var org = $("#ID_ORGANIZATION").val();
+
+        var url = '@Url.Action("getDynamicContent", "dynAssociation")';
+        var jsonassociation = JSON.stringify({ "cat": cat, "org": org });
+
+        if (jsonassociation) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: jsonassociation,
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    dynamData(data);
+                    if (data.result == "Error") {
+                        alert("Error");
+                    }
+                }
+            });
+        }
+    }
+
+        function save_association() {
+            var rowCount = $("#table_association_add tbody tr").length;
+            var Association = [];
+            if (rowCount > 0) {
+                for (var i = 0; i < rowCount; i++) {
+                    var sts = $("#flag_" + i + "").val();
+                    if (sts == "T") {
+                        Association.push({
+                            ID_ORGANIZATION: $("#org_id_" + i + "").val(),
+                            ID_CATEGORY: $("#cat_id_" + i + "").val(),
+                            ID_CONTENT_LEVEL: $("#lev_id_" + i + "").val(),
+                            ID_CONTENT: $("#con_id_" + i + "").val(),
+                            STATUS: "0"
+                        });
+                    }
+                }
+                var jsonassociation = JSON.stringify({ "association": Association });
+
+            } else {
+                alert("Select Association");
+            }
+
+            var url = '@Url.Action("save_association", "dynAssociation")';
+
+            if (jsonassociation) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: jsonassociation,
+                    dataType: 'json',
+                    contentType: "application/json",
+                    success: function (data) {
+                        alert("Successfull Inserted");
+                        if (data.result == "Error") {
+                            alert("Error");
+                        }
+                    }
+                });
+
+                alert("Successfully Inserted");
+                $("#table_association_add tbody").html("");
+
+            }
+        }
+
+</script>
+
+<div id="pagecontent_association" class="container">
+    <div class="row clearfix">
+        <div class="col-md-4"><a href="@Url.Action("display_association", "cms_association")" class="btn btn-default" style="width:100%;">DISPLAY ASSOCIATION </a></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <div id="association_body" class="col-md-12">
+
+                <div id="association_body_top">
+                    <div id="association_panel" class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="col-md-12">
+                                        <div id="association_panel" class="panel panel-default ">
+                                            <div class="panel-heading">
+                                                <h6 class="panel-title">Select Organization</h6>
+                                            </div>
+                                            <div class="panel-body">
+                                                <select class="form-control" id="ID_ORGANIZATION" name="ID_ORGANIZATION" onchange=" getDynamicContent()">
+                                                    @foreach (var org in Model.tb_organization)
+                                                    {
+                                                        <option value="@org.ID_ORGANIZATION">@org.ORGANIZATION_NAME</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="association_panel" class="panel panel-default ">
+                                            <div class="panel-heading">
+                                                <h6 class="panel-title">Select Category</h6>
+                                            </div>
+                                            <div class="panel-body">
+                                                <select class="form-control" id="ID_CATEGORY" name="ID_CATEGORY" onchange=" getDynamicContent()">
+                                                    @foreach (var cat in Model.tb_category)
+                                                    {
+                                                        <option value="@cat.ID_CATEGORY">@cat.CATEGORYNAME</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="association_panel" class="panel panel-default ">
+                                            <div class="panel-heading">
+                                                <h6 class="panel-title">Select Content Level</h6>
+                                            </div>
+                                            <div class="panel-body">
+                                                <select class="form-control" id="ID_CONTENT_LEVEL" name="ID_CONTENT_LEVEL">
+                                                    @foreach (var lvl in Model.tb_content_level)
+                                                    {
+                                                    <option value="@lvl.ID_CONTENT_LEVEL">@lvl.LEVELNAME </option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div id="association_panel" class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h6 class="panel-title">Select Content</h6>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row div-striped">
+                                                <div id="div_table_content">
+
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right">
+                                        <input type="button" class="btn btn-default" value="ADD" onclick="generate_association()" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="association_body_first" style="padding-top:2px;">
+                    <div id="association_panel" class="panel panel-default">
+                        <div class="panel-body">
+                            <input type="hidden" id="hidden_content" value="" />
+                            <input type="hidden" id="hidden_contentid" value="" />
+                            <div id="cms_content_body" class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <div class="panel-title">Association Table </div>
+                                    </div>
+                                    <div id="div_association_add" class="panel-body">
+
+                                        <table id="table_association_add" class="table table-striped ">
+                                            <thead>
+                                                <tr>
+                                                    <th width="2"></th>
+                                                    <th width="20%">Organization</th>
+                                                    <th width="10%">Category</th>
+                                                    <th width="8%">Level</th>
+                                                    <th width="60%">Content</th>
+                                                    <th width="5%"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <input type="button" class="btn btn-default" value="Save" onclick="save_association()" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+@*<div class="row" id="div_asso_org">
+
+        <div class="col-md-1"><label class="control-label">Organization </label></div>
+        <div class="col-md-3">
+            <select class="form-control" id="ID_ORGANIZATION" name="ID_ORGANIZATION">
+                @foreach (var org in Model.tb_organization)
+                {
+                    <option value="@org.ID_ORGANIZATION">@org.ORGANIZATION_NAME</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-1"><label class="control-label">Category</label></div>
+        <div class="col-md-2" id="category_div">
+            <select class="form-control" id="ID_CATEGORY" name="ID_CATEGORY">
+                @foreach (var cat in Model.tb_category)
+                {
+                    <option value="@cat.ID_CATEGORY">@cat.CATEGORYNAME</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-1"><label class="control-label">Level</label></div>
+        <div class="col-md-2">
+            <select class="form-control" id="ID_CONTENT_LEVEL" name="ID_CONTENT_LEVEL">
+                @foreach (var lvl in Model.tb_content_level)
+                {
+                    <option value="@lvl.ID_CONTENT_LEVEL">@lvl.LEVELNAME </option>
+                }
+            </select>
+
+        </div>
+        <div class="col-md-1"></div>
+    </div>*@
+
+
+
+@*<div class="panel panel-default">
+    <div class="panel-heading">
+        <h6 class="panel-title">Select Content</h6>
+    </div>
+    <div class="panel-body">
+        <div class="row div-striped">
+            <div id="div_table_content">
+
+                @foreach (var con in Model.tb_content)
+                {
+                    <div class="row border_div">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1">
+                            <div class="pull-right">
+                                <input type="checkbox" id="@("chk_"+con.ID_CONTENT)" onclick="add_row(@con.ID_CONTENT,@("'"+con.CONTENT_QUESTION+"'"))" />
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+
+                            <div class="form-group">
+                                <div id="@("con_"+con.ID_CONTENT)" class="col-md-12 ">
+                                    <input type="hidden" id="conid" value="@("hid_cat_"+con.ID_CONTENT)" />
+                                    <span id="@("con_"+con.ID_CONTENT+"_name")" class="col-lg-8 control-label">@con.CONTENT_QUESTION</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>*@

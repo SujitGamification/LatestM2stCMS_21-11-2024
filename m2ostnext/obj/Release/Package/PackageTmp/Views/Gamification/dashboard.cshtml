@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "game_dashboard";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+</script>
+
+@{
+    List<m2ostnext.Models.GameMaster> games = (List<m2ostnext.Models.GameMaster>)ViewData["master"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Game Dashboard</h4>
+            </div>
+            <div class="panel-body">
+                <a class="btn btn-primary btn-default pull-right" href="@Url.Action("m2ost_add_game", "Gamification")"> + Add new Game  </a>
+                &nbsp;<br /><br />
+                <hr />
+                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="35%">
+                                Game Title
+                            </th>                          
+                            <th width="15%">
+                                Game Period
+                            </th>
+                            <th width="15%">
+                                Game Configuration
+                            </th>
+                            <th width="5%">
+                                Player Type
+                            </th>
+                            <th width="10%">
+                                Game Status
+                            </th>
+                            <th width="10%">
+
+                            </th>
+
+                        </tr>
+                    </thead>
+                    @{
+                        int i = 0;
+                    }
+                    <tbody>
+                        @foreach (var item in games)
+                        {
+                            <tr>
+                                <td>
+
+                                    @item.game_title
+
+                                </td>                               
+                                <td>
+                                    @item.start_date to @item.end_date
+                                </td>
+                                <td>
+                                    @item.game_mode - @item.game_type
+                                </td>
+                                <td>
+                                    @item.player_type
+                                </td>
+                                <td>
+                                    @item.game_stutus
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("m2ost_game_elements", "Gamification", new { gids=item.gameid})"><i class="glyphicon glyphicon-folder-open"></i></a>
+                                </td>
+
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

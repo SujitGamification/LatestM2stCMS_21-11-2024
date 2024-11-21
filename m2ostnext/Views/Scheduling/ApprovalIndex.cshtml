@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "Event List";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+    });
+</script>
+
+@{
+    System.DateTime CURRENT = System.DateTime.Now;
+    List<tbl_scheduled_event> sEvent = (List<tbl_scheduled_event>)ViewData["eventlist"];
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Scheduling Dashboard - Approval</h4>
+            </div>
+            <div class="panel-body">
+                <table id="report-table" class="table table-striped table-bordered dataTable small" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="35%">
+                                Event Title
+                            </th>
+                            <th width="35%">
+                                Program
+                            </th>
+                            <th width="10%">
+                                Type
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th width="10%">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    @{
+                        int i = 0;
+                    }
+                    <tbody>
+                        @foreach (tbl_scheduled_event item in sEvent)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("LoadEvent", "Scheduling", new { id = item.id_scheduled_event })">
+                                        <i class="glyphicon glyphicon-text-background"></i>&nbsp;@item.event_title
+                                    </a>
+                                </td>
+                                <td>
+                                    @item.program_name
+                                </td>
+                                <td>
+                                    @if (item.event_group_type == 1)
+                                    {
+                                        @("F2F -")
+                                    }
+                                    else if (item.event_group_type == 2)
+                                    {
+                                        @("Online -")
+                                    }
+                                    else if (item.event_group_type == 3)
+                                    {
+                                        @("M2OST -")
+                                    }
+
+                                    @if (item.event_type == 1)
+                                    {
+                                        @(" Open")
+                                    }
+                                    else if (item.event_type == 2)
+                                    {
+                                        @(" Closed")
+                                    }
+                                </td>
+                                <td>
+                                    @if (CURRENT > item.event_start_datetime)
+                                    {
+                                        @("Expired")
+                                    }
+                                    else
+                                    {
+                                        @("Open")
+                                    }
+                                </td>
+                                <td>
+                                    <a style="margin-left:5px;" href="@Url.Action("ApprovalDashboard", "Scheduling", new { id = item.id_scheduled_event })" >&nbsp;<i class="glyphicon glyphicon-check"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

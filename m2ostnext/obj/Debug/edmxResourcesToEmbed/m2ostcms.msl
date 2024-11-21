@@ -1,0 +1,2135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="db_m2ost_production_v_5ModelStoreContainer" CdmEntityContainer="db_m2ostEntities">
+    <EntitySetMapping Name="downtime_log">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.downtime_log">
+        <MappingFragment StoreEntitySet="downtime_log">
+          <ScalarProperty Name="id_downtime_log" ColumnName="id_downtime_log" />
+          <ScalarProperty Name="message_text" ColumnName="message_text" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="error_log">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.error_log">
+        <MappingFragment StoreEntitySet="error_log">
+          <ScalarProperty Name="Error_ID" ColumnName="Error_ID" />
+          <ScalarProperty Name="Error_Message" ColumnName="Error_Message" />
+          <ScalarProperty Name="Error_Inner" ColumnName="Error_Inner" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATEDDATETIME" ColumnName="UPDATEDDATETIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="masti_parent_teacher_mapping">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.masti_parent_teacher_mapping">
+        <MappingFragment StoreEntitySet="masti_parent_teacher_mapping">
+          <ScalarProperty Name="id_parent_teacher" ColumnName="id_parent_teacher" />
+          <ScalarProperty Name="id_parent" ColumnName="id_parent" />
+          <ScalarProperty Name="id_teacher" ColumnName="id_teacher" />
+          <ScalarProperty Name="id_parent_org" ColumnName="id_parent_org" />
+          <ScalarProperty Name="id_teacher_org" ColumnName="id_teacher_org" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="masti_teacher_galleryfolder">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.masti_teacher_galleryfolder">
+        <MappingFragment StoreEntitySet="masti_teacher_galleryfolder">
+          <ScalarProperty Name="id_gallery_folder" ColumnName="id_gallery_folder" />
+          <ScalarProperty Name="id_teacher" ColumnName="id_teacher" />
+          <ScalarProperty Name="folder_name" ColumnName="folder_name" />
+          <ScalarProperty Name="folder_size" ColumnName="folder_size" />
+          <ScalarProperty Name="updated_time" ColumnName="updated_time" />
+          <ScalarProperty Name="id_org" ColumnName="id_org" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="masti_teacher_photo_mapping">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.masti_teacher_photo_mapping">
+        <MappingFragment StoreEntitySet="masti_teacher_photo_mapping">
+          <ScalarProperty Name="id_photo_mapping" ColumnName="id_photo_mapping" />
+          <ScalarProperty Name="id_teacher" ColumnName="id_teacher" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+          <ScalarProperty Name="updated_time" ColumnName="updated_time" />
+          <ScalarProperty Name="id_org" ColumnName="id_org" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sc_game_element_weightage">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.sc_game_element_weightage">
+        <MappingFragment StoreEntitySet="sc_game_element_weightage">
+          <ScalarProperty Name="id_sc_game_element_weightage" ColumnName="id_sc_game_element_weightage" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_game" ColumnName="id_game" />
+          <ScalarProperty Name="element_type" ColumnName="element_type" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="id_kpi_master" ColumnName="id_kpi_master" />
+          <ScalarProperty Name="element_score" ColumnName="element_score" />
+          <ScalarProperty Name="element_weightage" ColumnName="element_weightage" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_darte_time" ColumnName="updated_darte_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sc_program_assessment_scoring">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.sc_program_assessment_scoring">
+        <MappingFragment StoreEntitySet="sc_program_assessment_scoring">
+          <ScalarProperty Name="id_sc_program_assessment_scoring" ColumnName="id_sc_program_assessment_scoring" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="assessment_score" ColumnName="assessment_score" />
+          <ScalarProperty Name="assessment_wieghtage" ColumnName="assessment_wieghtage" />
+          <ScalarProperty Name="attempt_number" ColumnName="attempt_number" />
+          <ScalarProperty Name="log_datetime" ColumnName="log_datetime" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sc_program_content_summary">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.sc_program_content_summary">
+        <MappingFragment StoreEntitySet="sc_program_content_summary">
+          <ScalarProperty Name="id_sc_program_content_summary" ColumnName="id_sc_program_content_summary" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="totoal_count" ColumnName="totoal_count" />
+          <ScalarProperty Name="completed_count" ColumnName="completed_count" />
+          <ScalarProperty Name="percentage" ColumnName="percentage" />
+          <ScalarProperty Name="content_weightage" ColumnName="content_weightage" />
+          <ScalarProperty Name="log_datetime" ColumnName="log_datetime" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sc_program_kpi_score">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.sc_program_kpi_score">
+        <MappingFragment StoreEntitySet="sc_program_kpi_score">
+          <ScalarProperty Name="id_sc_program_kpi_score" ColumnName="id_sc_program_kpi_score" />
+          <ScalarProperty Name="transactionid" ColumnName="transactionid" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_kpi_master" ColumnName="id_kpi_master" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="score" ColumnName="score" />
+          <ScalarProperty Name="log_datetime" ColumnName="log_datetime" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sc_program_kpi_weightage">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.sc_program_kpi_weightage">
+        <MappingFragment StoreEntitySet="sc_program_kpi_weightage">
+          <ScalarProperty Name="id_sc_program_kpi_weightage" ColumnName="id_sc_program_kpi_weightage" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_kpi_master" ColumnName="id_kpi_master" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="score" ColumnName="score" />
+          <ScalarProperty Name="kpi_wieghtage" ColumnName="kpi_wieghtage" />
+          <ScalarProperty Name="log_datetime" ColumnName="log_datetime" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sc_program_log">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.sc_program_log">
+        <MappingFragment StoreEntitySet="sc_program_log">
+          <ScalarProperty Name="id_sc_program_log" ColumnName="id_sc_program_log" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="id_kpi_master" ColumnName="id_kpi_master" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="score_value" ColumnName="score_value" />
+          <ScalarProperty Name="score_timestamp" ColumnName="score_timestamp" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sc_report_game_process_path">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.sc_report_game_process_path">
+        <MappingFragment StoreEntitySet="sc_report_game_process_path">
+          <ScalarProperty Name="id_sc_report_game_process_path" ColumnName="id_sc_report_game_process_path" />
+          <ScalarProperty Name="id_game" ColumnName="id_game" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="process_type" ColumnName="process_type" />
+          <ScalarProperty Name="sequence_number" ColumnName="sequence_number" />
+          <ScalarProperty Name="score" ColumnName="score" />
+          <ScalarProperty Name="element_weightage" ColumnName="element_weightage" />
+          <ScalarProperty Name="element_type" ColumnName="element_type" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sc_report_game_process_score">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.sc_report_game_process_score">
+        <MappingFragment StoreEntitySet="sc_report_game_process_score">
+          <ScalarProperty Name="id_sc_report_game_process_score" ColumnName="id_sc_report_game_process_score" />
+          <ScalarProperty Name="id_game" ColumnName="id_game" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="element_type" ColumnName="element_type" />
+          <ScalarProperty Name="sequence_number" ColumnName="sequence_number" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="id_kpi_master" ColumnName="id_kpi_master" />
+          <ScalarProperty Name="score" ColumnName="score" />
+          <ScalarProperty Name="kpi_weightage" ColumnName="kpi_weightage" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_action">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_action">
+        <MappingFragment StoreEntitySet="tbl_action">
+          <ScalarProperty Name="ID_ACTION" ColumnName="ID_ACTION" />
+          <ScalarProperty Name="ACTION_NAME" ColumnName="ACTION_NAME" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessment">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessment">
+        <MappingFragment StoreEntitySet="tbl_assessment">
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="assessment_title" ColumnName="assessment_title" />
+          <ScalarProperty Name="assesment_description" ColumnName="assesment_description" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="assessment_type" ColumnName="assessment_type" />
+          <ScalarProperty Name="assess_created" ColumnName="assess_created" />
+          <ScalarProperty Name="assess_start" ColumnName="assess_start" />
+          <ScalarProperty Name="assess_ended" ColumnName="assess_ended" />
+          <ScalarProperty Name="assess_type" ColumnName="assess_type" />
+          <ScalarProperty Name="assess_group" ColumnName="assess_group" />
+          <ScalarProperty Name="lower_title" ColumnName="lower_title" />
+          <ScalarProperty Name="high_title" ColumnName="high_title" />
+          <ScalarProperty Name="lower_value" ColumnName="lower_value" />
+          <ScalarProperty Name="high_value" ColumnName="high_value" />
+          <ScalarProperty Name="total_attempt" ColumnName="total_attempt" />
+          <ScalarProperty Name="ans_requiered" ColumnName="ans_requiered" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+          <ScalarProperty Name="answer_description" ColumnName="answer_description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessment_answer">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessment_answer">
+        <MappingFragment StoreEntitySet="tbl_assessment_answer">
+          <ScalarProperty Name="id_assessment_answer" ColumnName="id_assessment_answer" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="id_assessment_question" ColumnName="id_assessment_question" />
+          <ScalarProperty Name="id_assessment_scoring_key" ColumnName="id_assessment_scoring_key" />
+          <ScalarProperty Name="answer_description" ColumnName="answer_description" />
+          <ScalarProperty Name="position" ColumnName="position" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessment_audit">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessment_audit">
+        <MappingFragment StoreEntitySet="tbl_assessment_audit">
+          <ScalarProperty Name="id_assessment_audit" ColumnName="id_assessment_audit" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="id_assessment_sheet" ColumnName="id_assessment_sheet" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_assessment_question" ColumnName="id_assessment_question" />
+          <ScalarProperty Name="id_assessment_answer" ColumnName="id_assessment_answer" />
+          <ScalarProperty Name="value_sent" ColumnName="value_sent" />
+          <ScalarProperty Name="attempt_no" ColumnName="attempt_no" />
+          <ScalarProperty Name="recorded_timestamp" ColumnName="recorded_timestamp" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessment_categoty_mapping">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessment_categoty_mapping">
+        <MappingFragment StoreEntitySet="tbl_assessment_categoty_mapping">
+          <ScalarProperty Name="id_assessment_categoty_mapping" ColumnName="id_assessment_categoty_mapping" />
+          <ScalarProperty Name="id_assessment_sheet" ColumnName="id_assessment_sheet" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessment_general">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessment_general">
+        <MappingFragment StoreEntitySet="tbl_assessment_general">
+          <ScalarProperty Name="id_assessment_general" ColumnName="id_assessment_general" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_assesment_sheet" ColumnName="id_assesment_sheet" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessment_header">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessment_header">
+        <MappingFragment StoreEntitySet="tbl_assessment_header">
+          <ScalarProperty Name="id_assessment_header" ColumnName="id_assessment_header" />
+          <ScalarProperty Name="id_assessment_scoring_key" ColumnName="id_assessment_scoring_key" />
+          <ScalarProperty Name="id_assessment_question" ColumnName="id_assessment_question" />
+          <ScalarProperty Name="id_assessment_answer" ColumnName="id_assessment_answer" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessment_index">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessment_index">
+        <MappingFragment StoreEntitySet="tbl_assessment_index">
+          <ScalarProperty Name="id_assessment_index" ColumnName="id_assessment_index" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_assessment_sheet" ColumnName="id_assessment_sheet" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessment_mapping">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessment_mapping">
+        <MappingFragment StoreEntitySet="tbl_assessment_mapping">
+          <ScalarProperty Name="id_assessment_mapping" ColumnName="id_assessment_mapping" />
+          <ScalarProperty Name="id_assessment_sheet" ColumnName="id_assessment_sheet" />
+          <ScalarProperty Name="id_content" ColumnName="id_content" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessment_push">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessment_push">
+        <MappingFragment StoreEntitySet="tbl_assessment_push">
+          <ScalarProperty Name="id_assessment_push" ColumnName="id_assessment_push" />
+          <ScalarProperty Name="id_assesment_sheet" ColumnName="id_assesment_sheet" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessment_question">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessment_question">
+        <MappingFragment StoreEntitySet="tbl_assessment_question">
+          <ScalarProperty Name="id_assessment_question" ColumnName="id_assessment_question" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="id_assessment_scoring_key" ColumnName="id_assessment_scoring_key" />
+          <ScalarProperty Name="assessment_question" ColumnName="assessment_question" />
+          <ScalarProperty Name="question_image" ColumnName="question_image" />
+          <ScalarProperty Name="aq_answer" ColumnName="aq_answer" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessment_scoring_key">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessment_scoring_key">
+        <MappingFragment StoreEntitySet="tbl_assessment_scoring_key">
+          <ScalarProperty Name="id_assessment_scoring_key" ColumnName="id_assessment_scoring_key" />
+          <ScalarProperty Name="header_name" ColumnName="header_name" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="id_assessment_theme" ColumnName="id_assessment_theme" />
+          <ScalarProperty Name="position" ColumnName="position" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessment_sheet">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessment_sheet">
+        <MappingFragment StoreEntitySet="tbl_assessment_sheet">
+          <ScalarProperty Name="id_assessment_sheet" ColumnName="id_assessment_sheet" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_assesment" ColumnName="id_assesment" />
+          <ScalarProperty Name="id_assessment_theme" ColumnName="id_assessment_theme" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessment_theme">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessment_theme">
+        <MappingFragment StoreEntitySet="tbl_assessment_theme">
+          <ScalarProperty Name="id_assessment_theme" ColumnName="id_assessment_theme" />
+          <ScalarProperty Name="assessment_theme" ColumnName="assessment_theme" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessment_user_assignment">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessment_user_assignment">
+        <MappingFragment StoreEntitySet="tbl_assessment_user_assignment">
+          <ScalarProperty Name="id_assessment_user_assignment" ColumnName="id_assessment_user_assignment" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="expire_date" ColumnName="expire_date" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assessmnt_log">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assessmnt_log">
+        <MappingFragment StoreEntitySet="tbl_assessmnt_log">
+          <ScalarProperty Name="id_assessmnt_log" ColumnName="id_assessmnt_log" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_assessment_sheet" ColumnName="id_assessment_sheet" />
+          <ScalarProperty Name="json_response" ColumnName="json_response" />
+          <ScalarProperty Name="attempt_no" ColumnName="attempt_no" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assignment_role_assessment">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assignment_role_assessment">
+        <MappingFragment StoreEntitySet="tbl_assignment_role_assessment">
+          <ScalarProperty Name="id_assignment_role_assessment" ColumnName="id_assignment_role_assessment" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="start_datetime" ColumnName="start_datetime" />
+          <ScalarProperty Name="end_datetime" ColumnName="end_datetime" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assignment_role_content">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assignment_role_content">
+        <MappingFragment StoreEntitySet="tbl_assignment_role_content">
+          <ScalarProperty Name="id_assignment_role_content" ColumnName="id_assignment_role_content" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+          <ScalarProperty Name="id_content" ColumnName="id_content" />
+          <ScalarProperty Name="start_datetime" ColumnName="start_datetime" />
+          <ScalarProperty Name="end_datetime" ColumnName="end_datetime" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_assignment_role_program">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_assignment_role_program">
+        <MappingFragment StoreEntitySet="tbl_assignment_role_program">
+          <ScalarProperty Name="id_assignment_role_program" ColumnName="id_assignment_role_program" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+          <ScalarProperty Name="id_program" ColumnName="id_program" />
+          <ScalarProperty Name="start_datetime" ColumnName="start_datetime" />
+          <ScalarProperty Name="end_datetime" ColumnName="end_datetime" />
+          <ScalarProperty Name="id_category_tile" ColumnName="id_category_tile" />
+          <ScalarProperty Name="id_category_heading" ColumnName="id_category_heading" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_authcode">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_authcode">
+        <MappingFragment StoreEntitySet="tbl_authcode">
+          <ScalarProperty Name="ID_CODE" ColumnName="ID_CODE" />
+          <ScalarProperty Name="CODE" ColumnName="CODE" />
+          <ScalarProperty Name="UPDATEDTIME" ColumnName="UPDATEDTIME" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_banner">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_banner">
+        <MappingFragment StoreEntitySet="tbl_banner">
+          <ScalarProperty Name="id_banner" ColumnName="id_banner" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="banner_name" ColumnName="banner_name" />
+          <ScalarProperty Name="banner_image" ColumnName="banner_image" />
+          <ScalarProperty Name="banner_action_url" ColumnName="banner_action_url" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_brief_category_tile">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_brief_category_tile">
+        <MappingFragment StoreEntitySet="tbl_brief_category_tile">
+          <ScalarProperty Name="id_brief_category_tile" ColumnName="id_brief_category_tile" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="category_tile" ColumnName="category_tile" />
+          <ScalarProperty Name="tile_code" ColumnName="tile_code" />
+          <ScalarProperty Name="tile_description" ColumnName="tile_description" />
+          <ScalarProperty Name="tile_image" ColumnName="tile_image" />
+          <ScalarProperty Name="category_tile_type" ColumnName="category_tile_type" />
+          <ScalarProperty Name="tile_position" ColumnName="tile_position" />
+          <ScalarProperty Name="assessment_complation" ColumnName="assessment_complation" />
+          <ScalarProperty Name="attempt_limit" ColumnName="attempt_limit" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_brief_tile_category_mapping">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_brief_tile_category_mapping">
+        <MappingFragment StoreEntitySet="tbl_brief_tile_category_mapping">
+          <ScalarProperty Name="id_brief_tile_category_mapping" ColumnName="id_brief_tile_category_mapping" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_brief_category_tile" ColumnName="id_brief_category_tile" />
+          <ScalarProperty Name="id_brief_category" ColumnName="id_brief_category" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_business_type">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_business_type">
+        <MappingFragment StoreEntitySet="tbl_business_type">
+          <ScalarProperty Name="ID_BUSINESS_TYPE" ColumnName="ID_BUSINESS_TYPE" />
+          <ScalarProperty Name="BUSINESS_TYPE_NAME" ColumnName="BUSINESS_TYPE_NAME" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_category">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_category">
+        <MappingFragment StoreEntitySet="tbl_category">
+          <ScalarProperty Name="ID_CATEGORY" ColumnName="ID_CATEGORY" />
+          <ScalarProperty Name="ID_ORGANIZATION" ColumnName="ID_ORGANIZATION" />
+          <ScalarProperty Name="CATEGORYNAME" ColumnName="CATEGORYNAME" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="IMAGE_PATH" ColumnName="IMAGE_PATH" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+          <ScalarProperty Name="SUB_HEADING" ColumnName="SUB_HEADING" />
+          <ScalarProperty Name="ORDERID" ColumnName="ORDERID" />
+          <ScalarProperty Name="IS_PRIMARY" ColumnName="IS_PRIMARY" />
+          <ScalarProperty Name="ID_PARENT" ColumnName="ID_PARENT" />
+          <ScalarProperty Name="SEARCH_MAX_COUNT" ColumnName="SEARCH_MAX_COUNT" />
+          <ScalarProperty Name="COUNT_REQUIRED" ColumnName="COUNT_REQUIRED" />
+          <ScalarProperty Name="CATEGORY_TYPE" ColumnName="CATEGORY_TYPE" />
+          <ScalarProperty Name="IMAGE_URL" ColumnName="IMAGE_URL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_category_associantion">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_category_associantion">
+        <MappingFragment StoreEntitySet="tbl_category_associantion">
+          <ScalarProperty Name="id_category_association" ColumnName="id_category_association" />
+          <ScalarProperty Name="id_category_tile" ColumnName="id_category_tile" />
+          <ScalarProperty Name="id_category_heading" ColumnName="id_category_heading" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="category_order" ColumnName="category_order" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_category_heading">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_category_heading">
+        <MappingFragment StoreEntitySet="tbl_category_heading">
+          <ScalarProperty Name="id_category_heading" ColumnName="id_category_heading" />
+          <ScalarProperty Name="Heading_title" ColumnName="Heading_title" />
+          <ScalarProperty Name="id_category_tiles" ColumnName="id_category_tiles" />
+          <ScalarProperty Name="heading_order" ColumnName="heading_order" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_category_order">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_category_order">
+        <MappingFragment StoreEntitySet="tbl_category_order">
+          <ScalarProperty Name="id_category_order" ColumnName="id_category_order" />
+          <ScalarProperty Name="id_heading_category" ColumnName="id_heading_category" />
+          <ScalarProperty Name="category_heading" ColumnName="category_heading" />
+          <ScalarProperty Name="heading_order" ColumnName="heading_order" />
+          <ScalarProperty Name="id_organisation" ColumnName="id_organisation" />
+          <ScalarProperty Name="category_list" ColumnName="category_list" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_category_tiles">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_category_tiles">
+        <MappingFragment StoreEntitySet="tbl_category_tiles">
+          <ScalarProperty Name="id_category_tiles" ColumnName="id_category_tiles" />
+          <ScalarProperty Name="tile_heading" ColumnName="tile_heading" />
+          <ScalarProperty Name="category_theme" ColumnName="category_theme" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="tile_image" ColumnName="tile_image" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+          <ScalarProperty Name="category_order" ColumnName="category_order" />
+          <ScalarProperty Name="image_url" ColumnName="image_url" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_certificate_assignment">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_certificate_assignment">
+        <MappingFragment StoreEntitySet="tbl_certificate_assignment">
+          <ScalarProperty Name="id_certificate_assignment" ColumnName="id_certificate_assignment" />
+          <ScalarProperty Name="id_certificate" ColumnName="id_certificate" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+          <ScalarProperty Name="id_org" ColumnName="id_org" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_certificate_configure">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_certificate_configure">
+        <MappingFragment StoreEntitySet="tbl_certificate_configure">
+          <ScalarProperty Name="id_certificate" ColumnName="id_certificate" />
+          <ScalarProperty Name="certificate_title" ColumnName="certificate_title" />
+          <ScalarProperty Name="signature" ColumnName="signature" />
+          <ScalarProperty Name="label_1" ColumnName="label_1" />
+          <ScalarProperty Name="label_2" ColumnName="label_2" />
+          <ScalarProperty Name="label_3" ColumnName="label_3" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_certificate_configure_data">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_certificate_configure_data">
+        <MappingFragment StoreEntitySet="tbl_certificate_configure_data">
+          <ScalarProperty Name="id_configure_data" ColumnName="id_configure_data" />
+          <ScalarProperty Name="id_certificate" ColumnName="id_certificate" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="label_1" ColumnName="label_1" />
+          <ScalarProperty Name="label_2" ColumnName="label_2" />
+          <ScalarProperty Name="label_3" ColumnName="label_3" />
+          <ScalarProperty Name="label_1_range" ColumnName="label_1_range" />
+          <ScalarProperty Name="label_2_range" ColumnName="label_2_range" />
+          <ScalarProperty Name="label_3_range" ColumnName="label_3_range" />
+          <ScalarProperty Name="signature" ColumnName="signature" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_childinformation">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_childinformation">
+        <MappingFragment StoreEntitySet="tbl_childinformation">
+          <ScalarProperty Name="id_child" ColumnName="id_child" />
+          <ScalarProperty Name="roll_no" ColumnName="roll_no" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+          <ScalarProperty Name="sur_name" ColumnName="sur_name" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_teacher" ColumnName="id_teacher" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="dob" ColumnName="dob" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="doj" ColumnName="doj" />
+          <ScalarProperty Name="street" ColumnName="street" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="pincode" ColumnName="pincode" />
+          <ScalarProperty Name="father_name" ColumnName="father_name" />
+          <ScalarProperty Name="father_mob" ColumnName="father_mob" />
+          <ScalarProperty Name="mother_name" ColumnName="mother_name" />
+          <ScalarProperty Name="mother_mob" ColumnName="mother_mob" />
+          <ScalarProperty Name="email_id" ColumnName="email_id" />
+          <ScalarProperty Name="other_contact_name" ColumnName="other_contact_name" />
+          <ScalarProperty Name="other_contact_mob" ColumnName="other_contact_mob" />
+          <ScalarProperty Name="remarks_med_alergies" ColumnName="remarks_med_alergies" />
+          <ScalarProperty Name="identification_marks" ColumnName="identification_marks" />
+          <ScalarProperty Name="payment_term1" ColumnName="payment_term1" />
+          <ScalarProperty Name="payment_term2" ColumnName="payment_term2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_cms_role_action">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_cms_role_action">
+        <MappingFragment StoreEntitySet="tbl_cms_role_action">
+          <ScalarProperty Name="id_cms_role_action" ColumnName="id_cms_role_action" />
+          <ScalarProperty Name="cms_role_action" ColumnName="cms_role_action" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+          <ScalarProperty Name="action_type" ColumnName="action_type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_cms_role_action_mapping">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_cms_role_action_mapping">
+        <MappingFragment StoreEntitySet="tbl_cms_role_action_mapping">
+          <ScalarProperty Name="id_cms_role_action_mapping" ColumnName="id_cms_role_action_mapping" />
+          <ScalarProperty Name="id_cms_role_action" ColumnName="id_cms_role_action" />
+          <ScalarProperty Name="id_cms_role" ColumnName="id_cms_role" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_cms_roles">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_cms_roles">
+        <MappingFragment StoreEntitySet="tbl_cms_roles">
+          <ScalarProperty Name="ID_ROLE" ColumnName="ID_ROLE" />
+          <ScalarProperty Name="ID_ORGANIZATION" ColumnName="ID_ORGANIZATION" />
+          <ScalarProperty Name="ROLENAME" ColumnName="ROLENAME" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_cms_users">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_cms_users">
+        <MappingFragment StoreEntitySet="tbl_cms_users">
+          <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+          <ScalarProperty Name="ID_ROLE" ColumnName="ID_ROLE" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+          <ScalarProperty Name="cmd_user_type" ColumnName="cmd_user_type" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_color_config">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_color_config">
+        <MappingFragment StoreEntitySet="tbl_color_config">
+          <ScalarProperty Name="id_color_config" ColumnName="id_color_config" />
+          <ScalarProperty Name="id_organisation" ColumnName="id_organisation" />
+          <ScalarProperty Name="config_type" ColumnName="config_type" />
+          <ScalarProperty Name="grid1_bk_color" ColumnName="grid1_bk_color" />
+          <ScalarProperty Name="grid1_text_color" ColumnName="grid1_text_color" />
+          <ScalarProperty Name="grid2_bk_color" ColumnName="grid2_bk_color" />
+          <ScalarProperty Name="grid2_text_color" ColumnName="grid2_text_color" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created_date_time" ColumnName="created_date_time" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_color_config_flag">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_color_config_flag">
+        <MappingFragment StoreEntitySet="tbl_color_config_flag">
+          <ScalarProperty Name="id_flag" ColumnName="id_flag" />
+          <ScalarProperty Name="id_org" ColumnName="id_org" />
+          <ScalarProperty Name="flag" ColumnName="flag" />
+          <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content">
+        <MappingFragment StoreEntitySet="tbl_content">
+          <ScalarProperty Name="ID_CONTENT" ColumnName="ID_CONTENT" />
+          <ScalarProperty Name="ID_THEME" ColumnName="ID_THEME" />
+          <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+          <ScalarProperty Name="ID_CONTENT_LEVEL" ColumnName="ID_CONTENT_LEVEL" />
+          <ScalarProperty Name="CONTENT_TITLE" ColumnName="CONTENT_TITLE" />
+          <ScalarProperty Name="CONTENT_HEADER" ColumnName="CONTENT_HEADER" />
+          <ScalarProperty Name="CONTENT_QUESTION" ColumnName="CONTENT_QUESTION" />
+          <ScalarProperty Name="CONTENT_COUNTER" ColumnName="CONTENT_COUNTER" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+          <ScalarProperty Name="LINK_COUNT" ColumnName="LINK_COUNT" />
+          <ScalarProperty Name="IS_PRIMARY" ColumnName="IS_PRIMARY" />
+          <ScalarProperty Name="EXPIRY_DATE" ColumnName="EXPIRY_DATE" />
+          <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+          <ScalarProperty Name="CONTENT_IDENTIFIER" ColumnName="CONTENT_IDENTIFIER" />
+          <ScalarProperty Name="CONTENT_OWNER" ColumnName="CONTENT_OWNER" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_answer">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_answer">
+        <MappingFragment StoreEntitySet="tbl_content_answer">
+          <ScalarProperty Name="ID_CONTENT_ANSWER" ColumnName="ID_CONTENT_ANSWER" />
+          <ScalarProperty Name="ID_CONTENT" ColumnName="ID_CONTENT" />
+          <ScalarProperty Name="CONTENT_ANSWER_TITLE" ColumnName="CONTENT_ANSWER_TITLE" />
+          <ScalarProperty Name="CONTENT_ANSWER_HEADER" ColumnName="CONTENT_ANSWER_HEADER" />
+          <ScalarProperty Name="CONTENT_ANSWER1" ColumnName="CONTENT_ANSWER1" />
+          <ScalarProperty Name="CONTENT_ANSWER2" ColumnName="CONTENT_ANSWER2" />
+          <ScalarProperty Name="CONTENT_ANSWER3" ColumnName="CONTENT_ANSWER3" />
+          <ScalarProperty Name="CONTENT_ANSWER4" ColumnName="CONTENT_ANSWER4" />
+          <ScalarProperty Name="CONTENT_ANSWER_IMG1" ColumnName="CONTENT_ANSWER_IMG1" />
+          <ScalarProperty Name="CONTENT_ANSWER_IMG2" ColumnName="CONTENT_ANSWER_IMG2" />
+          <ScalarProperty Name="CONTENT_ANSWER_IMG3" ColumnName="CONTENT_ANSWER_IMG3" />
+          <ScalarProperty Name="CONTENT_ANSWER_BANNER" ColumnName="CONTENT_ANSWER_BANNER" />
+          <ScalarProperty Name="REDIRECTION_URL" ColumnName="REDIRECTION_URL" />
+          <ScalarProperty Name="CONTENT_ANSWER_COUNTER" ColumnName="CONTENT_ANSWER_COUNTER" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATEDTIME" ColumnName="UPDATEDTIME" />
+          <ScalarProperty Name="CONTENT_ANSWER10" ColumnName="CONTENT_ANSWER10" />
+          <ScalarProperty Name="CONTENT_ANSWER5" ColumnName="CONTENT_ANSWER5" />
+          <ScalarProperty Name="CONTENT_ANSWER6" ColumnName="CONTENT_ANSWER6" />
+          <ScalarProperty Name="CONTENT_ANSWER7" ColumnName="CONTENT_ANSWER7" />
+          <ScalarProperty Name="CONTENT_ANSWER8" ColumnName="CONTENT_ANSWER8" />
+          <ScalarProperty Name="CONTENT_ANSWER9" ColumnName="CONTENT_ANSWER9" />
+          <ScalarProperty Name="CONTENT_ANSWER_IMG10" ColumnName="CONTENT_ANSWER_IMG10" />
+          <ScalarProperty Name="CONTENT_ANSWER_IMG4" ColumnName="CONTENT_ANSWER_IMG4" />
+          <ScalarProperty Name="CONTENT_ANSWER_IMG5" ColumnName="CONTENT_ANSWER_IMG5" />
+          <ScalarProperty Name="CONTENT_ANSWER_IMG6" ColumnName="CONTENT_ANSWER_IMG6" />
+          <ScalarProperty Name="CONTENT_ANSWER_IMG7" ColumnName="CONTENT_ANSWER_IMG7" />
+          <ScalarProperty Name="CONTENT_ANSWER_IMG8" ColumnName="CONTENT_ANSWER_IMG8" />
+          <ScalarProperty Name="CONTENT_ANSWER_IMG9" ColumnName="CONTENT_ANSWER_IMG9" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_answer_steps">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_answer_steps">
+        <MappingFragment StoreEntitySet="tbl_content_answer_steps">
+          <ScalarProperty Name="ID_ANSWER_STEP" ColumnName="ID_ANSWER_STEP" />
+          <ScalarProperty Name="ID_CONTENT_ANSWER" ColumnName="ID_CONTENT_ANSWER" />
+          <ScalarProperty Name="STEPNO" ColumnName="STEPNO" />
+          <ScalarProperty Name="ANSWER_STEPS_PART1" ColumnName="ANSWER_STEPS_PART1" />
+          <ScalarProperty Name="ANSWER_STEPS_PART2" ColumnName="ANSWER_STEPS_PART2" />
+          <ScalarProperty Name="ANSWER_STEPS_IMG1" ColumnName="ANSWER_STEPS_IMG1" />
+          <ScalarProperty Name="ANSWER_STEPS_IMG2" ColumnName="ANSWER_STEPS_IMG2" />
+          <ScalarProperty Name="ANSWER_STEPS_BANNER" ColumnName="ANSWER_STEPS_BANNER" />
+          <ScalarProperty Name="REDIRECTION_URL" ColumnName="REDIRECTION_URL" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATEDDATETIME" ColumnName="UPDATEDDATETIME" />
+          <ScalarProperty Name="ID_THEME" ColumnName="ID_THEME" />
+          <ScalarProperty Name="ANSWER_STEPS_PART3" ColumnName="ANSWER_STEPS_PART3" />
+          <ScalarProperty Name="ANSWER_STEPS_IMG3" ColumnName="ANSWER_STEPS_IMG3" />
+          <ScalarProperty Name="ANSWER_STEPS_IMG10" ColumnName="ANSWER_STEPS_IMG10" />
+          <ScalarProperty Name="ANSWER_STEPS_IMG5" ColumnName="ANSWER_STEPS_IMG5" />
+          <ScalarProperty Name="ANSWER_STEPS_IMG6" ColumnName="ANSWER_STEPS_IMG6" />
+          <ScalarProperty Name="ANSWER_STEPS_IMG7" ColumnName="ANSWER_STEPS_IMG7" />
+          <ScalarProperty Name="ANSWER_STEPS_IMG8" ColumnName="ANSWER_STEPS_IMG8" />
+          <ScalarProperty Name="ANSWER_STEPS_IMG9" ColumnName="ANSWER_STEPS_IMG9" />
+          <ScalarProperty Name="ANSWER_STEPS_PART10" ColumnName="ANSWER_STEPS_PART10" />
+          <ScalarProperty Name="ANSWER_STEPS_PART4" ColumnName="ANSWER_STEPS_PART4" />
+          <ScalarProperty Name="ANSWER_STEPS_PART5" ColumnName="ANSWER_STEPS_PART5" />
+          <ScalarProperty Name="ANSWER_STEPS_PART6" ColumnName="ANSWER_STEPS_PART6" />
+          <ScalarProperty Name="ANSWER_STEPS_PART7" ColumnName="ANSWER_STEPS_PART7" />
+          <ScalarProperty Name="ANSWER_STEPS_PART8" ColumnName="ANSWER_STEPS_PART8" />
+          <ScalarProperty Name="ANSWER_STEPS_PART9" ColumnName="ANSWER_STEPS_PART9" />
+          <ScalarProperty Name="ANSWER_STEPS_IMG4" ColumnName="ANSWER_STEPS_IMG4" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_banner">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_banner">
+        <MappingFragment StoreEntitySet="tbl_content_banner">
+          <ScalarProperty Name="id_content_banner" ColumnName="id_content_banner" />
+          <ScalarProperty Name="id_content" ColumnName="id_content" />
+          <ScalarProperty Name="id_banner" ColumnName="id_banner" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+          <ScalarProperty Name="date_assigned" ColumnName="date_assigned" />
+          <ScalarProperty Name="date_removed" ColumnName="date_removed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_counters">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_counters">
+        <MappingFragment StoreEntitySet="tbl_content_counters">
+          <ScalarProperty Name="id_content_counters" ColumnName="id_content_counters" />
+          <ScalarProperty Name="id_content" ColumnName="id_content" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="flag" ColumnName="flag" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_footer">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_footer">
+        <MappingFragment StoreEntitySet="tbl_content_footer">
+          <ScalarProperty Name="id_content_footer" ColumnName="id_content_footer" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="content_footer_name" ColumnName="content_footer_name" />
+          <ScalarProperty Name="content_footer_image" ColumnName="content_footer_image" />
+          <ScalarProperty Name="content_footer_action_url" ColumnName="content_footer_action_url" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_header">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_header">
+        <MappingFragment StoreEntitySet="tbl_content_header">
+          <ScalarProperty Name="id_content_header" ColumnName="id_content_header" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="content_header_name" ColumnName="content_header_name" />
+          <ScalarProperty Name="content_header_image" ColumnName="content_header_image" />
+          <ScalarProperty Name="content_header_action_url" ColumnName="content_header_action_url" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_header_footer">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_header_footer">
+        <MappingFragment StoreEntitySet="tbl_content_header_footer">
+          <ScalarProperty Name="id_content_header_footer" ColumnName="id_content_header_footer" />
+          <ScalarProperty Name="id_content" ColumnName="id_content" />
+          <ScalarProperty Name="id_header" ColumnName="id_header" />
+          <ScalarProperty Name="id_footer" ColumnName="id_footer" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_level">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_level">
+        <MappingFragment StoreEntitySet="tbl_content_level">
+          <ScalarProperty Name="ID_CONTENT_LEVEL" ColumnName="ID_CONTENT_LEVEL" />
+          <ScalarProperty Name="LEVELNAME" ColumnName="LEVELNAME" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_link">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_link">
+        <MappingFragment StoreEntitySet="tbl_content_link">
+          <ScalarProperty Name="ID_CONTENT_LINK" ColumnName="ID_CONTENT_LINK" />
+          <ScalarProperty Name="ID_CONTENT_PARENT" ColumnName="ID_CONTENT_PARENT" />
+          <ScalarProperty Name="ID_CONTENT_CHILD" ColumnName="ID_CONTENT_CHILD" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+          <ScalarProperty Name="ID_LINK_TYPE" ColumnName="ID_LINK_TYPE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_metadata">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_metadata">
+        <MappingFragment StoreEntitySet="tbl_content_metadata">
+          <ScalarProperty Name="ID_CONTENT_METADATA" ColumnName="ID_CONTENT_METADATA" />
+          <ScalarProperty Name="CONTENT_METADATA" ColumnName="CONTENT_METADATA" />
+          <ScalarProperty Name="CONTENT_METADATA_COUNTER" ColumnName="CONTENT_METADATA_COUNTER" />
+          <ScalarProperty Name="ID_CONTENT_ANSWER" ColumnName="ID_CONTENT_ANSWER" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATEDTIME" ColumnName="UPDATEDTIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_organization_mapping">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_organization_mapping">
+        <MappingFragment StoreEntitySet="tbl_content_organization_mapping">
+          <ScalarProperty Name="id_content_organization_mapping" ColumnName="id_content_organization_mapping" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_content" ColumnName="id_content" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_program_mapping">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_program_mapping">
+        <MappingFragment StoreEntitySet="tbl_content_program_mapping">
+          <ScalarProperty Name="id_content_program_mapping" ColumnName="id_content_program_mapping" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_assessment_sheet" ColumnName="id_assessment_sheet" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+          <ScalarProperty Name="map_type" ColumnName="map_type" />
+          <ScalarProperty Name="option_type" ColumnName="option_type" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
+          <ScalarProperty Name="id_category_tile" ColumnName="id_category_tile" />
+          <ScalarProperty Name="id_category_heading" ColumnName="id_category_heading" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_right_association">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_right_association">
+        <MappingFragment StoreEntitySet="tbl_content_right_association">
+          <ScalarProperty Name="id_content_right_association" ColumnName="id_content_right_association" />
+          <ScalarProperty Name="id_content" ColumnName="id_content" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="content_expiry_date" ColumnName="content_expiry_date" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+          <ScalarProperty Name="real_content_id" ColumnName="real_content_id" />
+          <ScalarProperty Name="real_organization_id" ColumnName="real_organization_id" />
+          <ScalarProperty Name="transfered_date" ColumnName="transfered_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_role_mapping">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_role_mapping">
+        <MappingFragment StoreEntitySet="tbl_content_role_mapping">
+          <ScalarProperty Name="id_content_role_mapping" ColumnName="id_content_role_mapping" />
+          <ScalarProperty Name="id_content" ColumnName="id_content" />
+          <ScalarProperty Name="id_csst_role" ColumnName="id_csst_role" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_type">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_type">
+        <MappingFragment StoreEntitySet="tbl_content_type">
+          <ScalarProperty Name="ID_CONTENT_TYPE" ColumnName="ID_CONTENT_TYPE" />
+          <ScalarProperty Name="TYPE_NAME" ColumnName="TYPE_NAME" />
+          <ScalarProperty Name="TYPE_DESCRIPTION" ColumnName="TYPE_DESCRIPTION" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_type_link">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_type_link">
+        <MappingFragment StoreEntitySet="tbl_content_type_link">
+          <ScalarProperty Name="ID_CONTENT_TYPE_LINK" ColumnName="ID_CONTENT_TYPE_LINK" />
+          <ScalarProperty Name="ID_CONTENT_ANSWER" ColumnName="ID_CONTENT_ANSWER" />
+          <ScalarProperty Name="ID_CONTENT_TYPE" ColumnName="ID_CONTENT_TYPE" />
+          <ScalarProperty Name="LINK_VALUE" ColumnName="LINK_VALUE" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_content_user_assisgnment">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_content_user_assisgnment">
+        <MappingFragment StoreEntitySet="tbl_content_user_assisgnment">
+          <ScalarProperty Name="id_content_user_assisgnment" ColumnName="id_content_user_assisgnment" />
+          <ScalarProperty Name="id_content" ColumnName="id_content" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_csst_role">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_csst_role">
+        <MappingFragment StoreEntitySet="tbl_csst_role">
+          <ScalarProperty Name="id_csst_role" ColumnName="id_csst_role" />
+          <ScalarProperty Name="csst_role" ColumnName="csst_role" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_dated_time" ColumnName="updated_dated_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_device_type">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_device_type">
+        <MappingFragment StoreEntitySet="tbl_device_type">
+          <ScalarProperty Name="ID_DEVICE_TYPE" ColumnName="ID_DEVICE_TYPE" />
+          <ScalarProperty Name="DEVICENAME" ColumnName="DEVICENAME" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATEDDATETIME" ColumnName="UPDATEDDATETIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_feedback_bank">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_feedback_bank">
+        <MappingFragment StoreEntitySet="tbl_feedback_bank">
+          <ScalarProperty Name="ID_FEEDBACK_BANK" ColumnName="ID_FEEDBACK_BANK" />
+          <ScalarProperty Name="FEEDBACK_NAME" ColumnName="FEEDBACK_NAME" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="FEEDBACK_QUESTION" ColumnName="FEEDBACK_QUESTION" />
+          <ScalarProperty Name="FEEDBACK_CHOICES" ColumnName="FEEDBACK_CHOICES" />
+          <ScalarProperty Name="FEEDBACK_IMAGE" ColumnName="FEEDBACK_IMAGE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_feedback_bank_link">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_feedback_bank_link">
+        <MappingFragment StoreEntitySet="tbl_feedback_bank_link">
+          <ScalarProperty Name="ID_FEEDBACK_BANK_LINK" ColumnName="ID_FEEDBACK_BANK_LINK" />
+          <ScalarProperty Name="ID_FEEDBACK_BANK" ColumnName="ID_FEEDBACK_BANK" />
+          <ScalarProperty Name="ID_CONTENT_ANSWER" ColumnName="ID_CONTENT_ANSWER" />
+          <ScalarProperty Name="ID_ANSWER_ASSOCIATION" ColumnName="ID_ANSWER_ASSOCIATION" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_feedback_data">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_feedback_data">
+        <MappingFragment StoreEntitySet="tbl_feedback_data">
+          <ScalarProperty Name="ID_FEEDBACK_DATA" ColumnName="ID_FEEDBACK_DATA" />
+          <ScalarProperty Name="ID_FEEDBACK_BANK" ColumnName="ID_FEEDBACK_BANK" />
+          <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+          <ScalarProperty Name="FEEDBACK_CHOICE" ColumnName="FEEDBACK_CHOICE" />
+          <ScalarProperty Name="FEEDBACK_TEXT" ColumnName="FEEDBACK_TEXT" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_game_creation">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_game_creation">
+        <MappingFragment StoreEntitySet="tbl_game_creation">
+          <ScalarProperty Name="id_game" ColumnName="id_game" />
+          <ScalarProperty Name="id_organisation" ColumnName="id_organisation" />
+          <ScalarProperty Name="id_game_creator" ColumnName="id_game_creator" />
+          <ScalarProperty Name="gameid" ColumnName="gameid" />
+          <ScalarProperty Name="game_title" ColumnName="game_title" />
+          <ScalarProperty Name="game_description" ColumnName="game_description" />
+          <ScalarProperty Name="game_creator_name" ColumnName="game_creator_name" />
+          <ScalarProperty Name="game_expiry_date" ColumnName="game_expiry_date" />
+          <ScalarProperty Name="game_start_date" ColumnName="game_start_date" />
+          <ScalarProperty Name="game_mode" ColumnName="game_mode" />
+          <ScalarProperty Name="game_type" ColumnName="game_type" />
+          <ScalarProperty Name="id_game_path" ColumnName="id_game_path" />
+          <ScalarProperty Name="player_type" ColumnName="player_type" />
+          <ScalarProperty Name="id_game_group" ColumnName="id_game_group" />
+          <ScalarProperty Name="game_comment" ColumnName="game_comment" />
+          <ScalarProperty Name="game_phase" ColumnName="game_phase" />
+          <ScalarProperty Name="game_creation_datetime" ColumnName="game_creation_datetime" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_game_group">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_game_group">
+        <MappingFragment StoreEntitySet="tbl_game_group">
+          <ScalarProperty Name="id_game_group" ColumnName="id_game_group" />
+          <ScalarProperty Name="group_name" ColumnName="group_name" />
+          <ScalarProperty Name="group_image_path" ColumnName="group_image_path" />
+          <ScalarProperty Name="id_creator" ColumnName="id_creator" />
+          <ScalarProperty Name="game_group_type" ColumnName="game_group_type" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_game_group_association">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_game_group_association">
+        <MappingFragment StoreEntitySet="tbl_game_group_association">
+          <ScalarProperty Name="id_game_group_association" ColumnName="id_game_group_association" />
+          <ScalarProperty Name="id_game" ColumnName="id_game" />
+          <ScalarProperty Name="association_type" ColumnName="association_type" />
+          <ScalarProperty Name="id_game_group" ColumnName="id_game_group" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="creation_date" ColumnName="creation_date" />
+          <ScalarProperty Name="removed_date" ColumnName="removed_date" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
+          <ScalarProperty Name="assigned_by" ColumnName="assigned_by" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_game_group_participatant">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_game_group_participatant">
+        <MappingFragment StoreEntitySet="tbl_game_group_participatant">
+          <ScalarProperty Name="id_game_group_participatant" ColumnName="id_game_group_participatant" />
+          <ScalarProperty Name="id_game_group" ColumnName="id_game_group" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="participatant_level" ColumnName="participatant_level" />
+          <ScalarProperty Name="addition_date" ColumnName="addition_date" />
+          <ScalarProperty Name="removal_date" ColumnName="removal_date" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_game_path">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_game_path">
+        <MappingFragment StoreEntitySet="tbl_game_path">
+          <ScalarProperty Name="id_game_path" ColumnName="id_game_path" />
+          <ScalarProperty Name="id_category_tile" ColumnName="id_category_tile" />
+          <ScalarProperty Name="id_category_heading" ColumnName="id_category_heading" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_program" ColumnName="id_program" />
+          <ScalarProperty Name="Program_sequence_order" ColumnName="Program_sequence_order" />
+          <ScalarProperty Name="is_program_mandatory" ColumnName="is_program_mandatory" />
+          <ScalarProperty Name="program_weightage" ColumnName="program_weightage" />
+          <ScalarProperty Name="program_select_flag" ColumnName="program_select_flag" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="assessment_sequence_order" ColumnName="assessment_sequence_order" />
+          <ScalarProperty Name="is_assessment_mandatory" ColumnName="is_assessment_mandatory" />
+          <ScalarProperty Name="assessment_weightage" ColumnName="assessment_weightage" />
+          <ScalarProperty Name="assessment_select_flag" ColumnName="assessment_select_flag" />
+          <ScalarProperty Name="id_game" ColumnName="id_game" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_game_phase">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_game_phase">
+        <MappingFragment StoreEntitySet="tbl_game_phase">
+          <ScalarProperty Name="id_game_path" ColumnName="id_game_path" />
+          <ScalarProperty Name="id_game" ColumnName="id_game" />
+          <ScalarProperty Name="content_type" ColumnName="content_type" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="id_content" ColumnName="id_content" />
+          <ScalarProperty Name="order_no" ColumnName="order_no" />
+          <ScalarProperty Name="is_mandatory" ColumnName="is_mandatory" />
+          <ScalarProperty Name="weightage" ColumnName="weightage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_game_process_path">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_game_process_path">
+        <MappingFragment StoreEntitySet="tbl_game_process_path">
+          <ScalarProperty Name="id_game_process_path" ColumnName="id_game_process_path" />
+          <ScalarProperty Name="id_game" ColumnName="id_game" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="process_type" ColumnName="process_type" />
+          <ScalarProperty Name="sequence_number" ColumnName="sequence_number" />
+          <ScalarProperty Name="is_mandatory" ColumnName="is_mandatory" />
+          <ScalarProperty Name="weightage" ColumnName="weightage" />
+          <ScalarProperty Name="element_type" ColumnName="element_type" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_game_solo">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_game_solo">
+        <MappingFragment StoreEntitySet="tbl_game_solo">
+          <ScalarProperty Name="id_game" ColumnName="id_game" />
+          <ScalarProperty Name="id_participatant" ColumnName="id_participatant" />
+          <ScalarProperty Name="participatant_level" ColumnName="participatant_level" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_industry">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_industry">
+        <MappingFragment StoreEntitySet="tbl_industry">
+          <ScalarProperty Name="ID_INDUSTRY" ColumnName="ID_INDUSTRY" />
+          <ScalarProperty Name="INDUSTRYNAME" ColumnName="INDUSTRYNAME" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_kpi_grid">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_kpi_grid">
+        <MappingFragment StoreEntitySet="tbl_kpi_grid">
+          <ScalarProperty Name="id_kpi_grid" ColumnName="id_kpi_grid" />
+          <ScalarProperty Name="id_kpi_master" ColumnName="id_kpi_master" />
+          <ScalarProperty Name="start_range" ColumnName="start_range" />
+          <ScalarProperty Name="end_range" ColumnName="end_range" />
+          <ScalarProperty Name="kpi_value" ColumnName="kpi_value" />
+          <ScalarProperty Name="kpi_text" ColumnName="kpi_text" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_kpi_master">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_kpi_master">
+        <MappingFragment StoreEntitySet="tbl_kpi_master">
+          <ScalarProperty Name="id_kpi_master" ColumnName="id_kpi_master" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="kpi_name" ColumnName="kpi_name" />
+          <ScalarProperty Name="kpi_description" ColumnName="kpi_description" />
+          <ScalarProperty Name="kpi_type" ColumnName="kpi_type" />
+          <ScalarProperty Name="KPIID" ColumnName="KPIID" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
+          <ScalarProperty Name="id_creator" ColumnName="id_creator" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_kpi_program_scoring">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_kpi_program_scoring">
+        <MappingFragment StoreEntitySet="tbl_kpi_program_scoring">
+          <ScalarProperty Name="id_kpi_program_scoring" ColumnName="id_kpi_program_scoring" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="kpi_type" ColumnName="kpi_type" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="id_kpi_master" ColumnName="id_kpi_master" />
+          <ScalarProperty Name="ps_weightage" ColumnName="ps_weightage" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_menu">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_menu">
+        <MappingFragment StoreEntitySet="tbl_menu">
+          <ScalarProperty Name="id_menu" ColumnName="id_menu" />
+          <ScalarProperty Name="id_org" ColumnName="id_org" />
+          <ScalarProperty Name="menu_name" ColumnName="menu_name" />
+          <ScalarProperty Name="menu_url" ColumnName="menu_url" />
+          <ScalarProperty Name="menu_icon" ColumnName="menu_icon" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_menu_type">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_menu_type">
+        <MappingFragment StoreEntitySet="tbl_menu_type">
+          <ScalarProperty Name="id_menu_type" ColumnName="id_menu_type" />
+          <ScalarProperty Name="id_organisation" ColumnName="id_organisation" />
+          <ScalarProperty Name="menu_type" ColumnName="menu_type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_mutthi_mein_sitare_milestone">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_mutthi_mein_sitare_milestone">
+        <MappingFragment StoreEntitySet="tbl_mutthi_mein_sitare_milestone">
+          <ScalarProperty Name="id_milestone" ColumnName="id_milestone" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_skill" ColumnName="id_skill" />
+          <ScalarProperty Name="milestone_description" ColumnName="milestone_description" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="last_modified" ColumnName="last_modified" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_mutthi_mein_sitare_skill">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_mutthi_mein_sitare_skill">
+        <MappingFragment StoreEntitySet="tbl_mutthi_mein_sitare_skill">
+          <ScalarProperty Name="id_skill" ColumnName="id_skill" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="skill_description" ColumnName="skill_description" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="last_modified" ColumnName="last_modified" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_mutthi_skill_development_detail">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_mutthi_skill_development_detail">
+        <MappingFragment StoreEntitySet="tbl_mutthi_skill_development_detail">
+          <ScalarProperty Name="id_mutthi_skill_development_detail" ColumnName="id_mutthi_skill_development_detail" />
+          <ScalarProperty Name="id_mutthi_sheet" ColumnName="id_mutthi_sheet" />
+          <ScalarProperty Name="id_skill" ColumnName="id_skill" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_mutthi_skill_milestone_detail">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_mutthi_skill_milestone_detail">
+        <MappingFragment StoreEntitySet="tbl_mutthi_skill_milestone_detail">
+          <ScalarProperty Name="id_mutthi_skill_milestone_detail" ColumnName="id_mutthi_skill_milestone_detail" />
+          <ScalarProperty Name="id_mutthi_sheet" ColumnName="id_mutthi_sheet" />
+          <ScalarProperty Name="id_milestone" ColumnName="id_milestone" />
+          <ScalarProperty Name="milestone_detail" ColumnName="milestone_detail" />
+          <ScalarProperty Name="milestone_comments" ColumnName="milestone_comments" />
+          <ScalarProperty Name="id_skill" ColumnName="id_skill" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_mutthimeinsitare_master">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_mutthimeinsitare_master">
+        <MappingFragment StoreEntitySet="tbl_mutthimeinsitare_master">
+          <ScalarProperty Name="id_mutthi_sheet" ColumnName="id_mutthi_sheet" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="roll_no" ColumnName="roll_no" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="doj" ColumnName="doj" />
+          <ScalarProperty Name="created_on" ColumnName="created_on" />
+          <ScalarProperty Name="last_modified" ColumnName="last_modified" />
+          <ScalarProperty Name="term" ColumnName="term" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_news_ticker">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_news_ticker">
+        <MappingFragment StoreEntitySet="tbl_news_ticker">
+          <ScalarProperty Name="Id_ticker" ColumnName="Id_ticker" />
+          <ScalarProperty Name="Id_org" ColumnName="Id_org" />
+          <ScalarProperty Name="Id_creator" ColumnName="Id_creator" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="update_date" ColumnName="update_date" />
+          <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
+          <ScalarProperty Name="ticker_news" ColumnName="ticker_news" />
+          <ScalarProperty Name="background_color" ColumnName="background_color" />
+          <ScalarProperty Name="font_color" ColumnName="font_color" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_non_disclousure_clause_content">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_non_disclousure_clause_content">
+        <MappingFragment StoreEntitySet="tbl_non_disclousure_clause_content">
+          <ScalarProperty Name="id_clause_content" ColumnName="id_clause_content" />
+          <ScalarProperty Name="id_org" ColumnName="id_org" />
+          <ScalarProperty Name="content_title" ColumnName="content_title" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+          <ScalarProperty Name="id_creator" ColumnName="id_creator" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_non_disclousure_clause_log">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_non_disclousure_clause_log">
+        <MappingFragment StoreEntitySet="tbl_non_disclousure_clause_log">
+          <ScalarProperty Name="id_clause_log" ColumnName="id_clause_log" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_org" ColumnName="id_org" />
+          <ScalarProperty Name="log_status" ColumnName="log_status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_notification">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_notification">
+        <MappingFragment StoreEntitySet="tbl_notification">
+          <ScalarProperty Name="id_notification" ColumnName="id_notification" />
+          <ScalarProperty Name="notification_type" ColumnName="notification_type" />
+          <ScalarProperty Name="notification_key" ColumnName="notification_key" />
+          <ScalarProperty Name="notification_name" ColumnName="notification_name" />
+          <ScalarProperty Name="notification_description" ColumnName="notification_description" />
+          <ScalarProperty Name="notification_message" ColumnName="notification_message" />
+          <ScalarProperty Name="reminder_flag" ColumnName="reminder_flag" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="reminder_time" ColumnName="reminder_time" />
+          <ScalarProperty Name="reminder_frequency" ColumnName="reminder_frequency" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+          <ScalarProperty Name="notification_action_type" ColumnName="notification_action_type" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_notification_config">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_notification_config">
+        <MappingFragment StoreEntitySet="tbl_notification_config">
+          <ScalarProperty Name="id_notification_config" ColumnName="id_notification_config" />
+          <ScalarProperty Name="id_notification" ColumnName="id_notification" />
+          <ScalarProperty Name="id_creater" ColumnName="id_creater" />
+          <ScalarProperty Name="notification_key" ColumnName="notification_key" />
+          <ScalarProperty Name="notification_action_type" ColumnName="notification_action_type" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_content" ColumnName="id_content" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="user_type" ColumnName="user_type" />
+          <ScalarProperty Name="read_timestamp" ColumnName="read_timestamp" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_notification_pre_config">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_notification_pre_config">
+        <MappingFragment StoreEntitySet="tbl_notification_pre_config">
+          <ScalarProperty Name="id_notification_config" ColumnName="id_notification_config" />
+          <ScalarProperty Name="id_notification" ColumnName="id_notification" />
+          <ScalarProperty Name="id_creater" ColumnName="id_creater" />
+          <ScalarProperty Name="notification_key" ColumnName="notification_key" />
+          <ScalarProperty Name="notification_action_type" ColumnName="notification_action_type" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_content" ColumnName="id_content" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="user_type" ColumnName="user_type" />
+          <ScalarProperty Name="read_timestamp" ColumnName="read_timestamp" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_notification_reminder">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_notification_reminder">
+        <MappingFragment StoreEntitySet="tbl_notification_reminder">
+          <ScalarProperty Name="id_notification_reminder" ColumnName="id_notification_reminder" />
+          <ScalarProperty Name="id_notification" ColumnName="id_notification" />
+          <ScalarProperty Name="id_reminder_notification" ColumnName="id_reminder_notification" />
+          <ScalarProperty Name="reminder_timeout" ColumnName="reminder_timeout" />
+          <ScalarProperty Name="reminder_frequency" ColumnName="reminder_frequency" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_offline_expiry">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_offline_expiry">
+        <MappingFragment StoreEntitySet="tbl_offline_expiry">
+          <ScalarProperty Name="ID_OFFLINE_EXPIRY" ColumnName="ID_OFFLINE_EXPIRY" />
+          <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="EXPIRY" ColumnName="EXPIRY" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_organisation_banner">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_organisation_banner">
+        <MappingFragment StoreEntitySet="tbl_organisation_banner">
+          <ScalarProperty Name="id_organisation_banner" ColumnName="id_organisation_banner" />
+          <ScalarProperty Name="banner_name" ColumnName="banner_name" />
+          <ScalarProperty Name="Banner_path" ColumnName="Banner_path" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+          <ScalarProperty Name="id_organisation" ColumnName="id_organisation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_organisation_banner_links">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_organisation_banner_links">
+        <MappingFragment StoreEntitySet="tbl_organisation_banner_links">
+          <ScalarProperty Name="id_organisation_banner_links" ColumnName="id_organisation_banner_links" />
+          <ScalarProperty Name="id_organisation_banner" ColumnName="id_organisation_banner" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="user_option" ColumnName="user_option" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_organisation_status">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_organisation_status">
+        <MappingFragment StoreEntitySet="tbl_organisation_status">
+          <ScalarProperty Name="id_organisation_status" ColumnName="id_organisation_status" />
+          <ScalarProperty Name="id_organisation" ColumnName="id_organisation" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+          <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_organization">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_organization">
+        <MappingFragment StoreEntitySet="tbl_organization">
+          <ScalarProperty Name="ID_ORGANIZATION" ColumnName="ID_ORGANIZATION" />
+          <ScalarProperty Name="ID_INDUSTRY" ColumnName="ID_INDUSTRY" />
+          <ScalarProperty Name="ID_BUSINESS_TYPE" ColumnName="ID_BUSINESS_TYPE" />
+          <ScalarProperty Name="ORGANIZATION_NAME" ColumnName="ORGANIZATION_NAME" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+          <ScalarProperty Name="CONTACT_NAME" ColumnName="CONTACT NAME" />
+          <ScalarProperty Name="CONTACTNUMBER" ColumnName="CONTACTNUMBER" />
+          <ScalarProperty Name="CONTACTEMAIL" ColumnName="CONTACTEMAIL" />
+          <ScalarProperty Name="DEFAULT_EMAIL" ColumnName="DEFAULT_EMAIL" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_overall_assessment_user_log">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_overall_assessment_user_log">
+        <MappingFragment StoreEntitySet="tbl_overall_assessment_user_log">
+          <ScalarProperty Name="srno" ColumnName="srno" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="location" ColumnName="location" />
+          <ScalarProperty Name="percentage" ColumnName="percentage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_overall_program_content_user_log">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_overall_program_content_user_log">
+        <MappingFragment StoreEntitySet="tbl_overall_program_content_user_log">
+          <ScalarProperty Name="srno" ColumnName="srno" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="location" ColumnName="location" />
+          <ScalarProperty Name="percentage" ColumnName="percentage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_profile">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_profile">
+        <MappingFragment StoreEntitySet="tbl_profile">
+          <ScalarProperty Name="ID_PROFILE" ColumnName="ID_PROFILE" />
+          <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+          <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+          <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+          <ScalarProperty Name="AGE" ColumnName="AGE" />
+          <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
+          <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+          <ScalarProperty Name="DESIGNATION" ColumnName="DESIGNATION" />
+          <ScalarProperty Name="CITY" ColumnName="CITY" />
+          <ScalarProperty Name="OFFICE_ADDRESS" ColumnName="OFFICE_ADDRESS" />
+          <ScalarProperty Name="DATE_OF_BIRTH" ColumnName="DATE_OF_BIRTH" />
+          <ScalarProperty Name="DATE_OF_JOINING" ColumnName="DATE_OF_JOINING" />
+          <ScalarProperty Name="REPORTING_MANAGER" ColumnName="REPORTING_MANAGER" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_reminder_notification_config">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_reminder_notification_config">
+        <MappingFragment StoreEntitySet="tbl_reminder_notification_config">
+          <ScalarProperty Name="id_reminder_notification_config" ColumnName="id_reminder_notification_config" />
+          <ScalarProperty Name="id_notification" ColumnName="id_notification" />
+          <ScalarProperty Name="reminder_type" ColumnName="reminder_type" />
+          <ScalarProperty Name="DH" ColumnName="DH" />
+          <ScalarProperty Name="YH" ColumnName="YH" />
+          <ScalarProperty Name="YM" ColumnName="YM" />
+          <ScalarProperty Name="TM" ColumnName="TM" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_reminder_notification_log">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_reminder_notification_log">
+        <MappingFragment StoreEntitySet="tbl_reminder_notification_log">
+          <ScalarProperty Name="id_reminder_notification_log" ColumnName="id_reminder_notification_log" />
+          <ScalarProperty Name="id_notification" ColumnName="id_notification" />
+          <ScalarProperty Name="id_reminder_notification" ColumnName="id_reminder_notification" />
+          <ScalarProperty Name="reminder_type" ColumnName="reminder_type" />
+          <ScalarProperty Name="default_counter" ColumnName="default_counter" />
+          <ScalarProperty Name="custom_counter" ColumnName="custom_counter" />
+          <ScalarProperty Name="last_notification" ColumnName="last_notification" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_report_content">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_report_content">
+        <MappingFragment StoreEntitySet="tbl_report_content">
+          <ScalarProperty Name="ID_REPORT_CONTENT" ColumnName="ID_REPORT_CONTENT" />
+          <ScalarProperty Name="ID_ORGANIZATION" ColumnName="ID_ORGANIZATION" />
+          <ScalarProperty Name="ID_CONTENT" ColumnName="ID_CONTENT" />
+          <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+          <ScalarProperty Name="CHOICE" ColumnName="CHOICE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_report_login_log">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_report_login_log">
+        <MappingFragment StoreEntitySet="tbl_report_login_log">
+          <ScalarProperty Name="id_report_login_log" ColumnName="id_report_login_log" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="LOG_DATETIME" ColumnName="LOG_DATETIME" />
+          <ScalarProperty Name="IMEI" ColumnName="IMEI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_role">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_role">
+        <MappingFragment StoreEntitySet="tbl_role">
+          <ScalarProperty Name="ID_ROLE" ColumnName="ID_ROLE" />
+          <ScalarProperty Name="ID_ORGANIZATION" ColumnName="ID_ORGANIZATION" />
+          <ScalarProperty Name="ROLENAME" ColumnName="ROLENAME" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATEDTIME" ColumnName="UPDATEDTIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_role_user_mapping">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_role_user_mapping">
+        <MappingFragment StoreEntitySet="tbl_role_user_mapping">
+          <ScalarProperty Name="id_role_user_mapping" ColumnName="id_role_user_mapping" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_csst_role" ColumnName="id_csst_role" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_rs_type_qna">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_rs_type_qna">
+        <MappingFragment StoreEntitySet="tbl_rs_type_qna">
+          <ScalarProperty Name="id_rs_type_qna" ColumnName="id_rs_type_qna" />
+          <ScalarProperty Name="id_assessment_log" ColumnName="id_assessment_log" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_assessment_sheet" ColumnName="id_assessment_sheet" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="attempt_number" ColumnName="attempt_number" />
+          <ScalarProperty Name="total_question" ColumnName="total_question" />
+          <ScalarProperty Name="right_answer_count" ColumnName="right_answer_count" />
+          <ScalarProperty Name="wrong_answer_count" ColumnName="wrong_answer_count" />
+          <ScalarProperty Name="result_in_percentage" ColumnName="result_in_percentage" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_saksham_assessment_master">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_saksham_assessment_master">
+        <MappingFragment StoreEntitySet="tbl_saksham_assessment_master">
+          <ScalarProperty Name="id_saksham_assessment_master" ColumnName="id_saksham_assessment_master" />
+          <ScalarProperty Name="roll_no" ColumnName="roll_no" />
+          <ScalarProperty Name="id_teacher" ColumnName="id_teacher" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="doj" ColumnName="doj" />
+          <ScalarProperty Name="assessment_date" ColumnName="assessment_date" />
+          <ScalarProperty Name="growth_date_capture" ColumnName="growth_date_capture" />
+          <ScalarProperty Name="height" ColumnName="height" />
+          <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="last_modified" ColumnName="last_modified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_saksham_assessment_skill_detail">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_saksham_assessment_skill_detail">
+        <MappingFragment StoreEntitySet="tbl_saksham_assessment_skill_detail">
+          <ScalarProperty Name="id_saksham_assessment_skill_detail" ColumnName="id_saksham_assessment_skill_detail" />
+          <ScalarProperty Name="id_saksham_assessment_master" ColumnName="id_saksham_assessment_master" />
+          <ScalarProperty Name="id_skill" ColumnName="id_skill" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_scheduled_event">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_scheduled_event">
+        <MappingFragment StoreEntitySet="tbl_scheduled_event">
+          <ScalarProperty Name="id_scheduled_event" ColumnName="id_scheduled_event" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_event_creator" ColumnName="id_event_creator" />
+          <ScalarProperty Name="event_title" ColumnName="event_title" />
+          <ScalarProperty Name="event_description" ColumnName="event_description" />
+          <ScalarProperty Name="registration_start_date" ColumnName="registration_start_date" />
+          <ScalarProperty Name="registration_end_date" ColumnName="registration_end_date" />
+          <ScalarProperty Name="event_start_datetime" ColumnName="event_start_datetime" />
+          <ScalarProperty Name="event_duration" ColumnName="event_duration" />
+          <ScalarProperty Name="event_type" ColumnName="event_type" />
+          <ScalarProperty Name="event_group_type" ColumnName="event_group_type" />
+          <ScalarProperty Name="program_name" ColumnName="program_name" />
+          <ScalarProperty Name="program_description" ColumnName="program_description" />
+          <ScalarProperty Name="program_objective" ColumnName="program_objective" />
+          <ScalarProperty Name="facilitator_name" ColumnName="facilitator_name" />
+          <ScalarProperty Name="facilitator_organization" ColumnName="facilitator_organization" />
+          <ScalarProperty Name="program_image" ColumnName="program_image" />
+          <ScalarProperty Name="no_of_participants" ColumnName="no_of_participants" />
+          <ScalarProperty Name="program_venue" ColumnName="program_venue" />
+          <ScalarProperty Name="program_location" ColumnName="program_location" />
+          <ScalarProperty Name="attachment_type" ColumnName="attachment_type" />
+          <ScalarProperty Name="id_program" ColumnName="id_program" />
+          <ScalarProperty Name="id_assessment" ColumnName="id_assessment" />
+          <ScalarProperty Name="id_category_tile" ColumnName="id_category_tile" />
+          <ScalarProperty Name="id_category_heading" ColumnName="id_category_heading" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="is_approval" ColumnName="is_approval" />
+          <ScalarProperty Name="is_response" ColumnName="is_response" />
+          <ScalarProperty Name="is_unsubscribe" ColumnName="is_unsubscribe" />
+          <ScalarProperty Name="program_start_date" ColumnName="program_start_date" />
+          <ScalarProperty Name="program_duration_type" ColumnName="program_duration_type" />
+          <ScalarProperty Name="program_duration" ColumnName="program_duration" />
+          <ScalarProperty Name="program_duration_unit" ColumnName="program_duration_unit" />
+          <ScalarProperty Name="program_end_date" ColumnName="program_end_date" />
+          <ScalarProperty Name="event_additional_info" ColumnName="event_additional_info" />
+          <ScalarProperty Name="event_online_url" ColumnName="event_online_url" />
+          <ScalarProperty Name="participant_level" ColumnName="participant_level" />
+          <ScalarProperty Name="event_comment" ColumnName="event_comment" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_scheduled_event_subscription_log">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_scheduled_event_subscription_log">
+        <MappingFragment StoreEntitySet="tbl_scheduled_event_subscription_log">
+          <ScalarProperty Name="id_scheduled_event_subscription_log" ColumnName="id_scheduled_event_subscription_log" />
+          <ScalarProperty Name="id_scheduled_event" ColumnName="id_scheduled_event" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_cms_user" ColumnName="id_cms_user" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="event_sent_timestamp" ColumnName="event_sent_timestamp" />
+          <ScalarProperty Name="event_user_response" ColumnName="event_user_response" />
+          <ScalarProperty Name="event_user_response_timestamp" ColumnName="event_user_response_timestamp" />
+          <ScalarProperty Name="event_user_comment" ColumnName="event_user_comment" />
+          <ScalarProperty Name="apporoved_reporting_manager" ColumnName="apporoved_reporting_manager" />
+          <ScalarProperty Name="approved_date" ColumnName="approved_date" />
+          <ScalarProperty Name="subscription_status" ColumnName="subscription_status" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_skill_milestone">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_skill_milestone">
+        <MappingFragment StoreEntitySet="tbl_skill_milestone">
+          <ScalarProperty Name="id_milestone" ColumnName="id_milestone" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="id_skill" ColumnName="id_skill" />
+          <ScalarProperty Name="miilestone_description" ColumnName="miilestone_description" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="last_modified" ColumnName="last_modified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_sso_log">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_sso_log">
+        <MappingFragment StoreEntitySet="tbl_sso_log">
+          <ScalarProperty Name="id_sso_log" ColumnName="id_sso_log" />
+          <ScalarProperty Name="tran_id" ColumnName="tran_id" />
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_subscriptions">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_subscriptions">
+        <MappingFragment StoreEntitySet="tbl_subscriptions">
+          <ScalarProperty Name="ID_SUBSCRIPTION" ColumnName="ID_SUBSCRIPTION" />
+          <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+          <ScalarProperty Name="ID_CONTENT" ColumnName="ID_CONTENT" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATEDTIME" ColumnName="UPDATEDTIME" />
+          <ScalarProperty Name="EXPIRY_DATE" ColumnName="EXPIRY_DATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_survey">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_survey">
+        <MappingFragment StoreEntitySet="tbl_survey">
+          <ScalarProperty Name="ID_SURVEY" ColumnName="ID_SURVEY" />
+          <ScalarProperty Name="ID_CONTENT_ANSWER" ColumnName="ID_CONTENT_ANSWER" />
+          <ScalarProperty Name="ID_ANSWER_STEP" ColumnName="ID_ANSWER_STEP" />
+          <ScalarProperty Name="SURVEY_NAME" ColumnName="SURVEY_NAME" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="SURVEY_IMAGE" ColumnName="SURVEY_IMAGE" />
+          <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
+          <ScalarProperty Name="END_DATE" ColumnName="END_DATE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_survey_bank">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_survey_bank">
+        <MappingFragment StoreEntitySet="tbl_survey_bank">
+          <ScalarProperty Name="ID_SURVEY_BANK" ColumnName="ID_SURVEY_BANK" />
+          <ScalarProperty Name="SURVEY_QUESTION" ColumnName="SURVEY_QUESTION" />
+          <ScalarProperty Name="SURVEY_CHOICES" ColumnName="SURVEY_CHOICES" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_survey_bank_link">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_survey_bank_link">
+        <MappingFragment StoreEntitySet="tbl_survey_bank_link">
+          <ScalarProperty Name="ID_SURVEY_BANK_LINK" ColumnName="ID_SURVEY_BANK_LINK" />
+          <ScalarProperty Name="ID_SURVEY" ColumnName="ID_SURVEY" />
+          <ScalarProperty Name="ID_SURVEY_BANK" ColumnName="ID_SURVEY_BANK" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_survey_data">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_survey_data">
+        <MappingFragment StoreEntitySet="tbl_survey_data">
+          <ScalarProperty Name="ID_SURVEY_DATA" ColumnName="ID_SURVEY_DATA" />
+          <ScalarProperty Name="ID_SURVEY" ColumnName="ID_SURVEY" />
+          <ScalarProperty Name="ID_SURVEY_BANK" ColumnName="ID_SURVEY_BANK" />
+          <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+          <ScalarProperty Name="SURVEY_DATA" ColumnName="SURVEY_DATA" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_task">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_task">
+        <MappingFragment StoreEntitySet="tbl_task">
+          <ScalarProperty Name="id_task" ColumnName="id_task" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_org" ColumnName="id_org" />
+          <ScalarProperty Name="task" ColumnName="task" />
+          <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_temp_user_upload">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_temp_user_upload">
+        <MappingFragment StoreEntitySet="tbl_temp_user_upload">
+          <ScalarProperty Name="id_temp_user_upload" ColumnName="id_temp_user_upload" />
+          <ScalarProperty Name="temp_user_upload_key" ColumnName="temp_user_upload_key" />
+          <ScalarProperty Name="EMPLOYEEID" ColumnName="EMPLOYEEID" />
+          <ScalarProperty Name="ROLE" ColumnName="ROLE" />
+          <ScalarProperty Name="ID_ROLE" ColumnName="ID_ROLE" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+          <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+          <ScalarProperty Name="AGE" ColumnName="AGE" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
+          <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+          <ScalarProperty Name="CITY" ColumnName="CITY" />
+          <ScalarProperty Name="OFFICE_ADDRESS" ColumnName="OFFICE_ADDRESS" />
+          <ScalarProperty Name="DATE_OF_BIRTH" ColumnName="DATE_OF_BIRTH" />
+          <ScalarProperty Name="DATE_OF_JOINING" ColumnName="DATE_OF_JOINING" />
+          <ScalarProperty Name="user_department" ColumnName="user_department" />
+          <ScalarProperty Name="user_designation" ColumnName="user_designation" />
+          <ScalarProperty Name="user_function" ColumnName="user_function" />
+          <ScalarProperty Name="user_grade" ColumnName="user_grade" />
+          <ScalarProperty Name="user_status" ColumnName="user_status" />
+          <ScalarProperty Name="reporting_manager" ColumnName="reporting_manager" />
+          <ScalarProperty Name="id_reporting_manager" ColumnName="id_reporting_manager" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_themes">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_themes">
+        <MappingFragment StoreEntitySet="tbl_themes">
+          <ScalarProperty Name="ID_THEME" ColumnName="ID_THEME" />
+          <ScalarProperty Name="THEME_NAME" ColumnName="THEME_NAME" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_user">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_user">
+        <MappingFragment StoreEntitySet="tbl_user">
+          <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+          <ScalarProperty Name="ID_CODE" ColumnName="ID_CODE" />
+          <ScalarProperty Name="ID_ORGANIZATION" ColumnName="ID_ORGANIZATION" />
+          <ScalarProperty Name="ID_ROLE" ColumnName="ID_ROLE" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="FBSOCIALID" ColumnName="FBSOCIALID" />
+          <ScalarProperty Name="GPSOCIALID" ColumnName="GPSOCIALID" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATEDTIME" ColumnName="UPDATEDTIME" />
+          <ScalarProperty Name="EXPIRY_DATE" ColumnName="EXPIRY_DATE" />
+          <ScalarProperty Name="EMPLOYEEID" ColumnName="EMPLOYEEID" />
+          <ScalarProperty Name="user_department" ColumnName="user_department" />
+          <ScalarProperty Name="user_designation" ColumnName="user_designation" />
+          <ScalarProperty Name="user_function" ColumnName="user_function" />
+          <ScalarProperty Name="user_grade" ColumnName="user_grade" />
+          <ScalarProperty Name="user_status" ColumnName="user_status" />
+          <ScalarProperty Name="reporting_manager" ColumnName="reporting_manager" />
+          <ScalarProperty Name="is_reporting" ColumnName="is_reporting" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="last_modified_datetime" ColumnName="last_modified_datetime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_user_data">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_user_data">
+        <MappingFragment StoreEntitySet="tbl_user_data">
+          <ScalarProperty Name="ID_USER_DATA" ColumnName="ID_USER_DATA" />
+          <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+          <ScalarProperty Name="ID_DEVICE_TYPE" ColumnName="ID_DEVICE_TYPE" />
+          <ScalarProperty Name="DEVICE_ID" ColumnName="DEVICE_ID" />
+          <ScalarProperty Name="ID_ACTION" ColumnName="ID_ACTION" />
+          <ScalarProperty Name="UPDATEDDATETIME" ColumnName="UPDATEDDATETIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_user_device_link">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_user_device_link">
+        <MappingFragment StoreEntitySet="tbl_user_device_link">
+          <ScalarProperty Name="ID_USER_DEVICE_LINK" ColumnName="ID_USER_DEVICE_LINK" />
+          <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+          <ScalarProperty Name="ID_DEVICE_TYPE" ColumnName="ID_DEVICE_TYPE" />
+          <ScalarProperty Name="DEVICE_ID" ColumnName="DEVICE_ID" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_user_gcm_log">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_user_gcm_log">
+        <MappingFragment StoreEntitySet="tbl_user_gcm_log">
+          <ScalarProperty Name="id_user_gcm_log" ColumnName="id_user_gcm_log" />
+          <ScalarProperty Name="GCMID" ColumnName="GCMID" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_user_programs">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_user_programs">
+        <MappingFragment StoreEntitySet="tbl_user_programs">
+          <ScalarProperty Name="ID_USER_PROGRAM" ColumnName="ID_USER_PROGRAM" />
+          <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+          <ScalarProperty Name="ID_CONTENT" ColumnName="ID_CONTENT" />
+          <ScalarProperty Name="EXPIRY_DATE" ColumnName="EXPIRY_DATE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="UPDATED_DATE_TIME" ColumnName="UPDATED_DATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_user_zone">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_user_zone">
+        <MappingFragment StoreEntitySet="tbl_user_zone">
+          <ScalarProperty Name="id_user_zone" ColumnName="id_user_zone" />
+          <ScalarProperty Name="id_user_zone_master" ColumnName="id_user_zone_master" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="location" ColumnName="location" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_user_zone_master">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_user_zone_master">
+        <MappingFragment StoreEntitySet="tbl_user_zone_master">
+          <ScalarProperty Name="id_user_zone_master" ColumnName="id_user_zone_master" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="zone_title" ColumnName="zone_title" />
+          <ScalarProperty Name="trainer_name" ColumnName="trainer_name" />
+          <ScalarProperty Name="id_user_trainer" ColumnName="id_user_trainer" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_version_control">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_version_control">
+        <MappingFragment StoreEntitySet="tbl_version_control">
+          <ScalarProperty Name="id_version_control" ColumnName="id_version_control" />
+          <ScalarProperty Name="version_number" ColumnName="version_number" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_version_control_ios">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_version_control_ios">
+        <MappingFragment StoreEntitySet="tbl_version_control_ios">
+          <ScalarProperty Name="id_version_control" ColumnName="id_version_control" />
+          <ScalarProperty Name="version_number" ColumnName="version_number" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_welcome_gif">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.tbl_welcome_gif">
+        <MappingFragment StoreEntitySet="tbl_welcome_gif">
+          <ScalarProperty Name="id_welcome_gif" ColumnName="id_welcome_gif" />
+          <ScalarProperty Name="id_org" ColumnName="id_org" />
+          <ScalarProperty Name="gif" ColumnName="gif" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+          <ScalarProperty Name="flag" ColumnName="flag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dummy_mapping">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.dummy_mapping">
+        <MappingFragment StoreEntitySet="dummy_mapping">
+          <ScalarProperty Name="id_category_association" ColumnName="id_category_association" />
+          <ScalarProperty Name="id_category_tile" ColumnName="id_category_tile" />
+          <ScalarProperty Name="id_category_heading" ColumnName="id_category_heading" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <ScalarProperty Name="category_order" ColumnName="category_order" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="updated_date_time" ColumnName="updated_date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="content_access_existing">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.content_access_existing">
+        <MappingFragment StoreEntitySet="content_access_existing">
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="EMPLOYEEID" ColumnName="EMPLOYEEID" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="RMUSER" ColumnName="RMUSER" />
+          <ScalarProperty Name="UNAME" ColumnName="UNAME" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="ORGANIZATION_NAME" ColumnName="ORGANIZATION_NAME" />
+          <ScalarProperty Name="id_content" ColumnName="id_content" />
+          <ScalarProperty Name="CONTENT_QUESTION" ColumnName="CONTENT_QUESTION" />
+          <ScalarProperty Name="LASTACCESS" ColumnName="LASTACCESS" />
+          <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
+          <ScalarProperty Name="zone_title" ColumnName="zone_title" />
+          <ScalarProperty Name="user_designation" ColumnName="user_designation" />
+          <ScalarProperty Name="USTATUS" ColumnName="USTATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="content_access_view">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.content_access_view">
+        <MappingFragment StoreEntitySet="content_access_view">
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="EMPLOYEEID" ColumnName="EMPLOYEEID" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="UNAMEE" ColumnName="UNAMEE" />
+          <ScalarProperty Name="id_organization" ColumnName="id_organization" />
+          <ScalarProperty Name="ORGANIZATION_NAME" ColumnName="ORGANIZATION_NAME" />
+          <ScalarProperty Name="id_content" ColumnName="id_content" />
+          <ScalarProperty Name="CONTENT_QUESTION" ColumnName="CONTENT_QUESTION" />
+          <ScalarProperty Name="LASTACCESS" ColumnName="LASTACCESS" />
+          <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
+          <ScalarProperty Name="user_designation" ColumnName="user_designation" />
+          <ScalarProperty Name="USTATUS" ColumnName="USTATUS" />
+          <ScalarProperty Name="zone_title" ColumnName="zone_title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dummy_map">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.dummy_map">
+        <MappingFragment StoreEntitySet="dummy_map">
+          <ScalarProperty Name="id_category_association" ColumnName="id_category_association" />
+          <ScalarProperty Name="id_parent" ColumnName="id_parent" />
+          <ScalarProperty Name="id_category" ColumnName="id_category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="indavgscore_view_old">
+      <EntityTypeMapping TypeName="db_m2ost_production_v_5Model.indavgscore_view_old">
+        <MappingFragment StoreEntitySet="indavgscore_view_old">
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_game" ColumnName="id_game" />
+          <ScalarProperty Name="CATEGORYNAME" ColumnName="CATEGORYNAME" />
+          <ScalarProperty Name="IndavgScore" ColumnName="IndavgScore" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="getProgramCompletionReport" FunctionName="db_m2ost_production_v_5Model.Store.getProgramCompletionReport">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_m2ost_production_v_5Model.getProgramCompletionReport_Result" />
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="indgamepercentile" FunctionName="db_m2ost_production_v_5Model.Store.indgamepercentile">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_m2ost_production_v_5Model.indgamepercentile_Result" />
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

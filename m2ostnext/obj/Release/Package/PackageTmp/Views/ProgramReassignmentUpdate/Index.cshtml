@@ -1,0 +1,256 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    string error = (string)ViewData["error"];
+
+}
+<style>
+    .select-checkbox:before, .select-checkbox:after {
+        display: block;
+        position: absolute;
+        top: 1.2em;
+        left: 50%;
+        width: 12px;
+        height: 12px;
+        box-sizing: border-box;
+    }
+
+    .select-checkbox:after {
+        content: '\2714';
+        margin-top: -11px;
+        margin-left: -4px;
+        text-align: center;
+        text-shadow: 1px 1px #B0BED9, -1px -1px #B0BED9, 1px -1px #B0BED9, -1px 1px #B0BED9;
+    }
+
+    .btn-block {
+        margin-top: 2vh;
+    }
+
+    .form-group {
+        /* display:flex;
+        flex-direction:column;
+        gap:0.5em;*/
+    }
+</style>
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="control-label">Program</label>
+                                <select class="form-control" id="program-dropdown">
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label">Titles</label>
+                                <select class="form-control" id="titles-dropdown">
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label">Category Heading</label>
+                                <select class="form-control" id="category-dropdown">
+                                    <option value="">Please select category</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label"> Start Date</label></div>
+                            <div class="col-md-4">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control" id='datetimepicker1' name="start-date" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2"><label class="control-label">Expiry Date</label></div>
+                            <div class="col-md-4">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker2' name="expiry-date" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-offset-4 col-md-4">
+                                    <button type="submit" class="btn btn-primary btn-block" id="submit" onclick="submit()">Assign</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="table-container">
+                    <!-- This is where the generated table will be placed -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+     $(document).ready(function () {
+
+                //$("#report-table-temp").dataTable({
+                //    "pageLength": 10
+                //});
+                //$("#report-table-note").dataTable({
+                //    "pageLength": 10
+                //});
+                //$("#datetimepicker1").datetimepicker(
+                //    { dateFormat: "dd-mm-yy", minDate: new Date() }
+                //);
+
+
+     });
+
+    $(document).ready(function () {
+
+        // Function to populate programs dropdown
+
+        $.ajax({
+            url: '@Url.Action("Getprogram","ProgramReassignment")',
+            method: 'Post',
+            success: function (data) {
+
+                $('#program-dropdown').empty();
+                $('#program-dropdown').append('<option value="">Please select program</option>');
+
+                $.each(data, function (index, data1) {
+                    $('#program-dropdown').append('<option value="' + data1.Value + '">' + data1.Text + '</option>');
+                });
+            }
+        });
+
+
+        $.ajax({
+            url: '@Url.Action("Gettitles","ProgramReassignment")',
+            method: 'Post',
+            success: function (data) {
+                debugger
+                $('#titles-dropdown').empty();
+                $('#titles-dropdown').append('<option value="">Please select titles</option>');
+
+                $.each(data, function (index, data1) {
+                    $('#titles-dropdown').append('<option value="' + data1.Value + '">' + data1.Text + '</option>');
+                });
+            }
+        });
+
+        $("#datetimepicker1").datetimepicker(
+            { dateFormat: "dd-mm-yy", minDate: null }
+        );
+
+        $("#datetimepicker2").datetimepicker(
+            { dateFormat: "dd-mm-yy", minDate: new Date() }
+        );
+
+
+    });
+   $('#titles-dropdown').change(function () {
+
+    var selectedTitleId = $(this).val();
+    $.ajax({
+        url: '@Url.Action("GetCategoryByTitleId", "ProgramReassignment")',
+        method: 'Post',
+        data: { idtitles: selectedTitleId },
+        success: function (data) {
+            $('#category-dropdown').empty();
+            // Add "Please select category" option
+            $('#category-dropdown').append('<option value="">Please select category</option>');
+            $.each(data, function (index, category) {
+                $('#category-dropdown').append('<option value="' + category.Value + '">' + category.Text + '</option>');
+            });
+        }
+    });
+   });
+
+    function submit() {
+        debugger;
+        $('#submit').prop('disabled', true);
+        loading_on();
+        // Get values from form controls
+        var program = $('#program-dropdown').val();
+        var title = $('#titles-dropdown').val();
+        var category = $('#category-dropdown').val();
+        var startDate = $('#datetimepicker1').val();
+        var expiryDate = $('#datetimepicker2').val();
+
+        // AJAX request
+        $.ajax({
+            url: '@Url.Action("GetCategorylistInsert", "ProgramReassignmentUpdate")',  // Replace with the correct URL
+            type: 'POST',
+            data: {
+                program: program,
+                title: title,
+                category: category,
+                startDate: startDate,
+                expiryDate: expiryDate
+            },
+            success: function (response) {
+                console.log(response);
+                debugger;
+                loading_off();
+
+                $('#submit').prop('disabled', false);
+                if (response == 0) {
+                    alert("No data available.");
+                }
+                else {
+
+                    alert("Data Added Successfully.");
+
+                    location.reload();
+                }
+                        //var tableHtml = '<table>';
+                        //tableHtml += '<thead><tr><th>id_content_program_mapping</th><th>id_organization</th><th>start_date</th><th>expiry_date</th></tr></thead>'; // Modify the headers accordingly
+                        //tableHtml += '<tbody>';
+
+                        //for (var i = 0; i < data.length; i++) {
+                        //    tableHtml += '<tr>';
+                        //    tableHtml += '<td>' + data[i].id_content_program_mapping + '</td>'; // Correct property access
+                        //    tableHtml += '<td>' + data[i].id_organization + '</td>'; // Correct property access
+                        //    tableHtml += '<td>' + data[i].start_date + '</td>';
+                        //    tableHtml += '<td>' + data[i].expiry_date + '</td>';
+                        //    tableHtml += '</tr>';
+                        //}
+
+                        //tableHtml += '</tbody>';
+                        //tableHtml += '</table>';
+
+                        //// Append the table to a specific element or div
+                        //$('#table-container').html(tableHtml); // Remove extra forward slash
+
+            },
+            error: function (xhr, status, error) {
+                // Handle error
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+
+
+
+
+</script>
+

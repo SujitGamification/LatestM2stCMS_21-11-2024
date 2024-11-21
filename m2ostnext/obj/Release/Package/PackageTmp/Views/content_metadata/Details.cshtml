@@ -1,0 +1,58 @@
+﻿@model m2ostcms.Models.tbl_content_metadata
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbl_content_metadata</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTENT_METADATA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTENT_METADATA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTENT_METADATA_COUNTER)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTENT_METADATA_COUNTER)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STATUS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STATUS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UPDATED_DATE_TIME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UPDATED_DATE_TIME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbl_content_answer.CONTENT_ANSWER1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbl_content_answer.CONTENT_ANSWER1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_CONTENT_METADATA }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

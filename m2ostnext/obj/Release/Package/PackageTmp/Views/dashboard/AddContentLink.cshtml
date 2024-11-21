@@ -1,0 +1,164 @@
+﻿@{
+    ViewBag.Title = "Content Detail";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    db_m2ostEntities db = new db_m2ostEntities();
+    List<tbl_content> linked = (List<tbl_content>)ViewData["content_list"];
+    tbl_content content = (tbl_content)ViewData["content"];
+    List<tbl_content_organization_mapping> mapping = (List<tbl_content_organization_mapping>)ViewData["mapping"];
+}
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#report-table").dataTable();
+        getLinks();
+        $('html, body').animate({
+            scrollTop: $('#display_table').offset().top
+        }, 'slow');
+    });
+
+    function getLinks()
+    {
+        
+        var url = '@Url.Action("GetLinkedQuestions", "dashboard")';
+    
+        var id = $("#hidden-val").val();
+     
+     
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: id },
+               
+                success: function (data) {
+                    $("#link-table").empty().append(data);
+                    $("#report-table-link").dataTable();
+                }
+            });
+      
+      
+    }
+
+    function getContentLinkReport() {
+        loading_on();
+        var id = $("#category-select").val();
+        var url = '@Url.Action("getContentToContentLink", "dashboard")';
+        var pattern = $("#search-box").val().trim();
+        var cid = $("#hidden-val").val();
+        var count = $("#search-box").val().trim().length;
+        if (count > 4 || id > 0) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: id, pattern: pattern, cpid: cid },
+               
+                success: function (data) {
+                    $("#display_table").empty().append(data);
+                    $("#report-table").dataTable();
+                  
+                    $('html, body').animate({
+                        scrollTop: $('#display_table').offset().top
+                    }, 'slow');
+                    $('#display_table').focus();
+                 
+                    getLinks();
+                }
+            });
+        } else {
+
+        }
+        loading_off();
+    }
+
+    function addContentToContent(cid) {
+        var id = $("#hidden-val").val();
+        var url = '@Url.Action("addContentToContent", "dashboard")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { cid: id, cpid: cid },
+          
+            success: function (data) {
+                getContentLinkReport();
+
+            }
+        });
+    }
+    function deleteContentToContent(cid) {
+        var id = $("#hidden-val").val();
+        var url = '@Url.Action("deleteContentToContent", "dashboard")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { cid: id, cpid: cid },
+            
+            success: function (data) {
+                getContentLinkReport();
+
+            }
+        });
+    }
+
+</script>
+
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title">Content To Content Link </h6>
+            </div>
+            <div class="panel-body">
+                <div class="well">
+                    <input type="hidden" value="@content.ID_CONTENT" id="hidden-val" />
+                    <h4><strong>Content : </strong> @content.CONTENT_QUESTION</h4>
+                    <h4>
+                        <strong>Read more :  </strong><a href="@Url.Action("loadcontent", "contentDashboard" , new { id=content.ID_CONTENT })" ><i class="glyphicon glyphicon-text-background"></i></a>
+                    </h4>
+                        <h4><strong>Categories :</strong></h4>
+                        @foreach (tbl_content_organization_mapping item in mapping)
+                        {
+                            tbl_category tCat = db.tbl_category.Where(t => t.ID_CATEGORY == item.id_category).FirstOrDefault();
+
+                            if (tCat != null)
+                            {
+                                <span>@tCat.CATEGORYNAME ,</span>
+
+                            }
+
+                        }
+</div>
+                <h4><strong>Already Connected Content / Activity more :</strong></h4>
+               <div id="link-table"></div>
+                    
+
+                
+                <hr />
+                <h2><strong> Content to Link</strong></h2>
+                <select class="form-control" id="category-select">
+                    <option value="0" selected>Select Category</option>
+                    @foreach (tbl_category item in (List<tbl_category>)ViewData["CategoryList"])
+                    {
+                        <option value="@item.ID_CATEGORY">@item.CATEGORYNAME</option>
+                    }
+
+                </select>
+                <input type="text" class="form-control" placeholder="Search by Content Title (minimum 4 character)" id="search-box" />
+
+                <input type="button" class="btn btn-primary btn-sm " value=" Search " onclick="getContentLinkReport()" />
+                <hr />
+                <div id="display_table">
+
+                </div>
+                <hr />
+                <a href="@Url.Action("Index", "dashboard")" class="btn btn-primary btn-sm pull-right">done</a>
+
+            </div>
+        </div>
+    </div>
+</div>

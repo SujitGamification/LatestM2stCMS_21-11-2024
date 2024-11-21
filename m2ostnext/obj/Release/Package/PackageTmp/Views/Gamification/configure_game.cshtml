@@ -1,0 +1,1250 @@
+﻿
+@{
+    ViewBag.Title = "configure_game";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    int player_type = (int)ViewData["phase"];
+    int game_phase = (int)ViewData["phase"];
+    int game_id = (int)ViewData["gameId"];
+    string game_name = (string)ViewData["game_name"];
+    List<m2ostnext.Models.assess_title> assessment_list = (List<m2ostnext.Models.assess_title>)ViewData["assess"];
+
+    List<m2ostnext.Models.game_path_components> game_review = (List<m2ostnext.Models.game_path_components>)ViewData["game_review"];
+    List<m2ostnext.Models.game_path_components> pro_review = (List<m2ostnext.Models.game_path_components>)ViewData["pro_review"];
+
+
+
+    List<m2ostnext.Models.programs_title> prog_list = (List<m2ostnext.Models.programs_title>)ViewData["prog"];
+
+    int player_type_stage4 = 1;
+
+}
+
+<script>
+
+    $(function () {
+        $("#datetimepicker2").datetimepicker(
+              { dateFormat: "dd-mm-yy", minDate: new Date() }
+           );
+
+    });
+
+    function get_assess() {
+        var url = '@Url.Action("get_assess", "Gamification")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {},
+
+            success: function (data) {
+
+                $('#selt_ass').empty().append(data);
+            }
+        });
+    }
+    function get_program() {
+        var url = '@Url.Action("get_program", "Gamification")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {},
+
+            success: function (data) {
+
+                $('#selt_pro').empty().append(data);
+            }
+        });
+    }
+
+    function selected_assess() {
+        var selectBox = document.getElementById("selt_ass");
+        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+        var gameId = document.getElementById("gameId").value;
+
+        var url = '@Url.Action("attach_assess", "Gamification")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: selectedValue, gameIdval: gameId },
+
+            success: function (data) {
+                $('.assess-table').append(data);
+            }
+        });
+    }
+    function selected_prog(game_id) {
+
+        var selectBox = document.getElementById("selt_pro");
+        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+        var gameId = document.getElementById("gameId").value;
+     
+        var url = '@Url.Action("attach_Program", "Gamification")';
+
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: selectedValue, gameIdval: gameId },
+
+            success: function (data) {
+
+                $('.prog-table').append(data);
+            }
+        });
+    }
+    function solo() {
+
+        var type = $("#solo").val();
+        var url = '@Url.Action("configure_game", "Gamification")';
+    }
+
+
+
+    function group() {
+
+
+        var type = $("#group").val();
+        var url = '@Url.Action("configure_game", "Gamification")';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { id: type },
+
+            success: function (data) {
+              
+            }
+        });
+
+    }
+    function changecolor1() {
+   
+
+        $("#one_nm").hide();
+        var dble_qoute = '"';
+        var space = " ";
+        var tick = "<span class=" + dble_qoute + "glyphicon" + space + "glyphicon-ok" + dble_qoute + "></span>";
+
+        $("#round_1_tk").append(tick);
+
+        $("#stage_one").css("background-color", "#9ff89c");
+
+        $("#round_1").css("border-color", "#1a54dd");
+
+    }
+    function changecolor2() {
+      
+
+        $("#two_nm").hide();
+        var dble_qoute = '"';
+        var space = " ";
+        var tick = "<span class=" + dble_qoute + "glyphicon" + space + "glyphicon-ok" + dble_qoute + "></span>";
+
+        $("#round_2_tk").append(tick);
+        $("#stage_two").css("background-color", "#9ff89c");
+        $("#round_2").css("border-color", "#1a54dd");
+    }
+    function changecolor3() {
+     
+        $("#three_nm").hide();
+        var dble_qoute = '"';
+        var space = " ";
+        var tick = "<span class=" + dble_qoute + "glyphicon" + space + "glyphicon-ok" + dble_qoute + "></span>";
+        $("#round_3_tk").append(tick);
+        $("#stage_three").css("background-color", "#9ff89c");
+        $("#round_3").css("border-color", "#1a54dd");
+    }
+    function changecolor4() {
+    
+        $("#four_nm").hide();
+        var dble_qoute = '"';
+        var space = " ";
+        var tick = "<span class=" + dble_qoute + "glyphicon" + space + "glyphicon-ok" + dble_qoute + "></span>";
+        $("#round_4_tk").append(tick);
+        $("#stage_four").css("background-color", "#9ff89c");
+        $("#round_4").css("border-color", "#1a54dd");
+    }
+    function changecolor5() {
+      
+        $("#five_nm").hide();
+        var dble_qoute = '"';
+        var space = " ";
+        var tick = "<span class=" + dble_qoute + "glyphicon" + space + "glyphicon-ok" + dble_qoute + "></span>";
+        $("#round_5_tk").append(tick);
+        $("#stage_five5").css("background-color", "#9ff89c");
+        $("#round_5").css("border-color", "#1a54dd");
+    }
+    function changecolor6() {
+      
+        $("#six_nm").hide();
+        var dble_qoute = '"';
+        var space = " ";
+        var tick = "<span class=" + dble_qoute + "glyphicon" + space + "glyphicon-ok" + dble_qoute + "></span>";
+        $("#round_6_tk").append(tick);
+        $("#stage_six").css("background-color", "#9ff89c");
+        $("#round_6").css("border-color", "#1a54dd");
+        var url = '@Url.Action("Index", "Home")';
+
+        $.ajax({
+
+            type: 'POST',
+            url: url,
+            data: {},
+
+            success: function (data) {
+
+            }
+        });
+    }
+
+</script>
+<style>
+    /* written by riliwan balogun http://www.facebook.com/riliwan.rabo*/
+    .board {
+        width: 84%;
+        margin: 60px auto;
+        /*height: 500px;*/
+        background: #fff;
+        /*box-shadow: 10px 10px #ccc,-10px 20px #ddd;*/
+    }
+
+    .glyphicon-ok {
+        color: #49ef47;
+    }
+
+    .board .nav-tabs {
+        position: relative;
+        /* border-bottom: 0; */
+        /* width: 80%; */
+        margin: 40px auto;
+        margin-bottom: 0;
+        box-sizing: border-box;
+    }
+
+    .board > div.board-inner {
+        /*background: #fafafa url(http://subtlepatterns.com/patterns/geometry2.png);*/
+        background-size: 30%;
+    }
+
+    p.narrow {
+        width: 60%;
+        margin: 10px auto;
+    }
+
+    .liner {
+        height: 2px;
+        background: #ddd;
+        position: absolute;
+        width: 80%;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        top: 50%;
+        z-index: 1;
+    }
+
+    /*.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+        color: #555555;
+        cursor: default;
+        /* background-color: #ffffff; */
+    /*border: 0;
+        border-bottom-color: transparent;
+    }*/
+
+    span.round-tabs {
+        width: 70px;
+        height: 70px;
+        line-height: 70px;
+        display: inline-block;
+        border-radius: 100px;
+        background: white;
+        z-index: 2;
+        position: absolute;
+        left: 0;
+        text-align: center;
+        font-size: 25px;
+    }
+
+        span.round-tabs.one {
+            color: black;
+            border: 2px solid black;
+        }
+
+    li.active span.round-tabs.one {
+        background: #fff !important;
+        border: 2px solid;
+        color: black;
+    }
+
+    span.round-tabs.two {
+        color: black;
+        border: 2px solid black;
+    }
+
+    li.active span.round-tabs.two {
+        background: #fff !important;
+        border: 2px solid;
+        color: black;
+    }
+
+    span.round-tabs.three {
+        color: black;
+        border: 2px solid black;
+    }
+
+    li.active span.round-tabs.three {
+        background: #fff !important;
+        border: 2px solid;
+        color: black;
+    }
+
+    span.round-tabs.four {
+        color: black;
+        border: 2px solid black;
+    }
+
+    li.active span.round-tabs.four {
+        background: #fff !important;
+        border: 2px solid;
+        color: black;
+    }
+
+    span.round-tabs.five {
+        color: black;
+        border: 2px solid black;
+    }
+
+    li.active span.round-tabs.five {
+        background: #fff !important;
+        border: 2px solid;
+        color: black;
+    }
+
+    span.round-tabs.six {
+        color: black;
+        border: 2px solid black;
+    }
+
+    li.active span.round-tabs.six {
+        background: #fff !important;
+        border: 2px solid;
+        color: black;
+    }
+
+    .nav-tabs > li.active > a span.round-tabs {
+        background: #fafafa;
+    }
+
+    .nav-tabs > li {
+        width: 15%;
+    }
+
+        .nav-tabs > li:after {
+            content: " ";
+            position: absolute;
+            left: 45%;
+            opacity: 0;
+            margin: 0 auto;
+            bottom: 0px;
+            border: 5px solid transparent;
+            border-bottom-color: #ddd;
+            transition: 0.1s ease-in-out;
+        }
+        /*------------------------now disabled-------------------------*/
+        /*.nav-tabs > li.active:after {
+            content: " ";
+            position: absolute;
+            left: 45%;
+            opacity: 1;
+            margin: 0 auto;
+            bottom: 0px;
+            border: 10px solid transparent;
+            border-bottom-color: #ddd;
+        }*/
+
+        .nav-tabs > li a {
+            width: 70px;
+            height: 70px;
+            margin: 20px auto;
+            border-radius: 100%;
+            padding: 0;
+        }
+
+            .nav-tabs > li a:hover {
+                background: transparent;
+            }
+
+    .tab-content {
+    }
+
+    .tab-pane {
+        position: relative;
+        padding-top: 50px;
+    }
+
+    .tab-content .head {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 25px;
+        text-transform: uppercase;
+        padding-bottom: 10px;
+    }
+
+    .btn-outline-rounded {
+        padding: 10px 40px;
+        margin: 20px 0;
+        border: 2px solid transparent;
+        border-radius: 25px;
+    }
+
+    .btn.green {
+        background-color: #5cb85c;
+        /*border: 2px solid #5cb85c;*/
+        color: #ffffff;
+    }
+
+
+
+
+    span.round-tabs {
+        font-size: 16px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .tab-content .head {
+        font-size: 20px;
+    }
+
+    .nav-tabs > li a {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .nav-tabs > li.active:after {
+        content: " ";
+        position: absolute;
+        left: 35%;
+    }
+
+    .btn-outline-rounded {
+        padding: 12px 20px;
+    }
+
+    }
+</style>
+<div>
+    @if (game_id != 0)
+    {
+        <input type="hidden" id="gameId" value="@game_id" />
+    }
+    else
+    {
+        <input type="hidden" id="gameId" value="0" />
+    }
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <section style="background:#efefe9;">
+            <div class="container" style="width: 100%;">
+                <div class="row" style="background-color: white;">
+                    <div class="board" style="margin:5%;">
+                        <!-- <h2>Welcome to IGHALO!<sup>™</sup></h2>-->
+                        <div class="board-inner">
+                            <ul class="nav nav-tabs" id="myTab">
+                                <div class="liner"></div>
+                                <li class="active" id="" style="width:25%">
+                                    <a href="#Create_Game" data-toggle="tab" title="Create Game">
+                                        @if (game_phase == 0)
+                                        {
+                                            <span class="round-tabs one" id="round_1" style="background-color:#57e869">
+                                                <h2 id="one_nm"><b>1</b></h2>
+                                                <h2 id="round_1_tk"></h2>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="round-tabs one" id="round_1">
+                                                <h2 id="one_nm"><b>1</b></h2>
+                                                <h2 id="round_1_tk"></h2>
+                                            </span>
+                                        }
+
+                                    </a>
+                                </li>
+
+
+
+                                <li id="" style="width:25%">
+                                    <a href="#" data-toggle="tab" title="Configure Game Components">
+                                        @if (game_phase == 1)
+                                        {
+
+                                            <span class="round-tabs two" id="round_2" style="background-color:#57e869">
+                                                <h2 id="two_nm"><b>2</b></h2>
+                                                <h2 id="round_2_tk"></h2>
+
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="round-tabs two" id="round_2">
+                                                <h2 id="two_nm"><b>2</b></h2>
+                                                <h2 id="round_2_tk"></h2>
+                                            </span>
+                                        }
+                                    </a>
+                                </li>
+                                <li id="" style="width:25%">
+                                    <a href="#" data-toggle="tab" title="Configure Gamers">
+                                        @if (game_phase == 2)
+                                        {
+                                            <span class="round-tabs three" id="round_3" style="background-color:#57e869">
+                                                <h2 id="three_nm"><b>3</b></h2>
+                                                <h2 id="round_3_tk"></h2>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="round-tabs three" id="round_3">
+                                                <h2 id="three_nm"><b>3</b></h2>
+                                                <h2 id="round_3_tk"></h2>
+                                            </span>
+                                        }
+                                    </a>
+                                </li>
+                                @*<li id="">
+                                    <a href="#" data-toggle="tab" title="Assign Game Components ">
+                                        @if (game_phase == 3)
+                                        {
+                                            <span class="round-tabs four" id="round_4" style="background-color:#57e869">
+                                                <h2 id="four_nm"><b>4</b></h2>
+                                                <h2 id="round_4_tk"></h2>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="round-tabs four" id="round_4">
+                                                <h2 id="four_nm"><b>4</b></h2>
+                                                <h2 id="round_4_tk"></h2>
+                                            </span>
+                                        }
+                                    </a>
+                                </li>*@
+                                @*<li id="">*@
+                                    @*<a href="#" data-toggle="tab" title="Review Game">
+                                        @if (game_phase == 4)
+                                        {
+                                            <span class="round-tabs five" id="round_5" style="background-color:#57e869">
+                                                <h2 id="five_nm"><b>5</b></h2>
+                                                <h2 id="round_5_tk"></h2>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="round-tabs five" id="round_5">
+                                                <h2 id="five_nm"><b>5</b></h2>
+                                                <h2 id="round_5_tk"></h2>
+                                            </span>
+                                        }
+                                    </a>*@
+                                @*</li>*@
+                                @*<li id="">
+                                    <a href="#" data-toggle="tab" title="Assign Game and Send Notification" id="six">
+                                        @if (game_phase == 5)
+                                        {
+                                            <span class="round-tabs six" id="round_6" style="background-color:#57e869">
+                                                <h2 id="six_nm"><b>6</b></h2>
+                                                <h2 id="round_6_tk"></h2>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="round-tabs six" id="round_6">
+                                                <h2 id="six_nm"><b>6</b></h2>
+                                                <h2 id="round_6_tk"></h2>
+                                            </span>
+                                        }
+                                    </a>
+                                </li>*@
+                            </ul>
+                        </div>
+
+                        <div class="tab-content">
+                            <div class="row">
+                                <br />
+                                <br />
+                                <table class="table" style="width: 90%;margin-left:5%">
+                                    <thead>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                            <th>&nbsp;</th>
+                                            <th>&nbsp;</th>
+                                            <th>&nbsp;</th>
+                                            <th>&nbsp;</th>
+                                            <th>&nbsp;</th>
+
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        @*<tr>
+                                            @if (game_phase == 0)
+                                            {
+                                                <td id="stage_one" style="background-color:#d2ebef">1</td>
+                                            }
+                                            else
+                                            {
+                                                <td id="stage_one">1</td>
+                                            }
+                                            @if (game_phase == 1)
+                                            {
+                                                <td id="stage_two" style="background-color:#d2ebef">2</td>
+                                            }
+                                            else
+                                            {
+                                                <td id="stage_one">2</td>
+                                            }
+                                            @if (game_phase == 2)
+                                            {
+                                                <td id="stage_three" style="background-color:#d2ebef">3</td>
+                                            }
+                                            else
+                                            {
+                                                <td id="stage_one">3</td>
+                                            }
+                                            @if (game_phase == 3)
+                                            {
+                                                <td id="stage_four" style="background-color:#d2ebef">4</td>
+                                            }
+                                            else
+                                            {
+                                                <td id="stage_one">4</td>
+                                            }
+                                            @if (game_phase == 4)
+                                            {
+                                                <td id="stage_five5" style="background-color:#d2ebef">5</td>
+                                            }
+                                            else
+                                            {
+                                                <td id="stage_one">5</td>
+                                            }
+                                            @if (game_phase == 5)
+                                            {
+                                                <td id="stage_six" style="background-color:#d2ebef">6</td>
+                                            }
+                                            else
+                                            {
+                                                <td id="stage_one">6</td>
+                                            }
+
+                                        </tr>*@
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            @if (game_phase == 0)
+                            {
+                                <div class="tab-pane fade in active" id="Create_Game">
+                                    <form action="/Gamification/game_creation" method="post">
+                                        <div class="row" style="margin-left: 4%;">
+
+                                            <h3><b>Please Create The Game Name</b></h3>
+                                            <div class="form-group" style="width: 92%; padding: 2%;height: 50px; background-color: #d9d7d7;">
+
+                                                <label for="Game Name">Game Name</label>
+                                                <input id="game_name" name="game_name" type="text" style="width:37%;">
+                                                <label for="expiry date">Game Expiry Date</label>
+                                                <div class='input-group date'>
+                                                    <input type='text' class="form-control validate[required]" id='datetimepicker1' name="expiry_date" />
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                            <div class="row" style="width: 92%;margin-left: 0%;">
+                                                <label for="comment">Comment</label>
+                                                <textarea name="comment" id="comment" style="width: 276px;">Enter text here...</textarea>
+                                            </div>
+                                            <br />
+                                        </div>
+                                        <div class="row" style="margin-left: 4%;">
+
+                                            <h3>Select Game Mode</h3>
+                                            <div class="form-group" style="width: 92%; padding: 2%;height: 50px; background-color: #d9d7d7;">
+
+                                                <label for="Game Mode">Game Mode&nbsp;&nbsp;</label>
+                                                <input type="radio" name="game_mode" value="open" checked>&nbsp;&nbsp; Open Game &nbsp;&nbsp;<input type="radio" name="game_mode" value="closed">&nbsp;&nbsp;Closed Game<br>
+                                            </div>
+                                            <br />
+                                            <div class="row" style="margin-left:2%;">
+                                                <label for="Game type">Game Type&nbsp;&nbsp;</label>
+                                                <input type="radio" name="game_type" value="Standalone" checked>&nbsp;&nbsp; Standalone  &nbsp;&nbsp;<input type="radio" name="game_type" value="Journey">&nbsp;&nbsp;Journey <br>
+                                            </div>
+                                            <div class="row" style="margin-left:2%;">
+                                                <label for="Player type">Player Type&nbsp;&nbsp;</label>
+                                                <input type="radio" name="player_type" value="Solo" checked>&nbsp;&nbsp; Solo  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="player_type" value="Group">&nbsp;&nbsp;Group <br>
+                                            </div>
+                                        </div>
+
+
+                                        @*<a href="#Configure_Game_Components" data-toggle="tab" onclick="changecolor1()" class="round-tabs one">*@
+
+                                        <button type="submit" class="btn btn-default btn-sm" style="background-color:#0094ff;margin-left: 44%;">
+                                            <span class="glyphicon glyphicon-step-forward"></span> Next
+                                        </button>
+
+                                        @*</a>*@
+
+                                    </form>
+                                </div>
+                            }
+                            @if (game_phase == 1)
+                            {
+                                <div class="tab-pane fade in active" id="Configure_Game_Components">
+                                    <form action="/Gamification/phase_changing" method="post">
+                                        <div>
+                                            <input type="hidden" value="@game_id" name="gId" id="gId" />
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h3 style="margin-left:10%;"><b>Build The Game Elements</b></h3>
+                                                    <div style="background-color:#d9d7d7;padding:5%;margin-left:10%;">
+                                                        <div>Select Game Content &nbsp;<input type="radio" name="game_content" value="Asssessment" onclick="get_assess()" required> Asssessment <input type="radio" name="game_content" value="Program" onclick="get_program()"> Program <br> </div>
+                                                        @*<div>Game Path &nbsp;<input type="radio" name="game_path" value="stand alone" checked> Stand Alone &nbsp;&nbsp;&nbsp;<input type="radio" name="game_path" value="journey"> Journey<br> </div>*@
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+
+
+                                                    @*@if (assessment_list != null)
+                                                        {*@
+                                                    <label>Please Select Assessment</label>
+                                                    <select id="selt_ass" onchange="selected_assess()" style="width: 200%;margin-top: 20%" required></select>
+                                                    <label>Please Select Program</label>
+                                                    <select id="selt_pro" onchange="selected_prog()" style="width: 200%;margin-top: 20%" required></select>
+
+
+                                                </div>
+                                                <div class="col-md-3" style="margin-left: -2%;">
+                                                    @*<h3>Scoring Grid-Program</h3>
+                                                        <table class="table" style="height:80px;width: 91%;">
+                                                            <thead>
+                                                                <tr style="background-color:#75c2f5">
+                                                                    <th>Score Id</th>
+                                                                    <th>Source Range</th>
+                                                                    <th>Rate</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr style="background-color:#afe1f1">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>*@
+                                                </div>
+                                            </div>
+                                            <div class="row" style="width: 95%;margin-left: 3%;padding:2%;">
+
+                                                <h3>Game type-Game Path</h3>
+                                                <table class="table" style="height:80px;width: 100%;">
+                                                    <thead>
+                                                        <tr style="background-color:#793079;color:white">
+                                                            <th>Program Id</th>
+                                                            <th>Program Name</th>
+                                                            <th>Sequence Order</th>
+                                                            <th>Mandatory</th>
+                                                            <th>Individual Weightage(%)</th>
+                                                            <th>Select</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="prog-table">
+                                                        @*<tr style="background-color:#cb84cb;color:white">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>*@
+                                                    </tbody>
+                                                </table>
+                                                <br />
+                                                <br />
+                                                <table class="table" style="height:80px;width: 100%;">
+                                                    <thead>
+                                                        <tr style="background-color:#793079;color:white">
+                                                            <th>Assessment Id</th>
+                                                            <th>Assessment Name</th>
+                                                            <th>Sequence Order</th>
+                                                            <th>Mandatory</th>
+                                                            <th>Individual Weightage(%)</th>
+                                                            <th>Select</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="assess-table">
+                                                        @*<tr style="background-color:#cb84cb;color:white">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>*@
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
+                                        </div>
+                                        @*<a href="#Create_Game" data-toggle="tab"  class="round-tabs one">
+
+                                                <button type="button" class="btn btn-default btn-sm" style="background-color:#0094ff;margin-left: 44%;">
+                                                    <span class="glyphicon glyphicon-step-backward"></span> Pre
+                                                </button>
+
+                                            </a>*@
+
+                                        @*<a href="#Configure_Gamers" data-toggle="tab" onclick="changecolor2()">*@
+                                        <button type="submit" class="btn btn-default btn-sm" style="background-color:#0094ff;margin-left: 44%;">
+                                            <span class="glyphicon glyphicon-step-forward"></span> Next
+                                        </button>
+                                        @*</a>*@
+                                    </form>
+                                </div>
+                            }
+                            @if (game_phase == 2)
+                            {
+                                <div class="tab-pane fade in active" id="Configure_Gamers">
+
+                                    <div class="row">
+                                        <h3 style="text-align:center;"><b>Game Review</b></h3>
+                                    </div>
+                                    @if (@game_name != null)
+                                    {
+                                        <h1>@game_name</h1>
+                                    }
+                                    <div class="row">
+                                        <table class="table" style="height:80px;width: 100%;">
+                                            <thead>
+                                                <tr style="background-color:#793079;color:white">
+                                                    <th>Program Id</th>
+                                                    <th>Program Name</th>
+                                                    <th>Sequence Order</th>
+                                                    <th>Mandatory</th>
+                                                    <th>Individual Weightage(%)</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="prog-table">
+                                                @if (pro_review != null)
+                                                {
+
+
+                                                    foreach (var dum in pro_review)
+                                                    {
+                                                        <tr style="background-color:#cb84cb;color:white">
+                                                            <td>@dum.id_program</td>
+                                                            <td>@dum.program_title</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>&nbsp;&nbsp;&nbsp;<a href="@Url.Action("Delete_Program","Gamification",new { pro_id = @dum.id_program , game_id = @dum.game_id })"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                                        </tr>
+                                                    }
+
+                                                }
+                                                @*<tr style="background-color:#cb84cb;color:white">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>*@
+                                            </tbody>
+                                        </table>
+                                        <br />
+                                        <br />
+                                        <table class="table" style="height:80px;width: 100%;">
+                                            <thead>
+                                                <tr style="background-color:#793079;color:white">
+                                                    <th>Assessment Id</th>
+                                                    <th>Assessment Name</th>
+                                                    <th>Sequence Order</th>
+                                                    <th>Mandatory</th>
+                                                    <th>Individual Weightage(%)</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="assess-table">
+                                                @if (game_review != null)
+                                                {
+                                                    foreach (var dum in game_review)
+                                                    {
+                                                        <tr style="background-color:#cb84cb;color:white">
+                                                            <td>@dum.id_assessment</td>
+                                                            <td>@dum.assessment_title</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>&nbsp;&nbsp;&nbsp;<a href="@Url.Action("Delete_Assessment","Gamification",new { ass_id = @dum.id_assessment , game_id = @dum.game_id })"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                                        </tr>
+                                                    }
+                                                }
+                                                @*<tr style="background-color:#cb84cb;color:white">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>*@
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+
+
+                                    @*<a href="#Assign_Game_Components" data-toggle="tab" onclick="changecolor3()">*@
+                                    <div class="row">
+                                        <div class="col-md-5"></div>
+                                        <div class="col-md-2"><img src="~/Content/images/Game-start.png" style="width:100%;" onclick="show_msg()" /></div>
+                                        <div class="col-md-5"></div>
+
+                                    </div>
+
+                                    @*<button type="button" class="btn btn-default btn-sm" style="background-color:#0094ff;margin-left: 44%;">
+                                            <span class="glyphicon glyphicon-step-forward"></span> Next
+                                        </button>*@
+                                    @*</a>*@
+
+                                </div>
+                            }
+
+                            <div class="tab-pane fade" id="Assign_Game_Components">
+                                <h3 style="margin-left:5%"><b>The  “OPEN / Closed” mode Game “xyz Game”  expired on “20th December 2016”, where the Game Type is “ONLINE / OFFLIBE” player played in “STANDALONE / JOURNEY”.</b></h3>
+                                <div class="row" style="margin-left:5%;">
+                                    <h2><b>The List Program & Assessment Assigned to the Game:</b></h2>
+                                    <table class="table" style="height:80px;width: 91%;">
+                                        <thead>
+                                            <tr style="background-color:#75c2f5">
+                                                <th>Program / Assessment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="background-color:#afe1f1">
+                                                <td>&nbsp;</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    @if (player_type_stage4 == 0)
+                                    {
+                                        <div style="margin-left: 6%;">
+                                            <h3><span><img src="~/Content/images/solo player.png" style="width:3%" /></span>&nbsp;&nbsp;&nbsp;List of SOLO - Players</h3>
+                                        </div>
+                                    }
+                                    @if (player_type_stage4 == 1)
+                                    {
+                                        <div class="col-md-6" style="width: 48%;">
+                                            <div class="row" style="margin-left: 13%;margin-top: 13%;"><h3>Number of GROUPS &nbsp;&nbsp;&nbsp;:</h3></div>
+                                            <div class="row" style="margin-left: 13%;margin-top: 18%;"><h3><span><img src="~/Content/images/group player.png" style="width:5%;" /></span>&nbsp;&nbsp;&nbsp;List of  Group Players</h3></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table" style="height:80px;width: 91%;">
+                                                <thead>
+                                                    <tr style="background-color:#a4a06f">
+                                                        <th>Group Name</th>
+                                                        <th>Image</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr style="background-color:#f8f8cf">
+                                                        <td>&nbsp;</td>
+                                                        <td></td>
+                                                    </tr>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="row" style="margin: 5%;width: 91%;">
+                                    <table class="table" style="height:80px;width: 100%;">
+                                        <thead>
+                                            <tr style="background-color:#75c2f5">
+                                                <th>Score Id</th>
+                                                <th>Source Range</th>
+                                                <th>Rate</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="background-color:#afe1f1">
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                @*<a href="#Configure_Gamers" data-toggle="tab" class="round-tabs one">
+
+                                        <button type="button" class="btn btn-default btn-sm" style="background-color:#0094ff;margin-left: 44%;">
+                                            <span class="glyphicon glyphicon-step-backward"></span> Pre
+                                        </button>
+
+                                    </a>*@
+                                <a href="#Review_Game" data-toggle="tab" onclick="changecolor4()">
+                                    <button type="button" class="btn btn-default btn-sm" style="background-color:#0094ff;margin-left: 44%;">
+                                        <span class="glyphicon glyphicon-step-forward"></span> Next
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="tab-pane fade" id="Review_Game">
+
+                                <h2 style="margin-left:5%;text-align:center"><b>Game Review</b></h2>
+                                <br />
+
+                                <div class="row" style="margin-left: 5%;width:90%;border-color:#793079;padding:5%">
+                                    <div class="col-md-6">
+                                        <h3>Game Name :</h3>
+                                        <h3>Game Mode :</h3>
+                                        <h3>Game Type&nbsp;&nbsp; :</h3>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h3>Game Expiry Date :</h3>
+                                        <h3>Game Path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</h3>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                                <div class="row">
+                                    <table class="table" style="height:80px;width: 86.8%;margin-left: 6.8%;">
+                                        <thead>
+                                            <tr style="background-color:#75c2f5">
+                                                <th>Program Name</th>
+                                                <th>Sequence Order</th>
+                                                <th>Mandatory</th>
+                                                <th>Individual Weightage (%)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="background-color:#afe1f1">
+                                                <td>&nbsp;</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    @if (player_type_stage4 == 1)
+                                    {
+                                        <div class="col-md-6" style="width: 48%;">
+                                            <div class="row" style="margin-left: 13%;margin-top: 13%;"><h3>Number of GROUPS &nbsp;&nbsp;&nbsp;:</h3></div>
+                                            <div class="row" style="margin-left: 13%;margin-top: 18%;"><h3><span><img src="~/Content/images/group player.png" style="width:5%;" /></span>&nbsp;&nbsp;&nbsp;List of  Group Players</h3></div>
+                                        </div>
+                                        <div class="col-md-6" style="width: 48%;">
+                                            <div class="row" style="margin-left: 13%;margin-top: 13%;"><h3>Group Name &nbsp;&nbsp;&nbsp;:</h3></div>
+                                            <div class="row" style="margin-left: 13%;margin-top: 13%;"><img src="~/Content/images/logo23.png" alt="Group Image" /></div>
+
+                                        </div>
+                                    }
+                                </div>
+                                @if (player_type_stage4 == 0)
+                                {
+                                    <h3 style="margin-left:5%">List Of Solo Players</h3>
+
+                                }
+                                <div class="row">
+                                    <table class="table" style="height:80px;width: 86.8%;margin-left: 6.8%;">
+                                        <thead>
+                                            <tr style="background-color:#75c2f5">
+                                                <th>Player Name</th>
+                                                <th>Role</th>
+                                                <th>Location</th>
+                                                <th>Zone</th>
+                                                <th>Designation</th>
+                                                <th>Group Belong to</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="background-color:#afe1f1">
+                                                <td>&nbsp;</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                @*<a href="#Assign_Game_Components" data-toggle="tab"  class="round-tabs one">
+
+                                        <button type="button" class="btn btn-default btn-sm" style="background-color:#0094ff;margin-left: 44%;">
+                                            <span class="glyphicon glyphicon-step-backward"></span> Pre
+                                        </button>
+
+                                    </a>*@
+                                <a href="#Assign_Game_and_Send_Notification" data-toggle="tab" onclick="changecolor5()">
+                                    <button type="button" class="btn btn-default btn-sm" style="background-color:#0094ff;margin-left: 44%;">
+                                        <span class="glyphicon glyphicon-step-forward"></span> Next
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="tab-pane fade" id="Assign_Game_and_Send_Notification">
+
+                                <div class="row">
+                                    <div style="margin-left: 5%;">
+                                        <h2 style="text-align: center;"><b>Game  Details</b></h2>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <h3>Game Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</h3>
+                                        <br />
+                                        <h3>Game Expiry Date :</h3>
+                                        <br />
+                                        <h3>Game Mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</h3>
+                                        <br />
+                                        <h3>Game Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</h3>
+                                        <br />
+                                        <h3>Game Path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</h3>
+                                        <br />
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-4" style="padding: 5%;margin-left: 3%;">
+                                            @*<a href="#Review_Game" data-toggle="tab"
+                                                    class="round-tabs one">
+
+                                                    <button type="button" class="btn btn-default btn-sm" style="background-color:#0094ff;margin-left: 44%;">
+                                                        <span class="glyphicon glyphicon-step-backward"></span> Pre
+                                                    </button>
+
+                                                </a>*@
+                                            <a href="#Assign_Game_and_Send_Notification" data-toggle="tab" onclick="changecolor6()">
+                                                <img src="~/Content/images/Game-start.png" style="width: 50%;" />
+
+                                            </a>
+
+                                        </div>
+                                        <div class="col-md-4"></div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </section>
+    </div>
+    <div class="modal fade" id="mcb-dialog"
+         role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal">
+                        &times;
+                    </button>
+                    <h3 class="modal-title">Alert :</h3>
+                </div>
+                <div class="modal-body" id="msg-txt">Game configuration Completed </div>
+                <div class="modal-footer">
+                    <a href="@Url.Action("Index", "dashboard")">
+                      
+                            Return To Home
+                       
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        function show_msg() {
+
+            $('#mcb-dialog').modal('show');
+        }
+    </script>
+    @*<div class="col-md-2">
+
+            <table class="table" style="height:80px;width: 100%;">
+                <thead>
+                    <tr style="background-color:#75c2f5">
+                        <th style="text-align:center">Summary</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color:#afe1f1">
+                        <td>Game Name</td>
+                        <td><span class="glyphicon glyphicon-ok" style="color:#096408"></span></td>
+                    </tr>
+                    <tr style="background-color:#afe1f1">
+                        <td>Game Mode</td>
+                        <td><span class="glyphicon glyphicon-ok" style="color:#096408"></span></td>
+                    </tr>
+                    <tr style="background-color:#afe1f1">
+                        <td>Game Type</td>
+                        <td><span class="glyphicon glyphicon-ok" style="color:#096408"></span></td>
+                    </tr>
+                    <tr style="background-color:#afe1f1">
+                        <td>Game Path</td>
+                        <td><span class="glyphicon glyphicon-ok" style="color:#096408"></span></td>
+                    </tr>
+                    <tr style="background-color:#afe1f1">
+                        <td>Program Name</td>
+                        <td><span class="glyphicon glyphicon-ok" style="color:#096408"></span></td>
+                    </tr>
+                    <tr style="background-color:#afe1f1">
+                        <td>Assessment Name</td>
+                        <td><span class="glyphicon glyphicon-ok" style="color:#096408"></span></td>
+                    </tr>
+                    <tr style="background-color:#afe1f1">
+                        <td>Scoring Grid Assessment</td>
+                        <td><span class="glyphicon glyphicon-ok" style="color:#096408"></span></td>
+                    </tr>
+                    <tr style="background-color:#afe1f1">
+                        <td>Scoring Grid Program</td>
+                        <td><span class="glyphicon glyphicon-ok" style="color:#096408"></span></td>
+                    </tr>
+                    <tr style="background-color:#afe1f1">
+                        <td>Type of Player</td>
+                        <td><span class="glyphicon glyphicon-ok" style="color:#096408"></span></td>
+                    </tr>
+                    <tr style="background-color:#afe1f1">
+                        <td>No of Groups</td>
+                        <td><span class="glyphicon glyphicon-ok" style="color:#096408"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>*@
+</div>

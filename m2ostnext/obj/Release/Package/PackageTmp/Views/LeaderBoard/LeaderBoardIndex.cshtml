@@ -1,0 +1,222 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+    string error = (string)ViewData["error"];
+
+}
+<style>
+    .select-checkbox:before, .select-checkbox:after {
+        display: block;
+        position: absolute;
+        top: 1.2em;
+        left: 50%;
+        width: 12px;
+        height: 12px;
+        box-sizing: border-box;
+    }
+
+    .select-checkbox:after {
+        content: '\2714';
+        margin-top: -11px;
+        margin-left: -4px;
+        text-align: center;
+        text-shadow: 1px 1px #B0BED9, -1px -1px #B0BED9, 1px -1px #B0BED9, -1px 1px #B0BED9;
+    }
+
+    .btn-block {
+        margin-top: 2vh;
+    }
+
+    .form-group {
+        /* display:flex;
+        flex-direction:column;
+        gap:0.5em;*/
+    }
+</style>
+<link rel="stylesheet" href="~/Content/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/datatable/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Content/datatable/js/jquery.dataTables.min.js"></script>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="control-label">Select Point or Coin</label>
+                                <select class="form-control" id="program-dropdown">
+                                    <option value="0">Select Point or Coin</option>
+                                    <option value="1">Point</option>
+                                    <option value="2">Coin</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label">Assesment</label>
+                                <select class="form-control" id="assesment-dropdown">
+                                </select>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label"> Start Date</label></div>
+                            <div class="col-md-4">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control" id='datetimepicker1' name="start-date"  autocomplete="off" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2"><label class="control-label">End Date</label></div>
+                            <div class="col-md-4">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control" id='datetimepicker2' name="expiry-date"  autocomplete="off" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-offset-4 col-md-4">
+                                    <button type="submit" class="btn btn-primary btn-block" id="submit" onclick="submit()">Deactive</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="table-container">
+                    <!-- This is where the generated table will be placed -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $("#report-table-temp").dataTable({
+            "pageLength": 10
+        });
+        $("#report-table-note").dataTable({
+            "pageLength": 10
+        });
+        $("#datetimepicker1").datetimepicker(
+            { dateFormat: "dd-mm-yy" }
+        );
+
+        $("#datetimepicker2").datetimepicker(
+            { dateFormat: "dd-mm-yy" }
+        );
+
+    $.ajax({
+    url: '@Url.Action("Getassesment", "LeaderBoard")',
+    method: 'POST',
+    success: function (data) {
+        debugger;
+
+        $('#assesment-dropdown').empty();
+        $('#assesment-dropdown').append('<option value="">Please select</option>');
+
+        var parsedData = JSON.parse(data);
+
+        if (Array.isArray(parsedData)) {
+            // Iterate over each item in the parsedData array
+            $.each(parsedData, function (index, item) {
+                // Append option to dropdown
+                $('#assesment-dropdown').append('<option value="' + item.id_assessment + '">' + item.assessment_title + '</option>');
+            });
+        } else {
+            console.error('Data is not in expected format');
+        }
+    },
+    error: function (xhr, status, error) {
+        console.error(error); // Log any errors to the console
+    }
+});
+
+
+    });
+
+    function submit() {
+        debugger;
+
+
+
+        if (validateDates()) {
+            // Exit the function if validation fails
+
+            // Get values from form controls
+            var program = $('#program-dropdown').val();
+            var assesmentID = $('#assesment-dropdown').val();
+
+            var startDate = $('#datetimepicker1').val();
+            var expiryDate = $('#datetimepicker2').val();
+            $('#submit').prop('disabled', true);
+            loading_on();
+            // AJAX request
+            $.ajax({
+                url: '@Url.Action("GetassesmentID", "LeaderBoard")',  // Replace with the correct URL
+                type: 'POST',
+                data: {
+                    program: program,
+                    assesmentID: assesmentID,
+
+                    startDate: startDate,
+                    expiryDate: expiryDate
+                },
+                success: function (response) {
+                    console.log(response);
+                    debugger;
+                    loading_off();
+
+                    $('#submit').prop('disabled', false);
+                    if (response == 0) {
+                        alert("No data available.");
+                    }
+                    else {
+
+                        alert("Data Deactived Successfully.");
+
+                        location.reload();
+                    }
+
+
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+    }
+    function validateDates() {
+        var startDate = $('#datetimepicker1').datetimepicker('getDate');
+        var endDate = $('#datetimepicker2').datetimepicker('getDate');
+
+        if (startDate && endDate && startDate > endDate) {
+            alert("Start date should not be greater than end date.");
+            $('#datetimepicker2').val('');
+            return false;
+        }
+        else {
+            return true;
+
+        }
+    }
+
+</script>

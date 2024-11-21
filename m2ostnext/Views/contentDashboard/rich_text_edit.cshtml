@@ -1,0 +1,536 @@
+﻿@{
+    ViewBag.Title = "rich_text_edit";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+@*<link href="~/Content/dist/summernote.css" rel="stylesheet" />*@
+<link href="~/Content/RichText/dist/summernote.css" rel="stylesheet" />
+<!-- Latest compiled and minified CSS -->
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+
+<!-- jQuery library -->
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!----------------------------------CSS/Script------------------------------------------>
+@*<script src="~/Content/dist/summernote.js"></script>*@
+<script src="~/Content/RichText/dist/summernote.js"></script>
+
+
+
+
+<link rel="stylesheet" href="~/Content/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<link rel="stylesheet" href="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+
+@{
+    db_m2ostEntities db = new db_m2ostEntities();
+    tbl_content content = (tbl_content)ViewData["CONTENT"];
+    tbl_content_answer answer = (tbl_content_answer)ViewData["ANSWER"];
+    List<tbl_content_answer_steps> steps = (List<tbl_content_answer_steps>)ViewData["STEPS"];
+    List<tbl_content_metadata> metadata = (List<tbl_content_metadata>)ViewData["METADATA"];
+    List<string> str = new List<string>();
+    foreach (tbl_content_metadata m in metadata)
+    {
+        str.Add(m.CONTENT_METADATA);
+    }
+    string metastring = String.Join(",", str);
+    int step_count = steps.Count;
+    int conId = (int)ViewData["conId"];
+    int metacount = metadata.Count;
+    int theme = content.ID_THEME;
+    List<tbl_content_organization_mapping> mapping = (List<tbl_content_organization_mapping>)ViewData["mapping"];
+}
+<script>
+
+    $(document).ready(function () {
+        $('#summernote').summernote();
+    });
+    $(document).ready(function () {
+        $('#summernote1').summernote();
+    });
+   
+    $(function () { $("#datetimepicker2").datepicker(
+    { dateFormat: "dd-mm-yy", minDate: new Date() });});
+</script>
+<script>
+
+
+    function updateContent() {
+
+        var t_title = $("#t-title").val();
+
+        var t_header = $("#t-header").val();
+
+        var t_question = $("#t-quetion").val();
+
+        var select_level = $("#select-level").val();
+
+        var select_category = $("#select-category").val();
+
+        var content_expiry = $("#datetimepicker2").val();
+
+        var conId=$("#conId").val();
+
+
+        var t_metadata = $("#t-metadata").val();
+
+        var hid_category = $("#hid-category").val();
+
+
+        var content_answer = $('.summernote').summernote('code');
+
+
+        var cats = "0";
+        for (i = 1; i <= hid_category; i++) {
+            var ic = $("#add-con-category-" + i).val();
+            if (ic) {
+                cats = cats + '|' + ic;
+            }
+        }
+
+        //var valid = $("#form-add-content").validationEngine('validate');
+        //if (valid) {
+
+            var url = '@Url.Action("updateRichTextContent", "contentDashboard")';
+        var url1='@Url.Action("display_content", "dashboard")';
+            var idata = {
+                t_title: t_title,
+                t_header: t_header,
+                t_question: t_question,
+                select_level: select_level,
+                select_category: select_category,
+                content_expiry: content_expiry,
+                t_metadata: t_metadata,
+                content_answer: content_answer,
+                category_list: cats,
+                conId:conId
+
+            }
+
+
+
+        $.ajax({
+                url:url,
+                type: "POST",
+                data: JSON.stringify(idata),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+
+            //type: "POST",
+            //url: url,
+
+            //processData: false,
+            //data: idata,
+            success: function (msg) {
+
+            }
+        });
+        alert("Content updated Successfully");
+        window.location.href = url1;
+
+        }
+    //}
+    $(function () {
+        $("#form-add-content").validationEngine();
+        changetheme();
+        @{
+     int sc = 0;
+         }
+
+        var scount=@(steps.Count);
+        @if(steps.Count>0)
+        {
+            int x=0;
+            foreach (tbl_content_answer_steps stp in steps)
+            {
+               
+                x++;
+         <text>
+
+        LoadSteps(@stp.STEPNO,@stp.ID_THEME,"ContentView",@stp.ID_ANSWER_STEP);
+
+         </text>
+
+         }
+          <text>$("#step-count").val(@x);</text>
+         }
+    });
+
+
+
+    function select_file(btn, imgf,ban)
+    {
+        var file = $("#" + btn + "")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+            $("#" + ban + "").addClass("validate[required,custom[url]]");
+        } else {
+            $("#" + ban + "").removeClass("validate[required,custom[url]]");
+        }
+
+        $("#" + imgf + "").val(filename);
+    }
+
+
+    function changetheme() {
+        var act = "theme@(theme)";
+        var cntrl = "ContentView";
+
+        var link = '@Url.Action("action", "control", new { id="-1"})';
+        link = link.replace("action", act);
+        link = link.replace("control", cntrl);
+        link = link.replace("-1", @(content.ID_CONTENT));
+
+
+        $("#loading-gif").show();
+        $("#div-theme-body").hide();
+        $.get(link, null, function (data) {
+            $("#div-theme-body").show();
+            $("#div-theme-body").empty().append(data);
+            $("#loading-gif").hide();
+        });
+
+    }
+
+    function changethemestep(val, id) {
+
+        var act = "themestep" + val + "";
+        var cntrl = "ContentView";
+        var count = $("#step-count").val();
+        var link = '@Url.Action("action", "control",new {id="-id",vid="-vid"})';
+        link = link.replace("action", act);
+        link = link.replace("control", cntrl);
+        link = link.replace("-id", id);
+        link = link.replace("-vid", 0);
+        $.get(link, null, function (data) {
+            $("#content-step-" + id).empty().append(data);
+        });
+
+    }
+
+    function LoadSteps(stepid,val,cntrl,vid)
+    {
+        var act = "themestep" + val + "";
+       
+        var link = '@Url.Action("action", "control",new {id="-id",vid="-vid"})';
+        link = link.replace("action", act);
+        link = link.replace("control", cntrl);
+        link = link.replace("-id", stepid);
+        link = link.replace("-vid", vid);
+
+        $.ajax({
+            url : link,
+            type : "get",
+            success : function(data) {
+            
+                var option='<div class="row"><div class="col-md-12"> <div class="form-group"><div class="col-md-7"><h4 style="color:#000000;"><lable class="control-label">Answer Step No : '+stepid+'</lable></h4></div><div class="col-md-4"><select id="select-theme-step-' + stepid + '" name="select-theme-step-' + stepid + '" class="form-control" onchange="changethemestep(this.value,' + stepid + ')"><option value="8">THEME 1</option><option value="9">THEME 2</option><option value="10">THEME 3</option><option value="11">THEME 4</option><option value="12">THEME 5</option><option value="13">THEME 6</option><option value="14">THEME 7</option><option value="15">THEME 8</option><option value="16">THEME 9</option><option value="17">THEME 10</option><option value="18">THEME 11</option><option value="19">THEME 12</option>';
+                option = option + '<option value="20">THEME 13</option>';
+                option = option + '<option value="21">THEME 14</option>';
+                option = option + '<option value="22">THEME 15</option>';
+                option = option + '<option value="23">THEME 16</option>';
+                option = option + '<option value="24">THEME 17</option>';
+                option = option + '<option value="25">THEME 18</option>';
+                option = option + '<option value="26">THEME 19</option>';
+                option = option + '<option value="27">Rich Text</option>';
+                option = option + '</select> </div></div></div></div><div id="content-step-' + stepid + '"></div>';
+             
+                $("#div-dynam-step").append(option);
+                $("#content-step-" + stepid).empty().append(data);
+                $("#select-theme-step-"+stepid).val(val);
+            }
+        });
+    }
+
+
+    function dynam_step_add(val) {
+        var option = "";
+        var step = $("#step-count").val();
+        step++;
+        option = '<div class="row"><div class="col-md-12"> <div class="form-group"><div class="col-md-7"><h4 style="color:#000000;"><lable class="control-label">Answer Step No : '+step+'</lable></h4></div><div class="col-md-4"><select id="select-theme-step-' + step + '" name="select-theme-step-' + step + '" class="form-control" onchange="changethemestep(this.value,' + step + ')"><option value="8">THEME 1</option><option value="9">THEME 2</option><option value="10">THEME 3</option><option value="11">THEME 4</option><option value="12">THEME 5</option><option value="13">THEME 6</option><option value="14">THEME 7</option><option value="15">THEME 8</option><option value="16">THEME 9</option><option value="17">THEME 10</option><option value="18">THEME 11</option><option value="19">THEME 12</option>';
+        option = option + '<option value="20">THEME 13</option>';
+        option = option + '<option value="21">THEME 14</option>';
+        option = option + '<option value="22">THEME 15</option>';
+        option = option + '<option value="23">THEME 16</option>';
+        option = option + '<option value="24">THEME 17</option>';
+        option = option + '<option value="25">THEME 18</option>';
+        option = option + '<option value="26">THEME 19</option>';
+        option = option + '<option value="27">Rich Text</option>';
+        option = option + '</select> </div></div></div></div><div id="content-step-' + step + '"></div>';
+        $("#step-count").val(step);
+        $("#div-dynam-step").append(option);
+        changethemestep(8, step);
+    }
+    function add_category() {
+        var cid = $("#select-category").val();
+        var cText = $("#select-category option:selected").text();
+        if (cText.length > 20) cText = cText.substring(0, 25) + '..';
+
+        cText = cText + " ";
+        var i = $("#hid-category").val();
+        i++;
+        $("#hid-category").val(i);
+        var item = '<div class="data-tab col-md-2" id="div-dyn-category-' + i + '" style="background-color: #23c6c8;"><span class="tag label label-info"><span>' + cText + '</span><input type="hidden" value="' + cid + '" id="add-con-category-' + i + '" name="add-con-category-' + i + '" /><a class="pull-right" onclick="delete_content_category(' + i + ',0)"><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a></span></div>';
+        $("#div_category").append(item);
+        $("#hid-category").val(i);
+    }
+    function delete_content_category(i,cid) {
+        $("#div-dyn-category-" + i + "").remove();
+
+        var link = '@Url.Action("removeCategoryLink", "contentDashboard", new { id = "-id",cnid="-2" })';
+        link = link.replace("-id", i);
+        link = link.replace("-2",cid);
+        $.ajax({
+            url : link,
+            type : "get",
+
+            success : function(data) {
+
+            }
+        });
+    }
+
+
+</script>
+<style>
+    #div_category {
+        margin: 3px 1px;
+    }
+
+    .data-tab {
+        padding: 2px 1px;
+        margin: 2px 1px;
+    }
+
+    .tag {
+        width: 100%;
+    }
+
+</style>
+
+@using (Html.BeginForm("updateContent", "contentDashboard", FormMethod.Post, new { id = "form-add-content", enctype = "multipart/form-data" }))
+{
+    <input type="hidden" name="content-id" value="@content.ID_CONTENT" />
+    <div id="pagecontent_dashboard">
+        <div class="panel panel-default custom-panel">
+            <div class="panel-heading custom-panel-heading clearfix">
+                <div class="panel-title">Edit Content </div>
+            </div>
+            <div class="panel-body custom-panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4" id="loading-gif" style="display:none;color:#000000;">
+                                @*<img src="~/Content/images/loading.gif" />*@
+                                <input type="hidden" value="@conId" id="conId" />
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <label class="control-label">Category</label>
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select-category" name="select-category" class="form-control">
+                                    @foreach (var pro in (List<tbl_category>)ViewData["select-category"])
+                                    {
+                                        <option value="@pro.ID_CATEGORY">@pro.CATEGORYNAME</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <input class="btn btn-default btn-info" id="btn_categort" value="Add Category" onclick="add_category()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10">
+                            <div class="form-group" id="div_category">
+                                @{
+                                    int i = 1;
+                                }
+                                @foreach (tbl_content_organization_mapping item in mapping)
+                                {
+                                    tbl_category tCat = db.tbl_category.Where(t => t.ID_CATEGORY == item.id_category).FirstOrDefault();
+                                    if (tCat != null)
+                                    {
+
+                                        <div class="data-tab col-md-2" id="div-dyn-category-@item.id_category" style="background-color: #23c6c8;">
+                                            <span class="tag label label-info">
+                                                <span>
+                                                    @if (tCat.CATEGORYNAME.Length > 21)
+                                                    {
+                                                        @(tCat.CATEGORYNAME.Substring(0, 20) + "..")
+                                                    }
+                                                    else
+                                                    {
+                                                        @(tCat.CATEGORYNAME)
+                                                    }
+                                                </span><input type="hidden" value="@item.id_category" id="add-con-category-@i" name="add-con-category-@i" />
+                                                <a class="pull-right" onclick="delete_content_category('@item.id_category','@item.id_content')"><i class="remove glyphicon glyphicon-remove-sign glyphicon-white "></i></a>
+                                            </span>
+                                        </div>
+                                        i++;
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" value="@i" id="hid-category" name="hid-category" />
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <label class="control-label">Content Level</label>
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select-level" name="select-level" class="form-control">
+                                    @foreach (var pro in (List<tbl_content_level>)ViewData["select-level"])
+                                    {
+                                        if (content.ID_CONTENT_LEVEL == pro.ID_CONTENT_LEVEL)
+                                        {
+                                            <option value="@pro.ID_CONTENT_LEVEL" selected>@pro.LEVELNAME</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@pro.ID_CONTENT_LEVEL">@pro.LEVELNAME</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">Expiry Date</label></div>
+                            <div class="col-md-4">
+                                <div class='input-group date'>
+                                    <input type='text' class="form-control validate[required]" id='datetimepicker2' name="content-expiry" value="@content.EXPIRY_DATE.Value.ToString("dd-MM-yyyy")" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-------------------------------------------->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="theme-1-header" class="form-group">
+                            <input type="text" class="form-control validate[required]" value="@content.CONTENT_TITLE" placeholder="Content Title" id="t-title" name="t-title">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="theme-1-header" class="form-group">
+                            <input type="text" class="form-control validate[required]" value="@content.CONTENT_HEADER" placeholder="Content Header" id="t-header" name="t-header">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <textarea class="form-control validate[required]" name="t-quetion" id="t-quetion" placeholder="Content Question" rows="6">@content.CONTENT_QUESTION</textarea>
+                        </div>
+                    </div>
+                </div>
+                <!------------------------------------------------------>
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-12">
+                        @*<textarea class="summernote form-control validate[required]"></textarea>*@
+                        <div class="form-group">
+                            <textarea id="summernote"  class="summernote" name="content_ans">@answer.CONTENT_ANSWER1</textarea>
+
+                            </div>
+                            <div id="div-theme-body">
+
+                            </div>
+
+                        </div>
+                </div>
+
+
+
+                <hr />
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="div-dynam-step">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-10">
+
+                            </div>
+                            <div class="col-md-1">
+                                <input type="hidden" value="0" id="step-count" name="step-count" />
+                                <input id="t-1-btn-steps" type="button" class="btn btn-default btn-info" value="Add More Steps" onclick="dynam_step_add()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div id="theme-1-meta">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control validate[required]" value="@metastring" placeholder="Enter Metadata Comma Separated...." id="t-metadata" name="t-metadata" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-5">
+
+                            </div>
+                            <div class="col-md-3">
+                                <input id="btn_question2" type="submit" class="btn btn-default btn-info" name="btn_submit" value="Save and Exit" onclick="updateContent()" />
+
+                                @*<input id="btn_question2" type="button" class="btn btn-default btn-info" name="btn_submit" value="Save and Exit" onclick="updateContent()" />*@
+
+                            </div>
+                            <div class="col-md-4">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                    }

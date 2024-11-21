@@ -1,0 +1,756 @@
+﻿@{
+    ViewBag.Title = "createAssessment";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+@{
+    var gameList = ViewBag.gameList as List<SelectListItem>;
+    var OrgIDList = ViewBag.OrgIDList as List<SelectListItem>;
+    var GetgameList = ViewBag.GetgameList as List<SelectListItem>;
+    var AssList = ViewBag.AssList as List<SelectListItem>;
+}
+<script type="text/javascript">
+    $(function () {
+
+        $("#form-add-assessment").validationEngine();
+
+        $("#datetimepicker1").datepicker(
+            { dateFormat: "dd-mm-yy" }
+        );
+        $("#datetimepicker2").datepicker(
+            { dateFormat: "dd-mm-yy" }
+        );
+        $("#datetimepicker3").datepicker(
+            { dateFormat: "dd-mm-yy" }
+        );
+        //$("#datetimepicker4").datepicker({
+        //    dateFormat:"dd-mm-yy"
+        //});
+    });
+</script>
+<style>
+    .no-background {
+        background: none !important; /* !important overrides any other styles */
+    }
+</style>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">Add Assessment</h4>
+            </div>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("add_assessment", "Assessment", FormMethod.Post, new { id = "form-add-assessment" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Assessment Type</label></div>
+                        <div class="col-md-5">
+                            <select id="assessment-div" name="assessment-div" class="form-control">
+                                <option value="0">Select Assessment Type</option>
+                                <option value="1">Learning Assessment</option>
+                                <option value="2">Psycometric Assessment</option>
+                                <option value="3">Gamified Assessment</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="div-ans-display">
+                        <div class="col-md-2"><label class="control-label">Select Organization From Ngage</label></div>
+                        <div class="col-md-5">
+                            @Html.DropDownList("SelectedOrgID", OrgIDList, "Select Organization", new { @class = "form-control kip1", id = "Idorg" })
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Assessment Name</label></div>
+                        <div class="col-md-5">
+
+                            <input type="text" class="form-control" value="" placeholder="" id="assessment-name" name="assessment-name" />
+                            @*@Html.DropDownList("assessment-name", AssList, "Select Assessment Name", new { @class = "form-control kip1", id = "assessment-name", name = "assessment-name" })*@
+                            @*  @Html.DropDownListFor(model => model.AssessmentName, new SelectList(Model.AssessmentNames), "Select an Assessment", new { @class = "form-control validate[required]", id = "assessment-name" })*@
+
+                            <select class="form-control" id="assessment-name-orgid" name="assessment-name"></select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Description</label></div>
+
+                        <div class="col-md-5">
+                            <input type="text" class="form-control validate[required]" value="" placeholder="" id="assessment-desc" name="assessment-desc" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Assessment Created</label></div>
+                        <div class="col-md-5">
+                            <div class='input-group date'>
+                                <input type='text' class="form-control no-background" id='datetimepicker1' name="assessment-created" readonly />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Assessment Started</label></div>
+                        <div class="col-md-5">
+                            <div class='input-group date'>
+                                <input type='text' class="form-control no-background" id='datetimepicker2' name="assessment-started" readonly />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Assessment End Date</label></div>
+                        <div class="col-md-5">
+                            <div class='input-group date'>
+                                <input type='text' class="form-control no-background" id='datetimepicker3' name="assessment-ended" readonly />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Display Type</label></div>
+                        <div class="col-md-5">
+                            <select id="assessment-type" name="assessment-type" class="form-control">
+                                <option value="0">Select Display Type</option>
+                                <option value="3">Both</option>
+                                <option value="1">Post</option>
+                                <option value="2">Pre</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Assessment Template</label></div>
+                        <div class="col-md-5">
+                            <select id="assessment-group" name="assessment-group" class="form-control" onchange="show_div(this.value)">
+                                <option value="0">Select Assessment Template</option>
+                                <option value="1">Question & Answer</option>
+                                <option value="2">Question & Answer (no right answer)</option>
+                                <option value="3">Range </option>
+                                <option value="4">Rank </option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <div id="ass-temp">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Max Attempt</label></div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control validate[required,custom[onlyNumberSp]]" value="0" placeholder="maximum number of attempt for assessment, 0 for unlimited" id="max-attempt" name="max-attempt" />
+                        </div>
+                        <div class="col-md-5">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="div-ans-display">
+                        <div class="col-md-2"><label class="control-label">Right Answer Display required </label></div>
+                        <div class="col-md-5">
+                            <select id="answer-display" name="answer-display" class="form-control">
+                                <option value="">Select Right Answer Display required</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" id="div-ans-display">
+                        <div class="col-md-2"><label class="control-label" id="ngageDropdownselectgame">Select Game </label></div>
+                        <div class="col-md-5">
+                            @Html.DropDownList("SelectedGame", gameList, "Select Game", new { @class = "form-control kip1", id = "ngageDropdown" })
+
+                        </div>
+                    </div>
+
+                    @*<div class="form-group" id="div-ans-display">
+            <div class="col-md-2"><label class="control-label">Select Game </label></div>
+            <div class="col-md-5">
+                @Html.DropDownList("SelectedGetgame", GetgameList, "Select Game", new { @class = "form-control kip1", id = "GetgameListDropdown" })
+
+            </div>
+        </div>*@
+                    <div class="form-group" id="div-ans-display">
+                        <div class="col-md-2"><label class="control-label" id="selectAssessment">Select Assessment </label></div>
+                        <div class="col-md-5">
+                            <select class="form-control" id="cityDropdown"></select>
+                        </div>
+                    </div>
+
+                    <div id="VKN" style="display:none;">
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">No of scoring key</label></div>
+                            <div class="col-md-5">
+                                <select id="no-of-key-vak" name="no-of-key-vak" class="form-control" onchange="generate_scoring_key(this.value)">
+                                    <option value="2">2 scoring key</option>
+                                    <option value="3">3 scoring key</option>
+                                    <option value="4">4 scoring key</option>
+                                    <option value="5">5 scoring key</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="scoring_key">
+                            <div class="form-group">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5"><label class="control-label">Add Scoring Key</label></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><label class="control-label"></label></div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <textarea class="form-control validate[required]" name="t-scoring-key-1" id="t-scoring-key-1" placeholder="scoring key 1" rows="2"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2"><label class="control-label"></label></div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <textarea class="form-control validate[required]" name="t-scoring-key-2" id="t-scoring-key-2" placeholder="scoring key 2" rows="2"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+
+                    <div id="range" style="display:none;">
+                        <hr />
+                        <div id="scoring_key">
+                            <div class="row">
+                                <div class="col-md-2">
+
+                                    <input type="text" class="form-control validate[required,custom[onlyNumberSp]]" name="low-value" id="high-value" placeholder="Lower Range Value" />
+
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control validate[required]" name="low-value-title" id="low-value-title" placeholder="Lower Range Title" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+
+                                    <input type="text" class="form-control validate[required,custom[onlyNumberSp]]" name="high-value" id="high-value" placeholder="High Range Value" />
+
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control validate[required]" name="high-value-title" id="high-value-title" placeholder="High Range Title" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">No of scoring key</label></div>
+                            <div class="col-md-5">
+                                <select id="no-of-key-range" name="no-of-key-range" class="form-control" onchange="generate_scoring_key_range(this.value)">
+                                    <option value="2">2 scoring key</option>
+                                    <option value="3">3 scoring key</option>
+                                    <option value="4">4 scoring key</option>
+                                    <option value="5">5 scoring key</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="scoring_key_range">
+                            <div class="form-group">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5"><label class="control-label">Add Scoring Key</label></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><label class="control-label"></label></div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <textarea class="form-control validate[required]" name="t-scoring-key-1" id="t-scoring-key-1" placeholder="scoring key 1" rows="2"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><label class="control-label"></label></div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <textarea class="form-control validate[required]" name="t-scoring-key-2" id="t-scoring-key-2" placeholder="scoring key 2" rows="2"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                    <div id="RANK" style="display:none;">
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-2"><label class="control-label">No of scoring key</label></div>
+                            <div class="col-md-5">
+                                <select id="no-of-key-rank" name="no-of-key-rank" class="form-control" onchange="generate_scoring_key_rank(this.value)">
+                                    <option value="2">2 scoring key</option>
+                                    <option value="3">3 scoring key</option>
+                                    <option value="4">4 scoring key</option>
+                                    <option value="5">5 scoring key</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="scoring_key_rank">
+                            <div class="form-group">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5"><label class="control-label">Add Scoring Key</label></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><label class="control-label"></label></div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <textarea class="form-control validate[required]" name="t-scoring-key-1" id="t-scoring-key-1" placeholder="scoring key 1" rows="2"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><label class="control-label"></label></div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <textarea class="form-control validate[required]" name="t-scoring-key-2" id="t-scoring-key-2" placeholder="scoring key 2" rows="2"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-md-2"><label class="control-label">Answer Description</label></div>
+                        <div class="col-md-10">
+                            <textarea name="answer-description" class="form-control" placeholder="Answer Description" rows="6" id="answer-description" readonly></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" name="btn_submit" class="btn btn-default" />
+                            <input type="submit" value="Save and Exit" name="btn_submit" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function show_div(val) {
+        if (val == 1) {
+            $("#div-ans-display").show();
+        }
+        else if (val == 2) {
+            $('#VKN').show();
+            $('#range').hide();
+            $('#RANK').hide();
+            $("#div-ans-display").hide();
+        }
+        else if (val == 3) {
+            $("#div-ans-display").hide();
+            $('#VKN').hide();
+            $('#range').show();
+            $('#RANK').hide();
+        } else if (val == 4) {
+            $("#div-ans-display").hide();
+            $('#VKN').hide();
+            $('#range').hide();
+            $('#RANK').show();
+        }
+        else {
+            $("#div-ans-display").show();
+            $('#VKN').hide();
+            $('#RANK').hide();
+            $('#range').hide();
+        }
+
+    }
+
+    function generate_scoring_key(val) {
+        var scoring_key = '';
+
+        for (var i = 1; i <= val; i++) {
+            scoring_key += '  <div class="row"> <div class="col-md-2"><label class="control-label"></label></div>';
+            scoring_key += '         <div class="col-md-5">';
+            scoring_key += '             <div class="form-group">';
+            scoring_key += '                 <textarea class="form-control validate[required]" name="t-scoring-key-' + i + '" id="t-scoring-key-' + i + '" placeholder="scoring key ' + i + '" rows="2"></textarea>';
+            scoring_key += '             </div>';
+            scoring_key += '          </div>';
+            scoring_key += '     </div>';
+
+        }
+
+        $("#scoring_key").empty().append(scoring_key);
+    }
+
+    function generate_scoring_key_rank(val) {
+        var scoring_key = '';
+
+        for (var i = 1; i <= val; i++) {
+            scoring_key += '  <div class="row"> <div class="col-md-2"><label class="control-label"></label></div>';
+            scoring_key += '         <div class="col-md-5">';
+            scoring_key += '             <div class="form-group">';
+            scoring_key += '                 <textarea class="form-control validate[required]" name="t-scoring-key-' + i + '" id="t-scoring-key-' + i + '" placeholder="scoring key ' + i + '" rows="2"></textarea>';
+            scoring_key += '             </div>';
+            scoring_key += '          </div>';
+            scoring_key += '     </div>';
+
+        }
+
+        $("#scoring_key_rank").empty().append(scoring_key);
+    }
+    function generate_scoring_key_range(val) {
+        var scoring_key = '';
+
+        for (var i = 1; i <= val; i++) {
+            scoring_key += '  <div class="row"> <div class="col-md-2"><label class="control-label"></label></div>';
+            scoring_key += '         <div class="col-md-5">';
+            scoring_key += '             <div class="form-group">';
+            scoring_key += '                 <textarea class="form-control validate[required]" name="t-scoring-key-' + i + '" id="t-scoring-key-' + i + '" placeholder="scoring key ' + i + '" rows="2"></textarea>';
+            scoring_key += '             </div>';
+            scoring_key += '          </div>';
+            scoring_key += '     </div>';
+
+        }
+
+        $("#scoring_key_range").empty().append(scoring_key);
+    }
+
+
+    $("#Idorg").change(function () {
+        var Idorg = $(this).val();
+
+
+     $.ajax({
+         url: '@Url.Action("NgageOrgID", "Assessment")',
+         type: 'POST',
+         data: {Idorg: Idorg}, // Send data as an object directly
+         success: function (response) {
+             $('#assessment-name').hide();
+             $("#assessment-name-orgid").show();
+             $('#assessment-name-orgid').empty(); // Clear existing options
+
+             // Add the default option
+             $('#assessment-name-orgid').append($('<option>', {
+                 value: '', // Set the value of the default option
+                 text: 'Select a Assessment', // Text of the default option
+                 selected: true // Set it as selected
+             }));
+
+             // Loop through the response and append other options
+             $.each(response, function (index, Org) {
+                 $('#assessment-name-orgid').append($('<option>', {
+                     value: Org.Value,
+                     text: Org.Text
+                 }));
+             });
+         },
+         error: function (xhr, status, error) {
+             $('#assessment-name').show();
+             $('#assessment-name-orgid').hide();
+         }
+     });
+    });
+
+
+    $(document).ready(function () {
+        debugger
+        // Check if dropdown has no options
+        if ($("#assessment-name-orgid option").length === 0) {
+            // Hide dropdown
+            $("#assessment-name-orgid").hide();
+
+            // Show text box
+            
+        }
+
+        $('#assessment-div').change(function () {
+            // Check the selected value
+            var selectedValue = $(this).val();
+
+            // If "Learning Assessment" is selected, hide ngageDropdown
+            if (selectedValue === '1') {
+                $('#ngageDropdown').hide();
+                $('#ngageDropdownselectgame').hide();
+                $('#selectAssessment').hide();
+                $('#cityDropdown').hide();
+            } else {
+                // Otherwise, show ngageDropdown
+                $('#ngageDropdown').show();
+                $('#ngageDropdownselectgame').show();
+                $('#selectAssessment').show();
+                $('#cityDropdown').show();
+            }
+        });
+    });
+
+ $("#ngageDropdown").change(function () {
+    var Idgame = $(this).val();
+    var Idorg = $("#Idorg").val();
+
+    $.ajax({
+        url: '@Url.Action("NgageID", "Assessment")',
+        type: 'POST',
+        data: { Idgame: Idgame, Idorg: Idorg },
+        success: function (response) {
+            $('#cityDropdown').empty(); // Clear existing options
+
+            // Add the default option
+            $('#cityDropdown').append($('<option>', {
+                value: '', // Set the value of the default option
+                text: 'Select a Game', // Text of the default option
+                selected: true // Set it as selected
+            }));
+
+            // Loop through the response and append other options
+            $.each(response, function (index, city) {
+                $('#cityDropdown').append($('<option>', {
+                    value: city.Value,
+                    text: city.Text
+                }));
+            });
+        },
+        error: function (xhr, status, error) {
+            $("#msg-txt").html("<p>Select Organization From Ngage</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+    });
+});
+
+
+    $("#cityDropdown").change(function () {
+        debugger;
+    var Idgame = $(this).val();
+    var Idorg = $("#Idorg").val();
+        var ngageDropdown = $('#ngageDropdown').val();
+    $.ajax({
+        url: '@Url.Action("NgageIDGame", "Assessment")',
+        type: 'POST',
+        data: { Idgame: Idgame, Idorg: Idorg, ngageDropdown: ngageDropdown }, // Send data as an object directly
+        success: function (response) {
+            debugger
+            $('#answer-description').val(response);
+        },
+        error: function (xhr, status, error) {
+            $("#msg-txt").html("<p>Data is not inserted successfully</p>");
+            $('#m2ost-dialog').modal('show');
+        }
+    });
+});
+
+    //$(document).ready(function () {
+    //    debugger
+    //    $('#assessment-desc').prop('disabled', true);
+    //    $('#datetimepicker1').prop('disabled', true);
+    //    $('#datetimepicker2').prop('disabled', true); // Initially disable datetimepicker2
+    //    $('#datetimepicker3').prop('disabled', true); // Initially disable datetimepicker2
+    //    $('#assessment-div').prop('disabled', true);
+    //    $('#assessment-type').prop('disabled', true);
+    //    $('#assessment-group').prop('disabled', true);
+    //    $('#max-attempt').prop('disabled', true);
+    //    $('#answer-display').prop('disabled', true);
+    //    $('#Idorg').prop('disabled', true);
+    //    $('#ngageDropdown').prop('disabled', true);
+    //    $('#cityDropdown').prop('disabled', true);
+
+
+    //    $('#assessment-name').change(function () {
+    //        if ($(this).val() !== '') {
+    //            $('#assessment-desc').prop('disabled', false);
+    //        } else {
+    //            $('#assessment-desc').prop('disabled', true);
+    //        }
+    //    });
+    //    $('#assessment-div').change(function () {
+    //        if ($(this).val() !== '') {
+    //            $('#assessment-type').prop('disabled', false);
+    //        } else {
+    //            $('#assessment-type').prop('disabled', true);
+    //        }
+    //    });
+
+    //    $('#assessment-type').change(function () {
+    //        if ($(this).val() !== '') {
+    //            $('#assessment-group').prop('disabled', false);
+    //        } else {
+    //            $('#assessment-group').prop('disabled', true);
+    //        }
+    //    });
+
+    //    $('#assessment-desc').keyup(function () {
+    //        if ($(this).val() === '') {
+    //            $('#datetimepicker1').prop('disabled', true);
+    //        } else {
+    //            $('#datetimepicker1').prop('disabled', false);
+    //        }
+    //    });
+
+    //    $('#datetimepicker1').change(function () {
+    //        if ($(this).val() === '') {
+    //            $('#datetimepicker2').prop('disabled', true);
+    //        } else {
+    //            $('#datetimepicker2').prop('disabled', false);
+    //        }
+    //    });
+    //    $('#datetimepicker2').change(function () {
+    //        if ($(this).val() === '') {
+    //            $('#datetimepicker3').prop('disabled', true);
+    //        } else {
+    //            $('#datetimepicker3').prop('disabled', false);
+    //        }
+    //    });
+    //    $('#datetimepicker3').change(function () {
+    //        if ($(this).val() === '') {
+    //            $('#assessment-div').prop('disabled', true);
+    //        } else {
+    //            $('#assessment-div').prop('disabled', false);
+    //        }
+    //    });
+    //    $('#assessment-group').change(function () {
+    //        if ($(this).val() === '') {
+    //            $('#max-attempt').prop('disabled', true);
+    //        } else {
+    //            $('#max-attempt').prop('disabled', false);
+    //        }
+    //    });
+
+    //    $('#max-attempt').keyup(function () {
+    //        if ($(this).val() === '') {
+    //            $('#answer-display').prop('disabled', true);
+    //        } else {
+    //            $('#answer-display').prop('disabled', false);
+    //        }
+    //    });
+    //    $('#answer-display').change(function () {
+    //        if ($(this).val() === '') {
+    //            $('#Idorg').prop('disabled', true);
+    //        } else {
+    //            $('#Idorg').prop('disabled', false);
+    //        }
+    //    });
+
+    //    $('#Idorg').change(function () {
+    //        if ($(this).val() === '') {
+    //            $('#ngageDropdown').prop('disabled', true);
+    //        } else {
+    //            $('#ngageDropdown').prop('disabled', false);
+    //        }
+    //    });
+
+
+    //    $('#ngageDropdown').change(function () {
+    //        if ($(this).val() === '') {
+    //            $('#cityDropdown').prop('disabled', true);
+    //        } else {
+    //            $('#cityDropdown').prop('disabled', false);
+    //        }
+    //    });
+
+    //});
+
+    $(document).ready(function () {
+        $('#datetimepicker4').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#datetimepicker4').on('changeDate', function (e) {
+
+            var selectedDate = e.format();
+
+
+            $(this).val(selectedDate);
+        });
+
+        $('.calendar-icon').click(function () {
+
+            $('#datetimepicker4').trigger('click');
+        });
+
+        const disable = ($element) => $element.prop('disabled', true);
+        const enable = ($element) => $element.prop('disabled', false);
+
+        // Initially disable elements
+        disable($('#assessment-desc, #datetimepicker1, #datetimepicker2, #datetimepicker3, #assessment-type, #assessment-group, #max-attempt, #answer-display, #Idorg, #ngageDropdown, #cityDropdown'));
+
+
+        $('#assessment-name').change(function () {
+            ($(this).val() !== '') ? enable($('#assessment-desc')) : disable($('#assessment-desc'));
+        });
+        $('#assessment-name-orgid').change(function () {
+            ($(this).val() !== '') ? enable($('#assessment-desc')) : disable($('#assessment-desc'));
+        });
+
+        $('#assessment-div').change(function () {
+            ($(this).val() === '') ? disable($('#Idorg')) : enable($('#Idorg'));
+           // ($(this).val() !== '') ? enable($('#assessment-type')) : disable($('#assessment-type'));
+        });
+
+        $('#assessment-type').change(function () {
+            ($(this).val() !== '') ? enable($('#assessment-group')) : disable($('#assessment-group'));
+        });
+
+        $('#assessment-desc').keyup(function () {
+            ($(this).val() === '') ? disable($('#datetimepicker1')) : enable($('#datetimepicker1'));
+        });
+
+        $('#datetimepicker1').change(function () {
+            ($(this).val() === '') ? disable($('#datetimepicker2')) : enable($('#datetimepicker2'));
+        });
+
+        $('#datetimepicker2').change(function () {
+            ($(this).val() === '') ? disable($('#datetimepicker3')) : enable($('#datetimepicker3'));
+        });
+
+        $('#datetimepicker3').change(function () {
+            ($(this).val() === '') ? disable($('#assessment-type')) : enable($('#assessment-type'));
+        });
+
+        $('#assessment-group').change(function () {
+            ($(this).val() === '') ? disable($('#max-attempt')) : enable($('#max-attempt'));
+        });
+
+        $('#max-attempt').keyup(function () {
+            ($(this).val() === '') ? disable($('#answer-display')) : enable($('#answer-display'));
+        });
+
+        $('#answer-display').change(function () {    
+            ($(this).val() === '') ? disable($('#ngageDropdown')) : enable($('#ngageDropdown'));
+        });
+
+       
+
+        $('#ngageDropdown').change(function () {
+            ($(this).val() === '') ? disable($('#cityDropdown')) : enable($('#cityDropdown'));
+        });
+
+    });
+
+</script>
+

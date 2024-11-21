@@ -1,0 +1,455 @@
+﻿@{
+    ViewBag.Title = "Add Content";
+    Layout = "~/Views/Shared/_cms_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<link rel="stylesheet" href="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+<script type="text/javascript">
+
+    function change_typevideo()
+    {
+       
+        var vale = $("#change_URL").val();
+      
+
+        if (vale == 1)
+        {
+            $("#append_url").hide();
+            $("#append_video").show();
+            $("#append_video_type").html("");
+            $("#append_video_type").append("<input type='hidden' value='1' name='video_type' />");
+            
+         }
+        else
+        {
+            $("#append_url").show();
+            $("#append_video").hide();
+            $("#append_video_type").html("");
+            $("#append_video_type").append("<input type='hidden' value='2' name='video_type' />");
+
+        }
+    }
+
+    $(function () {
+        $(".fancybox").fancybox();
+
+        $("#form-add-content").validationEngine();
+        changetheme(1);
+        $("#datetimepicker2").datepicker(
+       { dateFormat: "dd-mm-yy", minDate: new Date() }
+    );
+        $("#preview-anchor").hover(function () {
+            $(this).click();
+        });
+
+    });
+
+
+    function oPreview(val) {
+        $("#preview-div").attr("src", "http://103.7.64.68/m2ostbeta/Content/Theme/t" + val + ".jpg");
+    }
+
+    function select_file(btn, imgf, ban) {
+        var file = $("#" + btn + "")[0].files[0];
+        var filename = "";
+        if (file) {
+            filename = file.name;
+            $("#" + ban + "").addClass("validate[required,custom[url]]");
+        } else {
+            $("#" + ban + "").removeClass("validate[required,custom[url]]");
+        }
+
+        $("#" + imgf + "").val(filename);
+    }
+
+
+    function changetheme(val) {
+        var act = "theme" + val + "";
+        var cntrl = "ContentView";
+
+        $("#tPreview").attr("href", "http://103.7.64.68/m2ostbeta/Content/Theme/t" + val + ".jpg");
+        $("#preview-anchor").attr("href", "http://103.7.64.68/m2ostbeta/Content/Theme/t" + val + ".jpg");
+        $("#preview-div").attr("src", "http://103.7.64.68/m2ostbeta/Content/Theme/t" + val + ".jpg");
+
+        var link = '@Url.Action("action", "control", new { id="-1"})';
+        link = link.replace("action", act);
+        link = link.replace("control", cntrl);
+        link = link.replace("-1", 0);
+
+        //$("#loading-gif").show();
+        $("#div-theme-body").hide();
+        $.get(link, null, function (data) {
+            $("#div-theme-body").show();
+            $("#div-theme-body").empty().append(data);
+            //$("#loading-gif").hide();
+			$("#loading-gif").removeClass('disp_block');
+			$("#loading-gif").addClass('disp_none');
+        });
+
+    }
+
+    function changethemestep(val, id) {
+        var act = "themestep" + val + "";
+        var cntrl = "ContentView";
+        var count = $("#step-count").val();
+        var link = '@Url.Action("action", "control",new {id="-id",vid="0"})';
+        link = link.replace("action", act);
+        link = link.replace("control", cntrl);
+        link = link.replace("-id", id);
+        $.get(link, null, function (data) {
+            $("#content-step-" + id).empty().append(data);
+        });
+
+    }
+
+
+    function dynam_step_add(val) {
+        var option = "";
+        var step = $("#step-count").val();
+        step++;
+        option = '<div class="row"><div class="col-md-12"> <div class="form-group"><div class="col-md-7"><h4 style="color:#000000;"><lable class="control-label">Answer Step No : ' + step + '</lable></h4></div><div class="col-md-4"><select id="select-theme-step-' + step + '" name="select-theme-step-' + step + '" class="form-control" onchange="changethemestep(this.value,' + step + ')"><option value="8">THEME 1</option><option value="9">THEME 2</option><option value="10">THEME 3</option><option value="11">THEME 4</option><option value="12">THEME 5</option>';
+        option = option + '<option value="13">THEME 6</option><option value="14">THEME 7</option><option value="15">THEME 8</option><option value="16">THEME 9</option><option value="17">THEME 10</option><option value="18">THEME 11</option><option value="19">THEME 12</option>';
+        option = option + '<option value="20">THEME 13</option>';
+        option = option + '<option value="21">THEME 14</option>';
+        option = option + '<option value="22">THEME 15</option>';
+        option = option + '<option value="23">THEME 16</option>';
+        option = option + '<option value="24">THEME 17</option>';
+		 option = option + '<option value="25">THEME 18</option>';
+		option = option + '<option value="26">THEME 19</option>';//theme for youtube url and text
+        option = option + '</select> </div></div></div></div><div id="content-step-' + step + '"></div>';
+        $("#step-count").val(step);
+        $("#div-dynam-step").append(option);
+        changethemestep(8, step);
+    }
+
+    function add_category() {
+        var cid = $("#select-category").val();
+        var cText = $("#select-category option:selected").text();
+        if (cText.length > 20) cText = cText.substring(0, 20) + '..';
+
+        cText = cText + " ";
+        var i = $("#hid-category").val();
+        i++;
+        $("#hid-category").val(i);
+        var item = '<div class="data-tab col-md-2" id="div-dyn-category-' + cid + '" style="background-color: #23c6c8;"><span class="tag label label-info"><span>' + cText + '</span><input type="hidden" value="' + cid + '" id="add-con-category-' + i + '" name="add-con-category-' + i + '" /><a class="pull-right" onclick="delete_content_category(' + cid + ')"><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a></span></div>';
+        $("#div_category").append(item);
+        $("#hid-category").val(i);
+    }
+    function delete_content_category(i) {
+        $("#div-dyn-category-" + i + "").remove();
+    }
+</script>
+<style>
+    #div_category {
+        margin: 3px 1px;
+    }
+
+    .data-tab {
+        padding: 2px 1px;
+        margin: 2px 1px;
+    }
+
+    .tag {
+        width: 100%;
+    }
+	.disp_none{
+	display:none!important;
+	}
+	.disp_block{
+	display:block!important;
+	}
+</style>
+@{
+    tbl_content parentContent = (tbl_content)ViewData["parent-content"];
+    List<tbl_category> category = (List<tbl_category>)ViewData["parent-category"];
+    int j = 0;
+}
+
+@{
+    List<tbl_csst_role> roles = (List<tbl_csst_role>)ViewData["select-cscc-role"];
+}
+
+
+@using (Html.BeginForm("createContent", "contentDashboard", FormMethod.Post, new { id = "form-add-content", enctype = "multipart/form-data" }))
+{
+    <input type="hidden" value="@ViewData["linktype"]" name="link-parent" />
+
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="panel panel-default custom-panel">
+                <div class="panel-heading custom-panel-heading">
+                    @if (Convert.ToInt32(ViewData["LINKTYPE"]) > 0)
+                    {
+                        <div class="panel-title">Add Lead-out Content </div>
+                    }
+                    else
+                    {
+                        <div class="panel-title">Add New Content </div>
+                    }
+                </div>
+                <div class="panel-body custom-panel-body">
+
+                    <div class="row">
+                        <div class="col-md-9">
+
+
+                            @if (Convert.ToInt32(ViewData["LINKTYPE"]) > 0)
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label class="control-label">Link Type</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select id="select-link-type" name="select-link-type" class="form-control">
+                                                    <option value="1">What</option>
+                                                    <option value="2">When</option>
+                                                    <option value="3">Why</option>
+                                                    <option value="4">How</option>
+                                                    <option value="5">Who</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<input type="hidden" value="@parentContent.ID_CATEGORY" name="select-category" />*@
+
+                            }
+                            else
+                            {
+                                <input type="hidden" value="0" name="select-link-type" />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                <label class="control-label">Category</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select id="select-category" name="select-category" class="form-control">
+                                                    @foreach (var pro in (List<tbl_category>)ViewData["select-category"])
+                                                    {
+                                                        <option value="@pro.ID_CATEGORY">@pro.CATEGORYNAME</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input class="btn btn-default btn-primary" type="button" id="btn_categort" value="Add Category" onclick="add_category()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-10">
+                                        <div class="form-group" id="div_category">
+                                            @if (category != null)
+                                            {
+                                                foreach (tbl_category item in category)
+                                                {
+                                                    j++;
+                                                    <div class="data-tab col-md-2 form-control" id="div-dyn-category-@item.ID_CATEGORY" style="background-color: #23c6c8;"><span class="tag label label-info"><span>@item.CATEGORYNAME</span><input type="hidden" value="@item.ID_CATEGORY" id="add-con-category-@j" name="add-con-category-@j" /><a class="pull-right" onclick="delete_content_category('@item.ID_CATEGORY')"><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a></span></div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" value="@j" id="hid-category" name="hid-category" />
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <label class="control-label">Theme</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select id="select-theme" name="select-theme" class="form-control" onchange="changetheme(this.value)">
+                                                <option onmouseover="oPreview('1')" value="1">THEME 1</option>
+                                                <option onmouseover="oPreview('2')"  value="2">THEME 2</option>
+                                                <option onmouseover="oPreview('3')"  value="3">THEME 3</option>
+                                                <option  onmouseover="oPreview('4')" value="4">THEME 4</option>
+                                                <option onmouseover="oPreview('5')"  value="5">THEME 5</option>
+                                                <option onmouseover="oPreview('6')"  value="6">THEME 6</option>
+                                                <option onmouseover="oPreview('7')"  value="7">Program Introduction</option>
+                                                <option  onmouseover="oPreview('8')" value="8">THEME 8</option>
+                                                <option onmouseover="oPreview('9')"  value="9">THEME 9</option>
+                                                <option onmouseover="oPreview('10')"  value="10">THEME 10</option>
+                                                <option  onmouseover="oPreview('11')" value="11">THEME 11</option>
+                                                <option onmouseover="oPreview('12')"  value="12">THEME 12</option>
+                                                <option onmouseover="oPreview('13')"  value="13">THEME 13</option>
+                                                <option onmouseover="oPreview('14')"  value="14">THEME 14</option>
+												<option onmouseover="oPreview('16')"  value="16">THEME 15</option>
+												<option onmouseover="oPreview('17')" value="17">THEME 16</option> <!------------theme 17 is for 1 youtube url and 1 text ---------->
+
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <label class="control-label">Content Level</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select id="select-level" name="select-level" class="form-control">
+                                                @foreach (tbl_content_level level in (List<tbl_content_level>)ViewData["select-level"])
+                                                {
+                                                    <option value="@level.ID_CONTENT_LEVEL">@level.LEVELNAME</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-3"><label class="control-label">Expiry Date</label></div>
+                                        <div class="col-md-6">
+                                            <div class='input-group date'>
+                                                <input type='text' class="form-control validate[required]" id='datetimepicker2' name="content-expiry" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                        <div class="col-md-3">
+                            <a class="" id="preview-anchor" href="#" title="Theme Preview" style="width:164px;height:196px;">
+                                <center>
+                                    <img id="preview-div" src="~/Content/images/thumbnail.png" alt="" style="min-width:164px;min-height:196px;width:50%" /><hr />
+                                </center>
+                                <center><label>Click To Preview</label></center> 
+                            </a>
+                        </div>
+                    </div>
+
+                    @if (Convert.ToInt32(ViewData["LINKTYPE"]) > 0)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label class="control-label">Parent Content : @parentContent.CONTENT_QUESTION</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                    @*<hr />
+                        <h5><u>Select Content to Role </u></h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                @foreach (tbl_csst_role item in roles)
+                                {
+                                    <div class=" checkbox-inline">
+                                        <input type="checkbox" value="@item.id_csst_role" name="role_check" checked>@item.csst_role
+                                    </div>
+                                }
+                            </div>
+                        </div>*@
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4" id="loading-gif" style="">
+                                    <img src="~/Content/images/loading.gif" />
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="div-theme-body"></div>
+
+                        </div>
+                    </div>
+                    <hr />
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="div-dynam-step">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-10">
+
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="hidden" value="0" id="step-count" name="step-count" />
+                                    <input id="t-1-btn-steps" type="button" class="btn btn-default btn-info" value="Add More Steps" onclick="dynam_step_add()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div id="theme-1-meta">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @*<input type="text" class="form-control validate[required]" value="" placeholder="Enter Metadata Comma Separated...." id="t-metadata" name="t-metadata" />*@
+									<input type="text" class="form-control" value="" placeholder="Enter Metadata Comma Separated...." id="t-metadata" name="t-metadata" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+
+
+
+                                <div class="col-md-3">
+                                    @if (Convert.ToInt32(ViewData["LINKTYPE"]) > 0)
+                                    {
+                                        <input id="btn_question1" type="submit" class="btn btn-default btn-info" name="btn_submit" value="Save and Add Lead-out to Parent" />
+                                    }
+                                </div>
+                                <div class="col-md-4">
+                                    <input id="btn_question1" type="submit" class="btn btn-default btn-info" name="btn_submit" value="Save and Add Lead-out Current Question" />
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="btn_question2" type="submit" class="btn btn-default btn-info" name="btn_submit" value="Save and Exit" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
